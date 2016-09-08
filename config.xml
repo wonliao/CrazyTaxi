@@ -42,9 +42,7 @@
   <preference name="Orientation" value="portrait"/>
   <preference name="SplashScreenDelay" value="1000"/>
   <preference name="Fullscreen" value="false"/>
-  <preference name="WindowsStorePublisherName" value="My Name"/>
-  <preference name="WindowsStoreIdentityName" value="3404f977-5d45-8aca-30d2-cc13bab2d29d"/>
-  
   <allow-intent href="https://maps.googleapis.com"/>
-  
+  <preference name="WindowsStorePublisherName" value="My Name"/>
+  <preference name="WindowsStoreIdentityName" value="ed7129c5-1b08-d4d1-277d-cc63e7fb9183"/>
 </widget>
