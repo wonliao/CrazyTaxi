@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="com.livebricks.chimei.finder" version="1.0.0">
-  <name>CHIMEI Finder</name>
+<widget xmlns="http://www.w3.org/ns/widgets" id="com.go2gether" version="1.0.0">
+  <name>go2gether</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
   <content src="index.html"/>
@@ -28,20 +28,20 @@
   <preference name="UIWebViewDecelerationSpeed" value="normal"/>
   <preference name="monaca:WebViewEngine" value="default"/>
   <allow-intent href="mailto:*"/>
-  <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
-  <preference name="Orientation" value="portrait"/>
-  <preference name="SplashScreenDelay" value="1000"/>
-  <preference name="Fullscreen" value="false"/>
   <preference name="monaca:targetFamilyiPhone" value="1"/>
   <preference name="monaca:targetFamilyiPad" value="0"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
+  <preference name="EnableViewportScale" value="false"/>
   <access origin="*"/>
   <access origin="mailto:*"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <preference name="EnableViewportScale" value="false"/>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="Fullscreen" value="false"/>
   <preference name="WindowsStorePublisherName" value="My Name"/>
-  <preference name="WindowsStoreIdentityName" value="6f81fc4c-c1e6-1431-6968-76e3f53dfd6e"/>
+  <preference name="WindowsStoreIdentityName" value="a8638a55-3ca4-56f0-ca2a-c82096265584"/>
 </widget>
