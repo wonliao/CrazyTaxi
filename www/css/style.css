@@ -1,0 +1,26 @@
+/* set padding for iOS7 status bar */
+.ua-ios-7 .ui-page, .ua-ios-8 .ui-page
+{
+    padding-top: 63px !important;
+}
+.ua-ios-7 .ui-header, .ua-ios-8 .ui-header
+{
+    top: 20px;
+}
+
+* {
+    text-shadow:none;
+}
+/*
+.title_btn {
+    display: block;
+    width: 150%;
+    background:url(../images/img_logo@460x160.png) 0 0 no-repeat;
+    background-size: 100% 100%
+}
+
+.ui-loader.ui-corner-all.ui-body-a.ui-loader-default {
+    display: none;
+    height: 0px;
+}
+*/

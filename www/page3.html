@@ -1,0 +1,197 @@
+<style>
+.list-item-container {
+  line-height: 1;
+  font-size: 14px;
+  padding: 15px 0px 15px 15px;
+}
+
+.list-item-left {
+  width: 60px;
+  margin-right: -60px;
+  float: left;
+}
+
+.list-item-right {
+  width: 100%;
+  float: right;
+}
+
+.list-item-content {
+  margin-left: 50px;
+  margin-right: 30px;
+}
+
+.avator {
+  width: 40px;
+  height: 40px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+}
+
+.name {
+  font-weight: 500;
+  line-height: 16px;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.desc {
+  line-height: 16px;
+}
+
+.lucent {
+  opacity: 0.4;
+}
+</style>
+
+    <ons-page>
+
+    <ons-toolbar style="background:#6dccf3; height:15%;">
+        <div class="left" style="height:100%; width:100%;">
+            <div style="margin:12% 0% 0% 10%; height:50%;" ons-if-platform="ios">
+                <ons-toolbar-button onclick="menu.setMainPage('home.html', {closeMenu: true})" style="">
+                    <img src="images/img_logo@460x160.png" style="height:110%;"/>
+                </ons-toolbar-button>
+            </div>
+            <div style="margin:20% 0% 0% 10%; height:50%;" ons-if-platform="android">
+                <ons-toolbar-button onclick="menu.setMainPage('home.html', {closeMenu: true})" style="">
+                    <img src="images/img_logo@460x160.png" style="height:100%;"/>
+                </ons-toolbar-button>
+            </div>
+            <div style="margin:20% 0% 0% 10%; height:50%;" ons-if-platform="chrome">
+                <ons-toolbar-button onclick="menu.setMainPage('home.html', {closeMenu: true})" style="">
+                    <img src="images/img_logo@460x160.png" style="height:100%;"/>
+                </ons-toolbar-button>
+            </div>
+        </div>
+        <div class="right" style="height:100%;width:100%;top: 0px;position: absolute;right: 0;">
+            <div style="padding:10% 5% 0% 5%; height:50%;"  ons-if-platform="ios">
+                <ons-toolbar-button onclick="menu.toggleMenu()">
+                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div style="padding:20% 5% 0% 5%; height:50%;"  ons-if-platform="android">
+                <ons-toolbar-button onclick="menu.toggleMenu()">
+                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+            <div style="padding:20% 5% 0% 5%; height:50%;"  ons-if-platform="chrome">
+                <ons-toolbar-button onclick="menu.toggleMenu()">
+                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                </ons-toolbar-button>
+            </div>
+        </div>
+    </ons-toolbar>
+
+        <div style="height:10%;"></div>
+            
+        <ons-list style="background:rgba(0,0,0,0)">
+            <ons-list-item style="background:rgba(0,0,0,0)">
+                <div class="left" style="float:left;">
+                    <ons-back-button onclick="menu.setMainPage('home.html', {closeMenu: true})">Back</ons-back-button>
+                </div>
+                <div class="center" style="text-align:center">
+                    <span class="index_menu_itme_4" style="margin-left:-30%;">聯絡我們</span>
+                </div>
+            </ons-list-item>
+        </ons-list>
+
+        <ons-list>
+            <ons-list-item class="list-item-container">
+                <div class="list-item-content"  style="margin:0">
+                    <div class="desc page3_item_2">聯絡官網</div>
+                    <div class="desc">
+                        <a href="#" onclick="window.open('http://www.chimeicorp.com', '_system');">http://www.chimeicorp.com</a>
+                    </div>
+                </div>
+            </ons-list-item>
+            <ons-list-item class="list-item-container">
+                <div class="list-item-content"  style="margin:0">
+                    <div class="desc page3_item_3">聯絡窗口</div>
+                    <div class="desc"><a href="mailto:service@mail.chimei.com.tw">service@mail.chimei.com.tw</a></div>
+                </div>
+            </ons-list-item>
+            <ons-list-item class="list-item-container">
+                <div class="list-item-content"  style="margin:0">
+                    <div class="desc page3_item_4">總公司 71702</div>
+                    <div class="desc page3_item_5">台南市仁德區三甲里 59-1 號</div>
+                    <div class="desc">TEL:+886-6-2663000.2665000</div>
+                    <div class="desc">FAX:+886-6-2665555~7</div>
+                </div>
+            </ons-list-item>
+            <ons-list-item class="list-item-container">
+                <div class="list-item-content"  style="margin:0">
+                    <div class="desc page3_item_6">仁德廠區 71702</div>
+                    <div class="desc page3_item_7">台南市仁德區三甲里 59-1 號</div>
+                    <div class="desc">TEL:+886-6-2663000.2665000</div>
+                    <div class="desc">FAX:+886-6-2665555~7</div>
+                </div>
+            </ons-list-item>
+            <ons-list-item class="list-item-container">
+                <div class="list-item-content"  style="margin:0">
+                    <div class="desc page3_item_8">特用化學品樹谷廠區 74148</div>
+                    <div class="desc page3_item_9">台南市新市區王甲路 18 號</div>
+                    <div class="desc">TEL:+886-6-5889966</div>
+                    <div class="desc">FAX:+886-6-5091099</div>
+                </div>
+            </ons-list-item>
+            <ons-list-item class="list-item-container">
+                <div class="list-item-content"  style="margin:0">
+                    <div class="desc page3_item_10">東京聯絡事務所</div>
+                    <div class="desc page3_item_11">東京都中央区八重洲 2-2-10 南星八重洲ビル 2F</div>
+                    <div class="desc">TEL:+81-3-3281-2874</div>
+                </div>
+            </ons-list-item>
+            <ons-list-item class="list-item-container">
+                <div class="list-item-content"  style="margin:0">
+                    <div class="desc page3_item_12">鎮江奇美化工有限公司</div>
+                    <div class="desc page3_item_13">江蘇省鎮江大港開發區韓峰路 18 號</div>
+                    <div class="desc">TEL:+86-511-83121300</div>
+                </div>
+            </ons-list-item>
+        </ons-list>
+
+        <div style="margin:5% 5% 5% 5%; padding:2%; background:#fff; border-radius:10px;">
+            <h3 class="page3_item_14">全球熱塑型塑料領導品牌</h3>
+            <h3 class="page3_item_15">CHIMEI 奇美實業</h3>
+            <br />
+            <h4 class="page3_item_16">厚實根基 值得信賴</h4>
+            <p class="page3_item_17">CHIMEI 奇美實業於 1960 年由許文龍先生創立,總部位於台灣台南,為全 球主要的綜合塑料優質供應商,目前 ABS 樹脂、PMMA 樹脂及導光板世界 產能第一,近年更躍升為電子材料供應大廠。奇美原物料半世紀來,不斷被 廣泛應用於生活中各式用品的加工製造,生活隨處可見。</p>
+            <h4 class="page3_item_18">環保先驅 塑造潮流</h4>
+            <p class="page3_item_19">透過先進的研發架構、高效率產能,以及全面品質管控流程,我們積極開發 更符合世界潮流與潔淨環境的先進材料,致力貼心滿足客戶各種不同需求, 並與全球客戶攜手守護地球與人類健康,並獲取絕佳競爭優勢。</p>
+            <h4 class="page3_item_20">創新應用 前瞻未來</h4>
+            <p class="page3_item_21">奇美是全球第一家符合食品接觸塑料最嚴苛要求的供應商。我們的創新腳步 從不停歇,半世紀以來努力不懈的研發新原料,近年更投入高值化材料應用, 以期為人們創造更高品質、更美好愉悅的便利生活。</p>
+        </div>
+
+    </ons-page>
+
+<script>
+ons.ready(function() {
+    setTimeout(function() {
+
+        $(".index_menu_itme_4").text(translator.getStr("index_menu_itme_4"));
+        $(".page3_item_1").text(translator.getStr("page3_item_1"));
+        $(".page3_item_2").text(translator.getStr("page3_item_2"));
+        $(".page3_item_3").text(translator.getStr("page3_item_3"));
+        $(".page3_item_4").text(translator.getStr("page3_item_4"));
+        $(".page3_item_5").text(translator.getStr("page3_item_5"));
+        $(".page3_item_6").text(translator.getStr("page3_item_6"));
+        $(".page3_item_7").text(translator.getStr("page3_item_7"));
+        $(".page3_item_8").text(translator.getStr("page3_item_8"));
+        $(".page3_item_9").text(translator.getStr("page3_item_9"));
+        $(".page3_item_10").text(translator.getStr("page3_item_10"));
+        $(".page3_item_11").text(translator.getStr("page3_item_11"));
+        $(".page3_item_12").text(translator.getStr("page3_item_12"));
+        $(".page3_item_13").text(translator.getStr("page3_item_13"));
+        $(".page3_item_14").text(translator.getStr("page3_item_14"));
+        $(".page3_item_15").text(translator.getStr("page3_item_15"));
+        $(".page3_item_16").text(translator.getStr("page3_item_16"));
+        $(".page3_item_17").text(translator.getStr("page3_item_17"));
+        $(".page3_item_18").text(translator.getStr("page3_item_18"));
+        $(".page3_item_19").text(translator.getStr("page3_item_19"));
+        $(".page3_item_20").text(translator.getStr("page3_item_20"));
+        $(".page3_item_21").text(translator.getStr("page3_item_21"));
+
+    }, 10);
+});
+</script>

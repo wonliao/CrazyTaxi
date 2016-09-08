@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" id="com.livebricks.chimei.finder" version="1.0.0">
+  <name>CHIMEI Finder</name>
+  <description>Made with Monaca (http://monaca.mobi)</description>
+  <author/>
+  <content src="index.html"/>
+  <allow-navigation href="*"/>
+  <allow-intent href="itms:*"/>
+  <allow-intent href="itms-apps:*"/>
+  <preference name="loglevel" value="DEBUG"/>
+  <preference name="AndroidLaunchMode" value="singleTop"/>
+  <preference name="ErrorUrl" value=""/>
+  <preference name="SplashScreen" value="screen"/>
+  <preference name="AllowInlineMediaPlayback" value="false"/>
+  <preference name="BackupWebStorage" value="cloud"/>
+  <preference name="FadeSplashScreenDuration" value=".25"/>
+  <preference name="KeyboardDisplayRequiresUserAction" value="true"/>
+  <preference name="MediaPlaybackRequiresUserAction" value="false"/>
+  <preference name="SuppressesIncrementalRendering" value="false"/>
+  <preference name="TopActivityIndicator" value="gray"/>
+  <preference name="GapBetweenPages" value="0"/>
+  <preference name="PageLength" value="0"/>
+  <preference name="PaginationBreakingMode" value="page"/>
+  <preference name="PaginationMode" value="unpaginated"/>
+  <feature name="LocalStorage">
+    <param name="ios-package" value="CDVLocalStorage"/>
+  </feature>
+  <preference name="UIWebViewDecelerationSpeed" value="normal"/>
+  <preference name="monaca:WebViewEngine" value="default"/>
+  <allow-intent href="mailto:*"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="Fullscreen" value="false"/>
+  <preference name="monaca:targetFamilyiPhone" value="1"/>
+  <preference name="monaca:targetFamilyiPad" value="0"/>
+  <preference name="AutoHideSplashScreen" value="true"/>
+  <preference name="FadeSplashScreen" value="true"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <access origin="*"/>
+  <access origin="mailto:*"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="EnableViewportScale" value="false"/>
+  <preference name="WindowsStorePublisherName" value="My Name"/>
+  <preference name="WindowsStoreIdentityName" value="6f81fc4c-c1e6-1431-6968-76e3f53dfd6e"/>
+</widget>
