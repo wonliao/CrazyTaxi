@@ -2,8 +2,8 @@ html, body { height: 100%; }
 
 #map, #side {
 	float: left;
-	height: 81%;
-    top: 8%;
+	height: 100%;
+    /*top: 8%;*/
 }
 
 #map {

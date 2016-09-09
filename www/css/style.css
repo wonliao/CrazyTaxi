@@ -11,6 +11,9 @@
 * {
     text-shadow:none;
 }
+
+.tab-bar { background-color: white; }
+
 /*
 .title_btn {
     display: block;
