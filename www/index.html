@@ -5,77 +5,19 @@
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
     <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
-    <!--
-    <link rel="stylesheet" href="components/loader.css">
-    -->
-    <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
-    <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsen-css-components.css'>
-    <link rel="stylesheet prefetch" href="css/style.css">
-    
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/map.css" rel="stylesheet">
+   
+   <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+		<script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAShxz9Efm5a4CEFA_DitWOQxci_8BQcLs"></script>
+		<script src="js/map.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/map.css" rel="stylesheet">
 
-
-    <!--
-    <script src="components/loader.js"></script>
-    -->
-    <script src="js/jquery.min.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/onsen/js/onsenui.js"></script>
-    
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAShxz9Efm5a4CEFA_DitWOQxci_8BQcLs"></script>
-    
-    <script src='js/jquery.blockUI.js'></script>
-    <script src='js/app.js'></script>
-    <script src="js/map.js"></script>
-    
-    
-    <!--<script src='js/lang.js'></script>-->
 </head>
-<body>
+    <body>
+		<div id="map"></div>
 
-    <ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
-
-    <!-- 側邊欄 begin -->
-    <ons-template id="menu.html">
-      <ons-list>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page1.html', {closeMenu: true})">
-          <span>Facebook帳號登入</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
-          <span>活動說明</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page3.html', {closeMenu: true})">
-          <span>刊登共乘</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page4.html', {closeMenu: true})">
-          <span>共乘記錄</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page5.html', {closeMenu: true})">
-          <span>官方粉絲團</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page6.html', {closeMenu: true})">
-          <span>55688叫車</span>
-        </ons-list-item>
-      </ons-list>
-      <div style="position:absolute; bottom:2%; right:5%; color:#aaa;">
-        <span>版本</span>：1.0.0
-      </div>
-    </ons-template>
-    <!-- 側邊欄 end -->
-
-
-<script>
-ons.ready(function() {
-    setTimeout(function() {
-
-       
-    }, 10);
-});
-</script>
-
-</body>
+	</body>
 </html>
