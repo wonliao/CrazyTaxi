@@ -34,8 +34,49 @@
 
 
 </head>
-    <body>
-		<div id="map"></div>
+<body>
 
-	</body>
+<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
+
+<!-- 側邊欄 begin -->
+<ons-template id="menu.html">
+<ons-list>
+<ons-list-item modifier="chevron" onclick="menu.setMainPage('page1.html', {closeMenu: true})">
+<span>Facebook帳號登入</span>
+</ons-list-item>
+<ons-list-item modifier="chevron" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
+<span>活動說明</span>
+</ons-list-item>
+<ons-list-item modifier="chevron" onclick="menu.setMainPage('page3.html', {closeMenu: true})">
+<span>刊登共乘</span>
+</ons-list-item>
+<ons-list-item modifier="chevron" onclick="menu.setMainPage('page4.html', {closeMenu: true})">
+<span>共乘記錄</span>
+</ons-list-item>
+<ons-list-item modifier="chevron" onclick="menu.setMainPage('page5.html', {closeMenu: true})">
+<span>官方粉絲團</span>
+</ons-list-item>
+<ons-list-item modifier="chevron" onclick="menu.setMainPage('page6.html', {closeMenu: true})">
+<span>55688叫車</span>
+</ons-list-item>
+</ons-list>
+<div style="position:absolute; bottom:2%; right:5%; color:#aaa;">
+<span>版本</span>：1.0.0
+</div>
+</ons-template>
+<!-- 側邊欄 end -->
+
+
+<script>
+ons.ready(function() {
+setTimeout(function() {
+
+
+}, 10);
+});
+</script>
+
+</body>
 </html>
+
+
