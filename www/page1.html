@@ -18,6 +18,21 @@
 
         
     </ons-page>
+    
+    <ons-template id="alert-dialog.html">
+      <ons-alert-dialog var="alertDialog">
+        <div class="alert-dialog-title"><strong style="color: #ff3333">定位失敗!</strong></div>
+        <div class="alert-dialog-content">
+            請確定已開啟GPS功能，並重新嘗試
+        </div>
+        <div class="alert-dialog-footer">
+          <button class="alert-dialog-button" onClick="location.reload()">OK</button>
+        </div>
+      </ons-alert-dialog>
+    </ons-template>
+
+
+
 </ons-navigator>
 
 <script src="js/map.js"></script>

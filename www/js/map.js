@@ -2,7 +2,7 @@ $(function(){
     console.log('test1');
 	var options = {
 	  enableHighAccuracy: false,
-	  timeout: 5000,
+	  timeout: 1,//5000,
 	  maximumAge: 0
 	};
 	
@@ -19,6 +19,15 @@ $(function(){
 	
 	function error(err) {
 	  console.warn('ERROR(' + err.code + '): ' + err.message);
+        /*
+        if(confirm("定位失敗，請重新載入")){
+            window.location.reload();  
+        }*/
+        
+        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+            alertDialog.show();
+        });
+                    
 	};
 	
 	navigator.geolocation.getCurrentPosition(success, error, options);
