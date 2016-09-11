@@ -1,5 +1,4 @@
 ons.bootstrap();
-console.log("app");
 
     // Initialize the Firebase SDK
     firebase.initializeApp({
@@ -15,7 +14,7 @@ console.log("app");
     
 	geoQuery = geoFire.query({
     			center: [ 0, 0 ],
-				radius: 10,
+				radius: 1.0,
 			});
     
     isFirstTime = true;

@@ -1,35 +1,30 @@
 $(function(){
-    console.log('test1');
+
 	var options = {
 	  enableHighAccuracy: false,
-	  timeout: 1,//5000,
-	  maximumAge: 0
+	  timeout: 5000,
+	  maximumAge: 10 * 60 * 1000
 	};
 	
 	function success(pos) {
-	  var crd = pos.coords;
-	
+	  
+      var crd = pos.coords;
+
 	  console.log('Your current position is:');
 	  console.log('Latitude : ' + crd.latitude);
 	  console.log('Longitude: ' + crd.longitude);
 	  console.log('More or less ' + crd.accuracy + ' meters.');
-	  
+
 	  init(pos);
 	};
 	
 	function error(err) {
-	  console.warn('ERROR(' + err.code + '): ' + err.message);
-        /*
-        if(confirm("定位失敗，請重新載入")){
-            window.location.reload();  
-        }*/
-        
+	    console.warn('ERROR(' + err.code + '): ' + err.message);
         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
             alertDialog.show();
-        });
-                    
+        });          
 	};
-	
+
 	navigator.geolocation.getCurrentPosition(success, error, options);
 });
 	
@@ -38,33 +33,8 @@ function init(position) {
     console.log('test2');
     
 	var infowindow = new google.maps.InfoWindow({
-		content: "test"
+		content: ""
 	});
-
-/*
-    // Initialize the Firebase SDK
-    firebase.initializeApp({
-    	apiKey: 'AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc',
-    	databaseURL: 'https://go2gether-e78d4.firebaseio.com/'
-    });
-    
-
-	// Create a new GeoFire instance
-	var firebaseRef = firebase.database().ref('makers');
-	var geoFire = new GeoFire(firebaseRef);
-	var geoQuery;
-	
-    
-	// Select areas that are in the database
-	var areas = firebase.database().ref('areas');
-	$ul = $('ul#areas');
-	areas.on('child_added', function(snapshot) {
-		$ul.append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().name + ' (' + snapshot.val().city + ', ' + snapshot.val().state + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
-	});	
-	areas.on('child_removed', function(snapshot) {
-		$ul.find('li[data-id="' + snapshot.key + '"]').remove();
-	});	
-*/
 
 	// Init map
 	var map = new google.maps.Map($('#map').get(0), {
@@ -77,12 +47,10 @@ function init(position) {
 	var marker = new google.maps.Marker({
 		position: {lat: position.coords.latitude, lng: position.coords.longitude},
 		map: map
-		//title: "You're here"
 	});
 
 	var markers = {};
 
-    
 	//dynamically update geoQuery, add or remove markers
 	map.addListener('bounds_changed', function(){
         
@@ -97,68 +65,50 @@ function init(position) {
 
 
 		if(isFirstTime == true) {
+
             isFirstTime = false;
-			console.log('Creating new GeoFire query with center at ' + center + ', radius of ' + radius + 'km');
-/*
-			geoQuery = geoFire.query({
-				center: [ center.lat(), center.lng() ],
-				radius: radius,
-			});
-*/
-    
+			//console.log('Creating new GeoFire query with center at ' + center + ', radius of ' + radius + 'km');
+
 			//create new marker, highlight in sidebar
 			geoQuery.on('key_entered', function(key, location, distance) {
 				//$ul.find('li[data-id="' + key + '"]').addClass('list-group-item-info');
 
 				location = new google.maps.LatLng(location[0], location[1]);
-	
-				console.log("lat("+location.lat()+") lng("+location.lng()+")");
-	
-				
+				//console.log("lat("+location.lat()+") lng("+location.lng()+")");
+
 				var image;
 				var random_1_3 = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
 				switch(random_1_3) {
 				case 1:	image = "images/marker_green.png";	break;
-				case 2:	image = "images/marker_red.png";		break;
+				case 2:	image = "images/marker_red.png";	break;
 				case 3:	image = "images/marker_yellow.png";	break;
 				}
 				
 				markers[key] = new google.maps.Marker({
 					position: location,
 					map: map,
-					icon: image //iconInactive,
+					icon: image
 				});
-				
-				/*
-				markers[key].addListener("dblclick", function() { 
-               	console.log("Double Click"); 
-            	});
-				*/
-				
+
 				markers[key].addListener('click', function() {
-					
-					console.log("key("+key+")");
-	
+
 					areas.child(key).on('value', function(snapshot) {
 						
-						console.log(snapshot.val());
+						//console.log(snapshot.val());
 						var destination = snapshot.val().destination;	// 目的地
 						var timestamp = snapshot.val().timestamp;		// 共乘時間
 						var purpose = snapshot.val().purpose;			// 共乘目的
 						
 						var d = new Date(timestamp);
 						var time_text = d.toLocaleString();
-						
-						var text = "<div>目的地："+destination+"</div>";
+						var text = "";
+                        text += "<div>目的地："+destination+"</div>";
 						text += "<div>共乘時間："+time_text+"</div>";
 						text += "<div>共乘目的："+purpose+"</div>";
-						
-						
+
 						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px'>"+text+"</div>");
 						infowindow.open(map, markers[key]);
-						
-						
-						
+
 						map.setZoom(19);
 						map.panTo(location);
 					});
