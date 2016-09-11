@@ -1,4 +1,36 @@
 ons.bootstrap();
+console.log("app");
+
+    // Initialize the Firebase SDK
+    firebase.initializeApp({
+        apiKey: 'AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc',
+    	databaseURL: 'https://go2gether-e78d4.firebaseio.com/'
+    });
+    
+
+	// Create a new GeoFire instance
+	firebaseRef = firebase.database().ref('makers');
+	geoFire = new GeoFire(firebaseRef);
+	
+    
+	geoQuery = geoFire.query({
+    			center: [ 0, 0 ],
+				radius: 10,
+			});
+    
+    isFirstTime = true;
+    
+	// Select areas that are in the database
+	var areas = firebase.database().ref('areas');
+	/*
+    $ul = $('ul#areas');
+	areas.on('child_added', function(snapshot) {
+		$ul.append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().name + ' (' + snapshot.val().city + ', ' + snapshot.val().state + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
+	});	
+	areas.on('child_removed', function(snapshot) {
+		$ul.find('li[data-id="' + snapshot.key + '"]').remove();
+	});
+    */
 
 
   // This is called with the results from from FB.getLoginStatus().

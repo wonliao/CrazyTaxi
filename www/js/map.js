@@ -1,8 +1,7 @@
 $(function(){
-    
-
+    console.log('test1');
 	var options = {
-	  enableHighAccuracy: true,
+	  enableHighAccuracy: false,
 	  timeout: 5000,
 	  maximumAge: 0
 	};
@@ -27,22 +26,26 @@ $(function(){
 	
 
 function init(position) {
-
+    console.log('test2');
+    
 	var infowindow = new google.maps.InfoWindow({
 		content: "test"
 	});
-	
-	// Initialize the Firebase SDK
-	firebase.initializeApp({
-		apiKey: 'AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc',
-		databaseURL: 'https://go2gether-e78d4.firebaseio.com/'
-	});
+
+/*
+    // Initialize the Firebase SDK
+    firebase.initializeApp({
+    	apiKey: 'AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc',
+    	databaseURL: 'https://go2gether-e78d4.firebaseio.com/'
+    });
+    
 
 	// Create a new GeoFire instance
 	var firebaseRef = firebase.database().ref('makers');
 	var geoFire = new GeoFire(firebaseRef);
 	var geoQuery;
 	
+    
 	// Select areas that are in the database
 	var areas = firebase.database().ref('areas');
 	$ul = $('ul#areas');
@@ -52,6 +55,7 @@ function init(position) {
 	areas.on('child_removed', function(snapshot) {
 		$ul.find('li[data-id="' + snapshot.key + '"]').remove();
 	});	
+*/
 
 	// Init map
 	var map = new google.maps.Map($('#map').get(0), {
@@ -69,56 +73,33 @@ function init(position) {
 
 	var markers = {};
 
-	var icon = {
-		path: 'M20.5,0.5 c11.046,0,20,8.656,20,19.333c0,10.677-12.059,21.939-20,38.667c-5.619-14.433-20-27.989-20-38.667C0.5,9.156,9.454,0.5,20.5,0.5z',
-		fillColor: '#0093d7',
-		fillOpacity: 1,
-		anchor: new google.maps.Point(40,50),
-		strokeWeight: 1.4,
-		strokeColor: '#00437c',
-		scale: .6
-	}
-
-	var iconInactive = {
-		path: 'M20.5,0.5 c11.046,0,20,8.656,20,19.333c0,10.677-12.059,21.939-20,38.667c-5.619-14.433-20-27.989-20-38.667C0.5,9.156,9.454,0.5,20.5,0.5z',
-		fillColor: '#ffffff',
-		fillOpacity: 1,
-		anchor: new google.maps.Point(40,50),
-		strokeWeight: 1.4,
-		strokeColor: '#0093d7',
-		strokeOpacity: 1,
-		scale: .6
-	}
-
+    
 	//dynamically update geoQuery, add or remove markers
 	map.addListener('bounds_changed', function(){
+        
+        console.log('bounds_changed');
+        
 		var bounds = map.getBounds();
 		var center = map.getCenter();
 		//console.log("lat("+center.lat()+") lng("+center.lng()+")");
 		
-		
 		var corner = bounds.getNorthEast();
 		var radius = GeoFire.distance([center.lat(), center.lng()], [corner.lat(), corner.lng()]);
 
-		if (typeof geoQuery !== 'undefined') {
-			//console.log('Updating center to ' + center + ', radius to ' + radius + 'km');
 
-			geoQuery.updateCriteria({
-				center: [ center.lat(), center.lng() ],
-				radius: radius,
-			});
-
-		} else {
+		if(isFirstTime == true) {
+            isFirstTime = false;
 			console.log('Creating new GeoFire query with center at ' + center + ', radius of ' + radius + 'km');
-
+/*
 			geoQuery = geoFire.query({
 				center: [ center.lat(), center.lng() ],
 				radius: radius,
 			});
-			
+*/
+    
 			//create new marker, highlight in sidebar
 			geoQuery.on('key_entered', function(key, location, distance) {
-				$ul.find('li[data-id="' + key + '"]').addClass('list-group-item-info');
+				//$ul.find('li[data-id="' + key + '"]').addClass('list-group-item-info');
 
 				location = new google.maps.LatLng(location[0], location[1]);
 	
@@ -184,15 +165,26 @@ function init(position) {
 
 			//remove marker, un-highlight
 			geoQuery.on('key_exited', function(key, location, distance) {
-				$ul.find('li[data-id="' + key + '"]').removeClass('list-group-item-info');
+				//$ul.find('li[data-id="' + key + '"]').removeClass('list-group-item-info');
 				
 				markers[key].setMap(null);
 				delete markers[key];
 				//console.log(key + ' is located at [' + location + '] which is no longer within the query (' + distance.toFixed(2) + ' km from center)');
 			});
 		}
+        
+        if(isFirstTime == false) {
+         	
+            console.log('Updating center to ' + center + ', radius to ' + radius + 'km');
+
+			geoQuery.updateCriteria({
+				center: [ center.lat(), center.lng() ],
+				radius: radius,
+		    });
+        }
 	});
 	
+    /*
 	$('ul.list-group').on('click', 'li', function(){
 		//var lat = $(this).attr('data-latitude');
 		//var lng = $(this).attr('data-longitude');
@@ -209,6 +201,7 @@ function init(position) {
 		areas.child(area_id).remove();
 		geoFire.remove(area_id);
 	});
+    */
 
 	$('#add').on('submit', function() {
 		
@@ -316,5 +309,15 @@ function init(position) {
 
 function openInfo() {
 	
-	console.log("openInfo");
+	console.log("openInfo 1");
+ 
+    ons.ready(function() {
+        console.log("openInfo 2");
+        setTimeout(function() {
+            console.log("openInfo 3");
+            
+            tabbar.setActiveTab(1);
+    
+        }, 10);
+    });
 }
