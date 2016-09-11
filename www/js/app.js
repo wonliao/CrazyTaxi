@@ -1,5 +1,9 @@
 ons.bootstrap();
 
+$(function(){
+   HoldOn.open({message:"定位中，請稍候"});
+});
+
     // Initialize the Firebase SDK
     firebase.initializeApp({
         apiKey: 'AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc',

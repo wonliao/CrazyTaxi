@@ -1,6 +1,6 @@
 $(function(){
 
-    HoldOn.open({message:"定位中，請稍候"});
+     
 
 	var options = {
 	  enableHighAccuracy: false,
