@@ -1,5 +1,6 @@
 $(function(){
-	
+    
+
 	var options = {
 	  enableHighAccuracy: true,
 	  timeout: 5000,
@@ -26,11 +27,15 @@ $(function(){
 	
 
 function init(position) {
+
+	var infowindow = new google.maps.InfoWindow({
+		content: "test"
+	});
 	
 	// Initialize the Firebase SDK
 	firebase.initializeApp({
-		apiKey: 'AIzaSyAShxz9Efm5a4CEFA_DitWOQxci_8BQcLs',
-		databaseURL: 'https://test-b2a2d.firebaseio.com/'
+		apiKey: 'AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc',
+		databaseURL: 'https://go2gether-e78d4.firebaseio.com/'
 	});
 
 	// Create a new GeoFire instance
@@ -120,16 +125,59 @@ function init(position) {
 				console.log("lat("+location.lat()+") lng("+location.lng()+")");
 	
 				
+				var image;
+				var random_1_3 = Math.floor(Math.random() * (3 - 1 + 1)) + 1;
+				switch(random_1_3) {
+				case 1:	image = "images/marker_green.png";	break;
+				case 2:	image = "images/marker_red.png";		break;
+				case 3:	image = "images/marker_yellow.png";	break;
+				}
+				
 				markers[key] = new google.maps.Marker({
 					position: location,
 					map: map,
-					icon: iconInactive,
+					icon: image //iconInactive,
 				});
 				
-				markers[key].addListener('click', function(){
-					map.setZoom(15);
-					map.panTo(location);
+				/*
+				markers[key].addListener("dblclick", function() { 
+               	console.log("Double Click"); 
+            	});
+				*/
+				
+				markers[key].addListener('click', function() {
+					
+					console.log("key("+key+")");
+	
+					areas.child(key).on('value', function(snapshot) {
+						
+						console.log(snapshot.val());
+						var destination = snapshot.val().destination;	// 目的地
+						var timestamp = snapshot.val().timestamp;		// 共乘時間
+						var purpose = snapshot.val().purpose;			// 共乘目的
+						
+						var d = new Date(timestamp);
+						var time_text = d.toLocaleString();
+						
+						var text = "<div>目的地："+destination+"</div>";
+						text += "<div>共乘時間："+time_text+"</div>";
+						text += "<div>共乘目的："+purpose+"</div>";
+						
+						
+						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px'>"+text+"</div>");
+						infowindow.open(map, markers[key]);
+						
+						
+						
+						map.setZoom(19);
+						map.panTo(location);
+					});
+
+								
 				});
+				
+				
+				
 				
 				//console.log(key + ' is located at [' + location + '] which is within the query (' + distance.toFixed(2) + ' km from center)');
 			});
@@ -163,15 +211,32 @@ function init(position) {
 	});
 
 	$('#add').on('submit', function() {
+		
+		var address = $('input#address').val();				// 上車地點
+		var destination = $('input#destination').val();		// 下車地點
+		var startDate = $('input#startDate').val();			// 出發日期
+		var startTime = $('input#startTime').val();			// 出發時間
+		var phones = $('input#phones').val();					// 手機號碼
+		var note = $('input#note').val();						// 備註
+		var purpose = $('input[name=purpose]:checked').val();		// 共乘目的
+		
+		console.log("address("+address+")");
+		console.log("destination("+destination+")");
+		console.log("startDate("+startDate+")");
+		console.log("startTime("+startTime+")");
+		console.log("phones("+phones+")");
+		console.log("note("+note+")");
+		console.log("purpose("+purpose+")");
+		
 				
 		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
-			key: 'AIzaSyAShxz9Efm5a4CEFA_DitWOQxci_8BQcLs',
-			address: $('input#address').val()
+			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+			address: address	// 上車地點
 		}, function(data) {
 			
 			//parse address
 			var c, point_of_interest, area = {
-				name: $('input#name').val(),
+				name: destination,		// 下車地點
 				latitude: data.results[0].geometry.location.lat,
 				longitude: data.results[0].geometry.location.lng,
 			};
@@ -204,6 +269,30 @@ function init(position) {
 				}
 			}
 			
+			// facebook user id
+			area.fb_id = "12345678";
+			
+			
+
+			area.address = address;			// 上車地點
+			area.destination = destination;	// 下車地點
+			area.phones = phones;				// 手機號碼
+			area.note = note;					// 備註
+			area.purpose = purpose;			// 共乘目的
+			
+			// 建立時間
+			var d = new Date();
+			area.timestamp = d.getTime();
+			
+			// 預約時間
+			d.setHours(d.getHours() + 1);
+			area.Appointment = d.getTime();
+			
+			// 過期時間 = 預約時間 + 10秒
+			d.setMinutes(d.getMinutes() + 10);
+			area.expired_time = d.getTime();
+			
+			
 			if (!area.address && point_of_interest) area.address = point_of_interest;
 			
 			//persist to firebase
@@ -222,6 +311,10 @@ function init(position) {
 		});
 		
 		return false;
-	});
+	});	
+}
 
+function openInfo() {
+	
+	console.log("openInfo");
 }
