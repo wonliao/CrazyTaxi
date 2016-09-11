@@ -1,8 +1,10 @@
 $(function(){
 
+    HoldOn.open({message:"定位中，請稍候"});
+
 	var options = {
 	  enableHighAccuracy: false,
-	  timeout: 5000,
+	  timeout: 10000,
 	  maximumAge: 10 * 60 * 1000
 	};
 	
@@ -16,6 +18,7 @@ $(function(){
 	  console.log('More or less ' + crd.accuracy + ' meters.');
 
 	  init(pos);
+      HoldOn.close();
 	};
 	
 	function error(err) {
@@ -179,8 +182,7 @@ function init(position) {
 		console.log("phones("+phones+")");
 		console.log("note("+note+")");
 		console.log("purpose("+purpose+")");
-		
-				
+
 		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
 			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
 			address: address	// 上車地點
