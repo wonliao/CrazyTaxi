@@ -46,19 +46,19 @@
                 <div>設定共乘條件</div>
             </section>
     		<section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="address" placeholder="請輸入上車地點" id="address" required autofocus>
+                <input type="text" class="text-input" ng-model="address" placeholder="請輸入上車地點" id="address"  autofocus>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="destination" placeholder="請輸入下車地點" id="destination" required>
+                <input type="text" class="text-input" ng-model="destination" placeholder="請輸入下車地點" id="destination" >
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="startDate" required>
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="startDate" >
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="startTime" required>
+                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="startTime" >
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" required>
+                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" >
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" >
@@ -85,14 +85,9 @@
         
             <section style="padding: 0px 16px" class="radio_box">
                 
-                <input class="submit_btn" type="submit" value="確定">
+                <input type="submit" value="確定" class="btn btn-default submit_btn">
             </section>
-            
-            
-        
-
 		</form>
-        
     
     </ons-page>
 </ons-navigator>
@@ -102,12 +97,10 @@
         setTimeout(function() {
             
             isFirstTime = true;
-        }, 10);
-    });
+        
 
-    $('#add').on('submit', function() {
-                console.log("submit");
-        		
+            $('#add').on('submit', function() {
+                
         		var address = $('input#address').val();				// 上車地點
         		var destination = $('input#destination').val();		// 下車地點
         		var startDate = $('input#startDate').val();			// 出發日期
@@ -166,9 +159,7 @@
         			
         			// facebook user id
         			area.fb_id = "12345678";
-        			
-        			
-        
+
         			area.address = address;			// 上車地點
         			area.destination = destination;	// 下車地點
         			area.phones = phones;				// 手機號碼
@@ -186,8 +177,7 @@
         			// 過期時間 = 預約時間 + 10秒
         			d.setMinutes(d.getMinutes() + 10);
         			area.expired_time = d.getTime();
-        			
-        			
+
         			if (!area.address && point_of_interest) area.address = point_of_interest;
         			
         			//persist to firebase
@@ -203,11 +193,17 @@
         			
         			//clean up form
         			$('form#add').trigger('reset');
+
+                    // 跳至完成刊登頁
+                    homeNavigator.pushPage("page2_success.html", {animation: 'slide'});
+                    
         		});
         		
                return false;
-    });	
-    
+            });	
+            
+        }, 10);
+    });
 
     
 </script>

@@ -1,7 +1,5 @@
 $(function(){
 
-     
-
 	var options = {
 	  enableHighAccuracy: false,
 	  timeout: 10000,
@@ -145,111 +143,7 @@ function init(position) {
 		    });
         }
 	});
-	
-   
-/*
-	$('#add').on('submit', function() {
-		
-		var address = $('input#address').val();				// 上車地點
-		var destination = $('input#destination').val();		// 下車地點
-		var startDate = $('input#startDate').val();			// 出發日期
-		var startTime = $('input#startTime').val();			// 出發時間
-		var phones = $('input#phones').val();					// 手機號碼
-		var note = $('input#note').val();						// 備註
-		var purpose = $('input[name=purpose]:checked').val();		// 共乘目的
-		
-		console.log("address("+address+")");
-		console.log("destination("+destination+")");
-		console.log("startDate("+startDate+")");
-		console.log("startTime("+startTime+")");
-		console.log("phones("+phones+")");
-		console.log("note("+note+")");
-		console.log("purpose("+purpose+")");
 
-		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
-			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
-			address: address	// 上車地點
-		}, function(data) {
-			
-			//parse address
-			var c, point_of_interest, area = {
-				name: destination,		// 下車地點
-				latitude: data.results[0].geometry.location.lat,
-				longitude: data.results[0].geometry.location.lng,
-			};
-
-			//get address, city and state
-			for (var i = 0; i < data.results[0].address_components.length; i++) {
-				c = data.results[0].address_components[i];
-				if (!c.types.length || c.types[0] == 'point_of_interest') {
-					//record the point of interest in case address is empty
-					point_of_interest = c.short_name;
-				} else if (c.types.indexOf('street_number') !== -1) {
-					//set address as street number
-					area.address = c.long_name;
-				} else if (c.types.indexOf('route') !== -1) {
-					//append street name
-					area.address += ' ' + c.long_name;
-					area.address = area.address.trim();
-				} else if (c.types.indexOf('locality') !== -1) {
-					area.city = c.long_name;
-				} else if (c.types.indexOf('sublocality') !== -1) {
-					if (!area.city) area.city = c.long_name;
-				} else if (c.types.indexOf('administrative_area_level_3') !== -1) {
-					if (!area.city) area.city = c.long_name;
-				} else if (c.types.indexOf('administrative_area_level_1') !== -1) {
-					area.state = c.short_name;
-				} else if (c.types.indexOf('postal_code') !== -1) {
-					area.postal_code = c.short_name;
-				} else if (c.types.indexOf('country') !== -1) {
-					area.country = c.short_name;
-				}
-			}
-			
-			// facebook user id
-			area.fb_id = "12345678";
-			
-			
-
-			area.address = address;			// 上車地點
-			area.destination = destination;	// 下車地點
-			area.phones = phones;				// 手機號碼
-			area.note = note;					// 備註
-			area.purpose = purpose;			// 共乘目的
-			
-			// 建立時間
-			var d = new Date();
-			area.timestamp = d.getTime();
-			
-			// 預約時間
-			d.setHours(d.getHours() + 1);
-			area.Appointment = d.getTime();
-			
-			// 過期時間 = 預約時間 + 10秒
-			d.setMinutes(d.getMinutes() + 10);
-			area.expired_time = d.getTime();
-			
-			
-			if (!area.address && point_of_interest) area.address = point_of_interest;
-			
-			//persist to firebase
-			var area_id = firebase.database().ref().child('areas').push().key;
-			var updates = {};
-			updates['/areas/' + area_id] = area;
-			firebase.database().ref().update(updates);
-
-			//geofire
-			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
-				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
-			});
-			
-			//clean up form
-			$('form#add').trigger('reset');
-		});
-		
-		return false;
-	});	
-*/
 }
 
 function openInfo() {
