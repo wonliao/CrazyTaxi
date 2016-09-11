@@ -1,8 +1,36 @@
 <style>
+    .radio_box li  {
+        display: block;
+        float: left;
+        /*width: 33%;*/
+        margin-right:10px;
+    }
+    
+    .radio_box li label {
+        margin-left:5px;
+        font-size: 5vw;
+    }
+    .text-input {
+        border-radius:0;
+        display: block; 
+        width: 100%
+    }
+    .submit_btn {
+        background-color: rgba(24,103,194,0.81);
+        border: 0;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 36px;
+        padding: 4px 12px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        color: #FFF;
+    }
 </style>
 
 <ons-navigator title="Navigator" var="homeNavigator">
-    <ons-page>
+    <ons-page style="background:#fff;">
     
         <ons-toolbar>
             <div class="left">
@@ -13,9 +41,58 @@
     		<div class="center">刊登</div>
     	</ons-toolbar>
         
+        <form id="add" action="#">
+            <section style="padding: 4px 16px 0 16px">
+                <h4>設定共乘條件</h4>
+            </section>
+    		<section style="padding: 0px 16px 4px 16px">
+                <input type="text" class="text-input" ng-model="address" placeholder="請輸入上車地點" id="address" required autofocus>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="destination" placeholder="請輸入下車地點" id="destination" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="startDate" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="startTime" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" >
+            </section>
+            
+            <div style="clear:both; height:10px"></div>
+            
+            <section style="padding: 0px 16px 0 16px" class="radio_box">
+                <h5>請選擇您本次共乘目的</h5>
+                <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
+                <li><input type="radio" name="purpose" value="認識朋友"><label for="input1">認識朋友</label></li>
+                <li><input type="radio" name="purpose" value="抓寶可夢"><label for="input1">抓寶可夢</label></li>
+                <div style="clear:both;"></div>
+                <li><input type="radio" name="purpose" value="業務"><label for="input1">業務</label></li>
+                <li><input type="radio" name="purpose" value="機場接送"><label for="input1">機場接送</label></li>
+                <li><input type="radio" name="purpose" value="其他___"><label for="input1">其他___</label></li>
+            </section>
 
-        <!-- 主視覺圖 -->
-        <h1>page2</h1>
+            <div style="clear:both; height:5px"></div>
+            
+            <section style="padding: 4px 16px" class="radio_box">
+                <input type="checkbox" id="agree_check" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
+            </section>
+        
+            <section style="padding: 0px 16px" class="radio_box">
+                
+                <input class="submit_btn" type="submit" value="確定">
+            </section>
+            
+            
+        
+
+		</form>
+        
     
     </ons-page>
 </ons-navigator>
@@ -23,9 +100,114 @@
 <script>
     ons.ready(function() {
         setTimeout(function() {
+            
             isFirstTime = true;
-            //menu.setSwipeable(false);
-    
         }, 10);
     });
+
+    $('#add').on('submit', function() {
+                console.log("submit");
+        		
+        		var address = $('input#address').val();				// 上車地點
+        		var destination = $('input#destination').val();		// 下車地點
+        		var startDate = $('input#startDate').val();			// 出發日期
+        		var startTime = $('input#startTime').val();			// 出發時間
+        		var phones = $('input#phones').val();					// 手機號碼
+        		var note = $('input#note').val();						// 備註
+        		var purpose = $('input[name=purpose]:checked').val();		// 共乘目的
+        		
+        		console.log("address("+address+")");
+        		console.log("destination("+destination+")");
+        		console.log("startDate("+startDate+")");
+        		console.log("startTime("+startTime+")");
+        		console.log("phones("+phones+")");
+        		console.log("note("+note+")");
+        		console.log("purpose("+purpose+")");
+        
+        		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+        			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+        			address: address	// 上車地點
+        		}, function(data) {
+        			
+        			//parse address
+        			var c, point_of_interest, area = {
+        				name: destination,		// 下車地點
+        				latitude: data.results[0].geometry.location.lat,
+        				longitude: data.results[0].geometry.location.lng,
+        			};
+        
+        			//get address, city and state
+        			for (var i = 0; i < data.results[0].address_components.length; i++) {
+        				c = data.results[0].address_components[i];
+        				if (!c.types.length || c.types[0] == 'point_of_interest') {
+        					//record the point of interest in case address is empty
+        					point_of_interest = c.short_name;
+        				} else if (c.types.indexOf('street_number') !== -1) {
+        					//set address as street number
+        					area.address = c.long_name;
+        				} else if (c.types.indexOf('route') !== -1) {
+        					//append street name
+        					area.address += ' ' + c.long_name;
+        					area.address = area.address.trim();
+        				} else if (c.types.indexOf('locality') !== -1) {
+        					area.city = c.long_name;
+        				} else if (c.types.indexOf('sublocality') !== -1) {
+        					if (!area.city) area.city = c.long_name;
+        				} else if (c.types.indexOf('administrative_area_level_3') !== -1) {
+        					if (!area.city) area.city = c.long_name;
+        				} else if (c.types.indexOf('administrative_area_level_1') !== -1) {
+        					area.state = c.short_name;
+        				} else if (c.types.indexOf('postal_code') !== -1) {
+        					area.postal_code = c.short_name;
+        				} else if (c.types.indexOf('country') !== -1) {
+        					area.country = c.short_name;
+        				}
+        			}
+        			
+        			// facebook user id
+        			area.fb_id = "12345678";
+        			
+        			
+        
+        			area.address = address;			// 上車地點
+        			area.destination = destination;	// 下車地點
+        			area.phones = phones;				// 手機號碼
+        			area.note = note;					// 備註
+        			area.purpose = purpose;			// 共乘目的
+        			
+        			// 建立時間
+        			var d = new Date();
+        			area.timestamp = d.getTime();
+        			
+        			// 預約時間
+        			d.setHours(d.getHours() + 1);
+        			area.Appointment = d.getTime();
+        			
+        			// 過期時間 = 預約時間 + 10秒
+        			d.setMinutes(d.getMinutes() + 10);
+        			area.expired_time = d.getTime();
+        			
+        			
+        			if (!area.address && point_of_interest) area.address = point_of_interest;
+        			
+        			//persist to firebase
+        			var area_id = firebase.database().ref().child('areas').push().key;
+        			var updates = {};
+        			updates['/areas/' + area_id] = area;
+        			firebase.database().ref().update(updates);
+        
+        			//geofire
+        			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
+        				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
+        			});
+        			
+        			//clean up form
+        			$('form#add').trigger('reset');
+        		});
+        		
+               return false;
+    });	
+    
+
+    
 </script>

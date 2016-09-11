@@ -146,25 +146,8 @@ function init(position) {
         }
 	});
 	
-    /*
-	$('ul.list-group').on('click', 'li', function(){
-		//var lat = $(this).attr('data-latitude');
-		//var lng = $(this).attr('data-longitude');
-		//console.log("lat("+lat+") lng("+lng+")");
-		
-		map.panTo(new google.maps.LatLng($(this).attr('data-latitude'), $(this).attr('data-longitude')));
-		map.setCenter(new google.maps.LatLng($(this).attr('data-latitude'), $(this).attr('data-longitude')));
-		map.setZoom(15);
-	});
-
-	$('ul.list-group').on('click', 'i', function(e){
-		e.stopPropagation();
-		var area_id = $(this).parent().attr('data-id');
-		areas.child(area_id).remove();
-		geoFire.remove(area_id);
-	});
-    */
-
+   
+/*
 	$('#add').on('submit', function() {
 		
 		var address = $('input#address').val();				// 上車地點
@@ -266,6 +249,7 @@ function init(position) {
 		
 		return false;
 	});	
+*/
 }
 
 function openInfo() {
