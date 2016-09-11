@@ -8,7 +8,7 @@
     
     .radio_box li label {
         margin-left:5px;
-        font-size: 5vw;
+        /*font-size: 14px;*/
     }
     .text-input {
         border-radius:0;
@@ -42,10 +42,10 @@
     	</ons-toolbar>
         
         <form id="add" action="#">
-            <section style="padding: 4px 16px 0 16px">
-                <h4>設定共乘條件</h4>
+            <section style="padding: 8px 16px 4px 16px">
+                <div>設定共乘條件</div>
             </section>
-    		<section style="padding: 0px 16px 4px 16px">
+    		<section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="address" placeholder="請輸入上車地點" id="address" required autofocus>
             </section>
             <section style="padding: 4px 16px">
@@ -67,7 +67,7 @@
             <div style="clear:both; height:10px"></div>
             
             <section style="padding: 0px 16px 0 16px" class="radio_box">
-                <h5>請選擇您本次共乘目的</h5>
+                <div>請選擇您本次共乘目的</div>
                 <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
                 <li><input type="radio" name="purpose" value="認識朋友"><label for="input1">認識朋友</label></li>
                 <li><input type="radio" name="purpose" value="抓寶可夢"><label for="input1">抓寶可夢</label></li>
