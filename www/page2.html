@@ -55,7 +55,7 @@
                 <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="startDate" data-role="date" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="startTime" required>
+                <input type="text" class="text-input timepicker" ng-model="startTime" placeholder="請輸入出發時間" id="startTime" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" required>
@@ -94,10 +94,12 @@
 
 <script>
     ons.ready(function() {
+
         setTimeout(function() {
             
+            $('.timepicker').wickedpicker();
+            
             isFirstTime = true;
-        
 
             $('#add').on('submit', function() {
                 
