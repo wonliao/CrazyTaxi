@@ -110,6 +110,8 @@ function init(position) {
 						text += "<div>共乘時間："+time_text+"</div>";
 						text += "<div>共乘目的："+purpose+"</div>";
 
+                        window.localStorage.setItem("info_key", key);
+                         
 						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px'>"+text+"</div>");
 						infowindow.open(map, markers[key]);
 

@@ -100,7 +100,8 @@
     var phones = "";
     function showInfo() {
         
-        var key = "-KRRNVxXNetIAj6aXiZL";
+        //var key = "-KRRNVxXNetIAj6aXiZL";
+        var key = window.localStorage.getItem("info_key");
         
         areas.child(key).on('value', function(snapshot) {
     					
