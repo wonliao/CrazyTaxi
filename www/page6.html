@@ -1,0 +1,105 @@
+<style>
+.slider_img {
+    margin: 0 auto;
+    height:100%;
+}
+
+.myCarousel {
+    text-align: center;
+}
+
+.mySection {
+    padding: 16px; 
+    border: rgba(0,0,0,0.2) 1px solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.text1 {
+    color:#aaa8a8;
+    width:20%;
+    display: inline-flex;
+}
+.text2 {
+    color:#686d6d;
+    width: 80%;
+    display: inline-flex;
+}
+</style>
+
+<ons-navigator title="Navigator" var="homeNavigator">
+    <ons-page style="background:#fff;">
+    
+        <ons-toolbar>
+            <div class="left" style="line-height: 44px;">
+                <ons-back-button></ons-back-button>
+            </div>
+            <div class="center">
+                <img src="images/go2gether.png" style="height:32px;"/>
+            </div>
+            <div class="right" style="line-height: 44px">
+                <ons-toolbar-button ng-click="menu.toggleMenu()">
+                	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+        		</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <section style="padding: 0px 16px 0 16px" class="radio_box">
+            <h3>共乘記錄</h3>
+        </section>
+        
+        <div style="clear:both; height:10px"></div>
+
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="active" style="width:50%;"><a data-toggle="tab" href="#reserve">預約記錄</a></li>
+                <li style="width:50%;"><a data-toggle="tab" href="#history">歷程記錄</a></li>
+            </ul>
+        
+            <div class="tab-content">
+                <div id="reserve" class="tab-pane fade in active">
+                    
+                </div>
+                <div id="history" class="tab-pane fade">
+                    <h3>Menu 1</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+        </div>
+
+
+        
+    </ons-page>
+
+</ons-navigator>
+
+<script>
+
+    ons.ready(function() {
+        setTimeout(function() {
+
+            // 預約記錄
+            areas.orderByChild("fb_id").equalTo("1389354124412945").on("child_added", function(snapshot) {
+                
+                console.log(snapshot.val());
+                
+                var d = new Date(snapshot.val().timestamp);
+    			var time_text = d.toLocaleString();
+				        
+                var text = "";
+                text += '<div style="clear:both; height:10px"></div>';
+                text += '<section class="mySection">';
+                text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
+                text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
+                text +=     '<div><span class="text1">時間</span><span class="text2">'+time_text+'</span></div>';
+                text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
+                text += '</section>';
+                
+                $('#reserve').append(text);
+            });
+    
+        }, 10);
+    });
+    
+</script>
