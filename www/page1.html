@@ -3,31 +3,32 @@
 
 <ons-navigator title="Navigator" var="homeNavigator">
     <ons-page>
-    
         <ons-toolbar>
-            <div class="left">
-        		<ons-toolbar-button ng-click="menu.toggleMenu()">
-    				<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
-    			</ons-toolbar-button>
-    		</div>
-    		<div class="center">首頁</div>
-    	</ons-toolbar>
+            <div class="left" style="line-height: 44px">
+                <img src="images/logo.png" style="height:18px; margin-left:10px;"/>
+            </div>
+            <div class="center">
+                <img src="images/go2gether.png" style="height:32px;"/>
+            </div>
+            <div class="right" style="line-height: 44px">
+                <ons-toolbar-button ng-click="menu.toggleMenu()">
+                	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+        		</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
 
-        <!-- 主視覺圖 -->
         <div id="map"></div>
 
     </ons-page>
     
     <ons-template id="alert-dialog.html">
-      <ons-alert-dialog var="alertDialog">
-        <div class="alert-dialog-title"><strong style="color: #ff3333">定位失敗!</strong></div>
-        <div class="alert-dialog-content">
-            請確定已開啟GPS功能，並重新嘗試
-        </div>
-        <div class="alert-dialog-footer">
-          <button class="alert-dialog-button" onClick="location.reload()">OK</button>
-        </div>
-      </ons-alert-dialog>
+        <ons-alert-dialog var="alertDialog">
+            <div class="alert-dialog-title"><strong style="color: #ff3333">定位失敗!</strong></div>
+            <div class="alert-dialog-content">請確定已開啟GPS功能，並重新嘗試</div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button" onClick="location.reload()">OK</button>
+            </div>
+        </ons-alert-dialog>
     </ons-template>
 
 </ons-navigator>

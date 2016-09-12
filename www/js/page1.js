@@ -110,7 +110,7 @@ function init(position) {
 						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px'>"+text+"</div>");
 						infowindow.open(map, markers[key]);
 
-						map.setZoom(19);
+						//map.setZoom(19);
 						map.panTo(location);
 					});
 				});
@@ -140,13 +140,6 @@ function init(position) {
 }
 
 function openInfo() {
- 
-    ons.ready(function() {
 
-        setTimeout(function() {
-            
-            tabbar.setActiveTab(1);
-    
-        }, 10);
-    });
+    homeNavigator.pushPage("page1_info.html", {animation: 'slide'});
 }

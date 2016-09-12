@@ -14,6 +14,9 @@
 
 .tab-bar { background-color: white; }
 
+.navigation-bar {
+    background:#36d0c9;
+}
 /*
 .title_btn {
     display: block;
