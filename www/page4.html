@@ -1,0 +1,51 @@
+<style>
+.slider_img {
+    width: 90%;
+    margin: 0 auto;
+}
+</style>
+<script src="js/jquery.bxslider.min.js"></script>
+<link href="css/jquery.bxslider.min.css" rel="stylesheet" />
+
+<ons-navigator title="Navigator" var="homeNavigator">
+    <ons-page style="background:#fff;">
+    
+        <ons-toolbar>
+            <div class="left" style="line-height: 44px;">
+                <ons-back-button></ons-back-button>
+            </div>
+            <div class="center">
+                <img src="images/go2gether.png" style="height:32px;"/>
+            </div>
+            <div class="right" style="line-height: 44px">
+                <ons-toolbar-button ng-click="menu.toggleMenu()">
+                	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+        		</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <ul class="bxslider">
+            <li><img src="images/s1.png" class="slider_img"/></li>
+            <li><img src="images/s2.png" class="slider_img"/></li>
+            <li><img src="images/s3.png" class="slider_img"/></li>
+            <li><img src="images/s4.png" class="slider_img"/></li>
+            <li><img src="images/s5.png" class="slider_img"/></li>
+            <li><img src="images/s6.png" class="slider_img"/></li>
+        </ul>
+        
+    </ons-page>
+
+</ons-navigator>
+
+<script>
+
+    ons.ready(function() {
+        setTimeout(function() {
+            
+            menu.setSwipeable(false);
+            $('.bxslider').bxSlider();
+    
+        }, 10);
+    });
+    
+</script>
