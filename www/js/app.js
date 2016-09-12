@@ -101,7 +101,14 @@ $(function(){
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-      console.log("Successful login");
+        
+        console.log("Successful login");
+      
+        console.log(response);
+        for(var key in response) {
+            console.log("key("+key+")("+response[key]+")");
+        }
+      
 
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
