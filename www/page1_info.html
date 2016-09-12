@@ -108,7 +108,7 @@
 			var purpose = snapshot.val().purpose;			    // 共乘目的
             var note = snapshot.val().note;    		            // 備註
             phones = snapshot.val().phones;        	        // 手機
-console.log("phones("+phones+")");
+
 			var d = new Date(timestamp);
 			var time_text = d.toLocaleString();
 		    
@@ -121,8 +121,6 @@ console.log("phones("+phones+")");
             $('#time_div').text(time_text);
             $('#purpose_div').text(purpose);
             $('#note_div').text(note);
-            
-            
 		});
     }
     
@@ -157,14 +155,10 @@ console.log("phones("+phones+")");
     }
     
     function fb_messenger_btn() {
-        var url = "https://m.me/" + fb_id;
-        window.open(url);
+        window.location = "https://m.me/" + fb_id;
     }
     
     function phone_click() {
-        console.log("phones("+phones+")");
-        var url = "tel:" + phones;
-        window.open(url);
+        window.location = "tel:" + phones;
     }
-    
 </script>
