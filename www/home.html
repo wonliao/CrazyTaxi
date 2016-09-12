@@ -4,9 +4,9 @@
 		<ons-tabbar position="bottom" var="tabbar">
 			<ons-tabbar-item page="page1.html" icon="fa-home" active="true"></ons-tabbar-item>
 			<ons-tabbar-item page="page2.html" icon="fa-users" ></ons-tabbar-item>
-            <ons-tabbar-item  icon="fa-phone" onClick="page3_click()"></ons-tabbar-item>
+            <ons-tabbar-item icon="fa-phone" onClick="page3_click()"></ons-tabbar-item>
     		<ons-tabbar-item page="page4.html" icon="fa-question"></ons-tabbar-item>
-            <ons-tabbar-item page="page5.html" icon="fa-facebook-square"></ons-tabbar-item>
+            <ons-tabbar-item icon="fa-facebook-square" onClick="page5_click()"></ons-tabbar-item>
 		</ons-tabbar>
 	</ons-page>
     
@@ -43,6 +43,11 @@
         
         HoldOn.open(options);
     }
+    
+    function page5_click() {
+        window.open("https://www.facebook.com/55688TaiwanTaxi/?fref=ts");
+    }
+    
     
     function call_55688() {
         
