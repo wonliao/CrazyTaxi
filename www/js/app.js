@@ -101,37 +101,10 @@ $(function(){
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response1) {
-        
-        console.log("test 1 ==> id(" + response1.id + ")");
-         
-        FB.api(
-            "/"+response1.id,
-            function (response) {
-              if (response && !response.error) {
-                /* handle the result */
-                
-                console.log("test 2 ==> business_id(" + response.id + ") name(" + response.name + ") email("+ response.email+") link("+response.link+") public_key("+response.public_key+") third_party_id("+response.third_party_id+")  token_for_business("+response.token_for_business+")");
-
-
-              }
-            }
-        );
-        
-        /*
-        console.log("Successful login");
-      
-        console.log(response);
-        for(var key in response) {
-            console.log("key("+key+")("+response[key]+")");
-        }
-      
 
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
-        window.localStorage.setItem("facebook_mail", response.email);
-
-        console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.email+") link("+response.link+") public_key("+response.public_key+") third_party_id("+response.third_party_id+")  token_for_business("+response.token_for_business+")");
-        //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-        */
+        
+        console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ")");        
     });
   }
