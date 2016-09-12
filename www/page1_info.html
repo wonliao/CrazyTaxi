@@ -7,6 +7,12 @@
     BORDER: #c9c9c9 2px solid;
 }
 
+.section1 {
+    padding: 4px 16px; 
+    text-align:left;
+    line-height: 20px;
+}
+
 </style>
 
 <ons-navigator title="Navigator" var="homeNavigator">
@@ -31,14 +37,29 @@
         
         <div style="clear:both; height:10px"></div>
          
-        <section style="padding: 16px 16px; text-align:left;">
+        <section class="section1">
             <div style="color:#b5b2b2;">上車地點</div>
             <div id="input_address_div" style="color:#6b6b6b;"></div>
         </section>
         
-        <section style="padding: 16px 16px; text-align:left;">
+        <section class="section1">
             <div style="color:#b5b2b2;">下車地點</div>
             <div id="destination_div" style="color:#6b6b6b;"></div>
+        </section>
+        
+        <section class="section1">
+            <div style="color:#b5b2b2;">出發時間</div>
+            <div id="time_div" style="color:#6b6b6b;"></div>
+        </section>
+        
+        <section class="section1">
+            <div style="color:#b5b2b2;">共乘目的</div>
+            <div id="purpose_div" style="color:#6b6b6b;"></div>
+        </section>
+        
+        <section class="section1">
+            <div style="color:#b5b2b2;">備註</div>
+            <div id="note_div" style="color:#6b6b6b;"></div>
         </section>
         
        
@@ -48,8 +69,8 @@
         <div style="clear:both; height:10px"></div>
          
         <section style="padding: 4px 16px; text-align:center;">
-            <ons-button class="button button--large" modifier="chevron" onclick="submit_btn()" style="background:#36d0c9; border-radius:0;">
-                <span style="font-size:18px">確定</span>
+            <ons-button class="button button--large" modifier="chevron" onclick="contact_btn()" style="background:#36d0c9; border-radius:0;">
+                <span style="font-size:18px">聯繫對方</span>
             </ons-button>
         </section>
         
@@ -83,33 +104,79 @@
         }, 10);
     });
     
+    
+    var fb_id = "";
+    var phones = "";
     function showInfo() {
         
-        var key = "-KRRKE0GMqPB7VvvCG23";
+        var key = "-KRRNVxXNetIAj6aXiZL";
         
         areas.child(key).on('value', function(snapshot) {
     					
 			//console.log(snapshot.val());
-			var fb_id = snapshot.val().fb_id;                   // facebook user id
-            var fb_name = snapshot.val().fb_name;               // facebook user id
+			fb_id = snapshot.val().fb_id;                       // facebook user id
+            var fb_name = snapshot.val().fb_name;               // facebook user name
             var input_address = snapshot.val().input_address;   // 上車地點
             var destination = snapshot.val().destination;       // 下車地點
 			var timestamp = snapshot.val().timestamp;		    // 共乘時間
 			var purpose = snapshot.val().purpose;			    // 共乘目的
+            var note = snapshot.val().note;    		            // 備註
+            var phones = snapshot.val().phones;        	        // 手機
 
 			var d = new Date(timestamp);
 			var time_text = d.toLocaleString();
 		    
             var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=normal";
             //console.log("fb_image("+fb_image+")");
-            $('#fb_user_picture').attr("src", fb_image);
+            //$('#fb_user_picture').attr("src", fb_image);
 			$('#fb_user_name').text(fb_name);			
             $('#input_address_div').text(input_address);
             $('#destination_div').text(destination);
-			
-            
-            
+            $('#time_div').text(time_text);
+            $('#purpose_div').text(purpose);
+            $('#note_div').text(note);
+		    
 		});
+    }
+    
+    function contact_btn() {
+    
+        var message = ""
+        message +=  '<section class="section1">';
+        message +=      '<ons-button class="button button--large" modifier="chevron" onclick="fb_messenger_btn()" style="background:#36d0c9; border-radius:0;">';
+        message +=          '<span style="font-size:18px">Facebook messenger 聯繫</span>';
+        message +=      '</ons-button>';
+        message +=  '</section>';
+        
+        message +=  '<section class="section1">';
+        message +=      '<ons-button class="button button--large" modifier="chevron" onclick="phone_click()" style="background:#36d0c9; border-radius:0;">';
+        message +=          '<span style="font-size:18px">電話聯繫</span>';
+        message +=      '</ons-button>';
+        message +=  '</section>';
+        
+        message +=  '<section class="section1">';
+        message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
+        message +=          '<span style="font-size:18px">取消</span>';
+        message +=      '</ons-button>';
+        message +=  '</section>';
+        
+        var options = {
+             theme: "custom",
+             message: message,
+             textColor: "white"
+        };
+        
+        HoldOn.open(options);
+    }
+    
+    function fb_messenger_btn() {
         
     }
+    
+    function phone_click() {
+        
+       var url = "tel:" + phones;
+       window.open(url);
+    }
+    
 </script>

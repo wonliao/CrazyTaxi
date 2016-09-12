@@ -107,7 +107,7 @@ $(function(){
         window.localStorage.setItem("facebook_name", response.name);
         window.localStorage.setItem("facebook_mail", response.mail);
 
-        console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.mail+")");
+        console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.mail+") business_id("+response.business_id+")");
         //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
     });
   }
