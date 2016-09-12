@@ -4,10 +4,58 @@
 		<ons-tabbar position="bottom" var="tabbar">
 			<ons-tabbar-item page="page1.html" icon="fa-home" active="true"></ons-tabbar-item>
 			<ons-tabbar-item page="page2.html" icon="fa-users" ></ons-tabbar-item>
-            <ons-tabbar-item page="page3.html" icon="fa-phone"></ons-tabbar-item>
+            <ons-tabbar-item  icon="fa-phone" onClick="page3_click()"></ons-tabbar-item>
     		<ons-tabbar-item page="page4.html" icon="fa-question"></ons-tabbar-item>
             <ons-tabbar-item page="page5.html" icon="fa-facebook-square"></ons-tabbar-item>
 		</ons-tabbar>
 	</ons-page>
     
 </ons-navigator>    
+
+<script>
+    function page3_click() {
+        console.log("page3_click");
+        
+        var message = ""
+        message +=  '<section class="section1">';
+        message +=      '<ons-button class="button button--large" modifier="chevron" onclick="call_55688()" style="background:#36d0c9; border-radius:0;">';
+        message +=          '<span style="font-size:18px">播打電話叫車</span>';
+        message +=      '</ons-button>';
+        message +=  '</section>';
+        
+        message +=  '<section class="section1">';
+        message +=      '<ons-button class="button button--large" modifier="chevron" onclick="call_app()" style="background:#36d0c9; border-radius:0;">';
+        message +=          '<span style="font-size:18px">開啟55688APP叫車</span>';
+        message +=      '</ons-button>';
+        message +=  '</section>';
+        
+        message +=  '<section class="section1">';
+        message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
+        message +=          '<span style="font-size:18px">取消</span>';
+        message +=      '</ons-button>';
+        message +=  '</section>';
+        
+        var options = {
+             theme: "custom",
+             message: message,
+             textColor: "white"
+        };
+        
+        HoldOn.open(options);
+    }
+    
+    function call_55688() {
+        
+    }
+    
+    function call_app() {
+        
+        if(ons.platform.isIOS()) {
+            
+            window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
+        } else {
+     
+               window.location = "https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW";
+        }
+    }
+</script>
