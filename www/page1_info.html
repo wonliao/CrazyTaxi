@@ -1,0 +1,96 @@
+<style>
+</style>
+
+<ons-navigator title="Navigator" var="homeNavigator">
+    <ons-page style="background:#fff;">
+    
+        <ons-toolbar>
+            <div class="left">
+        		<ons-toolbar-button ng-click="menu.toggleMenu()">
+    				<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+    			</ons-toolbar-button>
+    		</div>
+    		<div class="center">首頁</div>
+    	</ons-toolbar>
+
+
+        <section style="padding: 4px 16px; text-align:center;">
+            <img id="fb_user_picture" src=""/>
+        </section>
+        
+        <section style="padding: 4px 16px; text-align:center;  line-height: 20px;">
+            <div style="color:#b5b2b2; font-weight:bold;">您將可獲得以下好禮任選一</div>
+            <div style="color:#b5b2b2; font-weight:bold;">*每個帳號各個獎項僅限領取一次</div>
+            <div style="color:#b5b2b2; font-weight:bold;">*查詢序號請開啟右上角選單確認</div>
+            <div style="color:#b5b2b2; font-weight:bold;">*詳細活動內容請至官方粉絲團查詢</div>
+        </section>
+        
+        <div style="clear:both; height:10px"></div>
+        
+        <section style="padding: 4px 16px; text-align:center;">
+            <div style="background:#acf2ff; height:110px">
+                <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
+                
+                <ons-button class="button button--large" modifier="chevron" onclick="get_gift()" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span style="font-size:18px">立即領取</span>
+                </ons-button>
+            </div>
+        </section>
+        
+        <section style="padding: 4px 16px; text-align:center;">
+            <div style="background:#acf2ff; height:110px">
+                <div style="line-height:55px;">ZONE 免費電話點數500點</div>
+                
+                <ons-button class="button button--large" modifier="chevron" onclick="get_gift()" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span style="font-size:18px">立即領取</span>
+                </ons-button>
+            </div>
+        </section>
+        
+        <div style="clear:both; height:10px"></div>
+         
+        <section style="padding: 4px 16px; text-align:center;">
+            <ons-button class="button button--large" modifier="chevron" onclick="submit_btn()" style="background:#36d0c9; border-radius:0;">
+                <span style="font-size:18px">確定</span>
+            </ons-button>
+        </section>
+        
+    </ons-page>
+    
+    <ons-template id="alert-dialog.html">
+      <ons-alert-dialog var="alertDialog">
+        
+        <div class="alert-dialog-content">
+            活動尚未開放
+        </div>
+        <div class="alert-dialog-footer">
+          <button class="alert-dialog-button" onClick="alertDialog.hide()">OK</button>
+        </div>
+      </ons-alert-dialog>
+    </ons-template>
+
+</ons-navigator>
+
+<script>
+
+    ons.ready(function() {
+        setTimeout(function() {
+            
+            var fb_image = "https://graph.facebook.com/"+facebook_id+"/picture?type=small";
+            console.log("fb_image("+fb_image+")");
+            $('#fb_user_picture').attr("src", fb_image);
+    
+        }, 10);
+    });
+    
+    function get_gift() {
+                
+        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+            alertDialog.show();
+        });  
+    }
+            
+    function submit_btn() {
+        tabbar.setActiveTab(0);
+    }
+</script>
