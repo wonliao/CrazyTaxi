@@ -20,41 +20,30 @@
     		</div>
     		<div class="center">首頁</div>
     	</ons-toolbar>
+        
+        <div style="clear:both; height:10px"></div>
 
         <!-- facebook 頭像及名稱 -->
         <section style="padding: 4px 16px; text-align:center;">
             <img id="fb_user_picture"/>
-            <div id="fb_name"></div>
-        </section>
-        
-        <section style="padding: 4px 16px; text-align:center;  line-height: 20px;">
-            <div style="color:#b5b2b2; font-weight:bold;">您將可獲得以下好禮任選一</div>
-            <div style="color:#b5b2b2; font-weight:bold;">*每個帳號各個獎項僅限領取一次</div>
-            <div style="color:#b5b2b2; font-weight:bold;">*查詢序號請開啟右上角選單確認</div>
-            <div style="color:#b5b2b2; font-weight:bold;">*詳細活動內容請至官方粉絲團查詢</div>
+            <div id="fb_user_name"></div>
         </section>
         
         <div style="clear:both; height:10px"></div>
-        
-        <section style="padding: 4px 16px; text-align:center;">
-            <div style="background:#acf2ff; height:110px">
-                <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
-                
-                <ons-button class="button button--large" modifier="chevron" onclick="get_gift()" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span style="font-size:18px">立即領取</span>
-                </ons-button>
-            </div>
+         
+        <section style="padding: 16px 16px; text-align:left;">
+            <div style="color:#b5b2b2;">上車地點</div>
+            <div id="input_address_div" style="color:#6b6b6b;"></div>
         </section>
         
-        <section style="padding: 4px 16px; text-align:center;">
-            <div style="background:#acf2ff; height:110px">
-                <div style="line-height:55px;">ZONE 免費電話點數500點</div>
-                
-                <ons-button class="button button--large" modifier="chevron" onclick="get_gift()" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span style="font-size:18px">立即領取</span>
-                </ons-button>
-            </div>
+        <section style="padding: 16px 16px; text-align:left;">
+            <div style="color:#b5b2b2;">下車地點</div>
+            <div id="destination_div" style="color:#6b6b6b;"></div>
         </section>
+        
+       
+        
+      
         
         <div style="clear:both; height:10px"></div>
          
@@ -96,25 +85,30 @@
     
     function showInfo() {
         
-        var key = "-KRPIJv3G6zh1KTg67JX";
+        var key = "-KRRKE0GMqPB7VvvCG23";
         
         areas.child(key).on('value', function(snapshot) {
     					
 			//console.log(snapshot.val());
-			var fb_id = snapshot.val().fb_id;               // facebook user id
-            var destination = snapshot.val().destination;	// 目的地
-			var timestamp = snapshot.val().timestamp;		// 共乘時間
-			var purpose = snapshot.val().purpose;			// 共乘目的
+			var fb_id = snapshot.val().fb_id;                   // facebook user id
+            var fb_name = snapshot.val().fb_name;               // facebook user id
+            var input_address = snapshot.val().input_address;   // 上車地點
+            var destination = snapshot.val().destination;       // 下車地點
+			var timestamp = snapshot.val().timestamp;		    // 共乘時間
+			var purpose = snapshot.val().purpose;			    // 共乘目的
 
 			var d = new Date(timestamp);
 			var time_text = d.toLocaleString();
 		    
             var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=normal";
-            console.log("fb_image("+fb_image+")");
+            //console.log("fb_image("+fb_image+")");
             $('#fb_user_picture').attr("src", fb_image);
-						
-            var fb_name = 
-						
+			$('#fb_user_name').text(fb_name);			
+            $('#input_address_div').text(input_address);
+            $('#destination_div').text(destination);
+			
+            
+            
 		});
         
     }
