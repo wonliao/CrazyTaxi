@@ -22,7 +22,11 @@
     color: #fff;
 }
 
-
+.section1 {
+    padding: 4px 16px; 
+    text-align:left;
+    line-height: 20px;
+}
 /*
 .title_btn {
     display: block;

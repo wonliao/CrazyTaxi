@@ -19,16 +19,16 @@
         var message = ""
         message +=  '<section class="section1">';
         message +=      '<ons-button class="button button--large" modifier="chevron" onclick="call_55688()" style="background:#36d0c9; border-radius:0;">';
-        message +=          '<span style="font-size:18px">播打電話叫車</span>';
+        message +=          '<span style="font-size:18px">播打電話 叫車</span>';
         message +=      '</ons-button>';
         message +=  '</section>';
-        
+        //message +=  '<div style="clear:both; height:10px"></div>';
         message +=  '<section class="section1">';
         message +=      '<ons-button class="button button--large" modifier="chevron" onclick="call_app()" style="background:#36d0c9; border-radius:0;">';
-        message +=          '<span style="font-size:18px">開啟55688APP叫車</span>';
+        message +=          '<span style="font-size:18px">開啟55688 APP 叫車</span>';
         message +=      '</ons-button>';
         message +=  '</section>';
-        
+        //message +=  '<div style="clear:both; height:10px"></div>';
         message +=  '<section class="section1">';
         message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
         message +=          '<span style="font-size:18px">取消</span>';
@@ -51,14 +51,11 @@
     function call_app() {
         
         if(ons.platform.isIOS()) {
-            
-            window.location = 'dbx.taiwantaxi://';
-            setTimeout(function() {        
-               window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
-            }, 500);
+
+            window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
         } else {
      
-               window.location = "https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW";
+            window.location = "https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW";
         }
     }
 </script>
