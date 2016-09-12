@@ -48,9 +48,12 @@
 <ons-template id="menu.html">
     <ons-list>
         <ons-list-item >
-            <img id="menu_fb_user_picture"/>
-            <span id="menu_fb_user_name"></span>
-            <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+            <img id="menu_fb_user_picture" src="https://graph.facebook.com/1389354124412945/picture?type=normal" style="width:30px; -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    BORDER: #c9c9c9 2px solid;"/>
+            <span id="menu_fb_user_name">廖志旺</span>
+            <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="checkLoginState();" style="bottom:10px; right:10px; float:right;"></fb:login-button>
         </ons-list-item>
         <ons-list-item modifier="chevron" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
             <span>活動說明</span>
@@ -81,12 +84,7 @@
 <script>
 ons.ready(function() {
     setTimeout(function() {
-
-        var facebook_id = window.localStorage.setItem("facebook_id");
-        var facebook_name = window.localStorage.setItem("facebook_name");
-        var fb_image = "https://graph.facebook.com/"+facebook_id+"/picture?type=normal";
-        $('#menu_fb_user_picture').attr("src", fb_image);
-    	$('#menu_fb_user_name').text(facebook_name);			
+			
 
     }, 10);
 });

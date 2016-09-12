@@ -105,6 +105,14 @@ $(function(){
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
         
-        console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ")");        
+        console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ")"); 
+        
+        //facebook_id = "1389354124412945";
+        //facebook_name = "廖志旺";
+        
+        var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";
+        $('#menu_fb_user_picture').attr("src", fb_image);
+        $('#menu_fb_user_name').text(response.name);
+        
     });
   }
