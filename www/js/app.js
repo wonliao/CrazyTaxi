@@ -100,8 +100,24 @@ $(function(){
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me', function(response1) {
         
+        console.log("test 1 ==> id(" + response1.id + ")");
+         
+        FB.api(
+            "/"+response1.id,
+            function (response) {
+              if (response && !response.error) {
+                /* handle the result */
+                
+                console.log("test 2 ==> id(" + response.id + ") name(" + response.name + ") email("+ response.email+") link("+response.link+") public_key("+response.public_key+") third_party_id("+response.third_party_id+")  token_for_business("+response.token_for_business+")");
+
+
+              }
+            }
+        );
+        
+        /*
         console.log("Successful login");
       
         console.log(response);
@@ -116,5 +132,6 @@ $(function(){
 
         console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.email+") link("+response.link+") public_key("+response.public_key+") third_party_id("+response.third_party_id+")  token_for_business("+response.token_for_business+")");
         //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
+        */
     });
   }
