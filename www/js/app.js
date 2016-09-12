@@ -35,12 +35,6 @@ $(function(){
 	});
     */
 
-
-    facebook_id = "";
-    facebook_name = "";
-    facebook_mail = "";
-     
-
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -108,13 +102,12 @@ $(function(){
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       console.log("Successful login");
-      
-        facebook_id = response.id;
-        facebook_name = response.name;
-        facebook_mail = response.mail;
-    
-      console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.mail+")");
-      //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-        
+
+        window.localStorage.setItem("facebook_id", response.id);
+        window.localStorage.setItem("facebook_name", response.name);
+        window.localStorage.setItem("facebook_mail", response.mail);
+
+        console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.mail+")");
+        //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
     });
   }

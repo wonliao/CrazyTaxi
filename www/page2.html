@@ -160,7 +160,9 @@
         			}
         			
         			// facebook user id
-        			area.fb_id = "12345678";
+        			area.fb_id = window.localStorage.getItem("facebook_id");
+                    area.fb_name = window.localStorage.getItem("facebook_name");
+                    area.fb_mail = window.localStorage.getItem("facebook_mail");
 
         			area.address = address;			// 上車地點
         			area.destination = destination;	// 下車地點
