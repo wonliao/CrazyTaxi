@@ -44,23 +44,12 @@
         HoldOn.open(options);
     }
     
-    function page5_click() {
-        window.open("https://www.facebook.com/55688TaiwanTaxi/?fref=ts");
-    }
-    
-    
-    function call_55688() {
-        
-        var url = "tel:55688";
-        window.location = url;
-    }
-    
     function call_app() {
         
         if(ons.platform.isIOS()) {
-            window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
+            window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
         } else {
-            window.location = "https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW";
+            window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
         }
     }
 </script>

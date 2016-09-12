@@ -52,19 +52,19 @@
             <span id="menu_fb_user_name" style="overflow:hidden; width:110px; display:inline-block; height:30px;"></span>
             <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="checkLoginState();" style="bottom:10px; right:0px; float:right;"></fb:login-button>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
+        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page4.html', {closeMenu: true})">
             <span>活動說明</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page3.html', {closeMenu: true})">
+        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page2.html', {closeMenu: true})">
             <span>刊登共乘</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page4.html', {closeMenu: true})">
+        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page6.html', {closeMenu: true})">
             <span>共乘記錄</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page5.html', {closeMenu: true})">
+        <ons-list-item modifier="chevron" onclick="page5_click()">
             <span>官方粉絲團</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page6.html', {closeMenu: true})">
+        <ons-list-item modifier="chevron" onclick="call_55688()">
             <span>55688叫車</span>
         </ons-list-item>
     </ons-list>
@@ -85,6 +85,16 @@ ons.ready(function() {
 
     }, 10);
 });
+
+function page5_click() {
+    window.open("https://www.facebook.com/55688TaiwanTaxi/?fref=ts");
+}
+
+function call_55688() {
+        
+    var url = "tel:55688";
+    window.location = url;
+}
 </script>
 
 </body>

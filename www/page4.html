@@ -1,11 +1,13 @@
 <style>
 .slider_img {
-    /*width: 90%;
-    margin: 0 auto;*/
+    margin: 0 auto;
+    height:100%;
+}
+
+.myCarousel {
+    text-align: center;
 }
 </style>
-<script src="js/jquery.bxslider.min.js"></script>
-<link href="css/jquery.bxslider.min.css" rel="stylesheet" />
 
 <ons-navigator title="Navigator" var="homeNavigator">
     <ons-page style="background:#fff;">
@@ -24,15 +26,26 @@
             </div>
         </ons-toolbar>
 
-        <ul class="bxslider">
-            <li><img src="images/s1.png" class="slider_img"/></li>
-            <li><img src="images/s2.png" class="slider_img"/></li>
-            <li><img src="images/s3.png" class="slider_img"/></li>
-            <li><img src="images/s4.png" class="slider_img"/></li>
-            <li><img src="images/s5.png" class="slider_img"/></li>
-            <li><img src="images/s6.png" class="slider_img"/></li>
-        </ul>
-        
+        <ons-carousel swipeable overscrollable auto-scroll fullscreen var="carousel">
+            <ons-carousel-item class="myCarousel">
+                <img src="images/s1.png" class="slider_img"/>
+            </ons-carousel-item>
+            <ons-carousel-item class="myCarousel">
+                <img src="images/s2.png" class="slider_img"/>
+            </ons-carousel-item>
+            <ons-carousel-item class="myCarousel">
+                <img src="images/s3.png" class="slider_img"/>
+            </ons-carousel-item>
+            <ons-carousel-item class="myCarousel">
+                <img src="images/s4.png" class="slider_img"/>
+            </ons-carousel-item>
+            <ons-carousel-item class="myCarousel">
+                <img src="images/s5.png" class="slider_img"/>
+            </ons-carousel-item>
+            <ons-carousel-item class="myCarousel">
+                <img src="images/s6.png" class="slider_img"/>
+            </ons-carousel-item>
+          </ons-carousel>
     </ons-page>
 
 </ons-navigator>
@@ -41,12 +54,7 @@
 
     ons.ready(function() {
         setTimeout(function() {
-            
-            menu.setSwipeable(false);
-            $('.bxslider').bxSlider({
-                responsive: false
-                
-            });
+
     
         }, 10);
     });
