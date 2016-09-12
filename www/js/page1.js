@@ -113,13 +113,7 @@ function init(position) {
 						map.setZoom(19);
 						map.panTo(location);
 					});
-
-								
 				});
-				
-				
-				
-				
 				//console.log(key + ' is located at [' + location + '] which is within the query (' + distance.toFixed(2) + ' km from center)');
 			});
 
@@ -135,8 +129,7 @@ function init(position) {
         
         if(isFirstTime == false) {
          	
-            console.log('Updating center to ' + center + ', radius to ' + radius + 'km');
-
+            //console.log('Updating center to ' + center + ', radius to ' + radius + 'km');
 			geoQuery.updateCriteria({
 				center: [ center.lat(), center.lng() ],
 				radius: radius,
@@ -147,13 +140,10 @@ function init(position) {
 }
 
 function openInfo() {
-	
-	console.log("openInfo 1");
  
     ons.ready(function() {
-        console.log("openInfo 2");
+
         setTimeout(function() {
-            console.log("openInfo 3");
             
             tabbar.setActiveTab(1);
     

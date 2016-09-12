@@ -89,6 +89,20 @@
             </section>
 		</form>
     
+    
+        <ons-template id="alert-dialog.html">
+          <ons-alert-dialog var="alertDialog">
+            
+            <div class="alert-dialog-content">
+                請先登入帳號
+            </div>
+            <div class="alert-dialog-footer">
+              <button class="alert-dialog-button" onClick="gotoPage1()">OK</button>
+            </div>
+          </ons-alert-dialog>
+        </ons-template>
+    
+    
     </ons-page>
 </ons-navigator>
 
@@ -97,11 +111,25 @@
 
         setTimeout(function() {
             
+            if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
+
+                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+                        alertDialog.show();
+                });
+                    
+                return;
+            }
+            
+           
+            
             $('#timepicker').wickedpicker();
             
             isFirstTime = true;
 
             $('#add').on('submit', function() {
+                
+                console.log("facebook_id("+window.localStorage.getItem("facebook_id")+")");
+                
                 
         		var address = $('input#address').val();				// 上車地點
         		var destination = $('input#destination').val();		// 下車地點
@@ -210,4 +238,9 @@
     });
 
     
+    function gotoPage1() {
+
+        alertDialog.hide();
+        tabbar.setActiveTab(0);
+    }
 </script>
