@@ -100,7 +100,7 @@ $(function(){
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response1) {
+    FB.api('/me', function(response) {
 
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
