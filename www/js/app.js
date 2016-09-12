@@ -105,9 +105,9 @@ $(function(){
 
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
-        window.localStorage.setItem("facebook_mail", response.mail);
+        window.localStorage.setItem("facebook_mail", response.email);
 
-        console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.mail+") business_id("+response.business_id+")");
+        console.log("id(" + response.id + ") name(" + response.name + ") email("+ response.email+") link("+response.link+") public_key("+response.public_key+") third_party_id("+response.third_party_id+")  token_for_business("+response.token_for_business+")");
         //document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
     });
   }
