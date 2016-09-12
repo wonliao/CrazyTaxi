@@ -1,6 +1,8 @@
 $(function(){
 
-	var options = {
+    isFirstTime = true;
+
+    var options = {
 	  enableHighAccuracy: false,
 	  timeout: 10000,
 	  maximumAge: 10 * 60 * 1000
@@ -64,9 +66,10 @@ function init(position) {
 		var corner = bounds.getNorthEast();
 		var radius = GeoFire.distance([center.lat(), center.lng()], [corner.lat(), corner.lng()]);
 
-
-		if(isFirstTime == true) {
-
+        if(isFirstTime == true) {
+            
+            console.log('isFirstTime('+isFirstTime+')');
+    	
             isFirstTime = false;
 			//console.log('Creating new GeoFire query with center at ' + center + ', radius of ' + radius + 'km');
 

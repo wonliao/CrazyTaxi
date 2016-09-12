@@ -17,6 +17,12 @@
 .navigation-bar {
     background:#36d0c9;
 }
+
+.toolbar-button, .toolbar-button--outline, .toolbar-button--quiet {
+    color: #fff;
+}
+
+
 /*
 .title_btn {
     display: block;

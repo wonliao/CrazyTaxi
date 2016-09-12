@@ -1,5 +1,4 @@
 <style>
-
 #fb_user_picture {
     -webkit-border-radius: 60px;
     -moz-border-radius: 60px;
@@ -12,16 +11,17 @@
     text-align:left;
     line-height: 20px;
 }
-
 </style>
 
 <ons-page style="background:#fff;">
 
     <ons-toolbar>
-        <div class="left" style="line-height: 44px">
-            <ons-back-button>Back</ons-back-button>
+        <div class="left" style="line-height: 44px;">
+            <ons-back-button></ons-back-button>
         </div>
-        <div class="center">Title</div>
+        <div class="center">
+            <img src="images/go2gether.png" style="height:32px;"/>
+        </div>
         <div class="right" style="line-height: 44px">
             <ons-toolbar-button ng-click="menu.toggleMenu()">
         		<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
@@ -63,11 +63,7 @@
             <div style="color:#b5b2b2;">備註</div>
             <div id="note_div" style="color:#6b6b6b;"></div>
         </section>
-        
-       
-        
-      
-        
+
         <div style="clear:both; height:10px"></div>
          
         <section style="padding: 4px 16px; text-align:center;">
