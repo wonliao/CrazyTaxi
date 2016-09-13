@@ -91,7 +91,7 @@
                 <input type="submit" value="確定" class="btn btn-default submit_btn">
             </section>
 		</form>
-
+<!--
         <ons-template id="alert-dialog.html">
             <ons-alert-dialog var="alertDialog">
                 <div class="alert-dialog-content">
@@ -102,7 +102,7 @@
                 </div>
             </ons-alert-dialog>
         </ons-template>
-
+-->
     </ons-page>
 </ons-navigator>
 
@@ -113,11 +113,30 @@
             
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-
+                /*
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
                         alertDialog.show();
                 });
-                    
+                */
+                
+                ons.notification.confirm({
+                    message: '登入帳號',
+                    modifier: undefined,
+                    callback: function(idx) {
+                        switch (idx) {
+                        case 0:
+                            console.log("Cancel");
+                            gotoPage1();
+                            break;
+                        case 1:
+                            console.log("OK");
+                            checkLoginState();
+                            
+                            break;
+                        }
+                    }
+                });
+                
                 return;
             }
             
