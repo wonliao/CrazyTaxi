@@ -100,7 +100,7 @@ function init(position) {
 						
 						//console.log(snapshot.val());
 						var destination = snapshot.val().destination;	// 目的地
-						var timestamp = snapshot.val().timestamp;		// 共乘時間
+						var timestamp = snapshot.val().appointment;		// 共乘時間
 						var purpose = snapshot.val().purpose;			// 共乘目的
 						
 						var d = new Date(timestamp);

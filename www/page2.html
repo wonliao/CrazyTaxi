@@ -2,13 +2,11 @@
     .radio_box li  {
         display: block;
         float: left;
-        /*width: 33%;*/
         margin-right:10px;
     }
     
     .radio_box li label {
         margin-left:5px;
-        /*font-size: 14px;*/
     }
     .text-input {
         border-radius:0;
@@ -58,16 +56,16 @@
                 <input type="text" class="text-input" ng-model="destination" placeholder="請輸入下車地點" id="destination" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="startDate" data-role="date" required>
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" id="timepicker" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="startTime" required>
+                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" required>
+                <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
             </section>
             
             <div style="clear:both; height:10px"></div>
@@ -112,7 +110,7 @@
     ons.ready(function() {
 
         setTimeout(function() {
-            /*
+            
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -122,8 +120,8 @@
                     
                 return;
             }
-            */
-           
+
+            $("#datepicker").datepicker();
             
             $('#timepicker').wickedpicker();
             
@@ -134,13 +132,13 @@
                 console.log("facebook_id("+window.localStorage.getItem("facebook_id")+")");
                 
                 
-        		var address = $('input#address').val();				// 上車地點
-        		var destination = $('input#destination').val();		// 下車地點
-        		var startDate = $('input#startDate').val();			// 出發日期
-        		var startTime = $('input#startTime').val();			// 出發時間
+        		var address = $('input#address').val();				    // 上車地點
+        		var destination = $('input#destination').val();		    // 下車地點
+        		var startDate = $('input#datepicker').val();			// 出發日期
+        		var startTime = $('input#timepicker').val();			// 出發時間
         		var phones = $('input#phones').val();					// 手機號碼
         		var note = $('input#note').val();						// 備註
-        		var purpose = $('input[name=purpose]:checked').val();		// 共乘目的
+        		var purpose = $('input[name=purpose]:checked').val();	// 共乘目的
         		
         		console.log("address("+address+")");
         		console.log("destination("+destination+")");
@@ -189,7 +187,7 @@
         					area.country = c.short_name;
         				}
         			}
-        			
+
         			// facebook user id
         			area.fb_id = window.localStorage.getItem("facebook_id");
                     area.fb_name = window.localStorage.getItem("facebook_name");
@@ -200,40 +198,53 @@
         			area.phones = phones;				// 手機號碼
         			area.note = note;					// 備註
         			area.purpose = purpose;			    // 共乘目的
-        			
+
         			// 建立時間
         			var d = new Date();
         			area.timestamp = d.getTime();
-        			
-        			// 預約時間
-        			d.setHours(d.getHours() + 1);
-        			area.Appointment = d.getTime();
-        			
-        			// 過期時間 = 預約時間 + 10分鐘
-        			d.setMinutes(d.getMinutes() + 10);
+
+                    // 時間處理
+                    date_txt = startDate.replace(/\//g,"-");
+                    //console.log("startDate("+startDate+")");
+
+                    var words = startTime.split(' ');
+                    var hours = words[0];
+                    var minutes = words[2];
+                    var am_pm = words[3];
+                    if(am_pm == "PM")   hours = Math.floor(hours) + 12;
+                    var time_txt = hours+":"+minutes+":00";
+                    var txt = date_txt + " " + time_txt;
+                    var d = new Date(txt);
+
+                    // 預約時間
+                    area.appointment = d.getTime();
+
+                    // 過期時間 = 預約時間 + 10分鐘
+                    d.setMinutes(d.getMinutes() + 10);
         			area.expired_time = d.getTime();
 
+                    console.log("appointment("+d.toString()+") expired_time("+d.toString()+")");
+
         			if (!area.address && point_of_interest) area.address = point_of_interest;
-        			
+
         			//persist to firebase
         			var area_id = firebase.database().ref().child('areas').push().key;
         			var updates = {};
         			updates['/areas/' + area_id] = area;
         			firebase.database().ref().update(updates);
-        
+
         			//geofire
         			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
         				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
         			});
-        			
+
         			//clean up form
         			$('form#add').trigger('reset');
 
                     // 跳至完成刊登頁
                     homeNavigator.pushPage("page2_success.html", {animation: 'slide'});
-                    
         		});
-        		
+
                return false;
             });	
             
@@ -245,4 +256,19 @@
         alertDialog.hide();
         tabbar.setActiveTab(0);
     }
+    
+    function stringToDate(_date,_format,_delimiter)
+    {
+        var formatLowerCase=_format.toLowerCase();
+        var formatItems=formatLowerCase.split(_delimiter);
+        var dateItems=_date.split(_delimiter);
+        var monthIndex=formatItems.indexOf("mm");
+        var dayIndex=formatItems.indexOf("dd");
+        var yearIndex=formatItems.indexOf("yyyy");
+        var month=parseInt(dateItems[monthIndex]);
+        month-=1;
+        var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+        return formatedDate;
+    }
+
 </script>

@@ -104,10 +104,10 @@
             var fb_name = snapshot.val().fb_name;               // facebook user name
             var input_address = snapshot.val().input_address;   // 上車地點
             var destination = snapshot.val().destination;       // 下車地點
-			var timestamp = snapshot.val().timestamp;		    // 共乘時間
+			var timestamp = snapshot.val().appointment;		    // 共乘時間
 			var purpose = snapshot.val().purpose;			    // 共乘目的
             var note = snapshot.val().note;    		            // 備註
-            phones = snapshot.val().phones;        	        // 手機
+            phones = snapshot.val().phones;        	            // 手機
 
 			var d = new Date(timestamp);
 			var time_text = d.toLocaleString();

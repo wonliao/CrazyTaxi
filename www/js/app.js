@@ -1,7 +1,7 @@
 ons.bootstrap();
 
 $(function(){
-   HoldOn.open({message:"定位中，請稍候"});
+   //HoldOn.open({message:"定位中，請稍候"});
 });
 
 // Initialize the Firebase SDK
