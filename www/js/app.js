@@ -5,6 +5,7 @@ $(function(){
     HoldOn.open({message:"定位中，請稍候"});
     window.localStorage.setItem("facebook_id", "");
     window.localStorage.setItem("facebook_name", "");
+    window.localStorage.setItem("facebook_email", "");
 });
 
 
@@ -89,6 +90,7 @@ window.fbAsyncInit = function() {
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
     });
+    
 };
 
 // Load the SDK asynchronously
@@ -104,22 +106,15 @@ window.fbAsyncInit = function() {
 // successful.  See statusChangeCallback() for when this call is made.
 function testAPI() {
     
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me?fields=email,name', function(response) {
 
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
-        
-        console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ")("+response.authResponse.userID+")"); 
-        
-        //facebook_id = "1389354124412945";
-        //facebook_name = "廖志旺";
+        window.localStorage.setItem("facebook_email", response.email);
+        console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
         
         var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";
         $('#menu_fb_user_picture').attr("src", fb_image).show();
         $('#menu_fb_user_name').text(response.name);
-        
-        
-        
     });
 }
