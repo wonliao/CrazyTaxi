@@ -1,8 +1,8 @@
 ons.bootstrap();
 
 $(function(){
-   HoldOn.open({message:"定位中，請稍候"});
 
+    HoldOn.open({message:"定位中，請稍候"});
     window.localStorage.setItem("facebook_id", "");
     window.localStorage.setItem("facebook_name", "");
 });

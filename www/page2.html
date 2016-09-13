@@ -120,9 +120,23 @@
                     
                 return;
             }
+            
+            var latlng = window.localStorage.getItem("center");
+            // 依經緯度查地址
+            $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+            		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+        			latlng: latlng,
+                    location_type: "ROOFTOP",
+                    result_type: "street_address"
+        		}, function(data) {
+                    console.log(data);
+                    var formatted_address = data.results[0].formatted_address;
+                    console.log("formatted_address("+formatted_address+")");
+                    $("#address").val(formatted_address);
+        		}
+            );
 
             $("#datepicker").datepicker();
-            
             $('#timepicker').wickedpicker();
             
             isFirstTime = true;

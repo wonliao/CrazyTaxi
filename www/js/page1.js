@@ -3,7 +3,7 @@ $(function(){
     isFirstTime = true;
 
     var options = {
-	  enableHighAccuracy: true,     // 高精度定位
+	  enableHighAccuracy: false,     // 高精度定位
 	  timeout: 10000,               // 10秒 timeout
 	  maximumAge: 3 * 60 * 1000     // 暫存3分鐘
 	};
@@ -61,6 +61,8 @@ function init(position) {
 		var bounds = map.getBounds();
 		var center = map.getCenter();
 		//console.log("lat("+center.lat()+") lng("+center.lng()+")");
+        window.localStorage.setItem("center", center.lat()+","+center.lng());
+        
 		
 		var corner = bounds.getNorthEast();
 		var radius = GeoFire.distance([center.lat(), center.lng()], [corner.lat(), corner.lng()]);
