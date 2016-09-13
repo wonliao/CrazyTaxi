@@ -212,7 +212,7 @@
         			d.setHours(d.getHours() + 1);
         			area.Appointment = d.getTime();
         			
-        			// 過期時間 = 預約時間 + 10秒
+        			// 過期時間 = 預約時間 + 10分鐘
         			d.setMinutes(d.getMinutes() + 10);
         			area.expired_time = d.getTime();
 
