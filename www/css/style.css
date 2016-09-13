@@ -27,6 +27,13 @@
     text-align:left;
     line-height: 20px;
 }
+
+.pop_message {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 /*
 .title_btn {
     display: block;

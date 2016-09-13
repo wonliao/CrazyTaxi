@@ -37,8 +37,8 @@
     width:100%;
     text-align: center;
     position: absolute;
-    /*top: 55%;*/
-    bottom: 0;
+    top: 55%;
+    /*bottom: 0;*/
     color:white;
 }
 /*Start SK-RECT Theme*/
@@ -51,7 +51,7 @@
 }
 
 .sk-rect > div {
-  background-color: #333;
+  background-color: #fff;
   height: 100%;
   width: 6px;
   display: inline-block;

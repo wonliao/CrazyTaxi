@@ -2,10 +2,10 @@
    
     <ons-page>
 		<ons-tabbar position="bottom" var="tabbar">
-			<ons-tabbar-item page="page1.html" icon="fa-home" ></ons-tabbar-item>
+			<ons-tabbar-item page="page1.html" icon="fa-home" active="true"></ons-tabbar-item>
 			<ons-tabbar-item page="page2.html" icon="fa-users" ></ons-tabbar-item>
             <ons-tabbar-item icon="fa-phone" onClick="page3_click()"></ons-tabbar-item>
-    		<ons-tabbar-item page="page6.html" icon="fa-question" active="true"></ons-tabbar-item>
+    		<ons-tabbar-item page="page4.html" icon="fa-question" ></ons-tabbar-item>
             <ons-tabbar-item icon="fa-facebook-square" onClick="page5_click()"></ons-tabbar-item>
 		</ons-tabbar>
 	</ons-page>
@@ -17,6 +17,7 @@
         console.log("page3_click");
         
         var message = ""
+        message +=  '<div class="pop_message">';
         message +=  '<section class="section1">';
         message +=      '<ons-button class="button button--large" modifier="chevron" onclick="call_55688()" style="background:#36d0c9; border-radius:0;">';
         message +=          '<span style="font-size:18px">播打電話 叫車</span>';
@@ -34,12 +35,14 @@
         message +=          '<span style="font-size:18px">取消</span>';
         message +=      '</ons-button>';
         message +=  '</section>';
+        message +=  '</div>';
         
         var options = {
              theme: "custom",
              message: message,
              textColor: "white"
         };
+        
         
         HoldOn.open(options);
     }

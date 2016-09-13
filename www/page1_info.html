@@ -127,6 +127,7 @@
     function contact_btn() {
         
         var message = "";
+            message +=  '<div class="pop_message">';
             message +=  '<section class="section1">';
             message +=      '<ons-button class="button button--large" modifier="chevron" onclick="fb_messenger_btn()" style="background:#36d0c9; border-radius:0;">';
             message +=          '<span style="font-size:18px">Facebook messenger 聯繫</span>';
@@ -144,6 +145,7 @@
             message +=          '<span style="font-size:18px">取消</span>';
             message +=      '</ons-button>';
             message +=  '</section>';
+            message +=  '</div>';
             
         options = {
             theme: "custom",

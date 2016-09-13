@@ -93,21 +93,18 @@
                 <input type="submit" value="確定" class="btn btn-default submit_btn">
             </section>
 		</form>
-    
-    
+
         <ons-template id="alert-dialog.html">
-          <ons-alert-dialog var="alertDialog">
-            
-            <div class="alert-dialog-content">
-                請先登入帳號
-            </div>
-            <div class="alert-dialog-footer">
-              <button class="alert-dialog-button" onClick="gotoPage1()">OK</button>
-            </div>
-          </ons-alert-dialog>
+            <ons-alert-dialog var="alertDialog">
+                <div class="alert-dialog-content">
+                    請先登入帳號
+                </div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button" onClick="gotoPage1()">OK</button>
+                </div>
+            </ons-alert-dialog>
         </ons-template>
-    
-    
+
     </ons-page>
 </ons-navigator>
 
@@ -242,7 +239,6 @@
             
         }, 10);
     });
-
     
     function gotoPage1() {
 

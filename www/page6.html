@@ -63,25 +63,45 @@
             </div>
         </div>
 
+        <ons-template id="alert-dialog.html">
+            <ons-alert-dialog var="alertDialog">
+                <div class="alert-dialog-content">
+                    請先登入帳號
+                </div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button" onClick="gotoPage1()">OK</button>
+                </div>
+            </ons-alert-dialog>
+        </ons-template>
 
-        
     </ons-page>
-
 </ons-navigator>
 
 <script>
 
     ons.ready(function() {
         setTimeout(function() {
+            
+            
+            // 檢查 facebook 是否已登入
+            if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
+
+                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+                    alertDialog.show();
+                });
+                    
+                return;
+            }
+            
 
             var fb_id = window.localStorage.getItem("facebook_id");
-            console.log("page6 ==> fb_id("+fb_id+")");
-            fb_id = "1389354124412945";
+            //console.log("page6 ==> fb_id("+fb_id+")");
+            //fb_id = "1389354124412945";
 
             // 預約記錄
             areas.orderByChild("fb_id").equalTo(fb_id).on("child_added", function(snapshot) {
 
-                console.log(snapshot.val());
+                //console.log(snapshot.val());
                 
                 // 時間
                 var d1 = new Date(snapshot.val().timestamp);
@@ -102,43 +122,24 @@
 
                 var d = new Date();
                 var now_text = d.toLocaleString();
-                console.log("time_text("+time_text+") expired_time_text("+expired_time_text+") now_text("+now_text+")");
-                console.log("t1("+d.getTime()+") t2("+d2.getTime()+") diff("+(d-d2)+")");
+                //console.log("time_text("+time_text+") expired_time_text("+expired_time_text+") now_text("+now_text+")");
+                //console.log("t1("+d.getTime()+") t2("+d2.getTime()+") diff("+(d-d2)+")");
                 
                 if(d.getTime() < d2.getTime()) {
-                    console.log("預約");
                     $('#reserve').append(text);
                 } else {
-                    console.log("歷史");
                     // 過期
-                    $('#history').append(text);
-                    
+                    $('#history').append(text);     
                 }
             });
-            
-            /*
-             // 歷程記錄
-            areas.orderByChild("fb_id").equalTo(fb_id).on("child_added", function(snapshot) {
-                
-                console.log(snapshot.val());
-                
-                var d = new Date(snapshot.val().timestamp);
-        		var time_text = d.toLocaleString();
-				        
-                var text = "";
-                text += '<div style="clear:both; height:10px"></div>';
-                text += '<section class="mySection">';
-                text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
-                text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
-                text +=     '<div><span class="text1">時間</span><span class="text2">'+time_text+'</span></div>';
-                text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
-                text += '</section>';
-                
-                $('#history').append(text);
-            }); 
-            */
-    
         }, 10);
     });
+    
+    function gotoPage1() {
+
+        alertDialog.hide();
+        HoldOn.open({message:"定位中，請稍候"});
+        tabbar.setActiveTab(0);
+    }
     
 </script>
