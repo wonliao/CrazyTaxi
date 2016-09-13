@@ -28,7 +28,7 @@ var areas = firebase.database().ref('areas');
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
     
-    $('#menu_fb_user_picture').attr("src", "");
+    $('#menu_fb_user_picture').attr("src", "").hide();
     $('#menu_fb_user_name').text("");
     
     console.log('statusChangeCallback');
@@ -109,7 +109,7 @@ function testAPI() {
         //facebook_name = "廖志旺";
         
         var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";
-        $('#menu_fb_user_picture').attr("src", fb_image);
+        $('#menu_fb_user_picture').attr("src", fb_image).show();
         $('#menu_fb_user_name').text(response.name);
     });
 }
