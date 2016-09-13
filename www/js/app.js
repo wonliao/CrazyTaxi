@@ -108,17 +108,16 @@ function testAPI() {
     
     FB.api('/me?fields=email,name', function(response) {
 
-
         var url = "backend/get_fb_user_id.php?user_id="+response.id;
         $.getJSON(url, {}, function(data) {
-        
-            console.log(data.data);
+
+            window.localStorage.setItem("facebook_id", data.data.id);
+            console.log("facebook user_id("+data.data.id+")");
         });
 
-        window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
         window.localStorage.setItem("facebook_email", response.email);
-        console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
+        console.log("Facebook Successful login ==> name(" + response.name + ") email("+response.email+")"); 
         
         var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";
         $('#menu_fb_user_picture').attr("src", fb_image).show();
