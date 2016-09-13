@@ -3,7 +3,7 @@ $(function(){
     isFirstTime = true;
 
     var options = {
-	  enableHighAccuracy: false,     // 高精度定位
+	  enableHighAccuracy: true,     // 高精度定位
 	  timeout: 10000,               // 10秒 timeout
 	  maximumAge: 3 * 60 * 1000     // 暫存3分鐘
 	};
