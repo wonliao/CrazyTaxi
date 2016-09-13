@@ -98,7 +98,7 @@
                     請先登入帳號
                 </div>
                 <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button" onClick="gotoPage1()">OK</button>
+                    <button class="alert-dialog-button" onClick="gotoHome()">OK</button>
                 </div>
             </ons-alert-dialog>
         </ons-template>
@@ -251,8 +251,8 @@
         }, 10);
     });
     
-    function gotoPage1() {
-
+    function gotoHome() {
+        console.log("gotoPage1");
         alertDialog.hide();
         tabbar.setActiveTab(0);
     }
