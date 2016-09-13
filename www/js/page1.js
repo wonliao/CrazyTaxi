@@ -3,9 +3,9 @@ $(function(){
     isFirstTime = true;
 
     var options = {
-	  enableHighAccuracy: false,
-	  timeout: 10000,
-	  maximumAge: 10 * 60 * 1000
+	  enableHighAccuracy: true,     // 高精度定位
+	  timeout: 10000,               // 10秒 timeout
+	  maximumAge: 3 * 60 * 1000     // 暫存3分鐘
 	};
 	
 	function success(pos) {
@@ -33,7 +33,6 @@ $(function(){
 	
 
 function init(position) {
-    console.log('test2');
     
 	var infowindow = new google.maps.InfoWindow({
 		content: ""

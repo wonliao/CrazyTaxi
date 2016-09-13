@@ -69,7 +69,7 @@
                     請先登入帳號
                 </div>
                 <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button" onClick="gotoPage1()">OK</button>
+                    <button class="alert-dialog-button" onClick="needLogin()">OK</button>
                 </div>
             </ons-alert-dialog>
         </ons-template>
@@ -81,8 +81,7 @@
 
     ons.ready(function() {
         setTimeout(function() {
-            
-            
+
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -92,7 +91,6 @@
                     
                 return;
             }
-            
 
             var fb_id = window.localStorage.getItem("facebook_id");
             //console.log("page6 ==> fb_id("+fb_id+")");
@@ -135,11 +133,11 @@
         }, 10);
     });
     
-    function gotoPage1() {
-
+    function needLogin() {
+        
+        console.log("needLogin");
         alertDialog.hide();
-        HoldOn.open({message:"定位中，請稍候"});
-        tabbar.setActiveTab(0);
+        gotoPage1();
     }
     
 </script>

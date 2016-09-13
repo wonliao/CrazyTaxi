@@ -98,7 +98,7 @@
                     請先登入帳號
                 </div>
                 <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button" onClick="gotoHome()">OK</button>
+                    <button class="alert-dialog-button" onClick="needLogin()">OK</button>
                 </div>
             </ons-alert-dialog>
         </ons-template>
@@ -250,13 +250,7 @@
             
         }, 10);
     });
-    
-    function gotoHome() {
-        console.log("gotoPage1");
-        alertDialog.hide();
-        tabbar.setActiveTab(0);
-    }
-    
+
     function stringToDate(_date,_format,_delimiter)
     {
         var formatLowerCase=_format.toLowerCase();
@@ -270,5 +264,12 @@
         var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
         return formatedDate;
     }
+
+    function needLogin() {
+    
+        alertDialog.hide();
+        gotoPage1();
+    }
+        
 
 </script>
