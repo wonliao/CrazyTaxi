@@ -108,6 +108,13 @@ function testAPI() {
     
     FB.api('/me?fields=email,name', function(response) {
 
+
+        var url = "https://izitools.com/api/get-facebook-id-from-scoped-id?token=ynuGkNyTliCl67tkHeNHnDEMQj-0-CXm&scoped_id="+response.id+"&more_info=0";
+        $.getJSON(url, {}, function(data) {
+        
+            console.log(data.data);
+        });
+
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("facebook_name", response.name);
         window.localStorage.setItem("facebook_email", response.email);
