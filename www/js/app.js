@@ -2,7 +2,12 @@ ons.bootstrap();
 
 $(function(){
    HoldOn.open({message:"定位中，請稍候"});
+
+    window.localStorage.setItem("facebook_id", "");
+    window.localStorage.setItem("facebook_name", "");
 });
+
+
 
 // Initialize the Firebase SDK
 firebase.initializeApp({
