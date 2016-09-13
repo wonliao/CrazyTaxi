@@ -1,12 +1,12 @@
 $(function(){
-	
 
 	var options = {
-	  enableHighAccuracy: true,
-	  timeout: 5000,
-	  maximumAge: 0
+      enableHighAccuracy: false,     // 高精度定位
+	  timeout: 10000,               // 10秒 timeout
+	  maximumAge: 30 * 60 * 1000     // 暫存30分鐘
 	};
-	
+    
+    
 	function success(pos) {
 	  var crd = pos.coords;
 	
