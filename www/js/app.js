@@ -45,7 +45,7 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         
-        console.log("Your UID is " + response.authResponse.userID);
+        //console.log("Your UID is " + response.authResponse.userID);
         testAPI();
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
@@ -61,42 +61,7 @@ function statusChangeCallback(response) {
 // code below.
 function checkLoginState() {
     FB.getLoginStatus(function(response) {
-        //statusChangeCallback(response);
-        
-    if (!response.session) {
-        //initiate FB OAuth js popup dialog
-        FB.ui({
-            method: 'oauth',
-            display: 'page',
-            scope: 'email',
-            perms: 'email'
-        },
-        function(response) {
-            if (response.session) { //if permission Allowed
-                var thesession = response.session;
-                var thesession = eval('(' + thesession + ')'); //decode json
-                //POSTing to local file get.user_graph.php, to fetch user info
-                $.ajax({
-                    type: "POST",
-                    url: "get.user_graph.php",
-                    data: "client_id=<?php echo $appId; ?>&client_secret=<?php echo $secret; ?>&sessions="+thesession.session_key+"&type=client_cred&uid="+thesession.uid,
-                    dataType: "text",
-                    success: function(user_graph){
-                        var user_graph1 = eval('('+user_graph+')');
-                        alert(user_graph1.name); //users name
-                        alert(user_graph1.id); //users id
-                        alert(user_graph1.email); //users email
-                        alert(user_graph1.link); //users profile link
-                    }
-                });
-            } else {
-                //if permission Not Allowed
-            }
-        });
-    }
-        
-        
-        
+        statusChangeCallback(response);
     });
 }
 
