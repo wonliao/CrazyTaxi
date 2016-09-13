@@ -46,10 +46,12 @@ function init(position) {
 		streetViewControl: false,
 	});
 
+    /*
 	var marker = new google.maps.Marker({
 		position: {lat: position.coords.latitude, lng: position.coords.longitude},
 		map: map
 	});
+    */
 
 	var markers = {};
 
