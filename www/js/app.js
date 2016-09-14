@@ -116,7 +116,7 @@ function testAPI() {
 
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
         console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
-        if(old_fb_id == "") {
+        if(old_fb_id == "" || old_fb_id == null) {
 
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
             console.log("url("+url+")");
