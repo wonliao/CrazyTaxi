@@ -44,5 +44,5 @@
   <preference name="Fullscreen" value="false"/>
   <allow-intent href="https://maps.googleapis.com"/>
   <preference name="WindowsStorePublisherName" value="My Name"/>
-  <preference name="WindowsStoreIdentityName" value="55c138df-1c5f-cbde-59f3-067c8d5ab613"/>
+  <preference name="WindowsStoreIdentityName" value="a356a022-3035-0c5f-b389-7167b24fc9d0"/>
 </widget>

@@ -109,17 +109,14 @@ function testAPI() {
     FB.api('/me?fields=email,name', function(response) {
         
         var fb_id = response.id;
-        window.localStorage.setItem("facebook_id", fb_id);
+        //window.localStorage.setItem("facebook_id", fb_id);
         window.localStorage.setItem("facebook_name", response.name);
         window.localStorage.setItem("facebook_email", response.email);
         console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
 
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
-        
         console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
-        if(old_fb_id == "" || old_fb_id != fb_id) {
-            
-            console.log("test1");
+        if(old_fb_id == "") {
 
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
             console.log("url("+url+")");
@@ -130,6 +127,11 @@ function testAPI() {
                 window.localStorage.setItem("old_facebook_id", new_fb_id);
                 console.log("test 2 ==> new_fb_id("+new_fb_id+")");
             });
+        } else {
+
+            var old_fb_id = window.localStorage.setItem("old_facebook_id");
+            window.localStorage.setItem("facebook_id", old_fb_id);
+            console.log("test 1 ==> facebook_id("+old_fb_id+")");
         }
                 
         var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";
