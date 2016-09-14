@@ -120,19 +120,16 @@ function testAPI() {
         if(old_fb_id == "" || old_fb_id != fb_id) {
             
             console.log("test1");
-            old_fb_id = fb_id;
-            window.localStorage.setItem("old_facebook_id", old_fb_id);
-            
-            
-            /*
+
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
             console.log("url("+url+")");
             $.getJSON(url, {}, function(data) {
                 
-                window.localStorage.setItem("facebook_id", data.data.id);
-                console.log("facebook user_id("+data.data.id+")");
+                var new_fb_id = data.data.id;
+                window.localStorage.setItem("facebook_id", new_fb_id);
+                window.localStorage.setItem("old_facebook_id", new_fb_id);
+                console.log("test 2 ==> new_fb_id("+new_fb_id+")");
             });
-            */
         }
                 
         var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";
