@@ -131,7 +131,7 @@ function testAPI() {
         } else {
 
             console.log("test2");
-            var old_fb_id = window.localStorage.setItem("old_facebook_id");
+            var old_fb_id = window.localStorage.getItem("old_facebook_id");
             window.localStorage.setItem("facebook_id", old_fb_id);
             console.log("facebook_id("+old_fb_id+")");
         }
