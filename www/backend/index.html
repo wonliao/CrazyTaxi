@@ -6,27 +6,47 @@
 		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 		<script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc"></script>
-		<script src="./main.js"></script>
+		<script src="main.js" charset="UTF-8" ></script>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 		<link href="./main.css" rel="stylesheet">
-		
+        
+        
+        <script src="jquery.paginate.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+        
+        <script src="../lib/angular/angular.js"></script>
+        
 		<style>
         .checkbox-grid li {
             display: block;
             float: left;
             width: 33%;
         }
+		.pagedemo{
+				border: 1px solid #CCC;
+				width:310px;
+				margin:2px;
+                padding:50px 10px;
+                text-align:center;
+				background-color:white;	
+			}
         </style>
     </head>
 
 	<body>
-		
-       <div id="map"></div>
+    
+    <div id="paginationdemo" class="demo">
+        <h1>Demo 5</h1>
+        
+        <div id="demo5"></div>
+        <ul id="areas" class="list-group"></ul>
+    </div>
 
-		<div id="side">
-			<ul id="areas" class="list-group"></ul>
-		</div>
+        
+        <!--    
+		<ul id="areas" class="list-group"></ul>
+		-->
+	
 
 	</body>
 </html>
