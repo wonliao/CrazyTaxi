@@ -20,8 +20,6 @@ $(document).ready(function(e) {
 	// 建立測試資料
 	//setTestData();
 	
-	$ul = $('ul#areas');
-	
 	/*
 	areas.orderByChild('priority').on('child_added', function(snapshot) {
 		
@@ -38,7 +36,7 @@ $(document).ready(function(e) {
   		
 		//var count = snapshot.numChildren();
 		//console.log("count("+count+")");
-		
+		console.log("won test ");
 		snapshot.forEach(function(data) {
 			keys.push(data.val().priority);
 			//console.log("key("+data.key+")");	
@@ -59,6 +57,7 @@ $(document).ready(function(e) {
 	$('ul.list-group').on('click', 'i', function(e){
 		e.stopPropagation();
 		var area_id = $(this).parent().attr('data-id');
+		console.log("area_id("+area_id+")");
 		areas.child(area_id).remove();
 	});
 
@@ -75,7 +74,9 @@ function setPaginate() {
 	
 	//console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
 	
-	$("#demo5").paginate({
+	$ul = $('ul#areas');
+	
+	$("#pagination_div").paginate({
 		count 		: count,
 		start 		: 1,
 		display    : display,
@@ -96,7 +97,7 @@ function setPaginate() {
 									var key = keys[index];
 									console.log("page("+page+") index("+index+") key("+key+")");
 								  	
-									areas.orderByChild('priority').startAt(key).limitToFirst(one_page_item).on("value", function(data) {
+									areas.orderByChild('priority').startAt(key).limitToFirst(one_page_item).once("value", function(data) {
 									
 										data.forEach(function(snapshot) {
 											//console.log("ke("+snapshot.key+")"+ snapshot.val().address);
