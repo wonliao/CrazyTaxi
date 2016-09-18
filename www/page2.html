@@ -330,7 +330,8 @@
         players.child(key).once('value', function(snapshot) {
             
             console.log("won test 1");
-            if(snapshot) {
+            if(snapshot.exists() == true) {
+                
                 console.log("won test 2");
                 var enable = snapshot.val().enable;
                 var name = snapshot.val().name;
