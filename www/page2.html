@@ -286,6 +286,7 @@
                     var fb_player = {name: ""};
                     fb_player.name = window.localStorage.getItem("facebook_name");
                     fb_player.enable = true;
+                    fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );        // 排序用
                     var player_updates = {};
                     player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
             		firebase.database().ref().update(player_updates);
