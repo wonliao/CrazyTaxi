@@ -95,18 +95,7 @@
         <ons-template id="alert-dialog.html">
             <ons-alert-dialog var="alertDialog">
                 <div class="alert-dialog-content">
-                    請先登入帳號
-                </div>
-                <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button" onClick="needLogin()">OK</button>
-                </div>
-            </ons-alert-dialog>
-        </ons-template>
-        
-        <ons-template id="alert-disable-dialog.html">
-            <ons-alert-dialog var="alertDialog">
-                <div class="alert-dialog-content">
-                    你被禁止刊登，請稍候再試，謝謝!
+                    <span id="alertDialogText">請先登入帳號</span>
                 </div>
                 <div class="alert-dialog-footer">
                     <button class="alert-dialog-button" onClick="needLogin()">OK</button>
@@ -126,7 +115,8 @@
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
                 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-                        alertDialog.show();
+                    $('#alertDialogText').text("請先登入帳號");
+                    alertDialog.show();
                 });
                 
                 /*
@@ -344,7 +334,8 @@
             if(enable != true) {
             
                 console.log("enable true");
-                ons.createAlertDialog('alert-disable-dialog.html').then(function(alertDialog) {
+                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+                    $('#alertDialogText').text("你被禁止刊登，請稍候再試，謝謝!");
                     alertDialog.show();
                 });
             } else {
