@@ -342,7 +342,7 @@
         var key = window.localStorage.getItem("facebook_id");
         
         
-        players.child(key).on('value', function(snapshot) {
+        players.child(key).once('value', function(snapshot) {
             
             var enable = snapshot.val().enable;
             var name = snapshot.val().name;
