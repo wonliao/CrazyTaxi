@@ -115,7 +115,7 @@
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
                 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-                    $('#alertDialogText').text("請先登入帳號");
+                    $('#alertDialogText').html("請先登入帳號");
                     alertDialog.show();
                 });
                 
