@@ -326,24 +326,26 @@
         
         console.log("is_fb_player_enable ==> facebook_id("+window.localStorage.getItem("facebook_id")+")");
         var key = window.localStorage.getItem("facebook_id");
-        
-        
+
         players.child(key).once('value', function(snapshot) {
             
-            console.log("won test");
-            var enable = snapshot.val().enable;
-            var name = snapshot.val().name;
-            console.log("enable("+enable+") name("+name+")");
-            
-            if(enable != true) {
-            
-                console.log("enable true");
-                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-                    $('#alertDialogText').html("你被禁止刊登，請稍候再試，謝謝!");
-                    alertDialog.show();
-                });
-            } else {
-                console.log("enable false");
+            console.log("won test 1");
+            if(snapshot) {
+                console.log("won test 2");
+                var enable = snapshot.val().enable;
+                var name = snapshot.val().name;
+                console.log("enable("+enable+") name("+name+")");
+                
+                if(enable != true) {
+                
+                    console.log("enable true");
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+                        $('#alertDialogText').html("你被禁止刊登，請稍候再試，謝謝!");
+                        alertDialog.show();
+                    });
+                } else {
+                    console.log("enable false");
+                }
             }
         });
     }
