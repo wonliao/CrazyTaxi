@@ -30,6 +30,7 @@ isFirstTime = true;
     
 // Select areas that are in the database
 var areas = firebase.database().ref('areas');
+var players = firebase.database().ref('areas');
 
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {

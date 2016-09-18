@@ -102,6 +102,17 @@
                 </div>
             </ons-alert-dialog>
         </ons-template>
+        
+        <ons-template id="alert-disable-dialog.html">
+            <ons-alert-dialog var="alertDialog">
+                <div class="alert-dialog-content">
+                    你被禁止刊登，請稍候再試，謝謝!
+                </div>
+                <div class="alert-dialog-footer">
+                    <button class="alert-dialog-button" onClick="gotoPage1()">OK</button>
+                </div>
+            </ons-alert-dialog>
+        </ons-template>
 
     </ons-page>
 </ons-navigator>
@@ -142,6 +153,19 @@
                 return;
             }
             
+            
+            // 檢查是否被禁止刊登
+            if(is_fb_player_enable() != true) {
+                    
+                ons.createAlertDialog('alert-disable-dialog.html').then(function(alertDialog) {
+                    alertDialog.show();
+                });
+                  
+                return;
+            }
+                
+            
+            
             var latlng = window.localStorage.getItem("center");
             // 依經緯度查地址
             $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -165,7 +189,6 @@
             $('#add').on('submit', function() {
                 
                 console.log("facebook_id("+window.localStorage.getItem("facebook_id")+")");
-                
                 
         		var address = $('input#address').val();				    // 上車地點
         		var destination = $('input#destination').val();		    // 下車地點
@@ -280,8 +303,6 @@
                     var player_updates = {};
                     player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
             		firebase.database().ref().update(player_updates);
-                    
-                    
 
         			//clean up form
         			$('form#add').trigger('reset');
@@ -315,5 +336,20 @@
         gotoPage1();
     }
         
+    function is_fb_player_enable() {
+        
+        console.log("is_fb_player_enable ==> facebook_id("+window.localStorage.getItem("facebook_id")+")");
+        var key = window.localStorage.getItem("facebook_id");
+        
+        
+        players.child(key).on('value', function(snapshot) {
+            
+            var enable = snapshot.val().enable;
+            var name = snapshot.val().name;
+            console.log("enable("+enable+") name("+name+")");
+            
+            return true;
+        }
+    }
 
 </script>
