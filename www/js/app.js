@@ -38,11 +38,7 @@ function statusChangeCallback(response) {
     $('#menu_fb_user_name').text("");
     
     console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
+    //console.log(response);
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         
@@ -115,22 +111,20 @@ function testAPI() {
         console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
 
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
-        console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
+        //console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
         if(old_fb_id == "" || old_fb_id == null) {
 
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
             console.log("url("+url+")");
             $.getJSON(url, {}, function(data) {
                 
-                console.log("test1");
                 var new_fb_id = data.data.id;
                 window.localStorage.setItem("facebook_id", new_fb_id);
                 window.localStorage.setItem("old_facebook_id", new_fb_id);
-                console.log("new_fb_id("+new_fb_id+")");
+                console.log("get new facebook id ==> new_fb_id("+new_fb_id+")");
             });
         } else {
 
-            console.log("test2");
             var old_fb_id = window.localStorage.getItem("old_facebook_id");
             window.localStorage.setItem("facebook_id", old_fb_id);
             console.log("facebook_id("+old_fb_id+")");

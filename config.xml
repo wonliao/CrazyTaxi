@@ -28,21 +28,21 @@
   <preference name="UIWebViewDecelerationSpeed" value="normal"/>
   <preference name="monaca:WebViewEngine" value="default"/>
   <allow-intent href="mailto:*"/>
+  <allow-intent href="https://maps.googleapis.com"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="Fullscreen" value="false"/>
   <preference name="monaca:targetFamilyiPhone" value="1"/>
   <preference name="monaca:targetFamilyiPad" value="0"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="FadeSplashScreen" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
-  <preference name="EnableViewportScale" value="false"/>
   <access origin="*"/>
   <access origin="mailto:*"/>
-  <preference name="KeepRunning" value="true"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
-  <preference name="Orientation" value="portrait"/>
-  <preference name="SplashScreenDelay" value="1000"/>
-  <preference name="Fullscreen" value="false"/>
-  <allow-intent href="https://maps.googleapis.com"/>
+  <preference name="EnableViewportScale" value="false"/>
   <preference name="WindowsStorePublisherName" value="My Name"/>
-  <preference name="WindowsStoreIdentityName" value="a356a022-3035-0c5f-b389-7167b24fc9d0"/>
+  <preference name="WindowsStoreIdentityName" value="a6a7ede2-3333-a98f-4bdb-436116ee1acf"/>
 </widget>
