@@ -263,6 +263,9 @@
                     // 過期時間 = 預約時間 + 10分鐘
                     d.setMinutes(d.getMinutes() + 10);
         			area.expired_time = d.getTime();
+                    
+                    // 排序用
+                    area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
 
                     console.log("appointment("+d.toString()+") expired_time("+d.toString()+")");
 
