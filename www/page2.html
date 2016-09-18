@@ -276,9 +276,12 @@
                     // fb player 
                     var fb_player = {name: ""};
                     fb_player.name = window.localStorage.getItem("facebook_name");
+                    fb_player.enable = true;
                     var player_updates = {};
                     player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
             		firebase.database().ref().update(player_updates);
+                    
+                    
 
         			//clean up form
         			$('form#add').trigger('reset');
