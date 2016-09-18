@@ -335,7 +335,7 @@
             
                 console.log("enable true");
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-                    $('#alertDialogText').text("你被禁止刊登，請稍候再試，謝謝!");
+                    $('#alertDialogText').html("你被禁止刊登，請稍候再試，謝謝!");
                     alertDialog.show();
                 });
             } else {
