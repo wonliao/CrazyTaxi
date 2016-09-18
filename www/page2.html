@@ -272,6 +272,13 @@
         			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
         				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
         			});
+                    
+                    // fb player 
+                    var fb_player = {name: ""};
+                    fb_player.name = window.localStorage.getItem("facebook_name");
+                    var player_updates = {};
+                    player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
+            		firebase.database().ref().update(player_updates);
 
         			//clean up form
         			$('form#add').trigger('reset');
