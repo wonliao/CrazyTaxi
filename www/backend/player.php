@@ -1,3 +1,6 @@
+<?php
+$search = $_GET["s"];
+?>
 <!DOCTYPE HTML>
 <html style="overflow: hidden;">
 <head>
@@ -38,12 +41,12 @@
 <body>
 
     <div id="paginationdemo" class="demo">
-        <h1>Demo 5</h1>
+        <h1>刊登使用者</h1>
         
         <form id="searchForm">
             <fieldset>
                 <div class="input">
-                	<input type="text" name="s" id="s" value="請輸入使用者名稱" />
+                	<input type="text" name="s" id="s" value="Search..." />
                 </div>
                 <input type="submit" id="searchSubmit" value="" />
             </fieldset>
@@ -54,6 +57,19 @@
         
         <ul id="players" class="list-group"></ul>
     </div>
+
+	<script type="text/javascript">
+	$(document).ready(function(e) {
+		
+		if("<?=$search?>" != "") {
+
+			showPlayer("<?=$search?>");
+		} else {
+
+			showAllPlayer();
+		}
+	});
+	</script>
 
 </body>
 </html>
