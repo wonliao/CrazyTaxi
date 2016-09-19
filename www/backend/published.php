@@ -8,7 +8,6 @@ $search = $_GET["s"];
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <link href="css/main.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/style.css" media="screen"/>
-<link rel="stylesheet" type="text/css" href="css/search.css" media="screen"/>
 
 
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
@@ -17,8 +16,7 @@ $search = $_GET["s"];
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="js/published.js" charset="UTF-8" ></script>
 <script src="js/jquery.paginate.js" type="text/javascript"></script>
-<script src="js/jquery.color.js"></script>
-<script src="js/search.js"></script>
+
 
 
 <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
@@ -53,23 +51,30 @@ $search = $_GET["s"];
 </style>
 </head>
 
-<body>
+<body style="margin:10px;">
 
     <div id="paginationdemo" class="demo">
-        <h1>刊登記錄</h1>
-        
-        <form id="searchForm">
-            <fieldset>
-                <div class="input">
-                	<input type="text" name="s" id="s" value="Search..." />
-                </div>
-                <input type="submit" id="searchSubmit" value="" />
-            </fieldset>
-        </form>
-        
-        
+    
+    	<div style="height:100px">
+            <ul style="list-style:none;">
+                <li style="float:left;">
+                    <h1>刊登記錄</h1>
+                </li>
+               <li style="float:right; margin-right:20px;">
+                    <form action="">
+                        <fieldset>
+                            <input type="text" name="s" id="s" placeholder="Search..." />
+                            <input type="submit" id="searchSubmit" value="搜尋" />
+                        </fieldset>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
         <div id="pagination_div"></div>
-        
+
+        <div id="total_div"></div>
+
         <ul id="areas" class="list-group"></ul>
     </div>
     

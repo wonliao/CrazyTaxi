@@ -37,13 +37,17 @@ function showAllPublished() {
 function showPublished(key) {
 	
 	//console.log("player_id("+key+")");
-	
+
+	var count = 0;
+
 	// 先尋找 key
 	areas.child(key).orderByChild('priority').on("value", function(snapshot) {
 	
 		if(snapshot.exists() == true) {
 
 			getData(snapshot);
+			count++;
+			$("#total_div").html("共"+count+"筆");
 		}
 	});
   
@@ -56,6 +60,8 @@ function showPublished(key) {
 			if(snapshot.exists() == true) {
 				//console.log("won test 1 ==> enable("+snapshot.val().enable+") name("+snapshot.val().name+")");
 				getData(snapshot);
+				count++;
+				$("#total_div").html("共"+count+"筆");
 			}
 		});
 	});
@@ -166,7 +172,9 @@ function setPaginate() {
 	
 	var display = 10;			// 最多顯示多少頁
 	var one_page_item = 10;	// 一頁顯示多少記錄
-	
+
+	$("#total_div").html("共"+keys.length+"筆");
+
 	// 總頁數
 	var count = Math.ceil( keys.length / one_page_item );
 	if(count < display)	display = count;
