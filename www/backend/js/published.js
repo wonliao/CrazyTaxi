@@ -15,8 +15,8 @@ var areas = firebase.database().ref('areas');
 
 var keys = [];
 
-$(document).ready(function(e) {
-	
+function showAllPublished() {
+
 	areas.orderByChild('priority').once("value", function(snapshot) {
   		
 		//var count = snapshot.numChildren();
@@ -29,9 +29,29 @@ $(document).ready(function(e) {
 
 		setPaginate();
 	});
+	
+	setEvent();
+}
+
+function showPublished(key) {
+	
+	console.log("player_id("+key+")");
+	
+	areas.child(key).orderByChild('priority').on("value", function(snapshot) {
+	
+		if(snapshot.exists() == true) {
+
+			$('ul#areas').append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().destination + ' (' + snapshot.val().fb_name + ', ' + snapshot.val().purpose + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
+		}
+	});
+  
+  	setEvent();
+}
+
+function setEvent() {
 
 	areas.on('child_removed', function(snapshot) {
-		$ul.find('li[data-id="' + snapshot.key + '"]').remove();
+		$('ul#areas').find('li[data-id="' + snapshot.key + '"]').remove();
 	});	
 
 	$('ul.list-group').on('click', 'i', function(e){
@@ -40,8 +60,7 @@ $(document).ready(function(e) {
 		console.log("area_id("+area_id+")");
 		areas.child(area_id).remove();
 	});
-
-});
+}
 
 function setPaginate() {
 	
@@ -51,11 +70,8 @@ function setPaginate() {
 	// 總頁數
 	var count = Math.ceil( keys.length / one_page_item );
 	if(count < display)	display = count;
-	
 	//console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
-	
-	$ul = $('ul#areas');
-	
+
 	$("#pagination_div").paginate({
 		count 		: count,
 		start 		: 1,
@@ -80,9 +96,9 @@ function setPaginate() {
 									areas.orderByChild('priority').startAt(key).limitToFirst(one_page_item).once("value", function(data) {
 									
 										data.forEach(function(snapshot) {
-											//console.log("ke("+snapshot.key+")"+ snapshot.val().address);
 											
-											$ul.append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().destination + ' (' + snapshot.val().fb_name + ', ' + snapshot.val().purpose + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
+											//console.log("ke("+snapshot.key+")"+ snapshot.val().address);
+											$('ul#areas').append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().destination + ' (' + snapshot.val().fb_name + ', ' + snapshot.val().purpose + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
 									  	});
 									});
 								}

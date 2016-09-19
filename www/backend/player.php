@@ -1,7 +1,5 @@
 <?php
-
 $search = $_GET["s"];
-
 ?>
 <!DOCTYPE HTML>
 <html style="overflow: hidden;">

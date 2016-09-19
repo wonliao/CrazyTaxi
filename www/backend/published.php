@@ -1,3 +1,6 @@
+<?php
+$search = $_GET["s"];
+?>
 <!DOCTYPE HTML>
 <html style="overflow: hidden;">
 <head>
@@ -55,5 +58,17 @@
         <ul id="areas" class="list-group"></ul>
     </div>
 
+	<script type="text/javascript">
+	$(document).ready(function(e) {
+		
+		if("<?=$search?>" != "") {
+
+			showPublished("<?=$search?>");
+		} else {
+
+			showAllPublished();
+		}
+	});
+	</script>
 </body>
 </html>
