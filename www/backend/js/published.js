@@ -12,17 +12,18 @@ var geoQuery;
 
 var areas = firebase.database().ref('areas');
 
-
 var keys = [];
+
+// 建立測試資料
+//setTestData();
 
 function showAllPublished() {
 
 	areas.orderByChild('priority').once("value", function(snapshot) {
   		
-		//var count = snapshot.numChildren();
 		//console.log("count("+count+")");
-		console.log("won test ");
 		snapshot.forEach(function(data) {
+			
 			keys.push(data.val().priority);
 			//console.log("key("+data.key+")");	
 		});
@@ -35,17 +36,57 @@ function showAllPublished() {
 
 function showPublished(key) {
 	
-	console.log("player_id("+key+")");
+	//console.log("player_id("+key+")");
 	
+	// 先尋找 key
 	areas.child(key).orderByChild('priority').on("value", function(snapshot) {
 	
 		if(snapshot.exists() == true) {
 
-			$('ul#areas').append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().destination + ' (' + snapshot.val().fb_name + ', ' + snapshot.val().purpose + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
+			getData(snapshot);
 		}
 	});
   
+	// 再尋找使用者名稱
+	areas.orderByChild("fb_name").equalTo(key).on("value", function(data) {
+		
+		data.forEach(function(snapshot) {
+			
+			//console.log("won test 0 ==> key("+snapshot.key+") name("+snapshot.val().name+")");
+			if(snapshot.exists() == true) {
+				//console.log("won test 1 ==> enable("+snapshot.val().enable+") name("+snapshot.val().name+")");
+				getData(snapshot);
+			}
+		});
+	});
+	
+	// 再尋找使用者名稱
+	areas.orderByChild("state").equalTo(key).on("value", function(data) {
+		
+		data.forEach(function(snapshot) {
+			
+			//console.log("won test 0 ==> key("+snapshot.key+") name("+snapshot.val().name+")");
+			if(snapshot.exists() == true) {
+				//console.log("won test 1 ==> enable("+snapshot.val().enable+") name("+snapshot.val().name+")");
+				getData(snapshot);
+			}
+		});
+	});
+
   	setEvent();
+}
+
+function getData(snapshot) {
+	
+	var str = "";
+	str += '<li class="list-group-item" data-id="' + snapshot.key + '">';
+	str += 		'<span style="width:100px; display:inline-block;">' + snapshot.val().fb_name + '</span>';
+	str += 		'<span style="width:100px; display:inline-block;">' + snapshot.val().purpose + '</span>';
+	str += 		'<a data-id="' + snapshot.key + '" href="#"><span style="width:400px; display:inline-block;">' + snapshot.val().destination + '</span></a>';
+	str += 		'<i class="glyphicon glyphicon-remove pull-right"></i>';
+	str += '</li>'
+	
+	$('ul#areas').append(str);
 }
 
 function setEvent() {
@@ -54,11 +95,70 @@ function setEvent() {
 		$('ul#areas').find('li[data-id="' + snapshot.key + '"]').remove();
 	});	
 
+	// 刪除
 	$('ul.list-group').on('click', 'i', function(e){
 		e.stopPropagation();
 		var area_id = $(this).parent().attr('data-id');
 		console.log("area_id("+area_id+")");
 		areas.child(area_id).remove();
+	});
+	
+	// 打開 info
+	$('ul.list-group').on('click', 'a', function(e){
+
+		e.stopPropagation();
+		var area_id = $(this).parent().attr('data-id');
+		//console.log("area_id("+area_id+")");
+		
+		ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+			
+			
+			areas.child(area_id).once("value", function(snapshot) {
+				
+				var fb_image = "https://graph.facebook.com/"+snapshot.val().fb_id+"/picture?type=normal";
+				var d = new Date(snapshot.val().timestamp);
+				var timestamp_text = d.toLocaleString();
+			
+				var text = "";
+				text += '<section style="padding: 4px 16px; text-align:center;">';
+				text += '	<img id="fb_user_picture" src="'+fb_image+'"/>';
+				text += '	<div>'+snapshot.val().fb_name+'</div>';
+				text += '</section>';
+				
+				text += '<div style="clear:both; height:10px"></div>';
+				 
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">上車地點</div>';
+				text += '	<div style="color:#6b6b6b;">'+snapshot.val().input_address+'</div>';
+				text += '</section>';
+				
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">下車地點</div>';
+				text += '	<div style="color:#6b6b6b;">'+snapshot.val().destination+'</div>';
+				text += '</section>';
+				
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">出發時間</div>';
+				text += '	<div style="color:#6b6b6b;">'+timestamp_text+'</div>';
+				text += '</section>';
+				
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">共乘目的</div>';
+				text += '	<div style="color:#6b6b6b;">'+snapshot.val().purpose+'</div>';
+				text += '</section>';
+				
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">備註</div>';
+				text += '	<div style="color:#6b6b6b;">'+snapshot.val().note+'</div>';
+				text += '</section>';
+				
+				console.log("text("+text+")");
+
+				$(".alert-dialog-content").empty().html(text);
+			
+				alertDialog.show();
+			});
+       });
 	});
 }
 
@@ -97,8 +197,7 @@ function setPaginate() {
 									
 										data.forEach(function(snapshot) {
 											
-											//console.log("ke("+snapshot.key+")"+ snapshot.val().address);
-											$('ul#areas').append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().destination + ' (' + snapshot.val().fb_name + ', ' + snapshot.val().purpose + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
+											getData(snapshot);
 									  	});
 									});
 								}
@@ -156,6 +255,7 @@ function setTestData() {
 		var fb_player = {name: ""};
 		fb_player.name = "測試者"+i;
 		fb_player.enable = true;
+		fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );        // 排序用
 		var player_updates = {};
 		player_updates['/players/' + 1000000000000+i] = fb_player;
 		firebase.database().ref().update(player_updates);

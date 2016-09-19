@@ -2,7 +2,7 @@
 $search = $_GET["s"];
 ?>
 <!DOCTYPE HTML>
-<html style="overflow: hidden;">
+<html>
 <head>
 <title>Locations</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -21,6 +21,12 @@ $search = $_GET["s"];
 <script src="js/search.js"></script>
 
 
+<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
+<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsen-css-components.css'>
+
+<script src="../lib/angular/angular.js"></script>
+<script src="../lib/onsen/js/onsenui.js"></script>
+
 <style>
 .checkbox-grid li {
 	display: block;
@@ -34,6 +40,15 @@ $search = $_GET["s"];
 	padding:50px 10px;
 	text-align:center;
 	background-color:white;
+}
+#fb_user_picture {
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    BORDER: #c9c9c9 2px solid;
+}
+.section1 {
+    text-align:left;
 }
 </style>
 </head>
@@ -57,8 +72,21 @@ $search = $_GET["s"];
         
         <ul id="areas" class="list-group"></ul>
     </div>
+    
+    <ons-template id="alert-dialog.html">
+        <ons-alert-dialog var="alertDialog">
+            <div class="alert-dialog-title"><strong>刊登資訊</strong></div>
+            <div class="alert-dialog-content"></div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button" onClick="alertDialog.hide()">關閉</button>
+            </div>
+        </ons-alert-dialog>
+    </ons-template>
 
 	<script type="text/javascript">
+
+	ons.bootstrap();
+
 	$(document).ready(function(e) {
 		
 		if("<?=$search?>" != "") {
