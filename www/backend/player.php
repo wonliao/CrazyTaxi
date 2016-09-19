@@ -41,7 +41,7 @@ $search = $_GET["s"];
 <body>
 
     <div id="paginationdemo" class="demo">
-        <h1>Demo 5</h1>
+        <h1>刊登使用者</h1>
         
         <form id="searchForm">
             <fieldset>
