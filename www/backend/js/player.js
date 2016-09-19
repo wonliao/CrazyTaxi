@@ -11,34 +11,51 @@ var firebaseRef = firebase.database().ref('makers');
 var geoQuery;
 
 var areas = firebase.database().ref('areas');
-
+var players = firebase.database().ref('players');
 
 var keys = [];
 
 $(document).ready(function(e) {
-	
-	areas.orderByChild('priority').once("value", function(snapshot) {
+
+	// 建立測試資料
+	//setTestData();
+
+	players.orderByChild('priority').once("value", function(snapshot) {
   		
 		//var count = snapshot.numChildren();
 		//console.log("count("+count+")");
 		console.log("won test ");
 		snapshot.forEach(function(data) {
 			keys.push(data.val().priority);
-			//console.log("key("+data.key+")");	
+			//console.log("key("+data.key+")("+data.val().priority+")");	
 		});
 
 		setPaginate();
 	});
-
-	areas.on('child_removed', function(snapshot) {
+	
+	players.on('child_removed', function(snapshot) {
 		$ul.find('li[data-id="' + snapshot.key + '"]').remove();
-	});	
-
+	});
+	
 	$('ul.list-group').on('click', 'i', function(e){
+		
 		e.stopPropagation();
-		var area_id = $(this).parent().attr('data-id');
-		console.log("area_id("+area_id+")");
-		areas.child(area_id).remove();
+		var key = $(this).parent().attr('data-id');
+		//console.log("key("+key+")");
+
+		players.child(key).once("value", function(snapshot) {
+			
+			//console.log("snapshot.key("+snapshot.key+")");
+			$('ul#players').empty();
+
+			var fb_player = {name: ""};
+         	fb_player.name = snapshot.val().name;
+           fb_player.enable = !snapshot.val().enable;
+           fb_player.priority = snapshot.val().priority;
+           var player_updates = {};
+           player_updates['/players/' + snapshot.key] = fb_player;
+           firebase.database().ref().update(player_updates);
+		});
 	});
 
 });
@@ -52,9 +69,9 @@ function setPaginate() {
 	var count = Math.ceil( keys.length / one_page_item );
 	if(count < display)	display = count;
 	
-	//console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
+	console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
 	
-	$ul = $('ul#areas');
+	$ul = $('ul#players');
 	
 	$("#pagination_div").paginate({
 		count 		: count,
@@ -71,24 +88,41 @@ function setPaginate() {
 		mouse					: 'press',
 		onChange     			: function(page){
 								  	
-									$('ul#areas').empty();
+									$('ul#players').empty();
 									
 									var index = (Math.floor(page) -1) * one_page_item;
 									var key = keys[index];
-									console.log("page("+page+") index("+index+") key("+key+")");
+									//console.log("page("+page+") index("+index+") key("+key+")");
 								  	
-									areas.orderByChild('priority').startAt(key).limitToFirst(one_page_item).once("value", function(data) {
-									
+									players.orderByChild('priority').startAt(key).limitToFirst(one_page_item).on("value", function(data) {
+
 										data.forEach(function(snapshot) {
+
 											//console.log("ke("+snapshot.key+")"+ snapshot.val().address);
-											
-											$ul.append('<li class="list-group-item" data-id="' + snapshot.key + '" data-latitude="' + snapshot.val().latitude + '" data-longitude="' + snapshot.val().longitude + '">' + snapshot.val().destination + ' (' + snapshot.val().fb_name + ', ' + snapshot.val().purpose + ')<i class="glyphicon glyphicon-remove pull-right"></i></li>');
+											var enable = snapshot.val().enable;
+											var name = snapshot.val().name;
+											//console.log("enable("+enable+") name("+name+")");
+
+											var enable_str = "";
+											if(enable == false)	enable_str = "<span style='width:60px; display:inline-block;'>(禁言中)</span>";
+											else					enable_str = "<span style='width:60px; display:inline-block;'></span>";
+
+											var key_str = "";
+											key_str = "<span style='width:150px; display:inline-block;'><a href='https://www.facebook.com/"+snapshot.key+"' target='_blank'>"+snapshot.key+"</a></span>";
+
+											var name_str = "";
+											name_str = "<span style='width:200px; display:inline-block;'>"+snapshot.val().name+"</span>";
+
+											var speaker_str = "";
+											if(enable == false)	speaker_str = "<i class='glyphicon glyphicon-volume-off pull-right'></i>";
+											else					speaker_str = "<i class='glyphicon glyphicon-volume-up pull-right'></i>"; 
+
+											$ul.append('<li class="list-group-item" data-id="' + snapshot.key + '">' + enable_str + key_str + name_str + speaker_str + '</li>');
 									  	});
 									});
 								}
 	}).find('li').first().click();
 }
-
 
 // 建立測試資料
 function setTestData() {
@@ -103,7 +137,7 @@ function setTestData() {
 		area.destination = "測試目的地"+i;		// 下車地點
 		area.phones = "0921960028";			// 手機號碼
 		area.note = "測試"+i;					// 備註
-		area.purpose = "抓寶可夢"+i;		// 共乘目的
+		area.purpose = "抓寶可夢"+i;			// 共乘目的
 			
 		// 建立時間
 		var d = new Date();
@@ -135,13 +169,14 @@ function setTestData() {
 		var updates = {};
 		updates['/areas/' + area_id] = area;
 		firebase.database().ref().update(updates);
-
+		
 		// fb player 
 		var fb_player = {name: ""};
 		fb_player.name = "測試者"+i;
 		fb_player.enable = true;
+		fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );        // 排序用
 		var player_updates = {};
-		player_updates['/players/' + 1000000000000+i] = fb_player;
+		player_updates['/players/' + 1000000000000 + i] = fb_player;
 		firebase.database().ref().update(player_updates);
 	}
 }
