@@ -46,7 +46,7 @@ $search = $_GET["s"];
         <form id="searchForm">
             <fieldset>
                 <div class="input">
-                	<input type="text" name="s" id="s" value="請輸入使用者名稱" />
+                	<input type="text" name="s" id="s" value="Search..." />
                 </div>
                 <input type="submit" id="searchSubmit" value="" />
             </fieldset>
