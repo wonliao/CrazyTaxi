@@ -15,11 +15,12 @@ var players = firebase.database().ref('players');
 
 var keys = [];
 
-$(document).ready(function(e) {
-
+//$(document).ready(function(e) {
 	// 建立測試資料
 	//setTestData();
 
+function showAllPlayer() {
+	
 	players.orderByChild('priority').once("value", function(snapshot) {
   		
 		//var count = snapshot.numChildren();
@@ -33,8 +34,46 @@ $(document).ready(function(e) {
 		setPaginate();
 	});
 	
+	setEvent();
+}
+
+function showPlayer(key) {
+	
+	console.log("player_id("+key+")");
+	
+	players.child(key).orderByChild('priority').on("value", function(snapshot) {
+	
+		if(snapshot.exists() == true) {
+
+			var enable = snapshot.val().enable;
+			var name = snapshot.val().name;
+			console.log("enable("+enable+") name("+name+")");
+			
+			var enable_str = "";
+			if(enable == false)	enable_str = "<span style='width:60px; display:inline-block;'>(禁言中)</span>";
+			else					enable_str = "<span style='width:60px; display:inline-block;'></span>";
+			
+			var key_str = "";
+			key_str = "<span style='width:150px; display:inline-block;'><a href='https://www.facebook.com/"+snapshot.key+"' target='_blank'>"+snapshot.key+"</a></span>";
+			
+			var name_str = "";
+			name_str = "<span style='width:200px; display:inline-block;'>"+snapshot.val().name+"</span>";
+			
+			var speaker_str = "";
+			if(enable == false)	speaker_str = "<i class='glyphicon glyphicon-volume-off pull-right'></i>";
+			else					speaker_str = "<i class='glyphicon glyphicon-volume-up pull-right'></i>"; 
+			
+			$('ul#players').append('<li class="list-group-item" data-id="' + snapshot.key + '">' + enable_str + key_str + name_str + speaker_str + '</li>');
+		}
+	});
+  
+  	setEvent();
+}
+
+function setEvent() {
+
 	players.on('child_removed', function(snapshot) {
-		$ul.find('li[data-id="' + snapshot.key + '"]').remove();
+		$('ul#players').find('li[data-id="' + snapshot.key + '"]').remove();
 	});
 	
 	$('ul.list-group').on('click', 'i', function(e){
@@ -45,20 +84,21 @@ $(document).ready(function(e) {
 
 		players.child(key).once("value", function(snapshot) {
 			
-			//console.log("snapshot.key("+snapshot.key+")");
-			$('ul#players').empty();
-
-			var fb_player = {name: ""};
-         	fb_player.name = snapshot.val().name;
-           fb_player.enable = !snapshot.val().enable;
-           fb_player.priority = snapshot.val().priority;
-           var player_updates = {};
-           player_updates['/players/' + snapshot.key] = fb_player;
-           firebase.database().ref().update(player_updates);
+			//if(snapshot.exists() == true) {
+				console.log("snapshot.key("+snapshot.key+")");
+				$('ul#players').empty();
+	
+				var fb_player = {name: ""};
+				fb_player.name = snapshot.val().name;
+			   fb_player.enable = !snapshot.val().enable;
+			   fb_player.priority = snapshot.val().priority;
+			   var player_updates = {};
+			   player_updates['/players/' + snapshot.key] = fb_player;
+			   firebase.database().ref().update(player_updates);
+			//}
 		});
 	});
-
-});
+}
 
 function setPaginate() {
 	
@@ -68,10 +108,9 @@ function setPaginate() {
 	// 總頁數
 	var count = Math.ceil( keys.length / one_page_item );
 	if(count < display)	display = count;
+	//console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
 	
-	console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
 	
-	$ul = $('ul#players');
 	
 	$("#pagination_div").paginate({
 		count 		: count,
@@ -96,29 +135,34 @@ function setPaginate() {
 								  	
 									players.orderByChild('priority').startAt(key).limitToFirst(one_page_item).on("value", function(data) {
 
-										data.forEach(function(snapshot) {
-
-											//console.log("ke("+snapshot.key+")"+ snapshot.val().address);
-											var enable = snapshot.val().enable;
-											var name = snapshot.val().name;
-											//console.log("enable("+enable+") name("+name+")");
-
-											var enable_str = "";
-											if(enable == false)	enable_str = "<span style='width:60px; display:inline-block;'>(禁言中)</span>";
-											else					enable_str = "<span style='width:60px; display:inline-block;'></span>";
-
-											var key_str = "";
-											key_str = "<span style='width:150px; display:inline-block;'><a href='https://www.facebook.com/"+snapshot.key+"' target='_blank'>"+snapshot.key+"</a></span>";
-
-											var name_str = "";
-											name_str = "<span style='width:200px; display:inline-block;'>"+snapshot.val().name+"</span>";
-
-											var speaker_str = "";
-											if(enable == false)	speaker_str = "<i class='glyphicon glyphicon-volume-off pull-right'></i>";
-											else					speaker_str = "<i class='glyphicon glyphicon-volume-up pull-right'></i>"; 
-
-											$ul.append('<li class="list-group-item" data-id="' + snapshot.key + '">' + enable_str + key_str + name_str + speaker_str + '</li>');
-									  	});
+										if(data.exists() == true) {
+											
+											data.forEach(function(snapshot) {
+	
+												if(snapshot.exists() == true) {
+													
+													var enable = snapshot.val().enable;
+													var name = snapshot.val().name;
+													console.log("enable("+enable+") name("+name+")");
+		
+													var enable_str = "";
+													if(enable == false)	enable_str = "<span style='width:60px; display:inline-block;'>(禁言中)</span>";
+													else					enable_str = "<span style='width:60px; display:inline-block;'></span>";
+		
+													var key_str = "";
+													key_str = "<span style='width:150px; display:inline-block;'><a href='https://www.facebook.com/"+snapshot.key+"' target='_blank'>"+snapshot.key+"</a></span>";
+		
+													var name_str = "";
+													name_str = "<span style='width:200px; display:inline-block;'>"+snapshot.val().name+"</span>";
+		
+													var speaker_str = "";
+													if(enable == false)	speaker_str = "<i class='glyphicon glyphicon-volume-off pull-right'></i>";
+													else					speaker_str = "<i class='glyphicon glyphicon-volume-up pull-right'></i>"; 
+		
+													$('ul#players').append('<li class="list-group-item" data-id="' + snapshot.key + '">' + enable_str + key_str + name_str + speaker_str + '</li>');
+												}
+											});
+										}
 									});
 								}
 	}).find('li').first().click();

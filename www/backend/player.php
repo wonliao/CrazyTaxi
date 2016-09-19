@@ -1,3 +1,8 @@
+<?php
+
+$search = $_GET["s"];
+
+?>
 <!DOCTYPE HTML>
 <html style="overflow: hidden;">
 <head>
@@ -54,6 +59,19 @@
         
         <ul id="players" class="list-group"></ul>
     </div>
+
+	<script type="text/javascript">
+	$(document).ready(function(e) {
+		
+		if("<?=$search?>" != "") {
+
+			showPlayer("<?=$search?>");
+		} else {
+
+			showAllPlayer();
+		}
+	});
+	</script>
 
 </body>
 </html>
