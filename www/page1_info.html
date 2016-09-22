@@ -97,7 +97,7 @@
         //var key = "-KRRNVxXNetIAj6aXiZL";
         var key = window.localStorage.getItem("info_key");
         
-        areas.child(key).once('value', function(snapshot) {
+        areas.child(key).on('value', function(snapshot) {
     					
 			//console.log(snapshot.val());
 			fb_id = snapshot.val().fb_id;                       // facebook user id
