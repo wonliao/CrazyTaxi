@@ -107,6 +107,8 @@
 </ons-navigator>
 
 <script>
+    //window.localStorage.setItem("facebook_id", "100000151115805");
+
     ons.ready(function() {
 
         setTimeout(function() {
@@ -142,13 +144,10 @@
                 
                 return;
             }
-            
-            
+
             // 檢查是否被禁止刊登
             is_fb_player_enable();
-                
-            
-            
+
             var latlng = window.localStorage.getItem("center");
             // 依經緯度查地址
             $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -164,7 +163,7 @@
         		}
             );
 
-            $("#datepicker").datepicker();
+            $("#datepicker").datepicker({ minDate: 0, maxDate: "+2D" });
             $('#timepicker').wickedpicker();
             
             isFirstTime = true;
@@ -180,7 +179,7 @@
         		var phones = $('input#phones').val();					// 手機號碼
         		var note = $('input#note').val();						// 備註
         		var purpose = $('input[name=purpose]:checked').val();	// 共乘目的
-        		
+                /*
         		console.log("address("+address+")");
         		console.log("destination("+destination+")");
         		console.log("startDate("+startDate+")");
@@ -188,7 +187,7 @@
         		console.log("phones("+phones+")");
         		console.log("note("+note+")");
         		console.log("purpose("+purpose+")");
-        
+                */
         		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
         			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
         			address: address	// 上車地點
@@ -246,7 +245,7 @@
 
                     // 時間處理
                     date_txt = startDate.replace(/\//g,"-");
-                    //console.log("startDate("+startDate+")");
+                    //console.log("startDate("+startDate+") startTime("+startTime+")");
 
                     var words = startTime.split(' ');
                     var hours = words[0];
@@ -255,6 +254,7 @@
                     if(am_pm == "PM")   hours = Math.floor(hours) + 12;
                     var time_txt = hours+":"+minutes+":00";
                     var txt = date_txt + " " + time_txt;
+
                     var d = new Date(txt);
 
                     // 預約時間
