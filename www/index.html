@@ -57,21 +57,21 @@
         <ons-list-item >
             <img id="menu_fb_user_picture" src="images/person.jpg" style="width:30px; -webkit-border-radius:15px; -moz-border-radius:15px; border-radius:15px; border:#c9c9c9 2px solid;"/>
             <span id="menu_fb_user_name" style="overflow:hidden; width:110px; display:inline-block; height:30px;"></span>
-            <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="checkLoginState();" style="bottom:10px; right:0px; float:right;"></fb:login-button>
+            <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick('fb登入')" style="bottom:10px; right:0px; float:right;"></fb:login-button>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="tabbar.setActiveTab(3); menu.closeMenu();">
+        <ons-list-item modifier="chevron" onclick="sidebarClick('活動說明')">
             <span>活動說明</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="tabbar.setActiveTab(1); ">
+        <ons-list-item modifier="chevron" onclick="sidebarClick('刊登共乘')">
             <span>刊登共乘</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="menu.closeMenu(); homeNavigator.pushPage('page6.html', {animation: 'slide'})">
+        <ons-list-item modifier="chevron" onclick="sidebarClick('共乘記錄')">
             <span>共乘記錄</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="page5_click()">
+        <ons-list-item modifier="chevron" onclick="sidebarClick('官方粉絲團')">
             <span>官方粉絲團</span>
         </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="call_55688()">
+        <ons-list-item modifier="chevron" onclick="sidebarClick('55688叫車')">
             <span>55688叫車</span>
         </ons-list-item>
     </ons-list>
@@ -82,17 +82,25 @@
 <!-- 側邊欄 end -->
 
 
-
-
-
 <script>
-ons.ready(function() {
-    setTimeout(function() {
+function sidebarClick(pageName) {
+    
+    switch(pageName) {
+    case "fb登入":      checkLoginState();                                              break;
+    case "活動說明":    tabbar.setActiveTab(3);                                         break;
+    case "刊登共乘":    tabbar.setActiveTab(1);                                         break;
+    case "共乘記錄":    homeNavigator.pushPage('page6.html', {animation: 'slide'});     break;
+    case "官方粉絲團":  page5_click();                                                  break;
+    case "55688叫車":   call_55688();                                                   break;
+    }
+    
+    menu.closeMenu();
+    ga('send', 'event', '側邊欄', 'click', pageName);
+}
 
-    }, 10);
-});
 
 function page5_click() {
+    ga('send', 'event', 'tab', 'click', 'fan page');
     window.open("https://www.facebook.com/55688TaiwanTaxi/?fref=ts");
 }
 
