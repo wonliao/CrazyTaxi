@@ -65,7 +65,7 @@
 
         <div style="clear:both; height:10px"></div>
          
-        <section style="padding: 4px 16px; text-align:center;" id="page6InfoBtn">
+        <section style="padding: 4px 16px; text-align:center;">
             <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0; display:none;">
                 <span style="font-size:18px">已找到共乘夥伴</span>
             </ons-button>
@@ -103,11 +103,7 @@
 
         var key = window.localStorage.getItem("page6_info_key");
         var type = window.localStorage.getItem("page6_info_type");
-        
-        if(type == 'history') {
-            $('#page6InfoBtn').hide();
-        }
-        
+
         areas.child(key).on('value', function(snapshot) {
     					
 			//console.log(snapshot.val());
@@ -136,12 +132,22 @@
             $('#done_btn').hide();
             $('#cancel_btn').hide();
             if(status == "done") {
+
                 $('#done_btn').show().attr("disabled", true);
             } else if(status == "cancel") {
+
                 $('#cancel_btn').show().attr("disabled", true);
             } else {
-                $('#done_btn').show().attr("disabled", false);
-                $('#cancel_btn').show().attr("disabled", false);
+                
+                if(type == 'history') {
+
+                    $('#done_btn').show().attr("disabled", true);
+                    $('#cancel_btn').show().attr("disabled", true);
+                } else {
+
+                    $('#done_btn').show().attr("disabled", false);
+                    $('#cancel_btn').show().attr("disabled", false);
+                }
             }
 		});
     }
