@@ -34,8 +34,7 @@
         <section style="padding: 4px 16px; text-align:center;">
             <div style="background:#acf2ff; height:110px">
                 <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
-                
-                <ons-button class="button button--large" modifier="chevron" onclick="get_gift()" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('KKBOX 免費試聽5日序號')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
                     <span style="font-size:18px">立即領取</span>
                 </ons-button>
             </div>
@@ -44,8 +43,7 @@
         <section style="padding: 4px 16px; text-align:center;">
             <div style="background:#acf2ff; height:110px">
                 <div style="line-height:55px;">ZONE 免費電話點數500點</div>
-                
-                <ons-button class="button button--large" modifier="chevron" onclick="get_gift()" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('ZONE 免費電話點數500點')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
                     <span style="font-size:18px">立即領取</span>
                 </ons-button>
             </div>
@@ -54,7 +52,7 @@
         <div style="clear:both; height:10px"></div>
          
         <section style="padding: 4px 16px; text-align:center;">
-            <ons-button class="button button--large" modifier="chevron" onclick="submit_btn()" style="background:#36d0c9; border-radius:0;">
+            <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
                 <span style="font-size:18px">確定</span>
             </ons-button>
         </section>
@@ -63,12 +61,11 @@
     
     <ons-template id="alert-dialog.html">
       <ons-alert-dialog var="alertDialog">
-        
         <div class="alert-dialog-content">
             活動尚未開放
         </div>
         <div class="alert-dialog-footer">
-          <button class="alert-dialog-button" onClick="alertDialog.hide()">OK</button>
+          <button class="alert-dialog-button" onClick="alertDialog.destroy()">OK</button>
         </div>
       </ons-alert-dialog>
     </ons-template>
@@ -77,23 +74,28 @@
 
 <script>
 
-    ons.ready(function() {
-        setTimeout(function() {
+function page2SuccessClick(pageName) {
     
-        }, 10);
-    });
+    switch(pageName) {
+    case "KKBOX 免費試聽5日序":         get_gift();             break;
+    case "ZONE 免費電話點數500點":      get_gift();             break;
+    case "確定":                        submit_btn();           break;
+    }
+
+    ga('send', 'event', '刊登完成頁', 'click', pageName);
+}
     
-    function get_gift() {
-                
-        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-            alertDialog.show();
-        });  
-    }
-            
-    function submit_btn() {
-        gotoPage1();
-        //tabbar.setActiveTab(0);
-    }
+function get_gift() {
+
+    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        alertDialog.show();
+    });  
+}
+
+function submit_btn() {
+    
+    gotoPage1();
+}
 </script>
 
 <script>
