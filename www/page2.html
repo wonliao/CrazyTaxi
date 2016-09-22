@@ -296,6 +296,7 @@
         			$('form#add').trigger('reset');
 
                     ga('send', 'event', '刊登共乘頁', '上車地點', area.state + area.city);
+                    ga('send', 'event', '刊登共乘頁', '上車詳細地點', area.input_address);
                     ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
                     ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
                     ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
@@ -338,14 +339,14 @@
             if(snapshot.exists() == true) {
 
                 var enable = snapshot.val().enable;
-                var name = snapshot.val().name;
+                //var name = snapshot.val().name;
                 //console.log("enable("+enable+") name("+name+")");
 
                 if(enable != true) {
 
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                        $('#alertDialogText').html("你被禁止刊登，請稍候再試，謝謝!");
+                        $('#alertDialogText').html("你的帳號被封鎖，無法刊登共乘!");
                         alertDialog.show();
                     });
                 }

@@ -136,6 +136,6 @@ function init(position) {
 
 function openInfo() {
 
-    ga('send', 'event', '首頁', 'click', "共乘泡泡");
+    ga('send', 'event', '首頁', 'click', '共乘泡泡');
     homeNavigator.pushPage("page1_info.html", {animation: 'slide'});
 }
