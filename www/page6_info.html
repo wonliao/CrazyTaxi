@@ -66,13 +66,13 @@
         <div style="clear:both; height:10px"></div>
          
         <section style="padding: 4px 16px; text-align:center;">
-            <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="done_btn()" style="background:#36d0c9; border-radius:0; display:none;">
+            <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0; display:none;">
                 <span style="font-size:18px">已找到共乘夥伴</span>
             </ons-button>
             
             <div style="clear:both; height:10px"></div>
             
-            <ons-button id="cancel_btn" class="button button--large" modifier="chevron" onclick="cancel_btn()" style="background:#adadad; border-radius:0; display:none;">
+            <ons-button id="cancel_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('取消此次共乘')" style="background:#adadad; border-radius:0; display:none;">
                 <span style="font-size:18px">取消此次共乘</span>
             </ons-button>
         </section>
@@ -81,6 +81,16 @@
     
 
 <script>
+
+    function page6InfoClick(pageName) {
+        
+        switch(pageName) {
+        case "已找到共乘夥伴":       done_btn();            break;
+        case "取消此次共乘":        cancel_btn();           break;
+        }
+    
+        ga('send', 'event', '查看共乘記錄頁', 'click', pageName);
+    }
 
     ons.ready(function() {
         setTimeout(function() {

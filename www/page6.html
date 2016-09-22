@@ -78,7 +78,7 @@
 </ons-navigator>
 
 <script>
-    //window.localStorage.setItem("facebook_id", "100000151115805");
+
     ons.ready(function() {
         setTimeout(function() {
 
@@ -93,8 +93,6 @@
             }
 
             var fb_id = window.localStorage.getItem("facebook_id");
-            //console.log("page6 ==> fb_id("+fb_id+")");
-            //fb_id = "1389354124412945";
 
             // 記錄
             areas.orderByChild("fb_id").equalTo(fb_id).on("child_added", function(snapshot) {
@@ -115,7 +113,7 @@
 
                 var text = "";
                 text += '<div style="clear:both; height:10px"></div>';
-                
+
                 // 預約
                 if(d.getTime() < d2.getTime()) {
                     text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"reserve\")'>";
@@ -123,17 +121,13 @@
                 } else {
                     text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"history\")'>";
                 }
-                
+
                 text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
                 text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
                 text +=     '<div><span class="text1">時間</span><span class="text2">'+time_text+'</span></div>';
                 text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
                 text += '</section>';
 
-               
-                //console.log("time_text("+time_text+") expired_time_text("+expired_time_text+") now_text("+now_text+")");
-                //console.log("t1("+d.getTime()+") t2("+d2.getTime()+") diff("+(d-d2)+")");
-                
                 // 預約
                 if(d.getTime() < d2.getTime()) {
                     $('#reserve').append(text);
@@ -144,20 +138,19 @@
             });
         }, 10);
     });
-    
+
     function needLogin() {
-        
-        console.log("needLogin");
-        alertDialog.hide();
+
+        alertDialog.destroy();
         gotoPage1();
     }
-    
+
     function showPage6Info(key, type) {
 
-        console.log("key("+key+") type("+type+")");
+        //console.log("key("+key+") type("+type+")");
         window.localStorage.setItem("page6_info_key", key);
         window.localStorage.setItem("page6_info_type", type);
-        
+
         page6Navigator.pushPage("page6_info.html", {animation: 'slide'});
     }
     
