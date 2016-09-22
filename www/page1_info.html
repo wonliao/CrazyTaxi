@@ -71,7 +71,7 @@
 <ons-template id="alert-dialog.html">
     <ons-alert-dialog var="alertDialog">
         <div class="alert-dialog-content">
-            <span id="alertDialogText">請先登入帳號</span>
+            <span id="page1AlertDialogText">請先登入帳號</span>
         </div>
         <div class="alert-dialog-footer">
             <button class="alert-dialog-button" onClick="needLogin()">OK</button>
@@ -90,7 +90,7 @@
                 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    $('#alertDialogText').html("請先登入帳號");
+                    $('#page1AlertDialogText').html("請先登入帳號");
                     alertDialog.show();
                 });
                 
@@ -216,7 +216,7 @@
     
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
-                        $('#alertDialogText').html("你的帳號被封鎖，無法參與共乘!");
+                        $('#page1AlertDialogText').html("你的帳號被封鎖，無法參與共乘!");
                         alertDialog.show();
                     });
                 }
