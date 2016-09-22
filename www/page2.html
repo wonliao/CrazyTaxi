@@ -1,35 +1,37 @@
 <style>
-    .radio_box li  {
-        display: block;
-        float: left;
-        margin-right:10px;
-    }
+.radio_box li  {
+    display: block;
+    float: left;
+    margin-right:10px;
+}
     
-    .radio_box li label {
-        margin-left:5px;
-    }
-    .text-input {
-        border-radius:0;
-        display: block; 
-        width: 100%
-    }
-    .submit_btn {
-        background-color: rgba(24,103,194,0.81);
-        border: 0;
-        font-size: 16px;
-        font-weight: 500;
-        line-height: 36px;
-        padding: 4px 12px;
-        display: block;
-        width: 100%;
-        text-align: center;
-        color: #FFF;
-    }
+.radio_box li label {
+    margin-left:5px;
+}
+
+.text-input {
+    border-radius:0;
+    display: block; 
+    width: 100%
+}
+
+.submit_btn {
+    background-color: rgba(24,103,194,0.81);
+    border: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 36px;
+    padding: 4px 12px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #FFF;
+}
 </style>
 
 <ons-navigator title="Navigator" var="homeNavigator">
     <ons-page style="background:#fff;">
-    
+
         <ons-toolbar>
             <div class="left" style="line-height: 44px">
                 <img src="images/logo.png" style="height:18px; margin-left:10px;"/>
@@ -43,8 +45,7 @@
         		</ons-toolbar-button>
             </div>
         </ons-toolbar>
-        
-        
+
         <form id="add" action="#">
             <section style="padding: 8px 16px 4px 16px">
                 <div>設定共乘條件</div>
@@ -59,7 +60,7 @@
                 <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
+                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" onClick="refreshTime()" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" required>
@@ -67,9 +68,9 @@
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
             </section>
-            
+
             <div style="clear:both; height:10px"></div>
-            
+
             <section style="padding: 0px 16px 0 16px" class="radio_box">
                 <div>請選擇您本次共乘目的</div>
                 <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
@@ -82,11 +83,11 @@
             </section>
 
             <div style="clear:both; height:5px"></div>
-            
+
             <section style="padding: 4px 16px" class="radio_box">
                 <input type="checkbox" id="agree_check" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
             </section>
-        
+
             <section style="padding: 0px 16px" class="radio_box">                
                 <input type="submit" value="確定" class="btn btn-default submit_btn">
             </section>
@@ -107,7 +108,6 @@
 </ons-navigator>
 
 <script>
-    //window.localStorage.setItem("facebook_id", "100000151115805");
 
     ons.ready(function() {
 
@@ -117,6 +117,7 @@
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
                 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
                     $('#alertDialogText').html("請先登入帳號");
                     alertDialog.show();
                 });
@@ -345,6 +346,10 @@
                 }
             }
         });
+    }
+    
+    function refreshTime() {
+        $('#timepicker').wickedpicker();
     }
 </script>
 
