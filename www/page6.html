@@ -28,7 +28,7 @@
 }
 </style>
 
-<ons-navigator title="Navigator" var="homeNavigator">
+<ons-navigator title="Navigator" var="page6Navigator">
     <ons-page style="background:#fff;">
     
         <ons-toolbar>
@@ -78,7 +78,7 @@
 </ons-navigator>
 
 <script>
-
+    //window.localStorage.setItem("facebook_id", "100000151115805");
     ons.ready(function() {
         setTimeout(function() {
 
@@ -96,11 +96,12 @@
             //console.log("page6 ==> fb_id("+fb_id+")");
             //fb_id = "1389354124412945";
 
-            // 預約記錄
+            // 記錄
             areas.orderByChild("fb_id").equalTo(fb_id).on("child_added", function(snapshot) {
 
-                //console.log(snapshot.val());
-                
+                var key = snapshot.key;
+                //console.log("key("+snapshot.key+")");
+
                 // 時間
                 var d1 = new Date(snapshot.val().timestamp);
     			var time_text = d1.toLocaleString();
@@ -109,24 +110,35 @@
                 var d2 = new Date(snapshot.val().expired_time); 
                 var expired_time_text = d2.toLocaleString();
 
+                var d = new Date();
+                var now_text = d.toLocaleString();
+
                 var text = "";
                 text += '<div style="clear:both; height:10px"></div>';
-                text += '<section class="mySection">';
+                
+                // 預約
+                if(d.getTime() < d2.getTime()) {
+                    text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"reserve\")'>";
+                // 歷程
+                } else {
+                    text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"history\")'>";
+                }
+                
                 text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
                 text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
                 text +=     '<div><span class="text1">時間</span><span class="text2">'+time_text+'</span></div>';
                 text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
                 text += '</section>';
 
-                var d = new Date();
-                var now_text = d.toLocaleString();
+               
                 //console.log("time_text("+time_text+") expired_time_text("+expired_time_text+") now_text("+now_text+")");
                 //console.log("t1("+d.getTime()+") t2("+d2.getTime()+") diff("+(d-d2)+")");
                 
+                // 預約
                 if(d.getTime() < d2.getTime()) {
                     $('#reserve').append(text);
+                // 歷程
                 } else {
-                    // 過期
                     $('#history').append(text);     
                 }
             });
@@ -138,6 +150,15 @@
         console.log("needLogin");
         alertDialog.hide();
         gotoPage1();
+    }
+    
+    function showPage6Info(key, type) {
+
+        console.log("key("+key+") type("+type+")");
+        window.localStorage.setItem("page6_info_key", key);
+        window.localStorage.setItem("page6_info_type", type);
+        
+        page6Navigator.pushPage("page6_info.html", {animation: 'slide'});
     }
     
 </script>

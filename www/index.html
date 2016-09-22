@@ -48,7 +48,7 @@
 </head>
 <body>
 
-<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
+<ons-sliding-menu main-page="page6_info.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
 
 <!-- 側邊欄 begin -->
@@ -65,9 +65,6 @@
         <ons-list-item modifier="chevron" onclick="tabbar.setActiveTab(1); ">
             <span>刊登共乘</span>
         </ons-list-item>
-        <!--
-        <ons-list-item modifier="chevron" onclick="menu.setMainPage('page6.html', {closeMenu: true})">
-        -->
         <ons-list-item modifier="chevron" onclick="menu.closeMenu(); homeNavigator.pushPage('page6.html', {animation: 'slide'})">
             <span>共乘記錄</span>
         </ons-list-item>
