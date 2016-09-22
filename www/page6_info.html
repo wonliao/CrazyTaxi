@@ -65,7 +65,7 @@
 
         <div style="clear:both; height:10px"></div>
          
-        <section style="padding: 4px 16px; text-align:center;">
+        <section style="padding: 4px 16px; text-align:center;" id="page6InfoBtn">
             <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0; display:none;">
                 <span style="font-size:18px">已找到共乘夥伴</span>
             </ons-button>
@@ -101,10 +101,12 @@
 
     function showInfo() {
 
-        //window.localStorage.setItem("page6_info_key", "-KSFyr48tWdaexP2_n6d");
-        
         var key = window.localStorage.getItem("page6_info_key");
         var type = window.localStorage.getItem("page6_info_type");
+        
+        if(type == 'history') {
+            $('#page6InfoBtn').hide();
+        }
         
         areas.child(key).on('value', function(snapshot) {
     					
