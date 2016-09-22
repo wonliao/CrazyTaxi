@@ -54,31 +54,21 @@ function init(position) {
     */
 
 	var markers = {};
-
-	//dynamically update geoQuery, add or remove markers
 	map.addListener('bounds_changed', function(){
-        
-        console.log('bounds_changed');
-        
+
 		var bounds = map.getBounds();
 		var center = map.getCenter();
 		//console.log("lat("+center.lat()+") lng("+center.lng()+")");
         window.localStorage.setItem("center", center.lat()+","+center.lng());
-        
-		
+
 		var corner = bounds.getNorthEast();
 		var radius = GeoFire.distance([center.lat(), center.lng()], [corner.lat(), corner.lng()]);
 
         if(isFirstTime == true) {
-            
-            console.log('isFirstTime('+isFirstTime+')');
     	
             isFirstTime = false;
-			//console.log('Creating new GeoFire query with center at ' + center + ', radius of ' + radius + 'km');
 
-			//create new marker, highlight in sidebar
 			geoQuery.on('key_entered', function(key, location, distance) {
-				//$ul.find('li[data-id="' + key + '"]').addClass('list-group-item-info');
 
 				location = new google.maps.LatLng(location[0], location[1]);
 				//console.log("lat("+location.lat()+") lng("+location.lng()+")");
@@ -90,7 +80,7 @@ function init(position) {
 				case 2:	image = "images/marker_red.png";	break;
 				case 3:	image = "images/marker_yellow.png";	break;
 				}
-				
+
 				markers[key] = new google.maps.Marker({
 					position: location,
 					map: map,
@@ -100,54 +90,52 @@ function init(position) {
 				markers[key].addListener('click', function() {
 
 					areas.child(key).on('value', function(snapshot) {
-						
+
 						//console.log(snapshot.val());
 						var destination = snapshot.val().destination;	// 目的地
 						var timestamp = snapshot.val().appointment;		// 共乘時間
 						var purpose = snapshot.val().purpose;			// 共乘目的
-						
 						var d = new Date(timestamp);
 						var time_text = d.toLocaleString();
+
 						var text = "";
                         text += "<div>目的地："+destination+"</div>";
 						text += "<div>共乘時間："+time_text+"</div>";
 						text += "<div>共乘目的："+purpose+"</div>";
 
                         window.localStorage.setItem("info_key", key);
-                         
+
 						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px'>"+text+"</div>");
 						infowindow.open(map, markers[key]);
 
 						//map.setZoom(19);
 						map.panTo(location);
+
+                        ga('send', 'event', '首頁', 'click', "圖標");
 					});
 				});
-				//console.log(key + ' is located at [' + location + '] which is within the query (' + distance.toFixed(2) + ' km from center)');
 			});
 
 			//remove marker, un-highlight
 			geoQuery.on('key_exited', function(key, location, distance) {
-				//$ul.find('li[data-id="' + key + '"]').removeClass('list-group-item-info');
-				
+
 				markers[key].setMap(null);
 				delete markers[key];
-				//console.log(key + ' is located at [' + location + '] which is no longer within the query (' + distance.toFixed(2) + ' km from center)');
 			});
 		}
-        
+
         if(isFirstTime == false) {
-         	
-            //console.log('Updating center to ' + center + ', radius to ' + radius + 'km');
+
 			geoQuery.updateCriteria({
 				center: [ center.lat(), center.lng() ],
 				radius: radius,
 		    });
         }
 	});
-
 }
 
 function openInfo() {
 
+    ga('send', 'event', '首頁', 'click', "共乘泡泡");
     homeNavigator.pushPage("page1_info.html", {animation: 'slide'});
 }
