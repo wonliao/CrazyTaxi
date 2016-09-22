@@ -22,61 +22,61 @@
     		</ons-toolbar-button>
         </div>
     </ons-toolbar>
+
+    <div style="clear:both; height:10px"></div>
+
+    <!-- facebook 頭像及名稱 -->
+    <section style="padding: 4px 16px; text-align:center;">
+        <img id="fb_user_picture"/>
+        <div id="fb_user_name"></div>
+    </section>
+
+    <div style="clear:both; height:10px"></div>
+
+    <section class="section1">
+        <div style="color:#b5b2b2;">上車地點</div>
+        <div id="input_address_div" style="color:#6b6b6b;"></div>
+    </section>
+
+    <section class="section1">
+        <div style="color:#b5b2b2;">下車地點</div>
+        <div id="destination_div" style="color:#6b6b6b;"></div>
+    </section>
+
+    <section class="section1">
+        <div style="color:#b5b2b2;">出發時間</div>
+        <div id="time_div" style="color:#6b6b6b;"></div>
+    </section>
+
+    <section class="section1">
+        <div style="color:#b5b2b2;">共乘目的</div>
+        <div id="purpose_div" style="color:#6b6b6b;"></div>
+    </section>
+
+    <section class="section1">
+        <div style="color:#b5b2b2;">備註</div>
+        <div id="note_div" style="color:#6b6b6b;"></div>
+    </section>
         
+    <section class="section1">
+        <div style="color:#b5b2b2;">小幫手</div>
+        <div id="note_div" style="color:#6b6b6b;">*已找到共乘夥伴，卻還是一直收到共乘聯繫時，可使用下方按鈕【已找到共乘夥伴】，系統將會自動隱藏您的共乘需求。<span style="color:#F00;">(注意！此功能並非取消共乘！）</span></div>
+    </section>
+
+    <div style="clear:both; height:10px"></div>
+
+    <section style="padding: 4px 16px; text-align:center;">
+        <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0; display:none;">
+            <span style="font-size:18px">已找到共乘夥伴</span>
+        </ons-button>
+
         <div style="clear:both; height:10px"></div>
 
-        <!-- facebook 頭像及名稱 -->
-        <section style="padding: 4px 16px; text-align:center;">
-            <img id="fb_user_picture"/>
-            <div id="fb_user_name"></div>
-        </section>
-        
-        <div style="clear:both; height:10px"></div>
-         
-        <section class="section1">
-            <div style="color:#b5b2b2;">上車地點</div>
-            <div id="input_address_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">下車地點</div>
-            <div id="destination_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">出發時間</div>
-            <div id="time_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">共乘目的</div>
-            <div id="purpose_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">備註</div>
-            <div id="note_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">小幫手</div>
-            <div id="note_div" style="color:#6b6b6b;">*已找到共乘夥伴，卻還是一直收到共乘聯繫時，可使用下方按鈕【已找到共乘夥伴】，系統將會自動隱藏您的共乘需求。<span style="color:#F00;">(注意！此功能並非取消共乘！）</span></div>
-        </section>
+        <ons-button id="cancel_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('取消此次共乘')" style="background:#adadad; border-radius:0; display:none;">
+            <span style="font-size:18px">取消此次共乘</span>
+        </ons-button>
+    </section>
 
-        <div style="clear:both; height:10px"></div>
-         
-        <section style="padding: 4px 16px; text-align:center;">
-            <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0; display:none;">
-                <span style="font-size:18px">已找到共乘夥伴</span>
-            </ons-button>
-            
-            <div style="clear:both; height:10px"></div>
-            
-            <ons-button id="cancel_btn" class="button button--large" modifier="chevron" onclick="page6InfoClick('取消此次共乘')" style="background:#adadad; border-radius:0; display:none;">
-                <span style="font-size:18px">取消此次共乘</span>
-            </ons-button>
-        </section>
-        
 </ons-page>
     
 
