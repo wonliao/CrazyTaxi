@@ -107,6 +107,7 @@ function setEvent() {
 		var area_id = $(this).parent().attr('data-id');
 		console.log("area_id("+area_id+")");
 		areas.child(area_id).remove();
+		firebaseRef.child(area_id).remove();
 	});
 	
 	// 打開 info
