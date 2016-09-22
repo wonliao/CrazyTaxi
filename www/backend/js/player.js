@@ -76,7 +76,7 @@ function getData(snapshot) {
 	//console.log("enable("+enable+") name("+name+")");
 	
 	var enable_str = "";
-	if(enable == false)	enable_str = "<span style='width:60px; display:inline-block;'>(禁言中)</span>";
+	if(enable == false)	enable_str = "<span style='width:60px; display:inline-block;'>(封鎖)</span>";
 	else					enable_str = "<span style='width:60px; display:inline-block;'></span>";
 	
 	var key_str = "";

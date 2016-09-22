@@ -84,11 +84,16 @@ function showPublished(key) {
 
 function getData(snapshot) {
 	
+	var d = new Date(snapshot.val().appointment);
+	var timestamp_text = d.toLocaleString();
+				
 	var str = "";
 	str += '<li class="list-group-item" data-id="' + snapshot.key + '">';
-	str += 		'<span style="width:100px; display:inline-block;">' + snapshot.val().fb_name + '</span>';
+	str += 		'<a data-id="' + snapshot.val().fb_id + '" href="#" target="_self"><span style="width:150px; display:inline-block;">' + snapshot.val().fb_name + '</span></a>';
+	str += 		'<span style="width:200px; display:inline-block;">' + timestamp_text + '</span>';
 	str += 		'<span style="width:100px; display:inline-block;">' + snapshot.val().purpose + '</span>';
-	str += 		'<a data-id="' + snapshot.key + '" href="#"><span style="width:400px; display:inline-block;">' + snapshot.val().destination + '</span></a>';
+	str += 		'<span style="width:300px; display:inline-block;">' + snapshot.val().destination + '</span>';
+	str += 		'<button data-id="' + snapshot.key + '">詳細</button>';
 	str += 		'<i class="glyphicon glyphicon-remove pull-right"></i>';
 	str += '</li>'
 	
@@ -103,15 +108,27 @@ function setEvent() {
 
 	// 刪除
 	$('ul.list-group').on('click', 'i', function(e){
+
 		e.stopPropagation();
 		var area_id = $(this).parent().attr('data-id');
-		console.log("area_id("+area_id+")");
+		//console.log("area_id("+area_id+")");
+		
 		areas.child(area_id).remove();
 		firebaseRef.child(area_id).remove();
 	});
 	
-	// 打開 info
+	// 連結 使用者
 	$('ul.list-group').on('click', 'a', function(e){
+
+		e.stopPropagation();
+		var area_id = $(this).attr('data-id');
+		//console.log("area_id("+area_id+")");
+		
+		location.href = "player.php?s=" + area_id;
+	});
+	
+	// 打開 info
+	$('ul.list-group').on('click', 'button', function(e){
 
 		e.stopPropagation();
 		var area_id = $(this).parent().attr('data-id');
@@ -123,7 +140,7 @@ function setEvent() {
 			areas.child(area_id).once("value", function(snapshot) {
 				
 				var fb_image = "https://graph.facebook.com/"+snapshot.val().fb_id+"/picture?type=normal";
-				var d = new Date(snapshot.val().timestamp);
+				var d = new Date(snapshot.val().appointment);
 				var timestamp_text = d.toLocaleString();
 			
 				var text = "";
@@ -133,6 +150,11 @@ function setEvent() {
 				text += '</section>';
 				
 				text += '<div style="clear:both; height:10px"></div>';
+				
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">手機號碼</div>';
+				text += '	<div style="color:#6b6b6b;">'+snapshot.val().phones+'</div>';
+				text += '</section>';
 				 
 				text += '<section class="section1">';
 				text += '	<div style="color:#b5b2b2;">上車地點</div>';
@@ -159,7 +181,7 @@ function setEvent() {
 				text += '	<div style="color:#6b6b6b;">'+snapshot.val().note+'</div>';
 				text += '</section>';
 				
-				console.log("text("+text+")");
+				//console.log("text("+text+")");
 
 				$(".alert-dialog-content").empty().html(text);
 			
