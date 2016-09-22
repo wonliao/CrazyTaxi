@@ -60,7 +60,7 @@
                 <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" onClick="refreshTime()" required>
+                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" required>
@@ -295,6 +295,11 @@
         			//clean up form
         			$('form#add').trigger('reset');
 
+                    ga('send', 'event', '刊登共乘頁', '上車地點', area.state + area.city);
+                    ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
+                    ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
+                    ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
+
                     // 跳至完成刊登頁
                     homeNavigator.pushPage("page2_success.html", {animation: 'slide'});
         		});
@@ -346,12 +351,6 @@
                 }
             }
         });
-    }
-    
-    function refreshTime() {
-        console.log("refreshTime");
-        
-        $('#timepicker').wickedpicker('time');
     }
 </script>
 
