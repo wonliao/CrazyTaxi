@@ -1,5 +1,6 @@
 <?php require_once('./link.php');?>
 <?php
+header('Access-Control-Allow-Origin: *');  
 
 mysql_select_db($news, $link);
 
