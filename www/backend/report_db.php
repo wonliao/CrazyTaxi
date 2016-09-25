@@ -10,10 +10,6 @@ mysql_query("SET CHARACTER_SET_RESULTS='utf8'");
 $action = $_REQUEST['action'];
 $event_name = $_REQUEST['event_name'];
 
-// for test
-//$action = "get";
-//$event_name = "kkbox";
-
 
 $response = array();
 $response['data'] = array();
@@ -55,7 +51,7 @@ if($action == "get") {
 		// 刪除
 		} else if($serial_number == "") {
 			
-			$cmd = "DELETE FROM `$event_name` WHERE `kkbox`.`index` = '$index';";
+			$cmd = "DELETE FROM `$event_name` WHERE `index` = '$index';";
 			mysql_query($cmd);
 		// 修改
 		} else {
