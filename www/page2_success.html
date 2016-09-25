@@ -108,10 +108,11 @@ function page2SuccessClick(pageName) {
 }
 
 function serial_number(event_name, pageName) {
-    
+
+    var facebook_id = window.localStorage.getItem("facebook_id");
     $.post("https://17-vr-live.wonliao.com/go2gether/www/backend/get_serial_number.php", 
     	{ 
-			"fb_id": "100000151115805",
+			"fb_id": facebook_id,
 			"event_name":	event_name
 		}, function(res){
 
