@@ -34,8 +34,8 @@
         <section style="padding: 4px 16px; text-align:center;">
             <div style="background:#acf2ff; height:110px">
                 <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
-                <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('KKBOX 免費試聽5日序號')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span style="font-size:18px">立即領取</span>
+                <ons-button id="kkbox_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('KKBOX 免費試聽5日序號')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span id="kkbox_btn_text" style="font-size:18px">立即領取</span>
                 </ons-button>
             </div>
         </section>
@@ -43,8 +43,8 @@
         <section style="padding: 4px 16px; text-align:center;">
             <div style="background:#acf2ff; height:110px">
                 <div style="line-height:55px;">ZONE 免費電話點數500點</div>
-                <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('ZONE 免費電話點數500點')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span style="font-size:18px">立即領取</span>
+                <ons-button id="zone_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('ZONE 免費電話點數500點')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span id="zone_btn_text" style="font-size:18px">立即領取</span>
                 </ons-button>
             </div>
         </section>
@@ -62,7 +62,7 @@
     <ons-template id="alert-dialog.html">
       <ons-alert-dialog var="alertDialog">
         <div class="alert-dialog-content">
-            活動尚未開放
+             <span id="page2SuccessAlertDialogText"></span>
         </div>
         <div class="alert-dialog-footer">
           <button class="alert-dialog-button" onClick="alertDialog.destroy()">OK</button>
@@ -74,23 +74,79 @@
 
 <script>
 
+ons.ready(function() {
+    setTimeout(function() {
+    
+        var kkbox_serial_number = window.localStorage.getItem("kkbox");
+        var zone_serial_number = window.localStorage.getItem("zone");
+        console.log("kkbox_serial_number("+kkbox_serial_number+")");
+        console.log("zone_serial_number("+zone_serial_number+")");
+
+        if(kkbox_serial_number != "") {
+         
+            $("#kkbox_btn").attr("disabled", true);
+            $("#kkbox_btn_text").text("已領取");
+        }
+
+        if(zone_serial_number != "") {
+         
+            $("#zone_btn").attr("disabled", true);
+            $("#zone_btn_text").text("已領取");
+        }
+    }, 10);
+});
+    
 function page2SuccessClick(pageName) {
     
     switch(pageName) {
-    case "KKBOX 免費試聽5日序號":       get_gift();             break;
-    case "ZONE 免費電話點數500點":      get_gift();             break;
-    case "確定":                        submit_btn();           break;
+    case "KKBOX 免費試聽5日序號":       serial_number("kkbox", pageName);           break;
+    case "ZONE 免費電話點數500點":      serial_number("zone", pageName);            break;
+    case "確定":                        submit_btn();                               break;
     }
 
     ga('send', 'event', '刊登完成頁', 'click', pageName);
 }
+
+function serial_number(event_name, pageName) {
     
+    $.post("https://17-vr-live.wonliao.com/go2gether/www/backend/get_serial_number.php", 
+    	{ 
+			"fb_id": "100000151115805",
+			"event_name":	event_name
+		}, function(res){
+
+            console.log("flag("+res.flag+")");
+			console.log("data("+res.data+")");
+
+            window.localStorage.setItem(event_name, res.data);
+
+            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+                
+                var text = "";
+                text += "<h4>"+pageName+"</h4>";
+                text += "<h4>序號</h4>";
+                text += "<h4>"+res.data+"</h4>";
+                $("#page2SuccessAlertDialogText").html(text);
+
+                $("#"+event_name+"_btn").attr("disabled", true);
+                $("#"+event_name+"_btn_text").text("已領取");
+
+                alertDialog.show();
+            });
+		},
+		"json"
+	);
+    
+}
+
+/*
 function get_gift() {
 
     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         alertDialog.show();
     });  
 }
+*/
 
 function submit_btn() {
     
