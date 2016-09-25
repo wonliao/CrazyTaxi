@@ -59,7 +59,7 @@ $container.handsontable({
 	colHeaders: true,
 	minSpareRows: 1,
 	contextMenu: true,
-	colWidths: [300, 300, 300, 300],
+	colWidths: [1, 300, 300, 300],
 	columnSorting: true,
 	colHeaders: ["index", "活動序號", "領取者fb id", "領取時間"],
 	search: true,
@@ -111,7 +111,7 @@ $("#btnUpdate").click(function () {
 			"data": tableData
 		}, function(res){
 
-			console.log("res("+res.data+")");
+			console.log("res("+res+")");
 		},
 		"json"
 	);
