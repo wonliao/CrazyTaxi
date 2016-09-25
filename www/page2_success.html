@@ -82,13 +82,13 @@ ons.ready(function() {
         console.log("kkbox_serial_number("+kkbox_serial_number+")");
         console.log("zone_serial_number("+zone_serial_number+")");
 
-        if(kkbox_serial_number != "") {
+        if(kkbox_serial_number != "" && kkbox_serial_number != null) {
          
             $("#kkbox_btn").attr("disabled", true);
             $("#kkbox_btn_text").text("已領取");
         }
 
-        if(zone_serial_number != "") {
+        if(zone_serial_number != "" && zone_serial_number != null) {
          
             $("#zone_btn").attr("disabled", true);
             $("#zone_btn_text").text("已領取");
