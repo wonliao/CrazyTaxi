@@ -130,7 +130,7 @@ function serial_number(event_name, pageName) {
                 $("#page2SuccessAlertDialogText").html(text);
 
                 $("#"+event_name+"_btn").attr("disabled", true);
-                $("#"+event_name+"_btn_text").text("已領取");
+                $("#"+event_name+"_btn_text").css("color", "#000").text(res.data);
 
                 alertDialog.show();
             });
