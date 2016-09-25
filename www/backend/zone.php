@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>活動序號</title>
+<title>ZONE免費電話點數500點</title>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/handsontable.full.js"></script>
@@ -47,7 +47,7 @@ $campaign_id = $_GET['campaign_id'];
 
 var renderState = false;
 //var campaign_id = parseInt("<?php echo $campaign_id; ?>");
-var event_name = "kkbox";
+var event_name = "zone";
 var noOfRowstoShow = 2000;	// 搜尋結果筆數
 
 
