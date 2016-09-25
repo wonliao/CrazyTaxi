@@ -45,19 +45,17 @@ if($action == "get") {
 		// 新增
 		if($index == NULL && $serial_number != NULL) {
 			
-			$cmd = "INSERT INTO `$event_name` (`index`, `serial_number`, `receive_player`, `receive_time`) VALUES
-										 (NULL, '$serial_number', '$receive_player', '$receive_time');";
+			$cmd = "INSERT INTO `$event_name` (`index`, `serial_number`, `receive_player`, `receive_time`) VALUES (NULL, '$serial_number', '$receive_player', '$receive_time');";
 			mysql_query($cmd);
 		// 刪除
-		} else if($serial_number == "") {
+		} else if($index != NULL && $serial_number == "") {
 			
 			$cmd = "DELETE FROM `$event_name` WHERE `index` = '$index';";
 			mysql_query($cmd);
 		// 修改
-		} else {
+		} else if($index != NULL){
 			
 			$cmd = "UPDATE `$event_name` SET `serial_number` = '$serial_number', `receive_player` = '$receive_player', `receive_time` = '$receive_time' WHERE `index` = '$index';";
-			echo "cmd($cmd)";
 			mysql_query($cmd);
 		}
 	}
