@@ -100,7 +100,11 @@
         <ons-template id="alert-dialog.html">
             <ons-alert-dialog var="alertDialog">
                 <div class="alert-dialog-content">
-                    <span id="alertDialogText">請先登入帳號</span>
+                    <span id="alertDialogText">請先登入帳號
+                        <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick('fb登入')" style="bottom:10px; right:0px; float:right;"></fb:login-button>
+
+                        
+                    </span>
                 </div>
                 <div class="alert-dialog-footer">
                     <button class="alert-dialog-button" onClick="needLogin()">OK</button>
@@ -150,9 +154,9 @@
 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    var text = "<a href='#' id='signin' onClick='FB.login(function(response) {},{scope: \"email,public_profile\"});'>Login with Facebook</a>";
+                    //var text = "<a href='#' id='signin' onClick='FB.login(function(response) {},{scope: \"email,public_profile\"});'>Login with Facebook</a>";
 
-                    $('#alertDialogText').html(text);
+                    //$('#alertDialogText').html(text);
                     alertDialog.show();
                 });
                 
