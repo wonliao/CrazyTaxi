@@ -150,7 +150,7 @@
 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    var text = '<fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick(\"fb登入\")" style="bottom:10px; right:0px; float:right;"></fb:login-button>';
+                    var text = "<fb:login-button autologoutlink='true' scope='public_profile,email' onlogin='sidebarClick(\"fb登入\")' style='bottom:10px; right:0px; float:right;'></fb:login-button>";
 
                     $('#alertDialogText').html(text);
                     alertDialog.show();
