@@ -161,7 +161,7 @@
                             console.log("OK");
                            
                             FB.getLoginStatus(function(response) {
-                                checkLoginState();
+                                statusChangeCallback(response);
                             });
                             break;
                         }
