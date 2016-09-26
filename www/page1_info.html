@@ -78,18 +78,11 @@
             </section>
     
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a>服務條款</a>及<a>活動說明</a></span>
+                <input type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()">服務條款</a>及<a onClick="page7_click()">活動說明</a></span>
             </section>
-                
+
             <div style="clear:both; height:10px"></div>
-            
-            <!--
-            <section style="padding: 4px 16px; text-align:center;">
-                <ons-button class="button button--large" modifier="chevron" onclick="page1InfoClick('聯繫對方')" style="background:#36d0c9; border-radius:0;">
-                    <span style="font-size:18px">聯繫對方</span>
-                </ons-button>
-            </section>
-            -->
+  
             <section style="padding: 0px 16px" class="radio_box">                
                 <input type="submit" value="聯繫對方" class="btn btn-default submit_btn">
             </section>
@@ -255,6 +248,10 @@ function page1InfoClick(pageName) {
         gotoPage1();
     }
 
+    function page7_click() {
+
+        homeNavigator.pushPage("page7.html", {animation: 'slide'});
+    }
 </script>
 
 <script>

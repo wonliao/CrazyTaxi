@@ -87,6 +87,10 @@
             <section style="padding: 4px 16px" class="radio_box">
                 <input type="checkbox" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
             </section>
+    
+            <section style="padding: 4px 16px" class="radio_box">
+                <input type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()">服務條款</a>及<a onClick="page7_click()">活動說明</a></span>
+            </section>
 
             <section style="padding: 0px 16px" class="radio_box">                
                 <input type="submit" value="確定" class="btn btn-default submit_btn">
@@ -353,6 +357,11 @@
                 }
             }
         });
+    }
+    
+    function page7_click() {
+
+        homeNavigator.pushPage("page7.html", {animation: 'slide'});
     }
 </script>
 
