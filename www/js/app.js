@@ -39,7 +39,7 @@ function statusChangeCallback(response) {
     $('#menu_fb_user_name').text("");
     
     console.log('statusChangeCallback');
-    //console.log(response);
+    console.log(response);
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         
