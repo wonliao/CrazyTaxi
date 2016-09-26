@@ -119,11 +119,31 @@ function page1InfoClick(pageName) {
 
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-                
+                /*
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                     $('#page1AlertDialogText').html("請先登入帳號");
                     alertDialog.show();
+                });
+                */
+                
+                ons.notification.confirm({
+                    message: '登入Facebook帳號',
+                    modifier: undefined,
+                    callback: function(idx) {
+                        switch (idx) {
+                        case 0:
+                            console.log("Cancel");
+                            gotoPage1();
+                            break;
+                        case 1:
+                            console.log("OK");
+                            FB.login(function(response) {
+                                checkLoginState();
+                            });
+                            break;
+                        }
+                    }
                 });
                 
                 return;
