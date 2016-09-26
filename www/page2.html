@@ -100,11 +100,7 @@
         <ons-template id="alert-dialog.html">
             <ons-alert-dialog var="alertDialog">
                 <div class="alert-dialog-content">
-                    <span id="alertDialogText">請先登入帳號
-                        <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick('fb登入')" style="bottom:10px; right:0px; float:right;"></fb:login-button>
-
-                        
-                    </span>
+                    <span id="alertDialogText">請先登入帳號</span>
                 </div>
                 <div class="alert-dialog-footer">
                     <button class="alert-dialog-button" onClick="needLogin()">OK</button>
@@ -123,13 +119,12 @@
             
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-                /*
+
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                     $('#alertDialogText').html("請先登入帳號");
                     alertDialog.show();
                 });
-                */
 
 /*
                 ons.notification.confirm({
@@ -152,14 +147,6 @@
                 });
 */
 
-                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                    //var text = "<a href='#' id='signin' onClick='FB.login(function(response) {},{scope: \"email,public_profile\"});'>Login with Facebook</a>";
-
-                    //$('#alertDialogText').html(text);
-                    alertDialog.show();
-                });
-                
                 return;
             }
 
@@ -345,7 +332,7 @@
     function needLogin() {
 
         alertDialog.destroy();
-        gotoPage1();
+        menu.openMenu();
     }
         
     function is_fb_player_enable() {
