@@ -160,9 +160,7 @@
                         case 1:
                             console.log("OK");
                            
-                            FB.getLoginStatus(function(response) {
-                                statusChangeCallback(response);
-                            });
+                            checkLoginState();
                             break;
                         }
                     }
