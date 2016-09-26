@@ -112,6 +112,7 @@ $("#btnUpdate").click(function () {
 		}, function(res){
 
 			console.log("res("+res+")");
+			alert("儲存成功");
 		}
 	);
 
