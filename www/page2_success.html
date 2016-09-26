@@ -132,6 +132,8 @@ function serial_number(event_name, pageName) {
                 $("#"+event_name+"_btn").attr("disabled", true);
                 $("#"+event_name+"_btn_text").css("color", "#000").text(res.data);
 
+                ga('send', 'event', '領取序號', pageName, facebook_id);
+
                 alertDialog.show();
             });
 		},
