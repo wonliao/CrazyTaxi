@@ -109,7 +109,7 @@ function testAPI() {
         //window.localStorage.setItem("facebook_id", fb_id);
         window.localStorage.setItem("facebook_name", response.name);
         window.localStorage.setItem("facebook_email", response.email);
-        console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
+        //console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
 
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
         //console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
@@ -122,13 +122,13 @@ function testAPI() {
                 var new_fb_id = data.data.id;
                 window.localStorage.setItem("facebook_id", new_fb_id);
                 window.localStorage.setItem("old_facebook_id", new_fb_id);
-                console.log("get new facebook id ==> new_fb_id("+new_fb_id+")");
+                //console.log("get new facebook id ==> new_fb_id("+new_fb_id+")");
             });
         } else {
 
             var old_fb_id = window.localStorage.getItem("old_facebook_id");
             window.localStorage.setItem("facebook_id", old_fb_id);
-            console.log("facebook_id("+old_fb_id+")");
+            //console.log("facebook_id("+old_fb_id+")");
         }
                 
         var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";

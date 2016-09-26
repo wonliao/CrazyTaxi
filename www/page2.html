@@ -119,14 +119,14 @@
             
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-                
+                /*
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                     $('#alertDialogText').html("請先登入帳號");
                     alertDialog.show();
                 });
+                */
                 
-                /*
                 ons.notification.confirm({
                     message: '登入Facebook帳號',
                     modifier: undefined,
@@ -145,7 +145,7 @@
                         }
                     }
                 });
-                */
+                
                 
                 return;
             }
