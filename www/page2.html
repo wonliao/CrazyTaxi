@@ -148,36 +148,14 @@
                 });
 */
 
-                ons.notification.confirm({
-                    message: '登入Facebook帳號',
-                    modifier: undefined,
-                    callback: function(idx) {
-                        switch (idx) {
-                        case 0:
-                            console.log("Cancel");
-                            gotoPage1();
-                            break;
-                        case 1:
-                            console.log("OK");
-                           
-                             FB.login(function(response) {
-                                if (response.authResponse) {
-                                    console.log('Welcome!  Fetching your information.... ');
-                                    FB.api('/me', function(response) {
-                                        console.log('Good to see you, ' + response.name + '.');
-                                    });
-                                } else {
-                                    console.log('User cancelled login or did not fully authorize.');
-                                }
-                            }, {scope: 'public_profile,email'});
-                            break;
-                        }
-                    }
+                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                    var text = "FB.login(function(response) { checkLoginState(); }, {scope: 'email,user_likes'});";
+
+                    $('#alertDialogText').html(text);
+                    alertDialog.show();
                 });
-
-
-
-
+                
                 return;
             }
 
