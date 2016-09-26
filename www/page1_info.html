@@ -5,6 +5,18 @@
     border-radius: 60px;
     BORDER: #c9c9c9 2px solid;
 }
+.submit_btn {
+    background-color: rgba(24,103,194,0.81);
+    border: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 36px;
+    padding: 4px 12px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #FFF;
+}
 </style>
 
 <ons-page style="background:#fff;">
@@ -24,7 +36,9 @@
     </ons-toolbar>
         
         <div style="clear:both; height:10px"></div>
-
+        
+        
+         
         <!-- facebook 頭像及名稱 -->
         <section style="padding: 4px 16px; text-align:center;">
             <img id="fb_user_picture"/>
@@ -57,15 +71,30 @@
             <div style="color:#b5b2b2;">備註</div>
             <div id="note_div" style="color:#6b6b6b;"></div>
         </section>
-
-        <div style="clear:both; height:10px"></div>
-         
-        <section style="padding: 4px 16px; text-align:center;">
-            <ons-button class="button button--large" modifier="chevron" onclick="page1InfoClick('聯繫對方')" style="background:#36d0c9; border-radius:0;">
-                <span style="font-size:18px">聯繫對方</span>
-            </ons-button>
-        </section>
-
+        
+        <form id="add">
+            <section style="padding: 4px 16px" class="radio_box">
+                <input type="checkbox" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
+            </section>
+    
+            <section style="padding: 4px 16px" class="radio_box">
+                <input type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a>服務條款</a>及<a>活動說明</a></span>
+            </section>
+                
+            <div style="clear:both; height:10px"></div>
+            
+            <!--
+            <section style="padding: 4px 16px; text-align:center;">
+                <ons-button class="button button--large" modifier="chevron" onclick="page1InfoClick('聯繫對方')" style="background:#36d0c9; border-radius:0;">
+                    <span style="font-size:18px">聯繫對方</span>
+                </ons-button>
+            </section>
+            -->
+            <section style="padding: 0px 16px" class="radio_box">                
+                <input type="submit" value="聯繫對方" class="btn btn-default submit_btn">
+            </section>
+        </form>
+        
 </ons-page>
 
 <ons-template id="alert-dialog.html">
@@ -104,33 +133,18 @@ function page1InfoClick(pageName) {
                     alertDialog.show();
                 });
                 
-                /*
-                ons.notification.confirm({
-                    message: '登入Facebook帳號',
-                    modifier: undefined,
-                    callback: function(idx) {
-                        switch (idx) {
-                        case 0:
-                            console.log("Cancel");
-                            gotoPage1();
-                            break;
-                        case 1:
-                            console.log("OK");
-                            FB.login(function(response) {
-                                checkLoginState();
-                            });
-                            break;
-                        }
-                    }
-                });
-                */
-                
                 return;
             }
 
             is_fb_player_enable();
 
             showInfo();
+            
+            $( "#add" ).submit(function( event ) {
+
+                page1InfoClick('聯繫對方');
+                event.preventDefault();
+            });
 
         }, 10);
     });
@@ -221,7 +235,7 @@ function page1InfoClick(pageName) {
     
                 var enable = snapshot.val().enable;
                 var name = snapshot.val().name;
-                console.log("enable("+enable+") name("+name+")");
+                //console.log("enable("+enable+") name("+name+")");
     
                 if(enable != true) {
     
