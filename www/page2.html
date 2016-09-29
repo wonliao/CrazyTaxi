@@ -165,7 +165,7 @@
         		var startTime = $('#timepicker').val();			// 出發時間
         		var phones = $('#phones').val();					// 手機號碼
         		var note = $('#note').val();						// 備註
-        		var purpose = $('input[name=purpose]:checked').val();	// 共乘目的
+        		var purpose = $("input[name='purpose']:checked").val();    // 共乘目的
                 
         		console.log("address("+address+")");
         		console.log("destination("+destination+")");
@@ -219,7 +219,7 @@
         			area.fb_id = window.localStorage.getItem("facebook_id");
                     area.fb_name = window.localStorage.getItem("facebook_name");
                     area.fb_mail = "";// window.localStorage.getItem("facebook_mail");
-
+                    
         			area.input_address = address;		// 上車地點
         			area.destination = destination;	    // 下車地點
         			area.phones = phones;				// 手機號碼
