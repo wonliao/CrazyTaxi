@@ -243,7 +243,8 @@
                     var time_txt = hours+":"+minutes+":00";
                     var txt = date_txt + " " + time_txt;
                     console.log("txt("+txt+")");
-                    var d = new Date(txt);
+                    //var d = new Date(txt);
+                    var d = new Date(txt.replace(/\s+/g, 'T').concat('.000+08:00')).getTime()
 
                     // 預約時間
                     area.appointment = d.getTime();
