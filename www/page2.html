@@ -260,7 +260,7 @@
         			var area_id = firebase.database().ref().child('areas').push().key;
         			var updates = {};
         			updates['/areas/' + area_id] = area;
-                    console.log(updates);
+                    //console.log(updates);
         			firebase.database().ref().update(updates);
 
         			//geofire
