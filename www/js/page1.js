@@ -22,10 +22,11 @@ $(function(){
 	};
 	
 	function error(err) {
-	    console.warn('ERROR(' + err.code + '): ' + err.message);
+	    /*
+        console.warn('ERROR(' + err.code + '): ' + err.message);
         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
             alertDialog.show();
-        });          
+        });*/          
 	};
 
 	navigator.geolocation.getCurrentPosition(success, error, options);
