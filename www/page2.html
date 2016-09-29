@@ -156,14 +156,15 @@
 
             $('#add').on('submit', function() {
                 
-                console.log("facebook_id("+window.localStorage.getItem("facebook_id")+")");
+                console.log("test 1 ==> facebook_id("+window.localStorage.getItem("facebook_id")+")");
                 
-        		var address = $('input#address').val();				    // 上車地點
-        		var destination = $('input#destination').val();		    // 下車地點
-        		var startDate = $('input#datepicker').val();			// 出發日期
-        		var startTime = $('input#timepicker').val();			// 出發時間
-        		var phones = $('input#phones').val();					// 手機號碼
-        		var note = $('input#note').val();						// 備註
+        		var address = $('#address').val();				    // 上車地點
+        		var destination = $('#destination').val();		    // 下車地點
+        		var startDate = $('#datepicker').val();			// 出發日期
+                console.log('test 2');
+        		var startTime = $('#timepicker').val();			// 出發時間
+        		var phones = $('#phones').val();					// 手機號碼
+        		var note = $('#note').val();						// 備註
         		var purpose = $('input[name=purpose]:checked').val();	// 共乘目的
                 
         		console.log("address("+address+")");
