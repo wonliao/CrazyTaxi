@@ -180,10 +180,18 @@
         			//parse address
         			var c, point_of_interest, area = {
         				name: destination,		// 下車地點
-        				latitude: data.results[0].geometry.location.lat,
-        				longitude: data.results[0].geometry.location.lng,
+                        latitude: "",
+                        longitude: ""
+        				//latitude: data.results[0].geometry.location.lat,
+        				//longitude: data.results[0].geometry.location.lng,
         			};
-        
+                    
+                    if(data.results[0]) {
+                        area.latitude = data.results[0].geometry.location.lat;
+                        area.longitude = data.results[0].geometry.location.lng;
+                    }
+                    
+                    
         			//get address, city and state
         			for (var i = 0; i < data.results[0].address_components.length; i++) {
         				c = data.results[0].address_components[i];
