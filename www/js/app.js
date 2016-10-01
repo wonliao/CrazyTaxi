@@ -38,8 +38,8 @@ function statusChangeCallback(response) {
     $('#menu_fb_user_picture').attr("src", "").hide();
     $('#menu_fb_user_name').text("");
     
-    console.log('statusChangeCallback');
-    console.log(response);
+    //console.log('statusChangeCallback');
+    //console.log(response);
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         
@@ -116,7 +116,7 @@ function testAPI() {
         if(old_fb_id == "" || old_fb_id == null) {
 
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
-            console.log("url("+url+")");
+            //console.log("url("+url+")");
             $.getJSON(url, {}, function(data) {
                 
                 var new_fb_id = data.data.id;
