@@ -26,11 +26,11 @@
             <div style="color:#b5b2b2; font-weight:bold;">您將可獲得以下好禮任選一</div>
             <div style="color:#b5b2b2; font-weight:bold;">*每個帳號各個獎項僅限領取一次</div>
             <div style="color:#b5b2b2; font-weight:bold;">*查詢序號請開啟右上角選單確認</div>
-            <div style="color:#b5b2b2; font-weight:bold;">*詳細活動內容請至官方粉絲團查詢</div>
+            <div style="color:#b5b2b2; font-weight:bold;">*詳細活動內容請至<a href="https://www.facebook.com/55688TaiwanTaxi/" target="_blank">官方粉絲團</a>查詢</div>
         </section>
         
         <div style="clear:both; height:10px"></div>
-        
+        <!--
         <section style="padding: 4px 16px; text-align:center;">
             <div style="background:#acf2ff; height:110px">
                 <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
@@ -45,6 +45,15 @@
                 <div style="line-height:55px;">ZONE 免費電話點數500點</div>
                 <ons-button id="zone_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('ZONE 免費電話點數500點')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
                     <span id="zone_btn_text" style="font-size:18px">立即領取</span>
+                </ons-button>
+            </div>
+        </section>
+        -->
+        <section style="padding: 4px 16px; text-align:center;">
+            <div style="background:#acf2ff; height:110px">
+                <div style="line-height:55px;">愛買</div>
+                <ons-button id="amart_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('愛買')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span id="amart_btn_text" style="font-size:18px">立即領取</span>
                 </ons-button>
             </div>
         </section>
@@ -77,11 +86,14 @@
 ons.ready(function() {
     setTimeout(function() {
     
-        var kkbox_serial_number = window.localStorage.getItem("kkbox");
-        var zone_serial_number = window.localStorage.getItem("zone");
-        console.log("kkbox_serial_number("+kkbox_serial_number+")");
-        console.log("zone_serial_number("+zone_serial_number+")");
+        //var kkbox_serial_number = window.localStorage.getItem("kkbox");
+        //var zone_serial_number = window.localStorage.getItem("zone");
+        var amart_serial_number = window.localStorage.getItem("amart");
+        //console.log("kkbox_serial_number("+kkbox_serial_number+")");
+        //console.log("zone_serial_number("+zone_serial_number+")");
+        console.log("amart_serial_number("+amart_serial_number+")");
 
+/*
         if(kkbox_serial_number != "" && kkbox_serial_number != null) {
          
             $("#kkbox_btn").attr("disabled", true);
@@ -92,6 +104,12 @@ ons.ready(function() {
          
             $("#zone_btn").attr("disabled", true);
             $("#zone_btn_text").css("color", "#000").text(zone_serial_number);
+        }
+*/
+        if(amart_serial_number != "" && amart_serial_number != null) {
+         
+            $("#amart_btn").attr("disabled", true);
+            $("#amart_btn_text").css("color", "#000").text(amart_serial_number);
         }
     }, 10);
 });

@@ -74,18 +74,18 @@
             <section style="padding: 0px 16px 0 16px" class="radio_box">
                 <div>請選擇您本次共乘目的</div>
                 <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
-                <li><input type="radio" name="purpose" value="認識朋友"><label for="input1">認識朋友</label></li>
-                <li><input type="radio" name="purpose" value="抓寶可夢"><label for="input1">抓寶可夢</label></li>
+                <li><input type="radio" name="purpose" value="認識朋友"><label>認識朋友</label></li>
+                <li><input type="radio" name="purpose" value="抓寶可夢"><label>抓寶可夢</label></li>
                 <div style="clear:both;"></div>
-                <li><input type="radio" name="purpose" value="業務"><label for="input1">業務</label></li>
-                <li><input type="radio" name="purpose" value="機場接送"><label for="input1">機場接送</label></li>
-                <li><input type="radio" name="purpose" value="其他___"><label for="input1">其他___</label></li>
+                <li><input type="radio" name="purpose" value="業務"><label>業務</label></li>
+                <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
+                <li><input type="radio" name="purpose" value="其他"><label>其他<input id="purpose_other" type="text" style="width:60px; border:none; border-bottom:1px #000 dashed;"/></label></li>
             </section>
 
             <div style="clear:both; height:5px"></div>
 
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
+                <input type="checkbox" required/><span style="margin-left:5px">您需同意此項目，才能繼續參加此活動</span>
             </section>
     
             <section style="padding: 4px 16px" class="radio_box">
@@ -117,7 +117,7 @@
 
         setTimeout(function() {
             
-            window.localStorage.setItem("facebook_id", "100000151115805");
+            //window.localStorage.setItem("facebook_id", "100000151115805");
             
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
@@ -150,19 +150,37 @@
             );
 
             $("#datepicker").datepicker({ minDate: 0, maxDate: "+2D" });
-            $('#timepicker').wickedpicker();
+            
+            
+            var d = new Date();
+            var hours = d.getHours();
+            
+            var options = {
+                now: hours+":00",
+                minutesInterval: 15, //Change interval for minutes, defaults to 1
+            };
+            $('#timepicker').wickedpicker(options);
             
             isFirstTime = true;
 
             $('#add').on('submit', function() {
 
-                var address = $('#address').val();				    // 上車地點
-        		var destination = $('#destination').val();		    // 下車地點
-        		var startDate = $('#datepicker').val();			// 出發日期
-                var startTime = $('#timepicker').val();			// 出發時間
-        		var phones = $('#phones').val();					// 手機號碼
-        		var note = $('#note').val();						// 備註
-        		var purpose = $("input[name='purpose']:checked").val();    // 共乘目的
+                var address = $('#address').val();				            // 上車地點
+        		var destination = $('#destination').val();		            // 下車地點
+        		var startDate = $('#datepicker').val();			            // 出發日期
+                var startTime = $('#timepicker').val();			            // 出發時間
+        		var phones = $('#phones').val();					        // 手機號碼
+        		var note = $('#note').val();						        // 備註
+        		var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
+
+                if(purpose == "其他") {
+    
+                    var purpose_other = $("#purpose_other").val();
+                    if(purpose_other != "") {
+                        purpose = purpose_other;
+                    }
+                }
+
                 /*
         		console.log("address("+address+")");
         		console.log("destination("+destination+")");
