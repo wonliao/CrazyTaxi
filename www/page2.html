@@ -57,7 +57,7 @@
                 <input type="text" class="text-input" ng-model="destination" placeholder="請輸入下車地點" id="destination" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" required>
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供72小時內預約)" id="datepicker" data-role="date" onfocus="blur()" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
@@ -117,7 +117,7 @@
 
         setTimeout(function() {
             
-            //window.localStorage.setItem("facebook_id", "100000151115805");
+            window.localStorage.setItem("facebook_id", "100000151115805");
             
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
