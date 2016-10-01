@@ -100,10 +100,10 @@
         <ons-template id="alert-dialog.html">
             <ons-alert-dialog var="alertDialog">
                 <div class="alert-dialog-content">
-                    <span id="alertDialogText">請先登入帳號</span>
+                    <span id="alertDialogText">請先登入您的Facebook帳號</span>
                 </div>
                 <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button" onClick="needLogin()">OK</button>
+                    <button class="alert-dialog-button" onClick="needLogin()">確定</button>
                 </div>
             </ons-alert-dialog>
         </ons-template>
@@ -124,7 +124,7 @@
 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    $('#alertDialogText').html("請先登入帳號");
+                    $('#alertDialogText').html("請先登入您的Facebook帳號");
                     alertDialog.show();
                 });
 
@@ -317,14 +317,7 @@
         var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
         return formatedDate;
     }
-
-    function needLogin() {
-
-        alertDialog.destroy();
-        gotoPage1();
-        menu.openMenu();
-    }
-        
+    
     function is_fb_player_enable() {
 
         //console.log("is_fb_player_enable ==> facebook_id("+window.localStorage.getItem("facebook_id")+")");

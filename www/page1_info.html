@@ -36,9 +36,7 @@
     </ons-toolbar>
         
         <div style="clear:both; height:10px"></div>
-        
-        
-         
+
         <!-- facebook 頭像及名稱 -->
         <section style="padding: 4px 16px; text-align:center;">
             <img id="fb_user_picture"/>
@@ -93,10 +91,10 @@
 <ons-template id="alert-dialog.html">
     <ons-alert-dialog var="alertDialog">
         <div class="alert-dialog-content">
-            <span id="page1AlertDialogText">請先登入帳號</span>
+            <span id="page1AlertDialogText">請先登入您的Facebook帳號</span>
         </div>
         <div class="alert-dialog-footer">
-            <button class="alert-dialog-button" onClick="needLogin()">OK</button>
+            <button class="alert-dialog-button" onClick="needLogin()">確定</button>
         </div>
     </ons-alert-dialog>
 </ons-template>
@@ -122,7 +120,7 @@ function page1InfoClick(pageName) {
 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    $('#page1AlertDialogText').html("請先登入帳號");
+                    $('#page1AlertDialogText').html("請先登入您的Facebook帳號");
                     alertDialog.show();
                 });
 
@@ -240,13 +238,6 @@ function page1InfoClick(pageName) {
                 }
             }
         });
-    }
-    
-    function needLogin() {
-
-        alertDialog.destroy();
-        gotoPage1();
-        menu.openMenu();
     }
 
     function page7_click() {

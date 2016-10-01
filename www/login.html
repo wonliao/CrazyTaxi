@@ -1,0 +1,50 @@
+<style>
+#menu_fb_user_picture {
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+    BORDER: #c9c9c9 2px solid;
+}
+</style>
+
+<ons-page style="background:#fff;">
+
+    <ons-toolbar>
+        <div class="left" style="line-height: 44px">
+            <img src="images/logo.png" style="height:32px; margin-left:10px;" onClick="gotoPage1()"/>
+        </div>
+        <div class="center">
+            <img src="images/go2gether.png" style="height:32px;"/>
+        </div>
+        <div class="right" style="line-height: 44px">
+            <ons-toolbar-button ng-click="menu.toggleMenu()">
+            	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+    		</ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+
+    <div style="clear:both; height:50px"></div>
+    
+    <section style="padding: 4px 16px; text-align:center;">
+    
+        <img id="menu_fb_user_picture" src="images/person.jpg"/>
+        <div style="clear:both; height:10px"></div>
+        
+        <div id="menu_fb_user_name" style="overflow:hidden; width:110px; display:inline-block; height:30px;"></div>    
+        <div style="clear:both; height:10px"></div>
+
+        <fb:login-button size="xlarge" autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick('fb登入')">登入</fb:login-button>
+
+    </section>
+
+</ons-page>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84401162-1', 'auto');
+  ga('send', 'pageview', 'facebook登入頁');
+</script>

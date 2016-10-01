@@ -66,10 +66,10 @@
         <ons-template id="alert-dialog.html">
             <ons-alert-dialog var="alertDialog">
                 <div class="alert-dialog-content">
-                    請先登入帳號
+                    請先登入您的Facebook帳號
                 </div>
                 <div class="alert-dialog-footer">
-                    <button class="alert-dialog-button" onClick="needLogin()">OK</button>
+                    <button class="alert-dialog-button" onClick="needLogin()">確定</button>
                 </div>
             </ons-alert-dialog>
         </ons-template>
@@ -138,13 +138,6 @@
             });
         }, 10);
     });
-
-    function needLogin() {
-
-        alertDialog.destroy();
-        gotoPage1();
-        menu.openMenu();
-    }
 
     function showPage6Info(key, type) {
 

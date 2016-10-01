@@ -73,4 +73,13 @@ function gotoPage1() {
     HoldOn.open({message:"定位中，請稍候"});
     tabbar.setActiveTab(0);
 }
+
+function needLogin() {
+
+    alertDialog.destroy();
+    homeNavigator.pushPage("login.html", {animation: 'lift'});
+     
+    //gotoPage1();
+    //menu.openMenu();
+}
 </script>
