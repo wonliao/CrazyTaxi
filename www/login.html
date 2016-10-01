@@ -58,7 +58,7 @@ function fbLogin() {
          if (response.perms) {
           //使用者已登入Facebook成功，且已授權你的應用程式存取
             console.log("使用者已登入Facebook成功，且已授權你的應用程式存取");
-            checkLoginState();
+            //checkLoginState();
          } else {
            //使用者已登入Facebook成功，但未授權你的應用程式存取
            console.log("使用者已登入Facebook成功，但未授權你的應用程式存取");
@@ -67,6 +67,8 @@ function fbLogin() {
          //使用者未登入成功
          console.log("使用者未登入成功");
        }
+       
+       location.reload();
      }, {perms:'public_profile,email'}); //設定需要授權的項目
   }
 
