@@ -23,7 +23,7 @@ geoFire = new GeoFire(firebaseRef);
     
 geoQuery = geoFire.query({
     			center: [ 0, 0 ],
-				radius: 1.0,
+				radius: 1.0
 			});
     
 isFirstTime = true;
