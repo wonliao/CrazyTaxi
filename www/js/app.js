@@ -3,12 +3,7 @@ ons.bootstrap();
 $(function(){
 
     //HoldOn.open({message:"定位中，請稍候"});
-    //window.localStorage.setItem("facebook_id", "");
-    //window.localStorage.setItem("facebook_name", "");
-    //window.localStorage.setItem("facebook_email", "");
 });
-
-
 
 // Initialize the Firebase SDK
 firebase.initializeApp({
@@ -19,15 +14,14 @@ firebase.initializeApp({
 // Create a new GeoFire instance
 firebaseRef = firebase.database().ref('makers');
 geoFire = new GeoFire(firebaseRef);
-	
-    
+
 geoQuery = geoFire.query({
     			center: [ 0, 0 ],
 				radius: 1.0
 			});
-    
+
 isFirstTime = true;
-    
+
 // Select areas that are in the database
 var areas = firebase.database().ref('areas');
 var players = firebase.database().ref('players');
@@ -41,19 +35,15 @@ function statusChangeCallback(response) {
     //console.log('statusChangeCallback');
     //console.log(response);
     if (response.status === 'connected') {
+
         // Logged into your app and Facebook.
-        
         //console.log("Your UID is " + response.authResponse.userID);
         testAPI();
     } else if (response.status === 'not_authorized') {
         
         // The person is logged into Facebook, but not your app.
-        console.log("not_authorized");
-        window.localStorage.setItem("facebook_id", "");
-        window.localStorage.setItem("facebook_name", "");
-        window.localStorage.setItem("facebook_email", "");
     } else {
-        
+
         console.log("unknow");
         window.localStorage.setItem("facebook_id", "");
         window.localStorage.setItem("facebook_name", "");
