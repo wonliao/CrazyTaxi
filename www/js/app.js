@@ -3,9 +3,9 @@ ons.bootstrap();
 $(function(){
 
     //HoldOn.open({message:"定位中，請稍候"});
-    window.localStorage.setItem("facebook_id", "");
-    window.localStorage.setItem("facebook_name", "");
-    window.localStorage.setItem("facebook_email", "");
+    //window.localStorage.setItem("facebook_id", "");
+    //window.localStorage.setItem("facebook_name", "");
+    //window.localStorage.setItem("facebook_email", "");
 });
 
 
@@ -46,9 +46,18 @@ function statusChangeCallback(response) {
         //console.log("Your UID is " + response.authResponse.userID);
         testAPI();
     } else if (response.status === 'not_authorized') {
-        // The person is logged into Facebook, but not your app.
         
+        // The person is logged into Facebook, but not your app.
+        console.log("not_authorized");
+        window.localStorage.setItem("facebook_id", "");
+        window.localStorage.setItem("facebook_name", "");
+        window.localStorage.setItem("facebook_email", "");
     } else {
+        
+        console.log("unknow");
+        window.localStorage.setItem("facebook_id", "");
+        window.localStorage.setItem("facebook_name", "");
+        window.localStorage.setItem("facebook_email", "");
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
     }
