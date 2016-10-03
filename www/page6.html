@@ -81,7 +81,7 @@
 
     ons.ready(function() {
         setTimeout(function() {
-
+            window.localStorage.setItem("facebook_id", "100000151115805");
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
                 
@@ -101,12 +101,12 @@
                 //console.log("key("+snapshot.key+")");
 
                 // 時間
-                var d1 = new Date(snapshot.val().timestamp);
-    			var time_text = d1.toLocaleString();
+                var d1 = new Date(snapshot.val().appointment);
+    			var time_text = getTimeStr(d1); //d1.toLocaleString();
 
                 // 過期時間
                 var d2 = new Date(snapshot.val().expired_time); 
-                var expired_time_text = d2.toLocaleString();
+                var expired_time_text = getTimeStr(d2);//d2.toLocaleString();
 
                 var d = new Date();
                 var now_text = d.toLocaleString();
