@@ -119,7 +119,7 @@
 
         setTimeout(function() {
 
-            //window.localStorage.setItem("facebook_id", "100000151115805");
+            window.localStorage.setItem("facebook_id", "100000151115805");
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -268,6 +268,24 @@
                     //console.log("txt("+txt+")");
                     var d = new Date(txt);
 
+                    
+                    var now_d = new Date();
+                    if(now_d.getTime() > d.getTime()) {
+                        
+                        console.log("test 1");
+                        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                            $("#datepicker").css("border-color", "#F00");
+                            $("#timepicker").css("border-color", "#F00");
+                            $('#alertDialogText').html("出發日期及時間不得小於目前時間，請重新輸入");
+                            $("#dialog_btn").attr("onclick","closeDialog()");
+                            alertDialog.show();
+                        });
+                    
+                        return false;
+                    }
+                    console.log("test 2");
+                    
                     // 預約時間
                     area.appointment = d.getTime();
 
@@ -363,6 +381,10 @@
     function page7_click() {
 
         homeNavigator.pushPage("page7.html", {animation: 'slide'});
+    }
+    
+    function closeDialog() {
+        alertDialog.destroy();
     }
 </script>
 
