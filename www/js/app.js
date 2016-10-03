@@ -2,7 +2,7 @@ ons.bootstrap();
 
 $(function(){
 
-    //HoldOn.open({message:"定位中，請稍候"});
+    HoldOn.open({message:"定位中，請稍候"});
 });
 
 // Initialize the Firebase SDK
@@ -113,11 +113,11 @@ function testAPI() {
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
         //console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
         if(old_fb_id == "" || old_fb_id == null) {
-            
+            /*
             window.localStorage.setItem("facebook_id", fb_id);
             window.localStorage.setItem("old_facebook_id", fb_id);
-            
-/*
+            */
+
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
             //console.log("url("+url+")");
             $.getJSON(url, {}, function(data) {
@@ -127,7 +127,7 @@ function testAPI() {
                 window.localStorage.setItem("old_facebook_id", new_fb_id);
                 //console.log("get new facebook id ==> new_fb_id("+new_fb_id+")");
             });
-*/
+
         } else {
 
             var old_fb_id = window.localStorage.getItem("old_facebook_id");
