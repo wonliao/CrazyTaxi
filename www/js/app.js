@@ -136,3 +136,14 @@ function testAPI() {
         $('#menu_fb_user_name').text(response.name);
     });
 }
+
+function getTimeStr(dt) {
+
+    var d = dt.toLocaleDateString();
+    var t = dt.toLocaleTimeString();
+
+    t = t.replace(/\u200E/g, '');
+    t = t.replace(/^([^\d]*\d{1,2}:\d{1,2}):\d{1,2}([^\d]*)$/, '$1$2');
+    var result = d + ' ' + t;
+    return result;
+}

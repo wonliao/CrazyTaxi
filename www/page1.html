@@ -154,7 +154,7 @@ function init(position) {
     						var timestamp = snapshot.val().appointment;		// 共乘時間
     						var purpose = snapshot.val().purpose;			// 共乘目的
     						var d = new Date(timestamp);
-    						var time_text = d.toLocaleString();
+    						var time_text = getTimeStr(d); //d.toLocaleString();
     
     						var text = "";
                             text += "<div>目的地："+destination+"</div>";

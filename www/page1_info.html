@@ -161,7 +161,7 @@ function page1InfoClick(pageName) {
             phones = snapshot.val().phones;        	            // 手機
 
 			var d = new Date(timestamp);
-			var time_text = d.toLocaleString();
+			var time_text = getTimeStr(d); //d.toLocaleString();
 		    
             var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=normal";
             //console.log("fb_image("+fb_image+")");
@@ -244,6 +244,7 @@ function page1InfoClick(pageName) {
 
         homeNavigator.pushPage("page7.html", {animation: 'slide'});
     }
+
 </script>
 
 <script>
