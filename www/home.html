@@ -64,7 +64,10 @@ function call_app() {
     if(ons.platform.isIOS()) {
         window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
     } else {
-        window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
+        window.location = 'taiwantaxi55688://taiwantaxi/';
+        setTimeout(function() {        
+           window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
+        }, 500);
     }
 }
     
