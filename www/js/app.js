@@ -113,23 +113,28 @@ function testAPI() {
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
         //console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
         if(old_fb_id == "" || old_fb_id == null) {
-
+            
+            window.localStorage.setItem("facebook_id", fb_id);
+            window.localStorage.setItem("old_facebook_id", fb_id);
+            
+/*
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
             //console.log("url("+url+")");
             $.getJSON(url, {}, function(data) {
-                
+
                 var new_fb_id = data.data.id;
                 window.localStorage.setItem("facebook_id", new_fb_id);
                 window.localStorage.setItem("old_facebook_id", new_fb_id);
                 //console.log("get new facebook id ==> new_fb_id("+new_fb_id+")");
             });
+*/
         } else {
 
             var old_fb_id = window.localStorage.getItem("old_facebook_id");
             window.localStorage.setItem("facebook_id", old_fb_id);
             //console.log("facebook_id("+old_fb_id+")");
         }
-                
+
         var fb_image = "https://graph.facebook.com/"+response.id+"/picture?type=normal";
         $('#menu_fb_user_picture').attr("src", fb_image).show();
         $('#menu_fb_user_name').text(response.name);

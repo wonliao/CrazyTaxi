@@ -89,7 +89,7 @@
             <section style="padding: 4px 16px" class="radio_box">
                 <input type="checkbox" required/><span style="margin-left:5px">您需同意此項目，才能繼續參加此活動</span>
             </section>
-    
+
             <section style="padding: 4px 16px" class="radio_box">
                 <input type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()">服務條款</a>及<a onClick="page7_click()">活動說明</a></span>
             </section>
@@ -118,9 +118,8 @@
     ons.ready(function() {
 
         setTimeout(function() {
-            
+
             //window.localStorage.setItem("facebook_id", "100000151115805");
-            
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -144,25 +143,24 @@
                     location_type: "ROOFTOP",
                     result_type: "street_address"
         		}, function(data) {
-                    console.log(data);
+
+                    //console.log(data);
                     var formatted_address = data.results[0].formatted_address;
-                    console.log("formatted_address("+formatted_address+")");
+                    //console.log("formatted_address("+formatted_address+")");
                     $("#address").val(formatted_address);
         		}
             );
 
             $("#datepicker").datepicker({ minDate: 0, maxDate: "+2D" });
-            
-            
+
             var d = new Date();
             var hours = d.getHours();
-            
             var options = {
                 now: hours+":00",
                 minutesInterval: 15, //Change interval for minutes, defaults to 1
             };
             $('#timepicker').wickedpicker(options);
-            
+
             isFirstTime = true;
 
             $('#add').on('submit', function() {
@@ -176,7 +174,7 @@
         		var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
 
                 if(purpose == "其他") {
-    
+
                     var purpose_other = $("#purpose_other").val();
                     if(purpose_other != "") {
                         purpose = purpose_other;
@@ -319,13 +317,12 @@
         		});
 
                return false;
-            });	
-            
+            });
         }, 10);
     });
 
-    function stringToDate(_date,_format,_delimiter)
-    {
+    function stringToDate(_date,_format,_delimiter) {
+
         var formatLowerCase=_format.toLowerCase();
         var formatItems=formatLowerCase.split(_delimiter);
         var dateItems=_date.split(_delimiter);
@@ -337,7 +334,7 @@
         var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
         return formatedDate;
     }
-    
+
     function is_fb_player_enable() {
 
         //console.log("is_fb_player_enable ==> facebook_id("+window.localStorage.getItem("facebook_id")+")");
