@@ -55,10 +55,28 @@
 <script src='js/app.js'></script>
 
 <style>
+#download-btn {
+    position: fixed;
+    top:0;
+    right: 0;
+    border-style:none;
+}
+
+.download-btn-img {
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    BORDER: #c9c9c9 2px solid;
+    width: 60px;
+}
+
 ons-icon {
     width: 20%;
     text-align: center;
 }
+
+
+
 </style>
 
 </head>
@@ -105,7 +123,22 @@ ons-icon {
 </ons-template>
 <!-- 側邊欄 end -->
 
+<a href="taiwantaxi55688://taiwantaxi/" id="download-btn">
+    <img src="images/logo.png" class="download-btn-img"/>
+</a>
+
+
 <script>
+
+ons.ready(function() {
+    setTimeout(function() {
+
+        var _h = $( document ).height();
+        _h = _h / 2 - 30;
+        $("#download-btn").css("top", _h);
+    }, 10);
+});
+    
 function sidebarClick(pageName) {
     
     switch(pageName) {
