@@ -123,7 +123,7 @@ ons-icon {
 </ons-template>
 <!-- 側邊欄 end -->
 
-<a href="taiwantaxi55688://taiwantaxi/" id="download-btn">
+<a id="download-btn" onclick="open55688App()">
     <img src="images/logo.png" class="download-btn-img"/>
 </a>
 
@@ -168,6 +168,15 @@ function page7_click() {
 function call_55688() {
 
     window.location = "tel:55688";
+}
+
+function open55688App() {
+
+    if(ons.platform.isIOS()) {
+        window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
+    } else {
+        window.open("taiwantaxi55688://taiwantaxi/");
+    }
 }
 </script>
 
