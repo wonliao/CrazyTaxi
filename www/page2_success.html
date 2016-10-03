@@ -52,7 +52,7 @@
         <section style="padding: 4px 16px; text-align:center;">
             <div style="background:#acf2ff; height:110px">
                 <div style="line-height:30px;">愛買</div>
-                <a href="https://www.fe-amart.com.tw/" target="_blank" style="line-height:30px;">點我前往兌換</a>
+                <a id="amart_link" href="https://www.fe-amart.com.tw/" target="_blank" style="line-height:30px; display:none">點我前往兌換</a>
                 <ons-button id="amart_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('愛買')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
                     <span id="amart_btn_text" style="font-size:18px">立即領取</span>
                 </ons-button>
@@ -92,7 +92,7 @@ ons.ready(function() {
         var amart_serial_number = window.localStorage.getItem("amart");
         //console.log("kkbox_serial_number("+kkbox_serial_number+")");
         //console.log("zone_serial_number("+zone_serial_number+")");
-        console.log("amart_serial_number("+amart_serial_number+")");
+        //console.log("amart_serial_number("+amart_serial_number+")");
 
 /*
         if(kkbox_serial_number != "" && kkbox_serial_number != null) {
@@ -111,6 +111,7 @@ ons.ready(function() {
          
             $("#amart_btn").attr("disabled", true);
             $("#amart_btn_text").css("color", "#000").text(amart_serial_number);
+            $("#amart_link").show();
         }
     }, 10);
 });
@@ -151,6 +152,7 @@ function serial_number(event_name, pageName) {
 
                 $("#"+event_name+"_btn").attr("disabled", true);
                 $("#"+event_name+"_btn_text").css("color", "#000").text(res.data);
+                $("#"+event_name+"_link").show();
 
                 ga('send', 'event', '領取序號', pageName, facebook_id);
 

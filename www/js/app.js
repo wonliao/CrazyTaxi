@@ -147,3 +147,7 @@ function getTimeStr(dt) {
     var result = d + ' ' + t;
     return result;
 }
+
+function reload() {
+    location.reload();
+}
