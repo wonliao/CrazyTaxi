@@ -86,11 +86,11 @@
             <div style="clear:both; height:5px"></div>
 
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" required/><span style="margin-left:5px">您需同意此項目，才能繼續參加此活動</span>
+                <input name="ck_1" type="checkbox" required/><span style="margin-left:5px">您需同意此項目，才能繼續參加此活動</span>
             </section>
 
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()" style="cursor: pointer;">服務條款及活動說明</a></span>
+                <input name="ck_2" type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()" style="cursor: pointer;">服務條款及活動說明</a></span>
             </section>
 
             <section style="padding: 0px 16px" class="radio_box">                
@@ -163,6 +163,28 @@
             isFirstTime = true;
 
             $('#add').on('submit', function() {
+                
+                var ck_1 = $('input[name=ck_1]:checked');
+                var ck_2 = $('input[name=ck_2]:checked');
+                if(ck_1.length <= 0) {
+                   
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#page1AlertDialogText').html('請勾選"您需同意此項目，才能繼續參加此活動"');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                } else if(ck_2.length <= 0) {
+                
+                   ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#page1AlertDialogText').html('請勾選"我已詳細閱讀並同意本活動之服務條款及活動說明"');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                }
 
                 var address = $('#address').val();				            // 上車地點
         		var destination = $('#destination').val();		            // 下車地點
