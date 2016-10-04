@@ -137,27 +137,27 @@ function page1InfoClick(pageName) {
                 event.preventDefault();
             });
             */
-            $('#add').submit(function() {
+            $("form").submit(function(e) {
 
-                event.preventDefault();
-                
-                if (!attributeSupported("required")) {
+                var ref = $(this).find("[required]");
+            
+                $(ref).each(function(){
+                    if ( $(this).val() == '' )
+                    {
+                        alert("Required field should not be blank.");
+            
+                        $(this).focus();
+            
+                        e.preventDefault();
+                        return false;
+                    }
                     
-                    $("#add [required]").each(function(index) {
-                        
-                        if (!$(this).val()) {
-                            alert("Please fill all required fields.");
-                            return false;
-                        }
-                    });
-                }
+                    
+                });  
                 
                 page1InfoClick('聯繫對方');
-                
-                
-                return false;
-            }); 
-
+                return true;
+            });
 
         }, 10);
     });
