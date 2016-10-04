@@ -72,11 +72,11 @@
         
         <form id="add">
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
+                <input type="checkbox" name="attrRequired" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
             </section>
     
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()">服務條款</a>及<a onClick="page7_click()">活動說明</a></span>
+                <input type="checkbox" name="attrRequired" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()">服務條款</a>及<a onClick="page7_click()">活動說明</a></span>
             </section>
 
             <div style="clear:both; height:10px"></div>
@@ -137,33 +137,26 @@ function page1InfoClick(pageName) {
                 event.preventDefault();
             });
             */
-           $( "#add" ).submit(function( event ) {
-            
-                var valid = true;
-                $('input[required]').each(function() {
-                    if (this.value == '') {
-                        // Alert or message to let them know
-                        valid = false;
-                        return false; // stop on first error, or remove this and it'll go through all of them.
-                    }
-                });
+            $('#add').submit(function() {
+
+                event.preventDefault();
                 
-                if (valid === false) {
-
-                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-    
-                        $('#page1AlertDialogText').html("請勾選我同意");
-                        $("#dialog_btn").attr("onclick","reload()");
-                        alertDialog.show();
+                if (!attributeSupported("required")) {
+                    
+                    $("#add [required]").each(function(index) {
+                        
+                        if (!$(this).val()) {
+                            alert("Please fill all required fields.");
+                            return false;
+                        }
                     });
-                    return false;
-                } else {
-
-                    page1InfoClick('聯繫對方');
                 }
                 
-                event.preventDefault();
-            });
+                page1InfoClick('聯繫對方');
+                
+                
+                return false;
+            }); 
 
 
         }, 10);
@@ -273,6 +266,10 @@ function page1InfoClick(pageName) {
     function page7_click() {
 
         homeNavigator.pushPage("page7.html", {animation: 'slide'});
+    }
+    
+    function attributeSupported(attribute) {
+        return (attribute in document.createElement("input"));
     }
 
 </script>
