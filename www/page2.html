@@ -90,7 +90,7 @@
             </section>
 
             <section style="padding: 4px 16px" class="radio_box">
-                <input name="ck_2" type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()" style="cursor: pointer;">服務條款及活動說明</a></span>
+                <input name="ck_2" type="checkbox" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
             </section>
 
             <section style="padding: 0px 16px" class="radio_box">                
@@ -430,7 +430,12 @@
 
         homeNavigator.pushPage("page7.html", {animation: 'slide'});
     }
-    
+
+    function page4_click() {
+
+        tabbar.setActiveTab(3);
+    }
+
     function closeDialog() {
         alertDialog.destroy();
     }
