@@ -130,12 +130,41 @@ function page1InfoClick(pageName) {
             is_fb_player_enable();
 
             showInfo();
-            
+            /*
             $( "#add" ).submit(function( event ) {
 
                 page1InfoClick('聯繫對方');
                 event.preventDefault();
             });
+            */
+           $( "#add" ).submit(function( event ) {
+            
+                var valid = true;
+                $('input[required]').each(function() {
+                    if (this.value == '') {
+                        // Alert or message to let them know
+                        valid = false;
+                        return false; // stop on first error, or remove this and it'll go through all of them.
+                    }
+                });
+                
+                if (valid === false) {
+
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#page1AlertDialogText').html("請勾選我同意");
+                        $("#dialog_btn").attr("onclick","reload()");
+                        alertDialog.show();
+                    });
+                    return false;
+                } else {
+
+                    page1InfoClick('聯繫對方');
+                }
+                
+                event.preventDefault();
+            });
+
 
         }, 10);
     });
