@@ -1,12 +1,69 @@
+<style>
+.my-icon-1 {
+    background-image: url(images/icons/1.png);
+    width: 25%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.my-icon-1.active{
+  background-image: url(images/icons/1_b.png);
+}
+
+.my-icon-2 {
+    background-image: url(images/icons/2.png);
+    width: 25%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-2.active {
+  background-image: url(images/icons/2_b.png);
+}
+
+.my-icon-3 {
+    background-image: url(images/icons/3.png);
+    width: 25%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-3.active {
+  background-image: url(images/icons/3_b.png);
+}
+
+.my-icon-4 {
+    background-image: url(images/icons/4.png);
+    width: 25%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-4.active {
+  background-image: url(images/icons/4_b.png);
+}
+
+.my-icon-5 {
+    background-image: url(images/icons/5.png);
+    width: 25%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-5.active {
+  background-image: url(images/icons/5_b.png);
+}
+</style>
+
 <ons-navigator title="Navigator" var="homeNavigator">
   
     <ons-page>
 		<ons-tabbar position="bottom" var="tabbar">
-			<ons-tabbar-item page="page1.html" icon="fa-home" active="true" onClick="tabClick('首頁')"></ons-tabbar-item>
-            <ons-tabbar-item page="page2.html" icon="fa-users" onClick="tabClick('刊登共乘')"></ons-tabbar-item>
-            <ons-tabbar-item icon="fa-phone" onClick="tabClick('叫車')"></ons-tabbar-item>
-    		<ons-tabbar-item page="page4.html" icon="fa-question" onClick="tabClick('活動說明')"></ons-tabbar-item>
-            <ons-tabbar-item icon="fa-facebook-square" onClick="tabClick('官方粉絲團')"></ons-tabbar-item>
+			<ons-tabbar-item page="page1.html" class="my-icon-1" fixed-width="true" active="true" onClick="tabClick('首頁')"></ons-tabbar-item>
+            <ons-tabbar-item page="page2.html" class="my-icon-2" fixed-width="true" onClick="tabClick('刊登共乘')"></ons-tabbar-item>
+            <ons-tabbar-item class="my-icon-3" onClick="tabClick('叫車')"></ons-tabbar-item>
+    		<ons-tabbar-item page="page4.html" class="my-icon-4" onClick="tabClick('活動說明')"></ons-tabbar-item>
+            <ons-tabbar-item class="my-icon-5" onClick="tabClick('官方粉絲團')"></ons-tabbar-item>
 		</ons-tabbar>
 	</ons-page>
     

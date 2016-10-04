@@ -75,6 +75,80 @@ ons-icon {
     text-align: center;
 }
 
+.menu_text {
+    margin-left: 60px;
+}
+
+.my-menu-icon-1 {
+    background-image: url(images/icons/1_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-2 {
+    background-image: url(images/icons/2_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-3 {
+    background-image: url(images/icons/6_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-4 {
+    background-image: url(images/icons/5_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-5 {
+    background-image: url(images/icons/4_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+.my-menu-icon-6 {
+    background-image: url(images/icons/3_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
 
 
 </style>
@@ -93,22 +167,22 @@ ons-icon {
             <fb:login-button size="medium" autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick('fb登入')" style="bottom:10px; right:0px; float:right;">登入</fb:login-button>
         </ons-list-item>
         <ons-list-item modifier="chevron" onclick="sidebarClick('活動說明')">
-            <ons-icon icon="fa-question"></ons-icon><span>活動說明</span>
+            <ons-icon class="my-menu-icon-1"></ons-icon><span class="menu_text">活動說明</span>
         </ons-list-item>
         <ons-list-item modifier="chevron" onclick="sidebarClick('刊登共乘')">
-            <ons-icon icon="fa-users"></ons-icon><span>刊登共乘</span>
+            <ons-icon class="my-menu-icon-2"></ons-icon><span class="menu_text">刊登共乘</span>
         </ons-list-item>
         <ons-list-item modifier="chevron" onclick="sidebarClick('共乘記錄')">
-            <ons-icon icon="fa-search"></ons-icon><span>共乘記錄</span>
+            <ons-icon class="my-menu-icon-3"></ons-icon><span class="menu_text">共乘記錄</span>
         </ons-list-item>
         <ons-list-item modifier="chevron" onclick="sidebarClick('官方粉絲團')">
-            <ons-icon icon="fa-facebook-square"></ons-icon><span>官方粉絲團</span>
+            <ons-icon class="my-menu-icon-4"></ons-icon><span class="menu_text">官方粉絲團</span>
         </ons-list-item>
         <ons-list-item modifier="chevron" onclick="sidebarClick('服務條款')">
-            <ons-icon icon="fa-check-square-o"></ons-icon><span>服務條款</span>
+            <ons-icon class="my-menu-icon-5"></ons-icon><span class="menu_text">服務條款</span>
         </ons-list-item>
         <ons-list-item modifier="chevron" onclick="sidebarClick('55688叫車')">
-            <ons-icon icon="fa-phone"></ons-icon><span>55688叫車</span>
+            <ons-icon class="my-menu-icon-6"></ons-icon><span class="menu_text">55688叫車</span>
         </ons-list-item>
         <ons-list-item>
             <img src="images/55688.jpg" style="width:100%;"/>
