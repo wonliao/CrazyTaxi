@@ -64,7 +64,7 @@
                 <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" required>
+                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
