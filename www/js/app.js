@@ -1,5 +1,10 @@
 ons.bootstrap();
 
+
+webshim.activeLang('en');
+webshims.polyfill('forms');
+webshims.cfg.no$Switch = true;
+        
 $(function(){
 
     HoldOn.open({message:"定位中，請稍候"});
