@@ -170,7 +170,7 @@
                    
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
-                        $('#page1AlertDialogText').html('請勾選"您需同意此項目，才能繼續參加此活動"');
+                        $('#alertDialogText').html('請勾選"您需同意此項目，才能繼續參加此活動"');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
                     });
@@ -179,7 +179,7 @@
                 
                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
-                        $('#page1AlertDialogText').html('請勾選"我已詳細閱讀並同意本活動之服務條款及活動說明"');
+                        $('#alertDialogText').html('請勾選"我已詳細閱讀並同意本活動之服務條款及活動說明"');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
                     });
