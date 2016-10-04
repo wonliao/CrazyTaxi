@@ -86,7 +86,7 @@
             <div style="clear:both; height:5px"></div>
 
             <section style="padding: 4px 16px" class="radio_box">
-                <input name="ck_1" type="checkbox" required/><span style="margin-left:5px">您需同意此項目，才能繼續參加此活動</span>
+                <input name="ck_1" type="checkbox" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
             </section>
 
             <section style="padding: 4px 16px" class="radio_box">
@@ -170,7 +170,7 @@
                    
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
-                        $('#alertDialogText').html('請勾選"您需同意此項目，才能繼續參加此活動"');
+                        $('#alertDialogText').html('請勾選"我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤"');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
                     });
