@@ -137,26 +137,22 @@ function page1InfoClick(pageName) {
                 event.preventDefault();
             });
             */
-            $("form").submit(function(e) {
-
-                var ref = $(this).find("[required]");
-            
-                $(ref).each(function(){
-                    if ( $(this).val() == '' )
-                    {
-                        alert("Required field should not be blank.");
-            
-                        $(this).focus();
-            
-                        e.preventDefault();
-                        return false;
-                    }
-                    
-                    
-                });  
+            $('#add').click(function(e) {
                 
-                page1InfoClick('聯繫對方');
-                return true;
+                e.preventDefault();
+                
+                var sendModalForm = true;
+                $('[required]').each(function() {
+                    if ($(this).val() == '') {
+                        sendModalForm = false;
+                        alert("Required field should not be blank.");
+                    }
+                });
+            
+                if (sendModalForm) {
+                    page1InfoClick('聯繫對方');
+                }
+                
             });
 
         }, 10);
@@ -268,10 +264,6 @@ function page1InfoClick(pageName) {
         homeNavigator.pushPage("page7.html", {animation: 'slide'});
     }
     
-    function attributeSupported(attribute) {
-        return (attribute in document.createElement("input"));
-    }
-
 </script>
 
 <script>
