@@ -163,7 +163,18 @@
             isFirstTime = true;
 
             $('#add').on('submit', function() {
-                
+
+                if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
+
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                        $('#alertDialogText').html("請先登入您的Facebook帳號");
+                        alertDialog.show();
+                    });
+
+                    return;
+                }
+
                 var phones = $('#phones').val();    				        // 手機號碼
                 if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
 
