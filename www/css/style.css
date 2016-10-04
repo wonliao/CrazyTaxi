@@ -11,7 +11,11 @@
 * {
     text-shadow:none;
 }
-
+/*
+a {
+    cursor: pointer;
+}
+*/  
 .tab-bar { background-color: white; }
 
 .navigation-bar {
