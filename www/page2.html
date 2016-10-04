@@ -164,6 +164,19 @@
 
             $('#add').on('submit', function() {
                 
+                var phones = $('#phones').val();    				        // 手機號碼
+                if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
+
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#alertDialogText').html('手機號碼格式錯誤，請重新輸入');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                }
+
+
                 var ck_1 = $('input[name=ck_1]:checked');
                 var ck_2 = $('input[name=ck_2]:checked');
                 if(ck_1.length <= 0) {
@@ -190,7 +203,7 @@
         		var destination = $('#destination').val();		            // 下車地點
         		var startDate = $('#datepicker').val();			            // 出發日期
                 var startTime = $('#timepicker').val();			            // 出發時間
-        		var phones = $('#phones').val();					        // 手機號碼
+        		//var phones = $('#phones').val();					        // 手機號碼
         		var note = $('#note').val();						        // 備註
         		var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
 
@@ -202,17 +215,7 @@
                     }
                 }
                 
-                if(phones[0] != 0 || phones[1] != 9) {
-
-                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-    
-                        $('#alertDialogText').html('手機號碼格式錯誤，請重新輸入');
-                        $("#dialog_btn").attr("onclick","closeDialog()");
-                        alertDialog.show();
-                    });
-                    return false;
-                }
-
+                
                 /*
         		console.log("address("+address+")");
         		console.log("destination("+destination+")");
