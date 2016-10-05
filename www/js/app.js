@@ -49,6 +49,7 @@ function statusChangeCallback(response) {
         window.localStorage.setItem("facebook_id", "");
         window.localStorage.setItem("facebook_name", "");
         window.localStorage.setItem("facebook_email", "");
+        window.localStorage.setItem("old_facebook_id", "");
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
     }
