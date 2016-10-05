@@ -259,11 +259,13 @@ function open55688App() {
 
     if(ons.platform.isIOS()) {
         window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
-    } else {
+    } else  if(ons.platform.isAndroid()) {
         window.location = 'taiwantaxi55688://taiwantaxi/';
         setTimeout(function() {        
            window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
         }, 500);
+    } else {
+        window.open("http://www.taiwantaxi.com.tw/taiwantaxi/services.asp");
     }
 }
 </script>
