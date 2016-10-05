@@ -86,6 +86,27 @@
             </section>
         </form>
         
+        <div id="self_div" style="display:none;">
+            <section class="section1">
+                <div style="color:#b5b2b2;">小幫手</div>
+                <div id="note_div" style="color:#6b6b6b;">*已找到共乘夥伴，卻還是一直收到共乘聯繫時，可使用下方按鈕【已找到共乘夥伴】，系統將會自動隱藏您的共乘需求。<span style="color:#F00;">(注意！此功能並非取消共乘！）</span></div>
+            </section>
+        
+            <div style="clear:both; height:10px"></div>
+        
+            <section style="padding: 4px 16px; text-align:center;">
+                <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page1InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0;">
+                    <span style="font-size:18px">已找到共乘夥伴</span>
+                </ons-button>
+        
+                <div style="clear:both; height:10px"></div>
+        
+                <ons-button id="cancel_btn" class="button button--large" modifier="chevron" onclick="page1InfoClick('取消此次共乘')" style="background:#adadad; border-radius:0;">
+                    <span style="font-size:18px">取消此次共乘</span>
+                </ons-button>
+            </section>
+        </div>
+        
 </ons-page>
 
 <ons-template id="alert-dialog.html">
@@ -107,6 +128,8 @@ function page1InfoClick(pageName) {
     case "聯繫對方":                    contact_btn();              break;
     case "Facebook messenger 聯繫":     fb_messenger_btn();         break;
     case "電話聯繫":                    phone_click();              break;
+    case "已找到共乘夥伴":              done_btn();                 break;
+    case "取消此次共乘":                cancel_btn();               break;
     }
 
     ga('send', 'event', '共乘條件頁', 'click', pageName);
@@ -200,7 +223,20 @@ function page1InfoClick(pageName) {
             $('#time_div').text(time_text);
             $('#purpose_div').text(purpose);
             $('#note_div').text(note);
+            
+            
+             
+            var facebook_id = window.localStorage.getItem("facebook_id");
+            console.log("facebook_id("+facebook_id+") fb_id("+fb_id+")");
+            if(fb_id == facebook_id) {
+                
+                $("#add").hide();
+                $("#self_div").show();
+            }
+            
 		});
+        
+        
     }
     
     function contact_btn() {
@@ -281,6 +317,63 @@ function page1InfoClick(pageName) {
     
     function closeDialog() {
         alertDialog.destroy();
+    }
+
+    function done_btn() {
+
+        var key = window.localStorage.getItem("info_key");
+        //console.log("done_btn ==> key("+key+")");
+        
+        areas.child(key).once("value", function(snapshot) {
+
+    		updateStatus(snapshot, "done");
+            gotoPage1();
+		});
+    }
+    
+    function cancel_btn() {
+
+        var key = window.localStorage.getItem("info_key");
+        //console.log("cancel_btn ==> key("+key+")");
+
+        areas.child(key).once("value", function(snapshot) {
+
+    		updateStatus(snapshot, "cancel");
+            gotoPage1();
+		});
+    }
+    
+    function updateStatus(snapshot, status) {
+        
+        console.log("click ==> snapshot.key("+snapshot.key+")");
+        var area = {};
+        area.address = snapshot.val().address;
+        area.appointment = snapshot.val().appointment;
+        area.city = snapshot.val().city;
+        area.country = snapshot.val().country;
+        area.destination = snapshot.val().destination;
+        area.expired_time = snapshot.val().expired_time;
+        area.fb_id = snapshot.val().fb_id;
+        area.fb_name = snapshot.val().fb_name;
+        area.input_address = snapshot.val().input_address;
+        area.latitude = snapshot.val().latitude;
+        area.longitude = snapshot.val().longitude;
+        area.name = snapshot.val().name;
+        area.note = snapshot.val().note;
+        area.phones = snapshot.val().phones;
+        area.postal_code = snapshot.val().postal_code;
+        area.priority = snapshot.val().priority;
+        area.purpose = snapshot.val().purpose;
+        area.state = snapshot.val().state;
+        area.timestamp = snapshot.val().timestamp;
+        area.status = status;
+
+		var area_updates = {};
+		area_updates['/areas/' + snapshot.key] = area;
+		firebase.database().ref().update(area_updates);
+        
+        // 清除 makers
+        firebaseRef.child(snapshot.key).remove();
     }
 </script>
 
