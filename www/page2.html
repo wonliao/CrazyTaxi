@@ -58,7 +58,7 @@
                 <input type="text" class="text-input" ng-model="destination" placeholder="請輸入完整下車地址" id="destination" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供72小時內預約)" id="datepicker" data-role="date" onfocus="blur()" required>
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供三日內預約)" id="datepicker" data-role="date" onfocus="blur()" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
@@ -192,8 +192,17 @@
 
                 var ck_1 = $('input[name=ck_1]:checked');
                 var ck_2 = $('input[name=ck_2]:checked');
-                if(ck_1.length <= 0) {
-                   
+                var ck_3 = $('input[name=purpose]:checked');
+                console.log("ck_3("+ck_3.length+")");
+                if(ck_3.length <= 0) {
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#alertDialogText').html('請選擇您本次共乘目的');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                } else if(ck_1.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
                         $('#alertDialogText').html('請勾選"我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤"');
@@ -211,6 +220,8 @@
                     });
                     return false;
                 }
+                
+                
 
                 var address = $('#address').val();				            // 上車地點
         		var destination = $('#destination').val();		            // 下車地點
