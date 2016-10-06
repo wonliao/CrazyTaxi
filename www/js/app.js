@@ -175,24 +175,3 @@ function getTimeStr(dt) {
 function reload() {
     location.reload();
 }
-
-/*
-fb_id = "1";
-fb_name = "test";
-players.child(fb_id).once("value", function(snapshot) {
-    if(snapshot.val() == null) {
-
-        console.log("test 2");
-        // fb player 
-                    var d = new Date();
-                    var fb_player = {name: ""};
-                    fb_player.name = fb_name;
-                    fb_player.enable = true;
-                    fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
-                    var player_updates = {};
-                    player_updates['/players/' + fb_id] = fb_player;
-                	firebase.database().ref().update(player_updates);
-    }
-    
-});
-*/
