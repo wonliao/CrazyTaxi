@@ -107,8 +107,9 @@ function testAPI() {
     FB.api('/me?fields=email,name', function(response) {
         
         var fb_id = response.id;
+        var fb_name = response.name;
         //window.localStorage.setItem("facebook_id", fb_id);
-        window.localStorage.setItem("facebook_name", response.name);
+        window.localStorage.setItem("facebook_name", fb_name);
         window.localStorage.setItem("facebook_email", response.email);
         console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
 
@@ -119,7 +120,7 @@ function testAPI() {
             window.localStorage.setItem("facebook_id", fb_id);
             window.localStorage.setItem("old_facebook_id", fb_id);
             */
-
+            
             var url = "backend/get_fb_user_id.php?user_id="+response.id;
             //console.log("url("+url+")");
             $.getJSON(url, {}, function(data) {
@@ -128,6 +129,23 @@ function testAPI() {
                 window.localStorage.setItem("facebook_id", new_fb_id);
                 window.localStorage.setItem("old_facebook_id", new_fb_id);
                 console.log("get new facebook id ==> new_fb_id("+new_fb_id+")");
+                
+                
+                players.child(new_fb_id).once("value", function(snapshot) {
+                    if(snapshot.val() == null) {
+    
+                        console.log("test 2 ==> fb_name("+fb_name+")");
+                        // fb player 
+                        var d = new Date();
+                        var fb_player = {name: ""};
+                        fb_player.name = fb_name;
+                        fb_player.enable = true;
+                        fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
+                        var player_updates = {};
+                        player_updates['/players/' + new_fb_id] = fb_player;
+                        firebase.database().ref().update(player_updates);
+                    }
+                });
             });
 
         } else {
@@ -157,3 +175,24 @@ function getTimeStr(dt) {
 function reload() {
     location.reload();
 }
+
+/*
+fb_id = "1";
+fb_name = "test";
+players.child(fb_id).once("value", function(snapshot) {
+    if(snapshot.val() == null) {
+
+        console.log("test 2");
+        // fb player 
+                    var d = new Date();
+                    var fb_player = {name: ""};
+                    fb_player.name = fb_name;
+                    fb_player.enable = true;
+                    fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
+                    var player_updates = {};
+                    player_updates['/players/' + fb_id] = fb_player;
+                	firebase.database().ref().update(player_updates);
+    }
+    
+});
+*/
