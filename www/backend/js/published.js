@@ -86,6 +86,13 @@ function getData(snapshot) {
 	
 	var d = new Date(snapshot.val().appointment);
 	var timestamp_text = d.toLocaleString();
+	
+	var status = "";
+	if(snapshot.val().status == "done") {
+		status = "找到共乘";
+	} else if(snapshot.val().status == "cancel") {
+		status = "取消";
+	}
 				
 	var str = "";
 	str += '<li class="list-group-item" data-id="' + snapshot.key + '">';
@@ -93,6 +100,7 @@ function getData(snapshot) {
 	str += 		'<span style="width:200px; display:inline-block;">' + timestamp_text + '</span>';
 	str += 		'<span style="width:100px; display:inline-block;">' + snapshot.val().purpose + '</span>';
 	str += 		'<span style="width:300px; display:inline-block;">' + snapshot.val().destination + '</span>';
+	str += 		'<span style="width:100px; display:inline-block;" id="sataus_'+snapshot.key+'">' + status + '</span>';
 	str += 		'<button data-id="' + snapshot.key + '">詳細</button>';
 	str += 		'<i class="glyphicon glyphicon-remove pull-right"></i>';
 	str += '</li>'
@@ -108,13 +116,65 @@ function setEvent() {
 
 	// 刪除
 	$('ul.list-group').on('click', 'i', function(e){
-
+		
 		e.stopPropagation();
 		var area_id = $(this).parent().attr('data-id');
-		//console.log("area_id("+area_id+")");
+		console.log("area_id("+area_id+")");
 		
-		areas.child(area_id).remove();
-		firebaseRef.child(area_id).remove();
+		swal({ 
+				title: "取消刊登",   
+				text: "取消刊登後，會一併取消地圖上的標記。",   
+				type: "warning",   
+				showCancelButton: true,   
+				confirmButtonColor: "#DD6B55",   
+				confirmButtonText: "是的",   
+				cancelButtonText: "不要",   
+				closeOnConfirm: false,   
+				closeOnCancel: false 
+			}, 
+			function(isConfirm){   
+				if (isConfirm) {
+					   
+					console.log("area_id2("+area_id+")");
+					areas.child(area_id).once("value", function(snapshot) {
+
+						var area = {};
+						area.address = snapshot.val().address;
+						area.appointment = snapshot.val().appointment;
+						area.city = snapshot.val().city;
+						area.country = snapshot.val().country;
+						area.destination = snapshot.val().destination;
+						area.expired_time = snapshot.val().expired_time;
+						area.fb_id = snapshot.val().fb_id;
+						area.fb_name = snapshot.val().fb_name;
+						area.input_address = snapshot.val().input_address;
+						area.latitude = snapshot.val().latitude;
+						area.longitude = snapshot.val().longitude;
+						area.name = snapshot.val().name;
+						area.note = snapshot.val().note;
+						area.phones = snapshot.val().phones;
+						area.postal_code = snapshot.val().postal_code;
+						area.priority = snapshot.val().priority;
+						area.purpose = snapshot.val().purpose;
+						area.state = snapshot.val().state;
+						area.timestamp = snapshot.val().timestamp;
+						area.status = "cancel";
+		
+						var area_updates = {};
+						area_updates['/areas/' + snapshot.key] = area;
+						firebase.database().ref().update(area_updates);
+						
+						$("#sataus_"+snapshot.key).text("取消");
+					});
+						
+					firebaseRef.child(area_id).remove();
+					
+					swal("取消刊登成功!", "地圖上的標記也一併取消了。", "success"); 
+				} else {     
+					swal("關閉", "", "error");   
+				} 
+			}
+		);
 	});
 	
 	// 連結 使用者
@@ -220,6 +280,20 @@ function setPaginate() {
 								  	
 									$('ul#areas').empty();
 									
+									// 標題
+									var str = "";
+									str += '<li class="list-group-item">';
+									str += 		'<span style="width:150px; display:inline-block;">使用者名稱</span>';
+									str += 		'<span style="width:200px; display:inline-block;">出發時間</span>';
+									str += 		'<span style="width:100px; display:inline-block;">目的地</span>';
+									str += 		'<span style="width:300px; display:inline-block;">共乘目的</span>';
+									str += 		'<span style="width:100px; display:inline-block;">狀態</span>';
+									str += 		'<span style="display:inline-block;">查看詳細資料</span>';
+									str += 		'<i class="pull-right">取消刊登記錄</i>';
+									str += '</li>'
+									
+									$('ul#areas').append(str);
+									
 									var index = (Math.floor(page) -1) * one_page_item;
 									var key = keys[index];
 									console.log("page("+page+") index("+index+") key("+key+")");
@@ -233,62 +307,4 @@ function setPaginate() {
 									});
 								}
 	}).find('li').first().click();
-}
-
-
-// 建立測試資料
-function setTestData() {
-
-	for(var i=1; i<=50; i++) {
-		
-		var area = {};
-		
-		area.fb_id = "100000151115805";
-
-		area.address = "測試地址"+i;			// 上車地點
-		area.destination = "測試目的地"+i;		// 下車地點
-		area.phones = "0921960028";			// 手機號碼
-		area.note = "測試"+i;					// 備註
-		area.purpose = "抓寶可夢"+i;		// 共乘目的
-			
-		// 建立時間
-		var d = new Date();
-		area.timestamp = d.getTime();
-			
-		// 預約時間
-		d.setHours(d.getHours() + 1);
-		area.appointment = d.getTime();
-		
-		// 過期時間 = 預約時間 + 10分鐘
-		d.setMinutes(d.getMinutes() + 10);
-		area.expired_time = d.getTime();
-	   
-		area.city = "三重區";
-		area.country = "TW";
-		area.fb_mail = "undefined";
-		area.fb_name = "廖志旺";
-		area.input_address = "241台灣新北市三重區永福街135巷27號";
-		area.latitude = 25.0772008;
-		area.longitude = 121.4776986;
-		area.name = "三重";
-		area.postal_code = "241";
-		area.state = "新北市";
-		
-		area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
-
-		//persist to firebase
-		var area_id = firebase.database().ref().child('areas').push().key;
-		var updates = {};
-		updates['/areas/' + area_id] = area;
-		firebase.database().ref().update(updates);
-
-		// fb player 
-		var fb_player = {name: ""};
-		fb_player.name = "測試者"+i;
-		fb_player.enable = true;
-		fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );        // 排序用
-		var player_updates = {};
-		player_updates['/players/' + 1000000000000+i] = fb_player;
-		firebase.database().ref().update(player_updates);
-	}
 }

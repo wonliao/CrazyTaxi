@@ -15,8 +15,14 @@ var players = firebase.database().ref('players');
 
 var keys = [];
 
+
+
+
+
 // 建立測試資料
 //setTestData();
+
+
 
 function showAllPlayer() {
 	
@@ -110,6 +116,14 @@ function setEvent() {
 			//console.log("click ==> snapshot.key("+snapshot.key+")");
 			$('ul#players').empty();
 			
+			// 標題
+			var enable_str = "<span style='width:60px; display:inline-block;'></span>";
+			var key_str = "<span style='width:150px; display:inline-block;'>Facebook ID</span>"
+			var name_str = "<span style='width:200px; display:inline-block;'>使用者名稱</span>"
+			var speaker_str = "<i class='pull-right'>封鎖帳號</i>";
+			$('ul#players').append('<li class="list-group-item">' + enable_str + key_str + name_str + speaker_str + '</li>');
+
+			
 			var fb_player = {name: ""};
 			fb_player.name = snapshot.val().name;
 			fb_player.enable = !snapshot.val().enable;
@@ -149,6 +163,13 @@ function setPaginate() {
 		onChange     			: function(page){
 
 									$('ul#players').empty();
+									
+									// 標題
+									var enable_str = "<span style='width:60px; display:inline-block;'></span>";
+									var key_str = "<span style='width:150px; display:inline-block;'>Facebook ID</span>"
+									var name_str = "<span style='width:200px; display:inline-block;'>使用者名稱</span>"
+									var speaker_str = "<i class='pull-right'>封鎖帳號</i>";
+									$('ul#players').append('<li class="list-group-item">' + enable_str + key_str + name_str + speaker_str + '</li>');
 
 									var index = (Math.floor(page) -1) * one_page_item;
 									var key = keys[index];
@@ -163,61 +184,4 @@ function setPaginate() {
 									});
 								}
 	}).find('li').first().click();
-}
-
-// 建立測試資料
-function setTestData() {
-
-	for(var i=1; i<=50; i++) {
-		
-		var area = {};
-		
-		area.fb_id = "100000151115805";
-
-		area.address = "測試地址"+i;			// 上車地點
-		area.destination = "測試目的地"+i;		// 下車地點
-		area.phones = "0921960028";			// 手機號碼
-		area.note = "測試"+i;					// 備註
-		area.purpose = "抓寶可夢"+i;			// 共乘目的
-			
-		// 建立時間
-		var d = new Date();
-		area.timestamp = d.getTime();
-			
-		// 預約時間
-		d.setHours(d.getHours() + 1);
-		area.appointment = d.getTime();
-		
-		// 過期時間 = 預約時間 + 10分鐘
-		d.setMinutes(d.getMinutes() + 10);
-		area.expired_time = d.getTime();
-	   
-		area.city = "三重區";
-		area.country = "TW";
-		area.fb_mail = "undefined";
-		area.fb_name = "廖志旺";
-		area.input_address = "241台灣新北市三重區永福街135巷27號";
-		area.latitude = 25.0772008;
-		area.longitude = 121.4776986;
-		area.name = "三重";
-		area.postal_code = "241";
-		area.state = "新北市";
-		
-		area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
-
-		//persist to firebase
-		var area_id = firebase.database().ref().child('areas').push().key;
-		var updates = {};
-		updates['/areas/' + area_id] = area;
-		firebase.database().ref().update(updates);
-		
-		// fb player 
-		var fb_player = {name: ""};
-		fb_player.name = "測試者"+i;
-		fb_player.enable = true;
-		fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );        // 排序用
-		var player_updates = {};
-		player_updates['/players/' + 1000000000000 + i] = fb_player;
-		firebase.database().ref().update(player_updates);
-	}
 }

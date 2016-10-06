@@ -9,6 +9,9 @@ $search = $_GET["s"];
 <link href="css/main.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/style.css" media="screen"/>
 
+<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
+<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsen-css-components.css'>
+<link rel="stylesheet" type="text/css" href="css/sweetalert.css">
 
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
@@ -16,11 +19,7 @@ $search = $_GET["s"];
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script src="js/published.js" charset="UTF-8" ></script>
 <script src="js/jquery.paginate.js" type="text/javascript"></script>
-
-
-
-<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
-<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsen-css-components.css'>
+<script src="js/sweetalert.min.js"></script>
 
 <script src="../lib/angular/angular.js"></script>
 <script src="../lib/onsen/js/onsenui.js"></script>
