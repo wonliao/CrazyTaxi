@@ -116,12 +116,15 @@
                 var text = "";
                 text += '<div style="clear:both; height:10px"></div>';
 
-                // 預約
-                if(d.getTime() < d2.getTime()) {
-                    text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"reserve\")'>";
+                var stauts = snapshot.val().status;
                 // 歷程
-                } else {
+                if(d.getTime() > d2.getTime() || stauts != "") {
+
                     text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"history\")'>";
+                // 預約
+                } else {
+
+                    text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"reserve\")'>";
                 }
 
                 text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
@@ -130,12 +133,12 @@
                 text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
                 text += '</section>';
 
-                // 預約
-                if(d.getTime() < d2.getTime()) {
-                    $('#reserve').append(text);
                 // 歷程
-                } else {
+                if(d.getTime() > d2.getTime() || stauts != "") {
                     $('#history').append(text);     
+                // 預約
+                } else {
+                    $('#reserve').append(text);
                 }
             });
         }, 10);
