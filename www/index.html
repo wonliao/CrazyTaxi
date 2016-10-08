@@ -281,7 +281,22 @@ function open55688App() {
             }
         }, 500);
         */
-        deeplink.open("TaiwanTaxi55688://");
+        //deeplink.open("TaiwanTaxi55688://");
+        
+         var iframe = document.createElement("iframe");
+
+        iframe.onload = function() {
+            console.log("title("+iframe.title+")");
+            //clearTimeout(timeout);
+            //iframe.parentNode.removeChild(iframe);
+            //window.location.href = uri;
+        };
+        
+
+        iframe.src = "TaiwanTaxi55688://";
+        //iframe.setAttribute("style", "display:none;");
+        document.body.appendChild(iframe);
+        
     // Android
     } else if(ons.platform.isAndroid()) {
         
