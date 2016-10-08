@@ -212,7 +212,24 @@
         
         var iframe = document.createElement("iframe");
         iframe.onload = function() {
-            alert("done");
+            alert("done 1");
+            
+            var iframe = $(this);
+
+            if ( iframe.innerHTML() ) {
+                // get and check the Title (and H tags if you want)
+                var ifTitle = iframe.contentDocument.title;
+                if ( ifTitle.indexOf("404")>=0 ) {
+                    // we have a winner! probably a 404 page!
+                    alert("done 2");
+                }
+            } else {
+                // didn't load
+                alert("done 3");
+            }
+            
+            alert("done 4");
+            
             clearTimeout(timeout);
             iframe.parentNode.removeChild(iframe);
             window.location.href = uri;
