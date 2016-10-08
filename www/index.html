@@ -266,9 +266,8 @@ function call_55688() {
 function open55688App() {
 
     // iOS
-    //if(ons.platform.isIOS()) {
-    if(1) {
-        
+    if(ons.platform.isIOS()) {
+        /*
         window.location = "TaiwanTaxi55688://";
     
         setTimeout(function() {
@@ -279,10 +278,16 @@ function open55688App() {
                 // Replace the Apple ID following '/id'
                 window.location = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
             }
-        }, 500);
+        }, 500);*/
         
-       
+       setTimeout(function() {
+          window.location =
+            'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
+        }, 1000);
         
+        document.write('<iframe style="border:none; width:1px; height:1px;" src="TaiwanTaxi55688://"></iframe>');
+        
+                
     // Android
     } else if(ons.platform.isAndroid()) {
         
