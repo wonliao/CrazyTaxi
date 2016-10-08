@@ -1,0 +1,189 @@
+<style>
+.my-icon-1 {
+    background-image: url(images/icons/1.png);
+    width: 25%;
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.my-icon-1.active{
+  background-image: url(images/icons/1_b.png);
+}
+
+.my-icon-2 {
+    background-image: url(images/icons/2.png);
+    width: 25%;
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-2.active {
+  background-image: url(images/icons/2_b.png);
+}
+
+.my-icon-3 {
+    background-image: url(images/icons/3.png);
+    width: 25%;
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-3.active {
+  background-image: url(images/icons/3_b.png);
+}
+
+.my-icon-4 {
+    background-image: url(images/icons/4.png);
+    width: 25%;
+    background-size: 40px;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-4.active {
+  background-image: url(images/icons/4_b.png);
+}
+
+.my-icon-5 {
+    background-image: url(images/icons/5.png);
+    width: 25%;
+    background-size: 49px;
+    background-repeat: no-repeat;
+    background-position: center center;   
+}
+.my-icon-5.active {
+  background-image: url(images/icons/5_b.png);
+}
+</style>
+
+<ons-navigator title="Navigator" var="homeNavigator">
+  
+    <ons-page>
+		<ons-tabbar position="bottom" var="tabbar">
+			<ons-tabbar-item page="page1.html" class="my-icon-1" fixed-width="true" onClick="tabClick('首頁')"></ons-tabbar-item>
+            <ons-tabbar-item page="page2.html" class="my-icon-2" fixed-width="true" onClick="tabClick('刊登共乘')"></ons-tabbar-item>
+            <ons-tabbar-item class="my-icon-3" onClick="tabClick('叫車')"></ons-tabbar-item>
+    		<ons-tabbar-item page="page4.html" class="my-icon-4" active="false" onClick="tabClick('活動說明')"></ons-tabbar-item>
+            <ons-tabbar-item class="my-icon-5" onClick="tabClick('官方粉絲團')"></ons-tabbar-item>
+		</ons-tabbar>
+	</ons-page>
+    
+</ons-navigator>    
+
+<script>
+
+ons.ready(function() {
+    setTimeout(function() {
+        
+        var has_intro = window.localStorage.getItem("has_intro");
+        if(has_intro != "true") {
+            HoldOn.close();
+            window.localStorage.setItem("has_intro", "true");
+            tabbar.setActiveTab(3);
+        } else {
+           tabbar.setActiveTab(0);
+        }
+    }, 10);
+});
+
+function tabClick(pageName) {
+  
+    switch(pageName) {
+    case "首頁":                                    break;
+    case "刊登共乘":                                break;
+    case "叫車":                page3_click();      break;
+    case "活動說明":                                break;
+    case "官方粉絲團":          page5_click();      break;
+    case "撥打電話 叫車":       call_55688();       break;
+    case "開啟55688 APP 叫車":  call_app();         break;
+    }
+
+    ga('send', 'event', '功能列', 'click', pageName);
+}
+
+function page3_click() {
+
+    var message = ""
+    message +=  '<div class="pop_message">';
+    message +=  '<section class="section1">';
+    message +=      "<ons-button class='button button--large' modifier='chevron' onclick='tabClick(\"撥打電話 叫車\")' style='background:#36d0c9; border-radius:0;'>";
+    message +=          '<span style="font-size:18px">撥打電話 叫車</span>';
+    message +=      '</ons-button>';
+    message +=  '</section>';
+    message +=  '<section class="section1">';
+    message +=      "<ons-button class='button button--large' modifier='chevron' onclick='tabClick(\"開啟55688 APP 叫車\")' style='background:#36d0c9; border-radius:0;'>";
+    message +=          '<span style="font-size:18px">開啟55688 APP 叫車</span>';
+    message +=      '</ons-button>';
+    message +=  '</section>';
+    message +=  '<section class="section1">';
+    message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
+    message +=          '<span style="font-size:18px">取消</span>';
+    message +=      '</ons-button>';
+    message +=  '</section>';
+    message +=  '</div>';
+        
+    var options = {
+        theme: "custom",
+        message: message,
+        textColor: "white"
+    };
+
+    HoldOn.open(options);
+}
+    
+function call_app() {
+
+    // iOS
+    if(ons.platform.isIOS()) {
+        /*
+        window.location = 'TaiwanTaxi55688://';
+        setTimeout(function() {        
+           window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
+        }, 500);*/
+        
+        var iframe = document.createElement("iframe");
+    
+        iframe.style.border = "none";
+        iframe.style.width = "1px";
+        iframe.style.height = "1px";
+        iframe.onload = function () {
+            document.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
+        };
+        iframe.src = "TaiwanTaxi55688://"; //iOS app schema url
+    
+        window.onload = function(){
+            document.body.appendChild(iframe);
+        }
+    
+        setTimeout(function(){
+            window.location = fallbackUrl; //fallback url
+        },300);
+    
+    // Android
+    } else if(ons.platform.isAndroid()) {
+        
+        window.location = 'taiwantaxi55688://taiwantaxi/';
+        setTimeout(function() {        
+           window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
+        }, 500);
+    // PC
+    } else {
+
+        window.open("http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx");
+    }
+}
+    
+function gotoPage1() {
+
+    HoldOn.open({message:"定位中，請稍候"});
+    tabbar.setActiveTab(0);
+}
+
+function needLogin() {
+
+    alertDialog.destroy();
+    FB.login(function(response) {
+        
+        location.reload();
+    }, {perms:'public_profile,email'}); //設定需要授權的項目
+}
+</script>

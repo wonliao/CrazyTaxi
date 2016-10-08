@@ -1,0 +1,53 @@
+/* set padding for iOS7 status bar */
+.ua-ios-7 .ui-page, .ua-ios-8 .ui-page
+{
+    padding-top: 63px !important;
+}
+.ua-ios-7 .ui-header, .ua-ios-8 .ui-header
+{
+    top: 20px;
+}
+
+* {
+    text-shadow:none;
+}
+/*
+a {
+    cursor: pointer;
+}
+*/  
+.tab-bar { background-color: white; }
+
+.navigation-bar {
+    background:#36d0c9;
+}
+
+.toolbar-button, .toolbar-button--outline, .toolbar-button--quiet {
+    color: #fff;
+}
+
+.section1 {
+    padding: 4px 16px; 
+    text-align:left;
+    line-height: 20px;
+}
+
+.pop_message {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/*
+.title_btn {
+    display: block;
+    width: 150%;
+    background:url(../images/img_logo@460x160.png) 0 0 no-repeat;
+    background-size: 100% 100%
+}
+
+.ui-loader.ui-corner-all.ui-body-a.ui-loader-default {
+    display: none;
+    height: 0px;
+}
+*/

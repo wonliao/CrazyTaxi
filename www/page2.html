@@ -1,0 +1,476 @@
+<style>
+.radio_box li  {
+    display: block;
+    float: left;
+    margin-right:10px;
+}
+    
+.radio_box li label {
+    margin-left:5px;
+}
+
+.text-input {
+    border-radius:0;
+    display: block; 
+    width: 100%
+}
+
+.submit_btn {
+    background-color: rgba(24,103,194,0.81);
+    border: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 36px;
+    padding: 4px 12px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #FFF;
+}
+</style>
+
+<ons-navigator title="Navigator" var="homeNavigator">
+    <ons-page style="background:#fff;">
+        <ons-toolbar fixed-style>
+            <!--
+            <div class="left" style="line-height: 44px">
+                <img src="images/logo.png" style="height:32px; margin-left:10px;" onClick="gotoPage1()"/>
+            </div>
+            -->
+            <div class="center">
+                <img src="images/go2gether.png" style="height:32px;"/>
+            </div>
+            <div class="right" style="line-height: 44px">
+                <ons-toolbar-button ng-click="menu.toggleMenu()">
+                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+        		</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <form id="add" action="#">
+            <section style="padding: 8px 16px 4px 16px">
+                <div>設定共乘條件</div>
+            </section>
+    		<section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="address" placeholder="請輸入完整上車地址" id="address" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="destination" placeholder="請輸入完整下車地址" id="destination" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供三日內預約)" id="datepicker" data-role="date" onfocus="blur()" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" required>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
+            </section>
+
+            <div style="clear:both; height:10px"></div>
+
+            <section style="padding: 0px 16px 0 16px" class="radio_box">
+                <div>請選擇您本次共乘目的</div>
+                <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
+                <li><input type="radio" name="purpose" value="認識朋友"><label>認識朋友</label></li>
+                <li><input type="radio" name="purpose" value="抓寶可夢"><label>抓寶可夢</label></li>
+                <div style="clear:both;"></div>
+                <li><input type="radio" name="purpose" value="業務"><label>業務</label></li>
+                <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
+                <li><input type="radio" name="purpose" value="其他"><label>其他<input id="purpose_other" type="text" style="width:60px; border:none; border-bottom:1px #000 dashed;"/></label></li>
+            </section>
+
+            <div style="clear:both; height:5px"></div>
+
+            <section style="padding: 4px 16px" class="radio_box">
+                <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span></span>
+            </section>
+
+            <section style="padding: 4px 16px" class="radio_box">
+                <input name="ck_2" type="checkbox" required/><span style="margin-left:5px"><span id="ck_2_span">我已詳細閱讀並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
+            </section>
+
+            <section style="padding: 0px 16px" class="radio_box">                
+                <input type="submit" value="確定" class="btn btn-default submit_btn">
+            </section>
+		</form>
+
+        <ons-template id="alert-dialog.html">
+            <ons-alert-dialog var="alertDialog">
+                <div class="alert-dialog-content">
+                    <span id="alertDialogText">請先登入您的Facebook帳號</span>
+                </div>
+                <div class="alert-dialog-footer">
+                    <button id="dialog_btn" class="alert-dialog-button" onClick="needLogin()">確定</button>
+                </div>
+            </ons-alert-dialog>
+        </ons-template>
+
+    </ons-page>
+</ons-navigator>
+
+<script>
+
+    ons.ready(function() {
+
+        setTimeout(function() {
+
+            //window.localStorage.setItem("facebook_id", "100000151115805");
+            // 檢查 facebook 是否已登入
+            if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
+
+                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                    $('#alertDialogText').html("請先登入您的Facebook帳號");
+                    $("#dialog_btn").attr("onclick","needLogin()");
+                    alertDialog.show();
+                });
+
+                return;
+            }
+
+            // 檢查是否被禁止刊登
+            is_fb_player_enable();
+
+            var latlng = window.localStorage.getItem("center");
+            // 依經緯度查地址
+            $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+            		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+        			latlng: latlng,
+                    location_type: "ROOFTOP",
+                    result_type: "street_address"
+        		}, function(data) {
+
+                    //console.log(data);
+                    var formatted_address = data.results[0].formatted_address;
+                    //console.log("formatted_address("+formatted_address+")");
+                    $("#address").val(formatted_address);
+        		}
+            );
+
+            $("#datepicker").datepicker({ minDate: 0, maxDate: "+2D" });
+
+            var d = new Date();
+            var hours = d.getHours();
+            var options = {
+                now: hours+":00",
+                minutesInterval: 15, //Change interval for minutes, defaults to 1
+            };
+            $('#timepicker').wickedpicker(options);
+
+            $('#ck_1_span').click(function() {
+
+                var ck_1 = $('input[name=ck_1]:checked');
+                if(ck_1.length > 0)     $('input[name=ck_1]').prop("checked", false);
+                else                    $('input[name=ck_1]').prop("checked", true);
+            });
+            
+            $('#ck_2_span').click(function() {
+
+                var ck_2 = $('input[name=ck_2]:checked');
+                if(ck_2.length > 0)     $('input[name=ck_2]').prop("checked", false);
+                else                    $('input[name=ck_2]').prop("checked", true);
+            });
+
+            isFirstTime = true;
+            $('#add').on('submit', function() {
+
+                if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
+
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                        $('#alertDialogText').html("請先登入您的Facebook帳號");
+                        $("#dialog_btn").attr("onclick","needLogin()");
+                        alertDialog.show();
+                    });
+
+                    return;
+                }
+
+                var phones = $('#phones').val();    				        // 手機號碼
+                if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
+
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#alertDialogText').html('手機號碼格式錯誤，請重新輸入');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                }
+
+
+                var ck_1 = $('input[name=ck_1]:checked');
+                var ck_2 = $('input[name=ck_2]:checked');
+                var ck_3 = $('input[name=purpose]:checked');
+                console.log("ck_3("+ck_3.length+")");
+                if(ck_3.length <= 0) {
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#alertDialogText').html('請選擇您本次共乘目的');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                } else if(ck_1.length <= 0) {
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#alertDialogText').html('請勾選"我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤"');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                } else if(ck_2.length <= 0) {
+                
+                   ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                        $('#alertDialogText').html('請勾選"我已詳細閱讀並同意本活動之服務條款及活動說明"');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                }
+                
+                
+
+                var address = $('#address').val();				            // 上車地點
+        		var destination = $('#destination').val();		            // 下車地點
+        		var startDate = $('#datepicker').val();			            // 出發日期
+                var startTime = $('#timepicker').val();			            // 出發時間
+        		//var phones = $('#phones').val();					        // 手機號碼
+        		var note = $('#note').val();						        // 備註
+        		var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
+
+                if(purpose == "其他") {
+
+                    var purpose_other = $("#purpose_other").val();
+                    if(purpose_other != "") {
+                        purpose = purpose_other;
+                    }
+                }
+                
+                
+                /*
+        		console.log("address("+address+")");
+        		console.log("destination("+destination+")");
+        		console.log("startDate("+startDate+")");
+        		console.log("startTime("+startTime+")");
+        		console.log("phones("+phones+")");
+        		console.log("note("+note+")");
+        		console.log("purpose("+purpose+")");
+                */
+        		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+        			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+        			address: address	// 上車地點
+        		}, function(data) {
+        			
+        			//parse address
+        			var c, point_of_interest, area = {
+        				name: destination,		// 下車地點
+                        latitude: "",
+                        longitude: ""
+        				//latitude: data.results[0].geometry.location.lat,
+        				//longitude: data.results[0].geometry.location.lng,
+        			};
+                    
+                    if(data.results[0]) {
+                        area.latitude = data.results[0].geometry.location.lat;
+                        area.longitude = data.results[0].geometry.location.lng;
+                    }
+                    
+                    
+        			//get address, city and state
+        			for (var i = 0; i < data.results[0].address_components.length; i++) {
+        				c = data.results[0].address_components[i];
+        				if (!c.types.length || c.types[0] == 'point_of_interest') {
+        					//record the point of interest in case address is empty
+        					point_of_interest = c.short_name;
+        				} else if (c.types.indexOf('street_number') !== -1) {
+        					//set address as street number
+        					area.address = c.long_name;
+        				} else if (c.types.indexOf('route') !== -1) {
+        					//append street name
+        					area.address += ' ' + c.long_name;
+        					area.address = area.address.trim();
+        				} else if (c.types.indexOf('locality') !== -1) {
+        					area.city = c.long_name;
+        				} else if (c.types.indexOf('sublocality') !== -1) {
+        					if (!area.city) area.city = c.long_name;
+        				} else if (c.types.indexOf('administrative_area_level_3') !== -1) {
+        					if (!area.city) area.city = c.long_name;
+        				} else if (c.types.indexOf('administrative_area_level_1') !== -1) {
+        					area.state = c.short_name;
+        				} else if (c.types.indexOf('postal_code') !== -1) {
+        					area.postal_code = c.short_name;
+        				} else if (c.types.indexOf('country') !== -1) {
+        					area.country = c.short_name;
+        				}
+        			}
+
+        			// facebook user id
+        			area.fb_id = window.localStorage.getItem("facebook_id");
+                    area.fb_name = window.localStorage.getItem("facebook_name");
+                    area.fb_mail = window.localStorage.getItem("facebook_mail");
+                    
+        			area.input_address = address;		// 上車地點
+        			area.destination = destination;	    // 下車地點
+        			area.phones = phones;				// 手機號碼
+        			area.note = note;					// 備註
+        			area.purpose = purpose;			    // 共乘目的
+
+        			// 建立時間
+        			var d = new Date();
+        			area.timestamp = d.getTime();
+
+                    // 時間處理
+                    date_txt = startDate.replace(/\//g,"/");
+                    //console.log("startDate("+startDate+") startTime("+startTime+")");
+
+                    var words = startTime.split(' ');
+                    //console.log("words ==>("+words[0]+")("+words[1]+")("+words[2]+")("+words[3]+")");
+                    var hours = words[0];
+                    var minutes = words[2];
+                    var am_pm = words[3];
+                    if(am_pm == "PM")   hours = Math.floor(hours) + 12;
+                    var time_txt = hours+":"+minutes+":00";
+                    var txt = date_txt + " " + time_txt;
+                    //console.log("txt("+txt+")");
+                    var d = new Date(txt);
+
+                    
+                    var now_d = new Date();
+                    if(now_d.getTime() > d.getTime()) {
+                        
+                        console.log("test 1");
+                        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                            $("#datepicker").css("border-color", "#F00");
+                            $("#timepicker").css("border-color", "#F00");
+                            $('#alertDialogText').html("出發日期及時間不得小於目前時間，請重新輸入");
+                            $("#dialog_btn").attr("onclick","closeDialog()");
+                            alertDialog.show();
+                        });
+                    
+                        return false;
+                    }
+                    console.log("test 2");
+                    
+                    // 預約時間
+                    area.appointment = d.getTime();
+
+                    // 過期時間 = 預約時間 + 10分鐘
+                    d.setMinutes(d.getMinutes() + 10);
+        			area.expired_time = d.getTime();
+                    
+                    // 排序用
+                    area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
+                    //console.log("appointment("+d.toString()+") expired_time("+d.toString()+")");
+                    area.status = "";
+
+        			if (!area.address && point_of_interest) area.address = point_of_interest;
+
+        			//persist to firebase
+        			var area_id = firebase.database().ref().child('areas').push().key;
+        			var updates = {};
+        			updates['/areas/' + area_id] = area;
+                    //console.log(updates);
+        			firebase.database().ref().update(updates);
+
+        			//geofire
+        			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
+        				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
+        			});
+                    /*
+                    // fb player 
+                    var fb_player = {name: ""};
+                    fb_player.name = window.localStorage.getItem("facebook_name");
+                    fb_player.enable = true;
+                    fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
+                    var player_updates = {};
+                    player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
+            		firebase.database().ref().update(player_updates);
+                    */
+        			//clean up form
+        			$('form#add').trigger('reset');
+
+                    ga('send', 'event', '刊登共乘頁', '上車地點', area.state + area.city);
+                    ga('send', 'event', '刊登共乘頁', '上車詳細地點', area.input_address);
+                    ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
+                    ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
+                    ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
+
+                    // 跳至完成刊登頁
+                    homeNavigator.pushPage("page2_success.html", {animation: 'slide'});
+        		});
+
+               return false;
+            });
+        }, 10);
+    });
+
+    function stringToDate(_date,_format,_delimiter) {
+
+        var formatLowerCase=_format.toLowerCase();
+        var formatItems=formatLowerCase.split(_delimiter);
+        var dateItems=_date.split(_delimiter);
+        var monthIndex=formatItems.indexOf("mm");
+        var dayIndex=formatItems.indexOf("dd");
+        var yearIndex=formatItems.indexOf("yyyy");
+        var month=parseInt(dateItems[monthIndex]);
+        month-=1;
+        var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+        return formatedDate;
+    }
+
+    function is_fb_player_enable() {
+
+        //console.log("is_fb_player_enable ==> facebook_id("+window.localStorage.getItem("facebook_id")+")");
+        var key = window.localStorage.getItem("facebook_id");
+        players.child(key).once('value', function(snapshot) {
+
+            if(snapshot.exists() == true) {
+
+                var enable = snapshot.val().enable;
+                //var name = snapshot.val().name;
+                //console.log("enable("+enable+") name("+name+")");
+
+                if(enable != true) {
+
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                        $('#alertDialogText').html("你的帳號被封鎖，無法刊登共乘!");
+                        $("#dialog_btn").attr("onclick","reload()");
+                        alertDialog.show();
+                    });
+                }
+            }
+        });
+    }
+
+    function page7_click() {
+
+        homeNavigator.pushPage("page7.html", {animation: 'slide'});
+    }
+
+    function page4_click() {
+
+        tabbar.setActiveTab(3);
+    }
+
+    function closeDialog() {
+        alertDialog.destroy();
+    }
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84401162-1', 'auto');
+  ga('send', 'pageview', '刊登共乘頁');
+</script>

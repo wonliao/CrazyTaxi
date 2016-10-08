@@ -1,0 +1,297 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+<meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+
+
+<!-- 網頁標題、標籤icon。 -->
+<title>go2gether大車隊共乘 – 手機直撥55688</title>
+<link rel="shortcut icon" href="images/Favicon.ico" type="image/x-icon">
+
+<!-- 關鍵字 -->
+<meta name="author" content="台灣大車隊">
+<meta name="copyright" content="taiwantaxi.com.tw (c) 2016">
+<meta name="description" content="go2gether大車隊共乘，提供乘客尋找共乘的夥伴，不只省錢分攤車資，還可擴大交友圈。一鍵叫車，讓你走在共享經濟的時代尖端，安全舒適的出門，不用再忍受陰晴不定的天氣。" />
+<meta name="keywords" content="共乘、go2gether，gotogether，大車隊共乘，共享，車資分攤，台灣大車隊，計程車，叫車，專人叫車，網路叫車，乘車服務，乘車派遣 " />
+
+<!-- 社群網站分享顯示 -->
+<meta property="article:author" content="https://www.facebook.com/55688TaiwanTaxi/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://go2gether.tw/" />
+<meta property="og:title" content=" go2gether大車隊共乘" />
+<meta property="og:description" content=" go2gether大車隊共乘，提供乘客尋找共乘的夥伴，不只省錢分攤車資，還可擴大交友圈。一鍵叫車，讓你走在共享經濟的時代尖端，安全舒適的出門，不用再忍受陰晴不定的天氣。" />
+<meta property="og:image" content="https://go2gether.tw/images/20161005_FB01.jpg" />
+<meta property="fb:pages" content="778601042206517">
+<meta property="fb:app_id" content="364003187320606">
+
+
+<!--
+<link rel="stylesheet" href="components/loader.css">
+<script src="components/loader.js"></script>
+-->
+<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
+<link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsen-css-components.css'>
+<link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet prefetch" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/smoothness/jquery-ui.css">
+<link href="css/map.css" rel="stylesheet">
+<link href="css/HoldOn.min.css" rel="stylesheet">
+<link href="css/wickedpicker.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/onsen/1.3.19/js/onsenui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc"></script>
+<script src="js/HoldOn.min.js"></script>
+<script src="js/wickedpicker.min.js"></script>
+<script src="js/datepicker-zh-TW.js"></script>
+<script src='js/app.js'></script>
+
+<style>
+#download-btn {
+    position: fixed;
+    top:0;
+    right: 0;
+    border-style:none;
+}
+
+.download-btn-img {
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    BORDER: #c9c9c9 2px solid;
+    width: 60px;
+}
+
+ons-icon {
+    width: 20%;
+    text-align: center;
+}
+
+.menu_text {
+    margin-left: 60px;
+}
+
+.my-menu-icon-1 {
+    background-image: url(images/icons/4_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-2 {
+    background-image: url(images/icons/2_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-3 {
+    background-image: url(images/icons/6_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-4 {
+    background-image: url(images/icons/5_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+.my-menu-icon-5 {
+    background-image: url(images/icons/4_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+.my-menu-icon-6 {
+    background-image: url(images/icons/3_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+.my-menu-icon-7 {
+    background-image: url(images/icons/7_b.png);
+    width: 25%;
+    height: 28px;
+    background-size: 45%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+}
+
+
+</style>
+
+</head>
+<body>
+
+<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
+
+<!-- 側邊欄 begin -->
+<ons-template id="menu.html">
+    <ons-list>
+        <ons-list-item >
+            <img id="menu_fb_user_picture" src="images/person.jpg" style="width:30px; -webkit-border-radius:15px; -moz-border-radius:15px; border-radius:15px; border:#c9c9c9 2px solid;"/>
+            <span id="menu_fb_user_name" style="overflow:hidden; width:110px; display:inline-block; height:30px;"></span>
+            <fb:login-button size="medium" autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick('fb登入')" style="bottom:10px; right:0px; float:right;">登入</fb:login-button>
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="sidebarClick('活動說明')">
+            <ons-icon class="my-menu-icon-1"></ons-icon><span class="menu_text">活動說明</span>
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="sidebarClick('刊登共乘')">
+            <ons-icon class="my-menu-icon-2"></ons-icon><span class="menu_text">刊登共乘</span>
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="sidebarClick('共乘記錄')">
+            <ons-icon class="my-menu-icon-3"></ons-icon><span class="menu_text">共乘記錄</span>
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="sidebarClick('官方粉絲團')">
+            <ons-icon class="my-menu-icon-4"></ons-icon><span class="menu_text">官方粉絲團</span>
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="sidebarClick('服務條款')">
+            <ons-icon class="my-menu-icon-7"></ons-icon><span class="menu_text">服務條款</span>
+        </ons-list-item>
+        <ons-list-item modifier="chevron" onclick="sidebarClick('55688叫車')">
+            <ons-icon class="my-menu-icon-6"></ons-icon><span class="menu_text">55688叫車</span>
+        </ons-list-item>
+        <ons-list-item>
+            <img src="images/55688.jpg" style="width:100%;"/>
+        </ons-list-item>
+        <ons-list-item style="height:60px">
+            <div class="fb-like" data-href="https://www.facebook.com/55688TaiwanTaxi/" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>
+        </ons-list-item>
+    </ons-list>
+    <div style="position:absolute; bottom:2%; right:5%; color:#aaa;">
+        <span>版本</span>：1.0.0
+    </div>
+</ons-template>
+<!-- 側邊欄 end -->
+
+<a id="download-btn" onclick="open55688App()">
+    <img src="images/logo.png" class="download-btn-img"/>
+</a>
+
+
+<script>
+
+ons.ready(function() {
+    setTimeout(function() {
+
+        var _h = $( document ).height();
+        _h = _h / 2 - 30;
+        $("#download-btn").css("top", _h);
+    }, 10);
+});
+    
+function sidebarClick(pageName) {
+    
+    switch(pageName) {
+    case "fb登入":      checkLoginState();                                              break;
+    case "活動說明":    tabbar.setActiveTab(3);                                         break;
+    case "刊登共乘":    tabbar.setActiveTab(1);                                         break;
+    case "共乘記錄":    homeNavigator.pushPage('page6.html', {animation: 'slide'});     break;
+    case "官方粉絲團":  page5_click();                                                  break;
+    case "服務條款":    page7_click();                                                  break;
+    case "55688叫車":   page3_click();                                                   break;
+    }
+    
+    menu.closeMenu();
+    ga('send', 'event', '側邊欄', 'click', pageName);
+}
+
+function page5_click() {
+
+    window.open("https://www.facebook.com/55688TaiwanTaxi/?fref=ts");
+}
+
+function page7_click() {
+
+    homeNavigator.pushPage("page7.html", {animation: 'slide'});
+}
+
+function call_55688() {
+
+    window.location = "tel:55688";
+}
+
+function open55688App() {
+
+    // iOS
+    if(ons.platform.isIOS()) {
+        /*
+        window.location = 'TaiwanTaxi55688://';
+        setTimeout(function() {        
+           window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
+        }, 500);*/
+        
+        window.location = "TaiwanTaxi55688://";
+    
+        setTimeout(function() {
+    
+            // If the user is still here, open the App Store
+            if (!document.webkitHidden) {
+    
+                // Replace the Apple ID following '/id'
+                window.location = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
+            }
+        }, 25);
+  
+    // Android
+    } else if(ons.platform.isAndroid()) {
+        
+        window.location = 'taiwantaxi55688://taiwantaxi/';
+        setTimeout(function() {        
+           window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
+        }, 500);
+    // PC
+    } else {
+
+        window.open("http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx");
+    }
+}
+</script>
+
+</body>
+</html>
+

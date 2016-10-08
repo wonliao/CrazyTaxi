@@ -1,0 +1,190 @@
+<style>
+</style>
+
+<ons-navigator title="Navigator" var="homeNavigator">
+    <ons-page style="background:#fff;">
+    
+        <ons-toolbar fixed-style>
+            <div class="left" style="line-height: 44px;">
+                <ons-back-button></ons-back-button>
+            </div>
+            <div class="center">
+                <img src="images/go2gether.png" style="height:32px;"/>
+            </div>
+            <div class="right" style="line-height: 44px">
+                <ons-toolbar-button ng-click="menu.toggleMenu()">
+                	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+        		</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <section style="padding: 4px 16px; text-align:center;">
+            <h1 style="color:#F00; font-weight:bold;">恭喜完成刊登</h1>
+        </section>
+        
+        <section style="padding: 4px 16px; text-align:center;  line-height: 20px;">
+            <div style="color:#b5b2b2; font-weight:bold;">您將可獲得以下好禮任選一</div>
+            <div style="color:#b5b2b2; font-weight:bold;">*每個帳號各個獎項僅限領取一次</div>
+            <div style="color:#b5b2b2; font-weight:bold;">*序號請妥善保管，恕不提供查詢</div>
+            <div style="color:#b5b2b2; font-weight:bold;">*詳細活動內容請至<a href="https://www.facebook.com/55688TaiwanTaxi/" target="_blank">官方粉絲團</a>查詢</div>
+        </section>
+        
+        <div style="clear:both; height:10px"></div>
+        <!--
+        <section style="padding: 4px 16px; text-align:center;">
+            <div style="background:#acf2ff; height:110px">
+                <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
+                <ons-button id="kkbox_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('KKBOX 免費試聽5日序號')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span id="kkbox_btn_text" style="font-size:18px">立即領取</span>
+                </ons-button>
+            </div>
+        </section>
+        
+        <section style="padding: 4px 16px; text-align:center;">
+            <div style="background:#acf2ff; height:110px">
+                <div style="line-height:55px;">ZONE 免費電話點數500點</div>
+                <ons-button id="zone_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('ZONE 免費電話點數500點')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span id="zone_btn_text" style="font-size:18px">立即領取</span>
+                </ons-button>
+            </div>
+        </section>
+        -->
+        <section style="padding: 4px 16px; text-align:center;">
+            <div style="background:#acf2ff; height:110px">
+                <div style="line-height:30px;">愛買線上購物 100元購物金</div>
+                <a id="amart_link" href="https://www.fe-amart.com.tw/" target="_blank" style="line-height:30px; display:none">點我前往兌換</a>
+                <ons-button id="amart_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('愛買線上購物 100元購物金')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span id="amart_btn_text" style="font-size:18px">立即領取</span>
+                </ons-button>
+            </div>
+        </section>
+        
+        <div style="clear:both; height:10px"></div>
+         
+        <section style="padding: 4px 16px; text-align:center;">
+            <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
+                <span style="font-size:18px">確定</span>
+            </ons-button>
+        </section>
+        
+    </ons-page>
+    
+    <ons-template id="alert-dialog.html">
+      <ons-alert-dialog var="alertDialog">
+        <div class="alert-dialog-content">
+             <span id="page2SuccessAlertDialogText"></span>
+        </div>
+        <div class="alert-dialog-footer">
+          <button class="alert-dialog-button" onClick="alertDialog.destroy()">OK</button>
+        </div>
+      </ons-alert-dialog>
+    </ons-template>
+
+</ons-navigator>
+
+<script>
+
+ons.ready(function() {
+    setTimeout(function() {
+    
+        //var kkbox_serial_number = window.localStorage.getItem("kkbox");
+        //var zone_serial_number = window.localStorage.getItem("zone");
+        var amart_serial_number = window.localStorage.getItem("amart");
+        //console.log("kkbox_serial_number("+kkbox_serial_number+")");
+        //console.log("zone_serial_number("+zone_serial_number+")");
+        //console.log("amart_serial_number("+amart_serial_number+")");
+
+/*
+        if(kkbox_serial_number != "" && kkbox_serial_number != null) {
+         
+            $("#kkbox_btn").attr("disabled", true);
+            $("#kkbox_btn_text").css("color", "#000").text(kkbox_serial_number);
+        }
+
+        if(zone_serial_number != "" && zone_serial_number != null) {
+         
+            $("#zone_btn").attr("disabled", true);
+            $("#zone_btn_text").css("color", "#000").text(zone_serial_number);
+        }
+*/
+        if(amart_serial_number != "" && amart_serial_number != null) {
+         
+            $("#amart_btn").attr("disabled", true);
+            $("#amart_btn_text").css("color", "#000").text(amart_serial_number);
+            $("#amart_link").show();
+        }
+    }, 10);
+});
+    
+function page2SuccessClick(pageName) {
+    
+    switch(pageName) {
+    case "KKBOX 免費試聽5日序號":       serial_number("kkbox", pageName);           break;
+    case "ZONE 免費電話點數500點":      serial_number("zone", pageName);            break;
+    case "愛買線上購物 100元購物金":    serial_number("amart", pageName);           break;
+    case "確定":                        submit_btn();                               break;
+    }
+
+    ga('send', 'event', '刊登完成頁', 'click', pageName);
+}
+
+function serial_number(event_name, pageName) {
+
+    var facebook_id = window.localStorage.getItem("facebook_id");
+    $.post("https://17-vr-live.wonliao.com/go2gether/www/backend/get_serial_number.php", 
+    	{ 
+			"fb_id": facebook_id,
+			"event_name":	event_name
+		}, function(res){
+
+            console.log("flag("+res.flag+")");
+			console.log("data("+res.data+")");
+
+            window.localStorage.setItem(event_name, res.data);
+
+            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+                
+                var text = "";
+                text += "<h4>"+pageName+"</h4>";
+                text += "<h4>序號</h4>";
+                text += "<h4>"+res.data+"</h4>";
+                $("#page2SuccessAlertDialogText").html(text);
+
+                $("#"+event_name+"_btn").attr("disabled", true);
+                $("#"+event_name+"_btn_text").css("color", "#000").text(res.data);
+                $("#"+event_name+"_link").show();
+
+                ga('send', 'event', '領取序號', pageName, facebook_id);
+
+                alertDialog.show();
+            });
+		},
+		"json"
+	);
+    
+}
+
+/*
+function get_gift() {
+
+    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        alertDialog.show();
+    });  
+}
+*/
+
+function submit_btn() {
+    
+    gotoPage1();
+}
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84401162-1', 'auto');
+  ga('send', 'pageview', '刊登完成頁');
+</script>
