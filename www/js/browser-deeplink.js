@@ -217,7 +217,7 @@
             window.location.href = uri;
         };
 
-        iframe.src = uri;
+        iframe.src = "TaiwanTaxi55688://";
         //iframe.setAttribute("style", "display:none;");
         document.body.appendChild(iframe);
         
