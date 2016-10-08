@@ -52,7 +52,6 @@
 <script src="js/HoldOn.min.js"></script>
 <script src="js/wickedpicker.min.js"></script>
 <script src="js/datepicker-zh-TW.js"></script>
-<script src="js/browser-deeplink.js"></script>
 <script src='js/app.js'></script>
 
 <style>
@@ -280,15 +279,19 @@ function open55688App() {
                 window.location = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
             }
         }, 500);*/
-        
+
         var now = new Date().valueOf();
         setTimeout(function () {
+
             if (new Date().valueOf() - now > 100) return;
-            window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
+
+            if (!document.webkitHidden) {
+
+                window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
+            }
         }, 25);
         window.location = "TaiwanTaxi55688://";
-        
-                
+  
     // Android
     } else if(ons.platform.isAndroid()) {
         
