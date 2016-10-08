@@ -286,7 +286,7 @@ function open55688App() {
          var iframe = document.createElement("iframe");
 
         iframe.onload = function() {
-            console.log("title("+iframe.text+")");
+            console.log("title("+iframe.innerHTML+")");
             //clearTimeout(timeout);
             //iframe.parentNode.removeChild(iframe);
             //window.location.href = uri;

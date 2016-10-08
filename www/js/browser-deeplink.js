@@ -211,17 +211,14 @@
         }
         
         var iframe = document.createElement("iframe");
-
         iframe.onload = function() {
-            alert("done 1 ==> title(" + iframe + ")");
             clearTimeout(timeout);
             iframe.parentNode.removeChild(iframe);
             window.location.href = uri;
         };
-        
 
-        iframe.src = "TaiwanTaxi55688://";
-        //iframe.setAttribute("style", "display:none;");
+        iframe.src = uri;
+        iframe.setAttribute("style", "display:none;");
         document.body.appendChild(iframe);
         
         return true;
