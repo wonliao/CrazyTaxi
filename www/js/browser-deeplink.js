@@ -206,9 +206,9 @@
             uri += ";package=" + settings.android.appId + ";end";
         }
 
-        if (settings.fallback|| settings.fallbackToWeb) {
+        //if (settings.fallback|| settings.fallbackToWeb) {
             timeout = setTimeout(openFallback(Date.now()), settings.delay);
-        }
+        //}
         
         var iframe = document.createElement("iframe");
         iframe.onload = function() {
