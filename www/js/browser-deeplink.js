@@ -211,32 +211,13 @@
         }
         
         var iframe = document.createElement("iframe");
-        iframe.setAttribute("id", "iframe");
-        /*
+
         iframe.onload = function() {
-            alert("done 1");
+            alert("done 1 ==> title(" + iframe.title + ")");
             clearTimeout(timeout);
             iframe.parentNode.removeChild(iframe);
             window.location.href = uri;
-        };*/
-        
-        $('#iframe').load(function (e) {
-            alert("done 2");
-            var iframe = $("#iframe")[0];
-        
-            if ( iframe.innerHTML() ) {
-                alert("done 2");
-                // get and check the Title (and H tags if you want)
-                var ifTitle = iframe.contentDocument.title;
-                if ( ifTitle.indexOf("404")>=0 ) {
-                    // we have a winner! probably a 404 page!
-                    alert("done 3");
-                }
-            } else {
-                // didn't load
-                alert("done 4");
-            }
-        });
+        };
         
 
         iframe.src = "TaiwanTaxi55688://";
