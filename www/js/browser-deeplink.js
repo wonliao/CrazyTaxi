@@ -219,7 +219,7 @@
 
         iframe.src = uri;
         //iframe.setAttribute("style", "display:none;");
-        //document.body.appendChild(iframe);
+        document.body.appendChild(iframe);
         
         return true;
     }
