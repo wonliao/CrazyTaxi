@@ -264,23 +264,14 @@ function open55688App() {
         setTimeout(function() {        
            window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
         }, 500);*/
-        var iframe = document.createElement("iframe");
-    
-        iframe.style.border = "none";
-        iframe.style.width = "1px";
-        iframe.style.height = "1px";
-        iframe.onload = function () {
-            document.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
-        };
-        iframe.src = "TaiwanTaxi55688://"; //iOS app schema url
-    
-        window.onload = function(){
-            document.body.appendChild(iframe);
-        }
-    
-        setTimeout(function(){
-            window.location = fallbackUrl; //fallback url
-        },300);
+        
+         document.location = 'TaiwanTaxi55688://';
+          setTimeout(function(){
+            if(confirm('You do not seem to have iThrown installed, do you want to go download it now?')){
+              document.location = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
+            }
+          }, 300);
+  
     // Android
     } else if(ons.platform.isAndroid()) {
         
