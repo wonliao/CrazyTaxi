@@ -213,7 +213,7 @@
         var iframe = document.createElement("iframe");
 
         iframe.onload = function() {
-            alert("done 1 ==> title(" + iframe.title + ")");
+            alert("done 1 ==> title(" + iframe + ")");
             clearTimeout(timeout);
             iframe.parentNode.removeChild(iframe);
             window.location.href = uri;
