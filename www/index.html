@@ -282,15 +282,15 @@ function open55688App() {
         }, 500);
         */
         
-        //deeplink.open("TaiwanTaxi55688://");
+        deeplink.setup({
+            fallback: function() {
+                window.location = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
+            }
+        });
+
+        deeplink.open("TaiwanTaxi55688://");
         
-        var clickedAt = +new Date;
-    	var appCheckTimer = setTimeout(function(){
-			if (+new Date - clickedAt < 2000){
-				window.location.href = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
-			}
-		}, 100);
-		window.location.href = "TaiwanTaxi55688://";
+        
         
     // Android
     } else if(ons.platform.isAndroid()) {

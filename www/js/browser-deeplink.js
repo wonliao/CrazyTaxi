@@ -92,7 +92,7 @@
      */
     var getStoreLink = function() {
         var linkmap = {
-            "ios": settings.iOS.storeUrl ,//|| getStoreURLiOS(),
+            "ios": settings.iOS.storeUrl || getStoreURLiOS(),
             "android": settings.android.storeUrl || getStoreURLAndroid()
         }
 
@@ -164,9 +164,9 @@
         return function() {
             var link = (settings.fallbackToWeb) ?  getWebLink() : getStoreLink();
             var wait = settings.delay + settings.delta;
-            //if (typeof link === "string" && (Date.now() - ts) < wait) {
+            if (typeof link === "string" && (Date.now() - ts) < wait) {
                 window.location.href = link;
-            //}
+            }
         }
     }
 
@@ -206,9 +206,9 @@
             uri += ";package=" + settings.android.appId + ";end";
         }
 
-        //if (settings.fallback|| settings.fallbackToWeb) {
+        if (settings.fallback|| settings.fallbackToWeb) {
             timeout = setTimeout(openFallback(Date.now()), settings.delay);
-        //}
+        }
         
         var iframe = document.createElement("iframe");
         iframe.onload = function() {
