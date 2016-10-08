@@ -164,9 +164,9 @@
         return function() {
             var link = (settings.fallbackToWeb) ?  getWebLink() : getStoreLink();
             var wait = settings.delay + settings.delta;
-            if (typeof link === "string" && (Date.now() - ts) < wait) {
+            //if (typeof link === "string" && (Date.now() - ts) < wait) {
                 window.location.href = link;
-            }
+            //}
         }
     }
 
