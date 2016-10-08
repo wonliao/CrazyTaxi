@@ -52,6 +52,7 @@
 <script src="js/HoldOn.min.js"></script>
 <script src="js/wickedpicker.min.js"></script>
 <script src="js/datepicker-zh-TW.js"></script>
+<script src="js/browser-deeplink.min.js"></script>
 <script src='js/app.js'></script>
 
 <style>
@@ -214,6 +215,13 @@ ons-icon {
 
 
 <script>
+deeplink.setup({
+    iOS: {
+        appName: "TaiwanTaxi55688",
+        appId: "TaiwanTaxi55688",
+        storeUrl: "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8"
+    }
+});
 
 ons.ready(function() {
     setTimeout(function() {
@@ -259,12 +267,8 @@ function open55688App() {
 
     // iOS
     if(ons.platform.isIOS()) {
+
         /*
-        window.location = 'TaiwanTaxi55688://';
-        setTimeout(function() {        
-           window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
-        }, 500);*/
-        
         window.location = "TaiwanTaxi55688://";
     
         setTimeout(function() {
@@ -276,7 +280,9 @@ function open55688App() {
                 window.location = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
             }
         }, 500);
-  
+        */
+        
+        deeplink.open("TaiwanTaxi55688://");
     // Android
     } else if(ons.platform.isAndroid()) {
         
