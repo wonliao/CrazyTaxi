@@ -118,15 +118,11 @@ function testAPI() {
         console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
 
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
-        //console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
+        console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
         if(old_fb_id == "" || old_fb_id == null) {
-            /*
-            window.localStorage.setItem("facebook_id", fb_id);
-            window.localStorage.setItem("old_facebook_id", fb_id);
-            */
-            
-            var url = "backend/get_fb_user_id.php?user_id="+response.id;
-            //console.log("url("+url+")");
+
+            var url = "backend/get_fb_user_id.php?user_id="+fb_id;
+            console.log("url("+url+")");
             $.getJSON(url, {}, function(data) {
 
                 var new_fb_id = data.data.id;
