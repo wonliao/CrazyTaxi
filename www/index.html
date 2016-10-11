@@ -281,6 +281,7 @@ function open55688App() {
         }, 500);*/
 
         var now = new Date().valueOf();
+        window.location = "TaiwanTaxi55688://";
         setTimeout(function () {
 
             if (new Date().valueOf() - now > 100) return;
@@ -290,7 +291,7 @@ function open55688App() {
                 window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
             }
         }, 25);
-        window.location = "TaiwanTaxi55688://";
+        
   
     // Android
     } else if(ons.platform.isAndroid()) {
