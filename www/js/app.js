@@ -117,8 +117,8 @@ function testAPI() {
         window.localStorage.setItem("facebook_email", response.email);
         console.log("Facebook Successful login ==> id(" + response.id + ") name(" + response.name + ") email("+response.email+")"); 
 
-        window.localStorage.setItem("facebook_id", new_fb_id);
-        window.localStorage.setItem("old_facebook_id", new_fb_id);
+        window.localStorage.setItem("facebook_id", response.id);
+        window.localStorage.setItem("old_facebook_id", response.id);
                 
 /*
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
