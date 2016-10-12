@@ -127,6 +127,7 @@ function page1InfoClick(pageName) {
     switch(pageName) {
     case "聯繫對方":                    contact_btn();              break;
     case "Facebook messenger 聯繫":     fb_messenger_btn();         break;
+    case "簡訊聯繫":                    sms_btn();                  break;
     case "電話聯繫":                    phone_click();              break;
     case "已找到共乘夥伴":              done_btn();                 break;
     case "取消此次共乘":                cancel_btn();               break;
@@ -243,9 +244,17 @@ function page1InfoClick(pageName) {
 
         var message = "";
             message +=  '<div class="pop_message">';
+            /*
             message +=  '<section class="section1">';
             message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"Facebook messenger 聯繫\")' style='background:#36d0c9; border-radius:0;'>";
             message +=          '<span style="font-size:18px">Facebook messenger 聯繫</span>';
+            message +=      '</ons-button>';
+            message +=  '</section>';
+            */
+            
+            message +=  '<section class="section1">';
+            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"簡訊聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+            message +=          '<span style="font-size:18px">簡訊聯繫</span>';
             message +=      '</ons-button>';
             message +=  '</section>';
             
@@ -274,6 +283,11 @@ function page1InfoClick(pageName) {
     function fb_messenger_btn() {
 
         window.location = "https://m.me/" + fb_id;
+    }
+    
+    function sms_btn() {
+
+        window.location = "sms:" + phones + "?body=Hello World!";
     }
     
     function phone_click() {

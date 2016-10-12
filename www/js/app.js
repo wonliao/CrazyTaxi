@@ -122,10 +122,10 @@ function testAPI() {
         
         players.child(fb_id).once("value", function(snapshot) {
             
-            console.log("test 1 ==> snapshot.val("+snapshot.val()+")");
+            //console.log("test 1 ==> snapshot.val("+snapshot.val()+")");
             if(snapshot.val() == null) {
     
-                console.log("test 2 ==> fb_id("+fb_id+") fb_name("+fb_name+")");
+                //console.log("test 2 ==> fb_id("+fb_id+") fb_name("+fb_name+")");
 
                 // fb player 
                 var d = new Date();
