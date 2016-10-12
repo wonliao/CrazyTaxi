@@ -285,8 +285,8 @@ function setPaginate() {
 									str += '<li class="list-group-item">';
 									str += 		'<span style="width:150px; display:inline-block;">使用者名稱</span>';
 									str += 		'<span style="width:200px; display:inline-block;">出發時間</span>';
-									str += 		'<span style="width:100px; display:inline-block;">目的地</span>';
 									str += 		'<span style="width:300px; display:inline-block;">共乘目的</span>';
+									str += 		'<span style="width:100px; display:inline-block;">目的地</span>';
 									str += 		'<span style="width:100px; display:inline-block;">狀態</span>';
 									str += 		'<span style="display:inline-block;">查看詳細資料</span>';
 									str += 		'<i class="pull-right">取消刊登記錄</i>';
