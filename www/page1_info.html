@@ -195,6 +195,8 @@ function page1InfoClick(pageName) {
 
     var fb_id = "";
     var phones = "";
+    var fb_name = "";
+    var destination = "";
     function showInfo() {
         
         //var key = "-KRRNVxXNetIAj6aXiZL";
@@ -204,9 +206,9 @@ function page1InfoClick(pageName) {
     					
 			//console.log(snapshot.val());
 			fb_id = snapshot.val().fb_id;                       // facebook user id
-            var fb_name = snapshot.val().fb_name;               // facebook user name
+            fb_name = snapshot.val().fb_name;                   // facebook user name
             var input_address = snapshot.val().input_address;   // 上車地點
-            var destination = snapshot.val().destination;       // 下車地點
+            destination = snapshot.val().destination;           // 下車地點
 			var timestamp = snapshot.val().appointment;		    // 共乘時間
 			var purpose = snapshot.val().purpose;			    // 共乘目的
             var note = snapshot.val().note;    		            // 備註
@@ -286,8 +288,9 @@ function page1InfoClick(pageName) {
     }
     
     function sms_btn() {
-        console.log("sms_btn");
-        window.location = "sms:" + phones + "?body=Hello World!";
+
+        var message = "Hi " + fb_name + " 一起共乘去" + destination + "吧~~";
+        window.location = "sms:" + phones + "?body=" + message;
     }
     
     function phone_click() {
