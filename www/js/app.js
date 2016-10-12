@@ -119,7 +119,24 @@ function testAPI() {
 
         window.localStorage.setItem("facebook_id", response.id);
         window.localStorage.setItem("old_facebook_id", response.id);
-                
+        
+        players.child(fb_id).once("value", function(snapshot) {
+            if(snapshot.val() == null) {
+    
+                console.log("test 2 ==> fb_id("+fb_id+") fb_name("+fb_name+")");
+
+                // fb player 
+                var d = new Date();
+                var fb_player = {name: ""};
+                fb_player.name = fb_name;
+                fb_player.enable = true;
+                fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
+                var player_updates = {};
+                player_updates['/players/' + fb_id] = fb_player;
+                firebase.database().ref().update(player_updates);
+            }
+        });
+
 /*
         var old_fb_id = window.localStorage.getItem("old_facebook_id");
         console.log("old_fb_id("+old_fb_id+") fb_id("+fb_id+")");
