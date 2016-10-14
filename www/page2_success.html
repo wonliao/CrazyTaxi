@@ -59,6 +59,16 @@
             </div>
         </section>
         
+        <section style="padding: 4px 16px; text-align:center;">
+            <div id="omusic_bg_div" style="background:#acf2ff; height:110px">
+                <div style="line-height:30px;">Omusic 百萬音樂免費體驗10日(兌換至106/1/10)</div>
+                <a id="omusic_link" href="http://goo.gl/ISf55o" target="_blank" style="line-height:30px; display:none">點我前往兌換</a>
+                <ons-button id="omusic_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('Omusic 百萬音樂免費體驗10日')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                    <span id="omusic_btn_text" style="font-size:18px">立即領取</span>
+                </ons-button>
+            </div>
+        </section>
+        
         <div style="clear:both; height:10px"></div>
          
         <section style="padding: 4px 16px; text-align:center;">
@@ -90,6 +100,7 @@ ons.ready(function() {
         //var kkbox_serial_number = window.localStorage.getItem("kkbox");
         //var zone_serial_number = window.localStorage.getItem("zone");
         var amart_serial_number = window.localStorage.getItem("amart");
+        var omusic_serial_number = window.localStorage.getItem("omusic");
         //console.log("kkbox_serial_number("+kkbox_serial_number+")");
         //console.log("zone_serial_number("+zone_serial_number+")");
         //console.log("amart_serial_number("+amart_serial_number+")");
@@ -108,10 +119,20 @@ ons.ready(function() {
         }
 */
         if(amart_serial_number != "" && amart_serial_number != null) {
-         
+        
             $("#amart_btn").attr("disabled", true);
+            $("#omusic_btn").attr("disabled", true);
             $("#amart_btn_text").css("color", "#000").text(amart_serial_number);
-            $("#amart_link").show();
+            $("#amart_link").show();            
+        }
+
+        if(omusic_serial_number != "" && omusic_serial_number != null) {
+        
+            $("#amart_btn").attr("disabled", true);
+            $("#omusic_btn").attr("disabled", true);
+            $("#omusic_btn_text").css("color", "#000").text(omusic_serial_number);
+            $("#omusic_link").show();
+            $("#omusic_bg_div").css("height", "145px");
         }
     }, 10);
 });
@@ -122,6 +143,7 @@ function page2SuccessClick(pageName) {
     case "KKBOX 免費試聽5日序號":       serial_number("kkbox", pageName);           break;
     case "ZONE 免費電話點數500點":      serial_number("zone", pageName);            break;
     case "愛買線上購物 100元購物金":    serial_number("amart", pageName);           break;
+    case "Omusic 百萬音樂免費體驗10日": serial_number("omusic", pageName);          break;
     case "確定":                        submit_btn();                               break;
     }
 
@@ -144,6 +166,10 @@ function serial_number(event_name, pageName) {
 
             ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
                 
+                
+                $("#amart_btn").attr("disabled", true);
+                $("#omusic_btn").attr("disabled", true);
+            
                 var text = "";
                 text += "<h4>"+pageName+"</h4>";
                 text += "<h4>序號</h4>";
@@ -153,6 +179,7 @@ function serial_number(event_name, pageName) {
                 $("#"+event_name+"_btn").attr("disabled", true);
                 $("#"+event_name+"_btn_text").css("color", "#000").text(res.data);
                 $("#"+event_name+"_link").show();
+                $("#"+event_name+"_bg_div").css("height", "145px");
 
                 ga('send', 'event', '領取序號', pageName, facebook_id);
 
