@@ -96,6 +96,12 @@ function init(position) {
 		streetViewControl: false,
 	});
 
+    // 返回中心點
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map, position);
+    centerControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+  
     /*
 	var marker = new google.maps.Marker({
 		position: {lat: position.coords.latitude, lng: position.coords.longitude},
@@ -201,6 +207,24 @@ function openInfo() {
     homeNavigator.pushPage("page1_info.html", {animation: 'slide'});
 }
 
+function CenterControl(controlDiv, map, position) {
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginRight = '8px';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.innerHTML = '<img src="images/center_btn.png" style="width:30px"/>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlUI.addEventListener('click', function() {
+    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+  });
+}
 </script>
 
 <script>
