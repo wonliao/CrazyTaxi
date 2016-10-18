@@ -165,7 +165,9 @@ ons-icon {
 </style>
 
 </head>
-<body onbeforeunload="return myFunction()">
+<!--
+<body onbeforeunload="return myFunction()">-->
+<body>
 
 <ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
@@ -294,10 +296,15 @@ function open55688App() {
         window.open("http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx");
     }
 }
-
+/*
 function myFunction() {
     return "您即將離開go2gether，提醒您記得加入書籤或是最愛喔！";
 }
+*/
+window.addEventListener("pagehide", function(evt){
+            alert('hide');
+        }, false);
+        
 </script>
 
 </body>
