@@ -118,7 +118,7 @@
 
         setTimeout(function() {
 
-            //window.localStorage.setItem("facebook_id", "100000151115805");
+            window.localStorage.setItem("facebook_id", "1389354124412945");
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -190,7 +190,8 @@
                     return;
                 }
 
-                var phones = $('#phones').val();    				        // 手機號碼
+                // 手機號碼
+                var phones = $('#phones').val();
                 if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
 
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -201,7 +202,6 @@
                     });
                     return false;
                 }
-
 
                 var ck_1 = $('input[name=ck_1]:checked');
                 var ck_2 = $('input[name=ck_2]:checked');
@@ -267,6 +267,18 @@
         			address: address	// 上車地點
         		}, function(data) {
         			
+                    //console.log("won test 1 ==> data.results.length("+data.results.length+")");
+                    if(data.results.length <= 0) {
+
+                        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                            $('#alertDialogText').html("請輸入完整上車地址");
+                            $("#dialog_btn").attr("onclick","closeDialog()");
+                            alertDialog.show();
+                        });
+                        return;
+                    }
+
         			//parse address
         			var c, point_of_interest, area = {
         				name: destination,		// 下車地點
