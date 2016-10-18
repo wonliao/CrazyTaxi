@@ -165,7 +165,7 @@ ons-icon {
 </style>
 
 </head>
-<body>
+<body onbeforeunload="return myFunction()">
 
 <ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
@@ -295,10 +295,8 @@ function open55688App() {
     }
 }
 
-window.onbeforeunload = onbeforeunload_Handler;
-function onbeforeunload_Handler()
-{
-    return "是否要離開?";
+function myFunction() {
+    return "您即將離開go2gether，提醒您記得加入書籤或是最愛喔！";
 }
 </script>
 
