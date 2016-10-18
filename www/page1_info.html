@@ -289,8 +289,8 @@ function page1InfoClick(pageName) {
     
     function sms_btn() {
 
-        var message = "Hi " + fb_name + " 一起共乘去" + destination + "吧~~";
-        window.location = "sms:" + phones + "&body=" + message;
+        //var message = "Hi " + fb_name + " 一起共乘去" + destination + "吧~~";
+        window.location = "sms:" + phones;// + "&body=" + message;
     }
     
     function phone_click() {
@@ -364,25 +364,25 @@ function page1InfoClick(pageName) {
         
         console.log("click ==> snapshot.key("+snapshot.key+")");
         var area = {};
-        area.address = snapshot.val().address;
-        area.appointment = snapshot.val().appointment;
-        area.city = snapshot.val().city;
-        area.country = snapshot.val().country;
-        area.destination = snapshot.val().destination;
-        area.expired_time = snapshot.val().expired_time;
-        area.fb_id = snapshot.val().fb_id;
-        area.fb_name = snapshot.val().fb_name;
-        area.input_address = snapshot.val().input_address;
-        area.latitude = snapshot.val().latitude;
-        area.longitude = snapshot.val().longitude;
-        area.name = snapshot.val().name;
-        area.note = snapshot.val().note;
-        area.phones = snapshot.val().phones;
-        area.postal_code = snapshot.val().postal_code;
-        area.priority = snapshot.val().priority;
-        area.purpose = snapshot.val().purpose;
-        area.state = snapshot.val().state;
-        area.timestamp = snapshot.val().timestamp;
+        area.address = snapshot.val().address ? snapshot.val().address : "";// snapshot.val().address;
+        area.appointment = snapshot.val().appointment ? snapshot.val().appointment : "";//snapshot.val().appointment;
+        area.city = snapshot.val().city ? snapshot.val().city : "";//snapshot.val().city;
+        area.country = snapshot.val().country ? snapshot.val().country : "";//snapshot.val().country;
+        area.destination = snapshot.val().destination ? snapshot.val().destination : "";//snapshot.val().destination;
+        area.expired_time = snapshot.val().expired_time ? snapshot.val().expired_time : "";//snapshot.val().expired_time;
+        area.fb_id = snapshot.val().fb_id ? snapshot.val().fb_id : "";//snapshot.val().fb_id;
+        area.fb_name = snapshot.val().fb_name ? snapshot.val().fb_name : "";//snapshot.val().fb_name;
+        area.input_address = snapshot.val().input_address ? snapshot.val().input_address : "";//snapshot.val().input_address;
+        area.latitude = snapshot.val().latitude ? snapshot.val().latitude : "";//snapshot.val().latitude;
+        area.longitude = snapshot.val().longitude ? snapshot.val().longitude : "";//snapshot.val().longitude;
+        area.name = snapshot.val().name ? snapshot.val().name : "";//snapshot.val().name;
+        area.note = snapshot.val().note ? snapshot.val().note : "";//snapshot.val().note;
+        area.phones = snapshot.val().phones ? snapshot.val().phones : "";//snapshot.val().phones;
+        area.postal_code = snapshot.val().postal_code ? snapshot.val().postal_code : "";//snapshot.val().postal_code;
+        area.priority = snapshot.val().priority ? snapshot.val().priority : "";//snapshot.val().priority;
+        area.purpose = snapshot.val().purpose ? snapshot.val().purpose : "";//snapshot.val().purpose;
+        area.state = snapshot.val().state ? snapshot.val().state : "";//snapshot.val().state;
+        area.timestamp = snapshot.val().timestamp ? snapshot.val().timestamp : "";//snapshot.val().timestamp;
         area.status = status;
 
 		var area_updates = {};
