@@ -383,6 +383,10 @@
         			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
         				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
         			});
+                    
+                    var latlng = window.localStorage.getItem("center");
+                    window.localStorage.setItem("marker_center", latlng);
+                    
                     /*
                     // fb player 
                     var fb_player = {name: ""};
