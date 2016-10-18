@@ -294,6 +294,12 @@ function open55688App() {
         window.open("http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx");
     }
 }
+
+window.onbeforeunload = onbeforeunload_Handler;
+function onbeforeunload_Handler()
+{
+    return "是否要離開?";
+}
 </script>
 
 </body>
