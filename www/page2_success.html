@@ -96,43 +96,32 @@
 
 ons.ready(function() {
     setTimeout(function() {
-    
-        //var kkbox_serial_number = window.localStorage.getItem("kkbox");
-        //var zone_serial_number = window.localStorage.getItem("zone");
+
         var amart_serial_number = window.localStorage.getItem("amart");
         var omusic_serial_number = window.localStorage.getItem("omusic");
-        //console.log("kkbox_serial_number("+kkbox_serial_number+")");
-        //console.log("zone_serial_number("+zone_serial_number+")");
-        //console.log("amart_serial_number("+amart_serial_number+")");
 
-/*
-        if(kkbox_serial_number != "" && kkbox_serial_number != null) {
-         
-            $("#kkbox_btn").attr("disabled", true);
-            $("#kkbox_btn_text").css("color", "#000").text(kkbox_serial_number);
-        }
+        var omusic_count = Math.floor(window.localStorage.getItem("omusic_count"));
+        if(omusic_count == "" || omusic_count == null)  omusic_count = 0;
+        omusic_count += 1;
+        window.localStorage.setItem("omusic_count", omusic_count); 
 
-        if(zone_serial_number != "" && zone_serial_number != null) {
-         
-            $("#zone_btn").attr("disabled", true);
-            $("#zone_btn_text").css("color", "#000").text(zone_serial_number);
-        }
-*/
         if(amart_serial_number != "" && amart_serial_number != null) {
         
             $("#amart_btn").attr("disabled", true);
-            $("#omusic_btn").attr("disabled", true);
             $("#amart_btn_text").css("color", "#000").text(amart_serial_number);
             $("#amart_link").show();            
         }
 
-        if(omusic_serial_number != "" && omusic_serial_number != null) {
-        
-            $("#amart_btn").attr("disabled", true);
+        if(omusic_serial_number != "" && omusic_serial_number != null ) {
+
             $("#omusic_btn").attr("disabled", true);
             $("#omusic_btn_text").css("color", "#000").text(omusic_serial_number);
             $("#omusic_link").show();
             $("#omusic_bg_div").css("height", "145px");
+        } else if(omusic_count < 5){
+
+            $("#omusic_btn").attr("disabled", true);
+            $("#omusic_btn_text").css("color", "#000").text("刊登5次即可領取(" + omusic_count + "/5)");
         }
     }, 10);
 });
@@ -165,11 +154,10 @@ function serial_number(event_name, pageName) {
             window.localStorage.setItem(event_name, res.data);
 
             ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-                
-                
+    
                 $("#amart_btn").attr("disabled", true);
                 $("#omusic_btn").attr("disabled", true);
-            
+
                 var text = "";
                 text += "<h4>"+pageName+"</h4>";
                 text += "<h4>序號</h4>";
@@ -188,7 +176,6 @@ function serial_number(event_name, pageName) {
 		},
 		"json"
 	);
-    
 }
 
 /*

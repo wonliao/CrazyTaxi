@@ -383,10 +383,10 @@
         			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
         				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
         			});
-                    
+
                     var latlng = window.localStorage.getItem("center");
                     window.localStorage.setItem("marker_center", latlng);
-                    
+
                     /*
                     // fb player 
                     var fb_player = {name: ""};
@@ -405,7 +405,7 @@
                     ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
                     ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
                     ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
-
+ 
                     // 跳至完成刊登頁
                     homeNavigator.pushPage("page2_success.html", {animation: 'slide'});
         		});
