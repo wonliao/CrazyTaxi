@@ -94,7 +94,7 @@ function tabClick(pageName) {
     case "活動說明":                                break;
     case "官方粉絲團":          page5_click();      break;
     case "撥打電話 叫車":       call_55688();       break;
-    case "開啟55688 APP 叫車":  call_app();         break;
+    case "開啟55688 APP 叫車":  open55688App();     break;
     }
 
     ga('send', 'event', '功能列', 'click', pageName);
@@ -129,17 +129,12 @@ function page3_click() {
 
     HoldOn.open(options);
 }
-    
+/*
 function call_app() {
 
     // iOS
     if(ons.platform.isIOS()) {
-        /*
-        window.location = 'TaiwanTaxi55688://';
-        setTimeout(function() {        
-           window.open("https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8");
-        }, 500);*/
-        
+
         var iframe = document.createElement("iframe");
     
         iframe.style.border = "none";
@@ -171,7 +166,7 @@ function call_app() {
         window.open("http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx");
     }
 }
-    
+*/ 
 function gotoPage1() {
 
     HoldOn.open({message:"定位中，請稍候"});

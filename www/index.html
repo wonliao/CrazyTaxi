@@ -262,23 +262,10 @@ function call_55688() {
     window.location = "tel:55688";
 }
 
-
 function open55688App() {
 
     // iOS
     if(ons.platform.isIOS()) {
-        /*
-        window.location = "TaiwanTaxi55688://";
-    
-        setTimeout(function() {
-    
-            // If the user is still here, open the App Store
-            if (!document.webkitHidden) {
-    
-                // Replace the Apple ID following '/id'
-                window.location = 'https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8';
-            }
-        }, 500);*/
 
         var now = new Date().valueOf();
         window.location = "TaiwanTaxi55688://";
@@ -293,11 +280,10 @@ function open55688App() {
                 window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
             }
         }, 25);
-        
   
     // Android
     } else if(ons.platform.isAndroid()) {
-        
+
         window.location = 'taiwantaxi55688://taiwantaxi/';
         setTimeout(function() {        
            window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
