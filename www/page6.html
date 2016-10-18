@@ -118,13 +118,9 @@
                 text += '<div style="clear:both; height:10px"></div>';
 
                 var stauts = snapshot.val().status;
-                // 歷程
-                if(d.getTime() > d2.getTime() || stauts != "") {
-
+                if(stauts != "") {
                     text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"history\")'>";
-                // 預約
                 } else {
-
                     text += "<section class='mySection' onClick='showPage6Info(\""+key+"\", \"reserve\")'>";
                 }
 
@@ -135,7 +131,7 @@
                 text += '</section>';
 
                 // 歷程
-                if(d.getTime() > d2.getTime() || stauts != "") {
+                if(d.getTime() > d2.getTime()) {
                     $('#history').append(text);     
                 // 預約
                 } else {
