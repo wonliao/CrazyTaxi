@@ -301,9 +301,19 @@ function myFunction() {
     return "您即將離開go2gether，提醒您記得加入書籤或是最愛喔！";
 }
 */
-window.addEventListener("pagehide", function(evt){
-            alert('hide');
-        }, false);
+window.addEventListener("unload",function(e) {
+        alert("您即將離開go2gether，提醒您記得加入書籤或是最愛喔！1");
+    },false);
+
+    window.addEventListener("beforeunload",function(e) {
+       alert("您即將離開go2gether，提醒您記得加入書籤或是最愛喔！2");
+    },false);
+
+    window.addEventListener("pagehide",function(e) {
+        alert("您即將離開go2gether，提醒您記得加入書籤或是最愛喔！3");
+    },false);
+
+
         
 </script>
 
