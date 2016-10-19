@@ -131,7 +131,7 @@
                 text += '</section>';
 
                 // 歷程
-                if(d.getTime() > d2.getTime()) {
+                if(d.getTime() > d2.getTime() || stauts == 'cancel') {
                     $('#history').append(text);     
                 // 預約
                 } else {
