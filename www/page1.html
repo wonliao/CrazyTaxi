@@ -88,7 +88,7 @@ function init(position) {
     var pos_lng = position.coords.longitude;
   
     var latlng = window.localStorage.getItem("marker_center");
-    console.log("latlng("+latlng+")");
+    //console.log("latlng("+latlng+")");
     if(latlng != "" && latlng != null) {
        
         var temp = latlng.split(",");
@@ -97,7 +97,7 @@ function init(position) {
         
         window.localStorage.setItem("marker_center", "");  // 只用一次 
     }
-    console.log("pos_lat("+pos_lat+") pos_lng("+pos_lng+")");
+    //console.log("pos_lat("+pos_lat+") pos_lng("+pos_lng+")");
 
 	var infowindow = new google.maps.InfoWindow({
 		content: ""
@@ -117,12 +117,18 @@ function init(position) {
     centerControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
   
-    /*
+  
+  var markerImage = new google.maps.MarkerImage('images/blue.png?123',
+                new google.maps.Size(80, 80),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(40, 40));
+                
+    // 自已的座標 
 	var marker = new google.maps.Marker({
 		position: {lat: position.coords.latitude, lng: position.coords.longitude},
-		map: map
+		map: map,
+        icon: markerImage
 	});
-    */
 
 	var markers = {};
 	map.addListener('bounds_changed', function(){
