@@ -72,11 +72,11 @@
         
         <form id="add">
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" name="ck_1" required/><span style="margin-left:5px">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span>
+                <input type="checkbox" name="ck_1" required/><span style="margin-left:5px"><span id="ck_1_span">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span></span>
             </section>
     
             <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" name="ck_2" required/><span style="margin-left:5px">我已詳細閱讀並同意本活動之<a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
+                <input type="checkbox" name="ck_2" required/><span style="margin-left:5px"><span id="ck_2_span">我已詳細閱讀並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
             </section>
 
             <div style="clear:both; height:10px"></div>
@@ -154,13 +154,23 @@ function page1InfoClick(pageName) {
             is_fb_player_enable();
 
             showInfo();
-            /*
-            $( "#add" ).submit(function( event ) {
+     
+            
+            $('#ck_1_span').click(function() {
 
-                page1InfoClick('聯繫對方');
-                event.preventDefault();
+                var ck_1 = $('input[name=ck_1]:checked');
+                if(ck_1.length > 0)     $('input[name=ck_1]').prop("checked", false);
+                else                    $('input[name=ck_1]').prop("checked", true);
             });
-            */
+            
+            $('#ck_2_span').click(function() {
+
+                var ck_2 = $('input[name=ck_2]:checked');
+                if(ck_2.length > 0)     $('input[name=ck_2]').prop("checked", false);
+                else                    $('input[name=ck_2]').prop("checked", true);
+            });
+            
+            
             $('#add').submit(function(e) {
 
                 var ck_1 = $('input[name=ck_1]:checked');
