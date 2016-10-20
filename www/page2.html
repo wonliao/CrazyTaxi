@@ -396,8 +396,8 @@
         				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
         			});
 
-                    var latlng = window.localStorage.getItem("center");
-                    window.localStorage.setItem("marker_center", latlng);
+                    var _latlng = area.latitude + "," + area.longitude;
+                    window.localStorage.setItem("marker_center", _latlng);
 
                     /*
                     // fb player 
