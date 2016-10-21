@@ -118,7 +118,7 @@ function init(position) {
     map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
   
   
-  var markerImage = new google.maps.MarkerImage('images/blue.png?123',
+    var markerImage = new google.maps.MarkerImage('images/blue.png?123',
                 new google.maps.Size(80, 80),
                 new google.maps.Point(0, 0),
                 new google.maps.Point(40, 40));
@@ -151,11 +151,12 @@ function init(position) {
                 var location = new google.maps.LatLng(location[0], location[1]);
                 //console.log("lat("+location.lat()+") lng("+location.lng()+")");
 
-                areas.child(key).child("appointment").once('value', function(snapshot) {
+                //areas.child(key).child("appointment").once('value', function(snapshot) {
+                areas.child(key).once('value', function(snapshot) {
                     
                     //console.log("lat("+location.lat()+") lng("+location.lng()+")");
 
-                    var appointment = snapshot.val();
+                    var appointment = snapshot.val().appointment;
                     //console.log("appointment("+appointment+")");
                     var d = new Date();
             		var current_time = d.getTime();
@@ -165,9 +166,13 @@ function init(position) {
                     var image;
                     var minutesDifference = Math.floor(diff/1000/60);
                     //console.log("minutesDifference("+minutesDifference+")"); 
-    				if(minutesDifference <= 10)         image = "images/marker_red.png";
-                    else if(minutesDifference <= 60)    image = "images/marker_yellow.png";
-                    else                                image = "images/marker_green.png";
+                    ///marker_yellow
+                    
+                    var facebook_id = window.localStorage.getItem("facebook_id");
+                    //console.log("facebook_id("+facebook_id+")("+snapshot.val().fb_id+")");
+                    if(snapshot.val().fb_id == facebook_id)    image = "images/marker_yellow.png";
+    				else if(minutesDifference <= 10)            image = "images/marker_red.png";
+                    else                                        image = "images/marker_green.png";
 
     				markers[key] = new google.maps.Marker({
     					position: location,
