@@ -64,7 +64,13 @@
                 <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼(10位數字)" id="phones" pattern="^09\d{8}$" required>
+                <div>聯繫方式(二選一)</div>
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼(10位數字)" id="phones" pattern="^09\d{8}$">
+            </section>
+            <section style="padding: 4px 16px">
+                <input type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email">
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
@@ -189,19 +195,43 @@
 
                     return;
                 }
-
-                // 手機號碼
-                var phones = $('#phones').val();
-                if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
-
+                
+                var phones = $('#phones').val();        // 手機號碼
+                var email = $('#email').val();          // 電子信箱
+                if(phones.length <= 0 && email.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-    
-                        $('#alertDialogText').html('手機號碼格式錯誤，請輸入手機號碼(10位數字)');
+        
+                        $('#alertDialogText').html('請輸入手機號碼或電子信箱');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
                     });
                     return false;
                 }
+                if(phones.length > 0) {
+                    if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
+    
+                        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        
+                            $('#alertDialogText').html('手機號碼格式錯誤，請輸入手機號碼(10位數字)');
+                            $("#dialog_btn").attr("onclick","closeDialog()");
+                            alertDialog.show();
+                        });
+                        return false;
+                    }
+                }
+                if(email.length > 0) {
+                    var at = email.search("@");
+                    if(at == -1) {
+                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        
+                            $('#alertDialogText').html('電子信箱格式錯誤，請輸入正確電子信箱');
+                            $("#dialog_btn").attr("onclick","closeDialog()");
+                            alertDialog.show();
+                        });
+                        return false;
+                    }
+                }
+                
 
                 var ck_1 = $('input[name=ck_1]:checked');
                 var ck_2 = $('input[name=ck_2]:checked');
@@ -330,6 +360,7 @@
         			area.input_address = address;		// 上車地點
         			area.destination = destination;	    // 下車地點
         			area.phones = phones;				// 手機號碼
+                    area.email = email;    			    // 電子信箱
         			area.note = note;					// 備註
         			area.purpose = purpose;			    // 共乘目的
 

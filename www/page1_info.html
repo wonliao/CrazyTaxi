@@ -129,6 +129,7 @@ function page1InfoClick(pageName) {
     case "Facebook messenger 聯繫":     fb_messenger_btn();         break;
     case "簡訊聯繫":                    sms_btn();                  break;
     case "電話聯繫":                    phone_click();              break;
+    case "電子信箱聯繫":                email_btn();                break;
     case "已找到共乘夥伴":              done_btn();                 break;
     case "取消此次共乘":                cancel_btn();               break;
     }
@@ -138,6 +139,8 @@ function page1InfoClick(pageName) {
 
     ons.ready(function() {
         setTimeout(function() {
+            
+            //window.localStorage.setItem("facebook_id", "1389354124412945");
 
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
@@ -205,6 +208,7 @@ function page1InfoClick(pageName) {
 
     var fb_id = "";
     var phones = "";
+    var emai = "";
     var fb_name = "";
     var destination = "";
     function showInfo() {
@@ -223,6 +227,7 @@ function page1InfoClick(pageName) {
 			var purpose = snapshot.val().purpose;			    // 共乘目的
             var note = snapshot.val().note;    		            // 備註
             phones = snapshot.val().phones;        	            // 手機
+            email = snapshot.val().email;                       // 電子信箱
 
 			var d = new Date(timestamp);
 			var time_text = getTimeStr(d); //d.toLocaleString();
@@ -263,26 +268,32 @@ function page1InfoClick(pageName) {
             message +=      '</ons-button>';
             message +=  '</section>';
             */
-            
+
+            message +=  '<section class="section1">';
+            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電子信箱聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+            message +=          '<span style="font-size:18px">電子信箱聯繫</span>';
+            message +=      '</ons-button>';
+            message +=  '</section>';
+
             message +=  '<section class="section1">';
             message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"簡訊聯繫\")' style='background:#36d0c9; border-radius:0;'>";
             message +=          '<span style="font-size:18px">簡訊聯繫</span>';
             message +=      '</ons-button>';
             message +=  '</section>';
-            
+
             message +=  '<section class="section1">';
             message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電話聯繫\")' style='background:#36d0c9; border-radius:0;'>";
             message +=          '<span style="font-size:18px">電話聯繫</span>';
             message +=      '</ons-button>';
             message +=  '</section>';
-            
+
             message +=  '<section class="section1">';
             message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
             message +=          '<span style="font-size:18px">取消</span>';
             message +=      '</ons-button>';
             message +=  '</section>';
             message +=  '</div>';
-            
+
         options = {
             theme: "custom",
             message: message,
@@ -302,12 +313,17 @@ function page1InfoClick(pageName) {
         //var message = "Hi " + fb_name + " 一起共乘去" + destination + "吧~~";
         window.location = "sms:" + phones;// + "&body=" + message;
     }
-    
+
     function phone_click() {
 
         window.location = "tel:" + phones;
     }
-    
+
+    function email_btn() {
+        console.log("email_btn click")
+        window.location.href = "mailto:" + email;// + "?subject=大車隊共乘&body=Hi " + fb_name + " 一起共乘去" + destination + "吧~~";
+    }
+
     function is_fb_player_enable() {
     
         var key = window.localStorage.getItem("facebook_id");
