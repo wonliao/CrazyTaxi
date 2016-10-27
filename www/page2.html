@@ -207,6 +207,29 @@
                     return;
                 }
                 
+                var _destination = $('#destination').val();        // 下車地址
+                if(_destination.length <= 0) {
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        
+                        $('#alertDialogText').html('請輸入完整下車地址');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                }
+                
+                var _timepicker = $('#timepicker').val();        // 出發日期
+                if(_timepicker.length <= 0) {
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        
+                        $('#alertDialogText').html('請輸入出發日期(僅供三日內預約)');
+                        $("#dialog_btn").attr("onclick","closeDialog()");
+                        alertDialog.show();
+                    });
+                    return false;
+                }
+                
+                
                 var phones = $('#phones').val();        // 手機號碼
                 var email = $('#email').val();          // 電子信箱
                 if(phones.length <= 0 && email.length <= 0) {
