@@ -329,15 +329,16 @@ function page1InfoClick(pageName) {
 
     function email_btn() {
 
+        var my_fb_name = window.localStorage.getItem("facebook_name");
         var msg = "";
         msg += "?subject=go2gether大車隊共乘";
-        msg += "&body=Hi 我是 "+fb_name+" 我想跟你一起共乘去"+destination;
+        msg += "&body=Hi 我是 " + my_fb_name + " 我想跟你一起共乘去" + destination;
         msg += "%0D%0A%0D%0A%0D%0A%0D%0A";
         msg += "上車地點：" + input_address + "%0D%0A";
         msg += "下車地點：" + destination + "%0D%0A";
         msg += "出發時間：" + time_text + "%0D%0A";
         //console.log("msg("+msg+")");
-        
+
         window.location.href = "mailto:" + email + msg;
     }
 
