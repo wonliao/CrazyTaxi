@@ -143,12 +143,12 @@
 
             // 自動代入 phones
             var my_phones = window.localStorage.getItem("phones");
-            if(my_phones.length > 0) {
+            if(my_phones != "") {
                 $('#phones').val(my_phones);
             }
             // 自動代入 email
             var my_email = window.localStorage.getItem("email");
-            if(my_email.length > 0) {
+            if(my_email != "") {
                 $('#email').val(my_email);   
             }
 
