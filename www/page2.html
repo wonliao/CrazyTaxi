@@ -144,12 +144,12 @@
             // 自動代入 phones
             var my_phones = window.localStorage.getItem("phones");
             if(my_phones.length > 0) {
-                $('#phones').attr("placeholder", "").val(my_phones);
+                $('#phones').val(my_phones);
             }
             // 自動代入 email
             var my_email = window.localStorage.getItem("email");
             if(my_email.length > 0) {
-                $('#email').attr("placeholder", "").val(my_email);   
+                $('#email').val(my_email);   
             }
 
             var latlng = window.localStorage.getItem("center");
@@ -164,7 +164,7 @@
                     //console.log(data);
                     var formatted_address = data.results[0].formatted_address;
                     //console.log("formatted_address("+formatted_address+")");
-                    $("#address").attr("placeholder", "").val(formatted_address);
+                    $("#address").val(formatted_address);
         		}
             );
 
