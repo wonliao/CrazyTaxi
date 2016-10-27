@@ -211,6 +211,8 @@ function page1InfoClick(pageName) {
     var emai = "";
     var fb_name = "";
     var destination = "";
+    var input_address = "";
+    var time_text = "";
     function showInfo() {
         
         //var key = "-KRRNVxXNetIAj6aXiZL";
@@ -221,7 +223,7 @@ function page1InfoClick(pageName) {
 			//console.log(snapshot.val());
 			fb_id = snapshot.val().fb_id;                       // facebook user id
             fb_name = snapshot.val().fb_name;                   // facebook user name
-            var input_address = snapshot.val().input_address;   // 上車地點
+            input_address = snapshot.val().input_address;       // 上車地點
             destination = snapshot.val().destination;           // 下車地點
 			var timestamp = snapshot.val().appointment;		    // 共乘時間
 			var purpose = snapshot.val().purpose;			    // 共乘目的
@@ -230,7 +232,7 @@ function page1InfoClick(pageName) {
             email = snapshot.val().email;                       // 電子信箱
 
 			var d = new Date(timestamp);
-			var time_text = getTimeStr(d); //d.toLocaleString();
+			time_text = getTimeStr(d); //d.toLocaleString();
 		    
             var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=normal";
             //console.log("fb_image("+fb_image+")");
@@ -268,24 +270,30 @@ function page1InfoClick(pageName) {
             message +=      '</ons-button>';
             message +=  '</section>';
             */
+            
+            if(phones != "") {
 
-            message +=  '<section class="section1">';
-            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電子信箱聯繫\")' style='background:#36d0c9; border-radius:0;'>";
-            message +=          '<span style="font-size:18px">電子信箱聯繫</span>';
-            message +=      '</ons-button>';
-            message +=  '</section>';
+                message +=  '<section class="section1">';
+                message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電話聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+                message +=          '<span style="font-size:18px">電話聯繫</span>';
+                message +=      '</ons-button>';
+                message +=  '</section>';
 
-            message +=  '<section class="section1">';
-            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"簡訊聯繫\")' style='background:#36d0c9; border-radius:0;'>";
-            message +=          '<span style="font-size:18px">簡訊聯繫</span>';
-            message +=      '</ons-button>';
-            message +=  '</section>';
+                message +=  '<section class="section1">';
+                message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"簡訊聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+                message +=          '<span style="font-size:18px">簡訊聯繫</span>';
+                message +=      '</ons-button>';
+                message +=  '</section>';
+            }
 
-            message +=  '<section class="section1">';
-            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電話聯繫\")' style='background:#36d0c9; border-radius:0;'>";
-            message +=          '<span style="font-size:18px">電話聯繫</span>';
-            message +=      '</ons-button>';
-            message +=  '</section>';
+            if(email != "") {
+
+                message +=  '<section class="section1">';
+                message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電子信箱聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+                message +=          '<span style="font-size:18px">電子信箱聯繫</span>';
+                message +=      '</ons-button>';
+                message +=  '</section>';
+            }
 
             message +=  '<section class="section1">';
             message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
@@ -320,8 +328,17 @@ function page1InfoClick(pageName) {
     }
 
     function email_btn() {
-        console.log("email_btn click")
-        window.location.href = "mailto:" + email + "?subject=大車隊共乘&body=Hi " + fb_name + " 一起共乘去" + destination + "吧~~";
+
+        var msg = "";
+        msg += "?subject=go2gether大車隊共乘";
+        msg += "Hi 我是 "+fb_name+" 我想跟你一起共乘去"+destination+"<br />";
+        msg += "<hr />";
+        msg += "上車地點：" + input_address + "<br />";
+        msg += "下車地點：" + destination + "<br />";
+        msg += "出發時間：" + time_text + "<br />";
+        console.log("msg("+msg+")");
+        
+        window.location.href = "mailto:" + email + msg;
     }
 
     function is_fb_player_enable() {

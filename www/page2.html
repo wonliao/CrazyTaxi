@@ -141,6 +141,17 @@
             // 檢查是否被禁止刊登
             is_fb_player_enable();
 
+            // 自動代入 phones
+            var my_phones = window.localStorage.getItem("phones");
+            if(my_phones != "") {
+                $('#phones').val(my_phones);   
+            }
+            // 自動代入 email
+            var my_email = window.localStorage.getItem("email");
+            if(my_email != "") {
+                $('#email').val(my_email);   
+            }
+
             var latlng = window.localStorage.getItem("center");
             // 依經緯度查地址
             $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -217,6 +228,8 @@
                             alertDialog.show();
                         });
                         return false;
+                    } else {
+                        window.localStorage.setItem("phones", phones);
                     }
                 }
                 if(email.length > 0) {
@@ -229,6 +242,8 @@
                             alertDialog.show();
                         });
                         return false;
+                    } else {
+                        window.localStorage.setItem("email", email);
                     }
                 }
                 
