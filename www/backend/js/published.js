@@ -212,16 +212,20 @@ function setEvent() {
 				
 				text += '<div style="clear:both; height:10px"></div>';
 				
-				text += '<section class="section1">';
-				text += '	<div style="color:#b5b2b2;">手機號碼</div>';
-				text += '	<div style="color:#6b6b6b;">'+snapshot.val().phones+'</div>';
-				text += '</section>';
+				if(snapshot.val().phones != "") {
+					text += '<section class="section1">';
+					text += '	<div style="color:#b5b2b2;">手機號碼</div>';
+					text += '	<div style="color:#6b6b6b;">'+snapshot.val().phones+'</div>';
+					text += '</section>';
+				}
 				
-				text += '<section class="section1">';
-				text += '	<div style="color:#b5b2b2;">電子信箱</div>';
-				text += '	<div style="color:#6b6b6b;">'+snapshot.val().email+'</div>';
-				text += '</section>';
-				 
+				if(typeof(snapshot.val().email) != 'undefined' && snapshot.val().email != "") {
+					text += '<section class="section1">';
+					text += '	<div style="color:#b5b2b2;">電子信箱</div>';
+					text += '	<div style="color:#6b6b6b;">'+snapshot.val().email+'</div>';
+					text += '</section>';
+				}
+				
 				text += '<section class="section1">';
 				text += '	<div style="color:#b5b2b2;">上車地點</div>';
 				text += '	<div style="color:#6b6b6b;">'+snapshot.val().input_address+'</div>';
