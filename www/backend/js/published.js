@@ -153,6 +153,7 @@ function setEvent() {
 						area.name = snapshot.val().name;
 						area.note = snapshot.val().note;
 						area.phones = snapshot.val().phones;
+						area.email = snapshot.val().email;
 						area.postal_code = snapshot.val().postal_code;
 						area.priority = snapshot.val().priority;
 						area.purpose = snapshot.val().purpose;
@@ -214,6 +215,11 @@ function setEvent() {
 				text += '<section class="section1">';
 				text += '	<div style="color:#b5b2b2;">手機號碼</div>';
 				text += '	<div style="color:#6b6b6b;">'+snapshot.val().phones+'</div>';
+				text += '</section>';
+				
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">電子信箱</div>';
+				text += '	<div style="color:#6b6b6b;">'+snapshot.val().email+'</div>';
 				text += '</section>';
 				 
 				text += '<section class="section1">';
