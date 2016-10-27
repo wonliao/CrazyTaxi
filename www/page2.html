@@ -218,8 +218,8 @@
                     return false;
                 }
                 
-                var _timepicker = $('#timepicker').val();        // 出發日期
-                if(_timepicker.length <= 0) {
+                var _datepicker = $('#datepicker').val();        // 出發日期
+                if(_datepicker.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
                         $('#alertDialogText').html('請輸入出發日期(僅供三日內預約)');
