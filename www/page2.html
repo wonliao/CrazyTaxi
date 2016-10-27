@@ -388,14 +388,14 @@
                     //console.log("startDate("+startDate+") startTime("+startTime+")");
 
                     var words = startTime.split(' ');
-                    //console.log("words ==>("+words[0]+")("+words[1]+")("+words[2]+")("+words[3]+")");
+                    console.log("words ==>("+words[0]+")("+words[1]+")("+words[2]+")("+words[3]+")");
                     var hours = words[0];
                     var minutes = words[2];
                     var am_pm = words[3];
                     if(am_pm == "PM")   hours = Math.floor(hours) + 12;
                     var time_txt = hours+":"+minutes+":00";
                     var txt = date_txt + " " + time_txt;
-                    //console.log("txt("+txt+")");
+                    console.log("txt("+txt+")");
                     var d = new Date(txt);
 
                     
