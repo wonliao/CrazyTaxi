@@ -266,9 +266,11 @@ function call_55688() {
 
 function open55688App() {
 
+    ga('send', 'event', '側邊欄', 'click', "55688懸浮icon");
+
     // iOS
     if(ons.platform.isIOS()) {
-
+        
         var now = new Date().valueOf();
         window.location = "TaiwanTaxi55688://";
         setTimeout(function () {
