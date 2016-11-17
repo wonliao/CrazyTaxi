@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" id="com.go2gether" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" id="com.livebricks.chimei.finder" version="1.0.0">
   <name>go2gether</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
@@ -34,6 +34,8 @@
   <preference name="Orientation" value="portrait"/>
   <preference name="SplashScreenDelay" value="1000"/>
   <preference name="Fullscreen" value="false"/>
+  <preference name="WindowsStorePublisherName" value="My Name"/>
+  <preference name="WindowsStoreIdentityName" value="875c99aa-8097-f4f8-30ed-c011735e79e8"/>
   <preference name="monaca:targetFamilyiPhone" value="1"/>
   <preference name="monaca:targetFamilyiPad" value="0"/>
   <preference name="AutoHideSplashScreen" value="true"/>
@@ -43,6 +45,4 @@
   <access origin="mailto:*"/>
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="EnableViewportScale" value="false"/>
-  <preference name="WindowsStorePublisherName" value="My Name"/>
-  <preference name="WindowsStoreIdentityName" value="875c99aa-8097-f4f8-30ed-c011735e79e8"/>
 </widget>
