@@ -58,7 +58,7 @@
                 <input type="text" class="text-input" ng-model="destination" placeholder="請輸入完整下車地址" id="destination" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供三日內預約)" id="datepicker" data-role="date" onfocus="blur()" required>
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供一個月內預約)" id="datepicker" data-role="date" onfocus="blur()" required>
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
@@ -169,7 +169,7 @@
         		}
             );
 
-            $("#datepicker").datepicker({ minDate: 0, maxDate: "+2D" });
+            $("#datepicker").datepicker({ minDate: 0, maxDate: "+29D" });
 
             var d = new Date();
             var hours = d.getHours();
