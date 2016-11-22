@@ -17,7 +17,7 @@ $search = $_GET["s"];
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="js/published.js" charset="UTF-8" ></script>
+<script src="js/published.js?time=1" charset="UTF-8" ></script>
 <script src="js/jquery.paginate.js" type="text/javascript"></script>
 <script src="js/sweetalert.min.js"></script>
 
