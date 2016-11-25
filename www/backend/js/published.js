@@ -84,9 +84,14 @@ function showPublished(key) {
 
 function getData(snapshot) {
 	
+	// 出發時間
 	var d = new Date(snapshot.val().appointment);
 	var timestamp_text = d.toLocaleString();
-	
+
+	// 刊登時間
+	var d2 = new Date(snapshot.val().timestamp);
+	var b_timestamp_text = d2.toLocaleString();
+
 	var status = "";
 	if(snapshot.val().status == "done") {
 		status = "找到共乘";
@@ -97,6 +102,7 @@ function getData(snapshot) {
 	var str = "";
 	str += '<li class="list-group-item" data-id="' + snapshot.key + '">';
 	str += 		'<a data-id="' + snapshot.val().fb_id + '" href="#" target="_self"><span style="width:150px; display:inline-block;">' + snapshot.val().fb_name + '</span></a>';
+	str += 		'<span style="width:200px; display:inline-block;">' + b_timestamp_text + '</span>';
 	str += 		'<span style="width:200px; display:inline-block;">' + timestamp_text + '</span>';
 	str += 		'<span style="width:100px; display:inline-block;">' + snapshot.val().purpose + '</span>';
 	str += 		'<span style="width:300px; display:inline-block;">' + snapshot.val().destination + '</span>';
@@ -202,7 +208,9 @@ function setEvent() {
 				
 				var fb_image = "https://graph.facebook.com/"+snapshot.val().fb_id+"/picture?type=normal";
 				var d = new Date(snapshot.val().appointment);
+				var d2 = new Date(snapshot.val().timestamp);
 				var timestamp_text = d.toLocaleString();
+				var b_timestamp_text = d2.toLocaleString();
 			
 				var text = "";
 				text += '<section style="padding: 4px 16px; text-align:center;">';
@@ -234,6 +242,11 @@ function setEvent() {
 				text += '<section class="section1">';
 				text += '	<div style="color:#b5b2b2;">下車地點</div>';
 				text += '	<div style="color:#6b6b6b;">'+snapshot.val().destination+'</div>';
+				text += '</section>';
+				
+				text += '<section class="section1">';
+				text += '	<div style="color:#b5b2b2;">刊登時間</div>';
+				text += '	<div style="color:#6b6b6b;">'+b_timestamp_text+'</div>';
 				text += '</section>';
 				
 				text += '<section class="section1">';
@@ -294,6 +307,7 @@ function setPaginate() {
 									var str = "";
 									str += '<li class="list-group-item">';
 									str += 		'<span style="width:150px; display:inline-block;">使用者名稱</span>';
+									str += 		'<span style="width:200px; display:inline-block;">刊登時間</span>';
 									str += 		'<span style="width:200px; display:inline-block;">出發時間</span>';
 									str += 		'<span style="width:100px; display:inline-block;">共乘目的</span>';
 									str += 		'<span style="width:300px; display:inline-block;">目的地</span>';
