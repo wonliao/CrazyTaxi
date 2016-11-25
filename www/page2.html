@@ -27,6 +27,11 @@
     text-align: center;
     color: #FFF;
 }
+.wickedpicker{
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+}
 </style>
 
 <ons-navigator title="Navigator" var="homeNavigator">
@@ -57,20 +62,13 @@
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="destination" placeholder="請輸入完整下車地址" id="destination" required>
             </section>
-            <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供一個月內預約)" id="datepicker" data-role="date" onfocus="blur()" required>
+            <section style="padding: 4px 16px; display:inline-block;">
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供一個月內預約)" id="datepicker" data-role="date" onfocus="blur()" style="width:49%; float:left; margin-right:1%;" required>
+                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" style="width:49%; float:left; margin-left:1%;" required>
             </section>
-            <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" required>
-            </section>
-            <section style="padding: 4px 16px">
-                <div>聯繫方式(二選一)</div>
-            </section>
-            <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼(10位數字)" id="phones" pattern="^09\d{8}$">
-            </section>
-            <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email">
+            <section style="padding: 4px 16px; display:inline-block;">
+                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼(10位數字)" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
+                <input type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
             </section>
             <section style="padding: 4px 16px">
                 <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
@@ -92,11 +90,7 @@
             <div style="clear:both; height:5px"></div>
 
             <section style="padding: 4px 16px" class="radio_box">
-                <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤</span></span>
-            </section>
-
-            <section style="padding: 4px 16px" class="radio_box">
-                <input name="ck_2" type="checkbox" required/><span style="margin-left:5px"><span id="ck_2_span">我已詳細閱讀並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
+                <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
             </section>
 
             <section style="padding: 0px 16px" class="radio_box">                
@@ -185,14 +179,14 @@
                 if(ck_1.length > 0)     $('input[name=ck_1]').prop("checked", false);
                 else                    $('input[name=ck_1]').prop("checked", true);
             });
-            
+            /*
             $('#ck_2_span').click(function() {
 
                 var ck_2 = $('input[name=ck_2]:checked');
                 if(ck_2.length > 0)     $('input[name=ck_2]').prop("checked", false);
                 else                    $('input[name=ck_2]').prop("checked", true);
             });
-
+            */
             isFirstTime = true;
             $('#add').on('submit', function() {
 
@@ -273,7 +267,7 @@
                 
 
                 var ck_1 = $('input[name=ck_1]:checked');
-                var ck_2 = $('input[name=ck_2]:checked');
+                //var ck_2 = $('input[name=ck_2]:checked');
                 var ck_3 = $('input[name=purpose]:checked');
                 //console.log("ck_3("+ck_3.length+")");
                 if(ck_3.length <= 0) {
@@ -292,7 +286,7 @@
                         alertDialog.show();
                     });
                     return false;
-                } else if(ck_2.length <= 0) {
+                } /*else if(ck_2.length <= 0) {
                 
                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
@@ -301,7 +295,7 @@
                         alertDialog.show();
                     });
                     return false;
-                }
+                }*/
                 
                 
 

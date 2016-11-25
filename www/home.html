@@ -73,7 +73,10 @@
 
 ons.ready(function() {
     setTimeout(function() {
-        
+
+        tabbar.setActiveTab(0);
+/*
+        // 說明頁
         var has_intro = window.localStorage.getItem("has_intro");
         if(has_intro != "true") {
             HoldOn.close();
@@ -82,6 +85,7 @@ ons.ready(function() {
         } else {
            tabbar.setActiveTab(0);
         }
+*/
     }, 10);
 });
 
