@@ -32,6 +32,9 @@
     left: 0 !important;
     right: 0 !important;
 }
+
+input[type="text"]:valid { outline: solid #ddd 1px; }
+input[type="text"]:invalid { outline: solid red 1px; }
 </style>
 
 <ons-navigator title="Navigator" var="homeNavigator">
@@ -57,20 +60,21 @@
                 <div>設定共乘條件</div>
             </section>
     		<section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="address" placeholder="請輸入完整上車地址" id="address" required>
+                <input type="text" class="text-input" ng-model="address" placeholder="請輸入上車地址" id="address" required>
             </section>
             <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="destination" placeholder="請輸入完整下車地址" id="destination" required>
+                <input type="text" class="text-input" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
             </section>
-            <section style="padding: 4px 16px; display:inline-block;">
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期(僅供一個月內預約)" id="datepicker" data-role="date" onfocus="blur()" style="width:49%; float:left; margin-right:1%;" required>
+            <section style="padding: 4px 16px 0 16px; display:inline-block; width:100%;">
+                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" onfocus="blur()" style="width:49%; float:left; margin-right:1%;" required>
                 <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" style="width:49%; float:left; margin-left:1%;" required>
             </section>
-            <section style="padding: 4px 16px; display:inline-block;">
-                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼(10位數字)" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
+            <div style="clear:both; height:0px"></div>
+            <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
                 <input type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
             </section>
-            <section style="padding: 4px 16px">
+            <section style="padding: 2px 16px">
                 <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
             </section>
 
@@ -80,11 +84,9 @@
                 <div>請選擇您本次共乘目的</div>
                 <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
                 <li><input type="radio" name="purpose" value="認識朋友"><label>認識朋友</label></li>
-                <li><input type="radio" name="purpose" value="抓寶可夢"><label>抓寶可夢</label></li>
-                <div style="clear:both;"></div>
-                <li><input type="radio" name="purpose" value="業務"><label>業務</label></li>
                 <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
-                <li><input type="radio" name="purpose" value="其他"><label>其他<input id="purpose_other" type="text" style="width:60px; border:none; border-bottom:1px #000 dashed;"/></label></li>
+                <div style="clear:both;"></div>
+                <li><input type="radio" name="purpose" value="其他"><label>其他<input id="purpose_other" type="text" style="width:160px; margin-left:10px; border:none; border-bottom:1px #000 dashed;"/></label></li>
             </section>
 
             <div style="clear:both; height:5px"></div>
@@ -93,7 +95,7 @@
                 <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
             </section>
 
-            <section style="padding: 0px 16px" class="radio_box">                
+            <section style="padding: 4px 16px" class="radio_box">                
                 <input type="submit" value="確定" class="btn btn-default submit_btn">
             </section>
 		</form>
