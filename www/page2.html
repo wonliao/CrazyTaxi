@@ -370,8 +370,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
         					area.address = c.long_name;
         				} else if (c.types.indexOf('route') !== -1) {
         					//append street name
-        					area.address += ' ' + c.long_name;
-        					area.address = area.address.trim();
+        					//area.address += ' ' + c.long_name;
+        					//area.address = area.address.trim();
         				} else if (c.types.indexOf('locality') !== -1) {
         					area.city = c.long_name;
         				} else if (c.types.indexOf('sublocality') !== -1) {
