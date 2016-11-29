@@ -145,7 +145,6 @@ function setEvent() {
 					areas.child(area_id).once("value", function(snapshot) {
 
 						var area = {};
-						area.address = snapshot.val().address;
 						area.appointment = snapshot.val().appointment;
 						area.city = snapshot.val().city;
 						area.country = snapshot.val().country;
