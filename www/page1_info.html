@@ -23,7 +23,7 @@
 
     <ons-toolbar fixed-style>
         <div class="left" style="line-height: 44px;">
-            <ons-back-button ng-click="backBtnClick()"></ons-back-button>
+            <ons-back-button></ons-back-button>
         </div>
         <div class="center">
             <img src="images/go2gether.png" style="height:32px;"/>
@@ -434,14 +434,7 @@ function page1InfoClick(pageName) {
         
         // 清除 makers
         firebaseRef.child(snapshot.key).remove();
-    }
-
-    function backBtnClick() {
-        console.log('won test 1')
-        //alert("test");
-    }
-   
-    
+    }    
 </script>
 
 <script>
