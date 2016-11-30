@@ -10,6 +10,8 @@ const DEFAULT_TOKEN = 'FEDPrbRuQnPmgA8cPyprs4YRGKpityaBDaS6dNB5';
 
 $firebase = new \Firebase\FirebaseLib(DEFAULT_URL, DEFAULT_TOKEN);
 
+$current_time = time()."000";
+
 $makers = json_decode( $firebase->get("makers") );
 foreach($makers as $key => $maker) {
 
