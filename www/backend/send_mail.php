@@ -33,9 +33,9 @@ function sendMail($to, $subject, $body) {
 	$mail->AddAddress($to, "親愛的用戶"); //設定收件者郵件及名稱        
 	
 	if(!$mail->Send()) {
-		echo "Mailer Error: " . $mail->ErrorInfo;
+		//echo "Mailer Error: " . $mail->ErrorInfo;
 	} else {
-		echo "Message sent!";
+		//echo "Message sent!";
 	}
 }
 ?>
