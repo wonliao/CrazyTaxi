@@ -1,4 +1,6 @@
 <?php
+header('Access-Control-Allow-Origin: *');  
+
 require 'PHPMailer/PHPMailerAutoload.php';
 
 $to = $_POST["to"];
