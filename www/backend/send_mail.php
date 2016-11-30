@@ -1,7 +1,12 @@
 <?php
 require 'PHPMailer/PHPMailerAutoload.php';
 
-//sendMail("wonliao1117@gmail.com", "共乘通知", "測試內文");
+$to = $_POST["to"];
+$subject = $_POST["subject"];
+$body = $_POST["body"];
+if($to != "" && $subject != "" && $body != "") {
+	sendMail($to, $subject, $body);
+}
 
 function sendMail($to, $subject, $body) {
 
