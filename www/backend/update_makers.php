@@ -49,9 +49,9 @@ foreach($makers as $key => $maker) {
 			if($area->email != "") { $body .= "電子信箱：$area->email<br />";	}
 			
 			$body .= "<br />
-			為了提供您更優質的共乘體驗，希望您對於此次共乘網站使用的經驗，<br />
-			有任何建議或意見提供，請分享給我們！<br />
-			go2gether大車隊共乘 使用體驗分享<br />
+			<font color='red'>為了提供您更優質的共乘體驗，希望您對於此次共乘網站使用的經驗，</font><br />
+			<font color='red'>有任何建議或意見提供，請分享給我們！</font><br />
+			<font color='red'>go2gether大車隊共乘 使用體驗分享：</font><br />
 			<a href='https://goo.gl/forms/DWJF2ekv9BdWvy663'>https://goo.gl/forms/DWJF2ekv9BdWvy663</a><br />
 			<br />
 			<br />
