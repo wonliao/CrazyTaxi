@@ -415,6 +415,7 @@ function page1InfoClick(pageName) {
         area.expired_time = snapshot.val().expired_time ? snapshot.val().expired_time : "";
         area.fb_id = snapshot.val().fb_id ? snapshot.val().fb_id : "";
         area.fb_name = snapshot.val().fb_name ? snapshot.val().fb_name : "";
+        area.email = snapshot.val().email ? snapshot.val().email : "";
         area.input_address = snapshot.val().input_address ? snapshot.val().input_address : "";
         area.latitude = snapshot.val().latitude ? snapshot.val().latitude : "";
         area.longitude = snapshot.val().longitude ? snapshot.val().longitude : "";
@@ -427,6 +428,59 @@ function page1InfoClick(pageName) {
         area.state = snapshot.val().state ? snapshot.val().state : "";
         area.timestamp = snapshot.val().timestamp ? snapshot.val().timestamp : "";
         area.status = status;
+
+        if(status == "cancel") {
+            
+            var a = new Date(area.appointment);
+            var year = a.getFullYear();
+            var month = a.getMonth();
+            var date = a.getDate();
+            var hour = a.getHours();
+            var min = a.getMinutes();
+            var startDate = year+"/"+month+"/"+date;
+            var startTime = hour+":"+min;
+            
+            console.log("startDate("+startDate+") startTime("+startTime+")");
+            
+            var to = area.email;
+            var subject = "您的共乘需求已被取消 通知！- go2gether大車隊共乘";
+            var body = area.fb_name + " 小姐/先生<br><br>";
+            body += "感謝您使用go2gether大車隊共乘。<br>";
+            body += "您的刊登需求因使用「取消」功能，網站首頁將不再顯示該筆刊登！<br>";
+            body += "<br>";
+            body += "已取消的刊登詳情如下：<br>";
+            body += "上車地點："+area.input_address+"<br>";
+            body += "下車地點："+area.destination+"<br />";
+            body += "出發日期："+startDate+"<br>";
+            body += "出發時間："+startTime+"<br>";
+            
+            if(area.note != "")     { body += "備註："+area.note+"<br>";        }
+            if(area.phones != "")   { body += "手機號碼："+area.phones+"<br>";	}
+            if(area.email != "")    { body += "電子信箱："+area.email+"<br>";	}
+            
+            body += "<br>";
+            body += "<font color='red'>為了提供您更優質的共乘體驗，希望您對於此次共乘網站使用的經驗，</font><br />";
+            body += "<font color='red'>有任何建議或意見提供，請分享給我們！</font><br />";
+            body += "<font color='red'>go2gether大車隊共乘 使用體驗分享：</font><br />";
+            body += "<a href='https://goo.gl/forms/DWJF2ekv9BdWvy663'>https://goo.gl/forms/DWJF2ekv9BdWvy663</a><br />";
+            body += "<br />";
+            body += "<br />";
+            body += "如果您有任何疑問，請隨時聯繫我們。<br />";
+            body += "感謝您使用go2gether大車隊共乘<br />";
+            body += "活動網站：<a href='https://goo.gl/gje0G6'>https://goo.gl/gje0G6</a><br />";
+            body += "官方粉絲團：<a href='https://goo.gl/cVIwMp'>https://goo.gl/cVIwMp</a><br />";
+            body += "<br />";
+            
+            console.log("to("+to+") subject("+subject+")");
+            console.log(body);
+            $.post("https://17-vr-live.wonliao.com/go2gether/www/backend/send_mail.php", 
+                { 
+                    "to": to,
+                    "subject": subject,
+                    "body": body
+                }
+            );
+        }
 
 		var area_updates = {};
 		area_updates['/areas/' + snapshot.key] = area;
