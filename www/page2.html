@@ -484,7 +484,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
                     ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
  
- 
+ /*
                     $.post("backend/send_mail.php", 
                     	{ 
                 			"to": area.email,
@@ -492,14 +492,14 @@ input[type="text"]:invalid { outline: solid red 1px; }
                             "body":     "你發起了一個共乘"
                 		}, function(res){
                 
-                			//console.log("data("+res.data+")");
-                            // 跳至完成刊登頁
-                            homeNavigator.pushPage("page2_success.html", {animation: 'slide'});
+                			
                 		},
                 		"json"
                 	);
-    
-    
+    */
+                    
+                    // 跳至完成刊登頁
+                    homeNavigator.pushPage("page2_success.html", {animation: 'slide'});
                     
         		});
 
