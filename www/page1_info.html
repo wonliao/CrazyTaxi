@@ -433,15 +433,14 @@ function page1InfoClick(pageName) {
             
             var a = new Date(area.appointment);
             var year = a.getFullYear();
-            var month = a.getMonth();
+            var month = a.getMonth() + 1;
             var date = a.getDate();
-            var hour = a.getHours();
-            var min = a.getMinutes();
+            var hour = checkTime(a.getHours());
+            var min = checkTime(a.getMinutes());
             var startDate = year+"/"+month+"/"+date;
             var startTime = hour+":"+min;
-            
             console.log("startDate("+startDate+") startTime("+startTime+")");
-            
+
             var to = area.email;
             var subject = "您的共乘需求已被取消 通知！- go2gether大車隊共乘";
             var body = area.fb_name + " 小姐/先生<br><br>";
@@ -489,6 +488,12 @@ function page1InfoClick(pageName) {
         // 清除 makers
         firebaseRef.child(snapshot.key).remove();
     }    
+    
+    function checkTime(i) {
+
+        if (i<10) { i = "0" + i; }
+        return i
+    }
 </script>
 
 <script>
