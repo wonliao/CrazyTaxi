@@ -413,6 +413,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     var minutes = words[2];
                     var am_pm = words[3];
                     if(am_pm == "PM")   hours = Math.floor(hours) + 12;
+                    var start_time_txt = hours+":"+minutes;
                     var time_txt = hours+":"+minutes+":00";
                     var txt = date_txt + " " + time_txt;
                     //console.log("txt("+txt+")");
@@ -495,7 +496,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
         			body += "上車地點："+area.input_address+"<br>";
         			body += "下車地點："+area.destination+"<br />";
         			body += "出發日期："+startDate+"<br>";
-        			body += "出發時間："+startTime+"<br>";
+        			body += "出發時間："+start_time_txt+"<br>";
         			
         			if(area.note != "")     { body += "備註："+area.note+"<br>";	    }
         			if(area.phones != "")   { body += "手機號碼："+area.phones+"<br>";	}
