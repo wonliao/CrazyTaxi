@@ -123,7 +123,8 @@ function init(position) {
     //console.log("pos_lat("+pos_lat+") pos_lng("+pos_lng+")");
 
 	var infowindow = new google.maps.InfoWindow({
-		content: ""
+		content: "",
+        disableAutoPan: true
 	});
 
 	// Init map
@@ -221,7 +222,7 @@ function init(position) {
     					infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px; z-index:3;'>"+text+"</div>");
     					infowindow.open(map, markers[key]);
                     }
-
+                    
                     markers[key].addListener('click', function() {
 
         				areas.child(key).once('value', function(snapshot) {
