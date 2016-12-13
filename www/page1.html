@@ -51,6 +51,10 @@
 
 <script>
 
+var map;
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+
 ons.ready(function() {
     setTimeout(function() {
             
@@ -128,13 +132,21 @@ function init(position) {
 	});
 
 	// Init map
-	var map = new google.maps.Map($('#map').get(0), {
+	map = new google.maps.Map($('#map').get(0), {
 		center: {lat: parseFloat(pos_lat), lng: parseFloat(pos_lng)},
 		zoom: 19,
 		mapTypeControl: false,
 		streetViewControl: false,
 	});
-
+    
+    // 路徑
+    poly = new google.maps.Polyline({
+        strokeColor: '#000000',
+        strokeOpacity: 1.0,
+        strokeWeight: 3
+    });
+    poly.setMap(map);
+  
     // 返回中心點
     var centerControlDiv = document.createElement('div');
     var centerControl = new CenterControl(centerControlDiv, map, position);
@@ -203,7 +215,7 @@ function init(position) {
     					map: map,
     					icon: image
     				});
-                    
+
                     if(snapshot.val().fb_id == facebook_id) {
                         
                         var destination = snapshot.val().destination;    // 目的地
@@ -216,9 +228,9 @@ function init(position) {
                         text += "<div>目的地："+destination+"</div>";
     					text += "<div>共乘時間："+time_text+"</div>";
     					text += "<div>共乘目的："+purpose+"</div>";
-    
+
                         window.localStorage.setItem("info_key", key);
-    
+
     					infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px; z-index:3;'>"+text+"</div>");
     					infowindow.open(map, markers[key]);
                     }
@@ -243,10 +255,11 @@ function init(position) {
     
     						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px; z-index:3;'>"+text+"</div>");
     						infowindow.open(map, markers[key]);
-    
-    						//map.setZoom(19);
-    						map.panTo(location);
-    
+
+                            var start = new google.maps.LatLng(snapshot.val().latitude, snapshot.val().longitude);
+    		                var end = new google.maps.LatLng(snapshot.val().d_latitude, snapshot.val().d_longitude);
+			                calcRoute(start, end);
+
                             ga('send', 'event', '首頁', 'click', "圖標");
     					});
     				});
@@ -296,6 +309,38 @@ function CenterControl(controlDiv, map, position) {
     map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
   });
 }
+
+// 路徑導航
+function calcRoute(start, end) {
+
+    if(directionsDisplay != null) { 
+        directionsDisplay.setMap(null);
+        directionsDisplay = null;    
+    }
+
+    // 路徑導航
+    directionsDisplay = new google.maps.DirectionsRenderer({suppressPolylines: false});
+    directionsDisplay.setMap(map);
+
+    var request = {
+		origin: start,
+		destination: end,
+		travelMode: google.maps.DirectionsTravelMode.DRIVING
+	};
+
+	directionsService.route(request, function(response, status) {
+		if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+		}
+	});
+
+    // 路徑
+    poly.setPath([]);
+    var path = poly.getPath();
+    path.push(start);
+    path.push(end);
+}
+
 </script>
 
 <script>

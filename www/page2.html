@@ -328,25 +328,25 @@ input[type="text"]:invalid { outline: solid red 1px; }
         		console.log("note("+note+")");
         		console.log("purpose("+purpose+")");
                 */
-        		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
-        			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
-        			address: address	// 上車地點
-        		}, function(data) {
+                $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+            		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+        			address: destination	// 下車地點
+        		}, function(data2) {
         			
-                    //console.log("won test 1 ==> data.results.length("+data.results.length+")");
-                    if(data.results.length <= 0) {
+                    //console.log("won test 1 ==> data2.results.length("+data2.results.length+")");
+                    if(data2.results.length <= 0) {
 
                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                            $('#alertDialogText').html("請輸入完整上車地址");
+                            $('#alertDialogText').html("請輸入完整下車地址");
                             $("#dialog_btn").attr("onclick","closeDialog()");
                             alertDialog.show();
                         });
                         return;
                     }
-
-        			//parse address
-        			var c, point_of_interest, area = {
+                    
+                    //parse address
+            		var c, point_of_interest, area = {
         				name: destination,		// 下車地點
                         latitude: "",
                         longitude: ""
@@ -354,188 +354,225 @@ input[type="text"]:invalid { outline: solid red 1px; }
         				//longitude: data.results[0].geometry.location.lng,
         			};
                     
-                    if(data.results[0]) {
-                        area.latitude = data.results[0].geometry.location.lat;
-                        area.longitude = data.results[0].geometry.location.lng;
-                    }
-                    
-                    
-        			//get address, city and state
-        			for (var i = 0; i < data.results[0].address_components.length; i++) {
-        				c = data.results[0].address_components[i];
-        				if (!c.types.length || c.types[0] == 'point_of_interest') {
-        					//record the point of interest in case address is empty
-        					point_of_interest = c.short_name;
-        				} else if (c.types.indexOf('street_number') !== -1) {
-        					//set address as street number
-        					area.address = c.long_name;
-        				} else if (c.types.indexOf('route') !== -1) {
-        					//append street name
-        					area.address += ' ' + c.long_name;
-        					area.address = area.address.trim();
-        				} else if (c.types.indexOf('locality') !== -1) {
-        					area.city = c.long_name;
-        				} else if (c.types.indexOf('sublocality') !== -1) {
-        					if (!area.city) area.city = c.long_name;
-        				} else if (c.types.indexOf('administrative_area_level_3') !== -1) {
-        					if (!area.city) area.city = c.long_name;
-        				} else if (c.types.indexOf('administrative_area_level_1') !== -1) {
-        					area.state = c.short_name;
-        				} else if (c.types.indexOf('postal_code') !== -1) {
-        					area.postal_code = c.short_name;
-        				} else if (c.types.indexOf('country') !== -1) {
-        					area.country = c.short_name;
-        				}
-        			}
-
-        			// facebook user id
-        			area.fb_id = window.localStorage.getItem("facebook_id");
-                    area.fb_name = window.localStorage.getItem("facebook_name");
-                    area.fb_mail = window.localStorage.getItem("facebook_mail");
-                    
-        			area.input_address = address;		// 上車地點
-        			area.destination = destination;	    // 下車地點
-        			area.phones = phones;				// 手機號碼
-                    area.email = email;    			    // 電子信箱
-        			area.note = note;					// 備註
-        			area.purpose = purpose;			    // 共乘目的
-
-        			// 建立時間
-        			var d = new Date();
-        			area.timestamp = d.getTime();
-
-                    // 時間處理
-                    date_txt = startDate.replace(/\//g,"/");
-                    //console.log("startDate("+startDate+") startTime("+startTime+")");
-
-                    var words = startTime.split(' ');
-                    //console.log("words ==>("+words[0]+")("+words[1]+")("+words[2]+")("+words[3]+")");
-                    var hours = words[0];
-                    var minutes = words[2];
-                    var am_pm = words[3];
-                    if(am_pm == "PM")   hours = Math.floor(hours) + 12;
-                    var start_time_txt = hours+":"+minutes;
-                    var time_txt = hours+":"+minutes+":00";
-                    var txt = date_txt + " " + time_txt;
-                    //console.log("txt("+txt+")");
-                    var d = new Date(txt);
-                    //console.log("d.getTime("+d.getTime()+")");
-                    
-                    var now_d = new Date();
-                    if(now_d.getTime() > d.getTime()) {
+                    if(data2.results[0]) {
+                        area.d_latitude = data2.results[0].geometry.location.lat;
+                        area.d_longitude = data2.results[0].geometry.location.lng;
                         
-                        //console.log("test 1");
-                        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-    
-                            $("#datepicker").css("border-color", "#F00");
-                            $("#timepicker").css("border-color", "#F00");
-                            $('#alertDialogText').html("出發日期及時間不得小於目前時間，請重新輸入");
-                            $("#dialog_btn").attr("onclick","closeDialog()");
-                            alertDialog.show();
-                        });
-                    
-                        return false;
+                        console.log("area.d_latitude("+area.d_latitude+") area.d_longitude("+area.d_longitude+")")
                     }
-                    //console.log("test 2");
                     
-                    // 預約時間
-                    area.appointment = d.getTime();
-
-                    // 過期時間 = 預約時間 + 10分鐘
-                    d.setMinutes(d.getMinutes() + 10);
-        			area.expired_time = d.getTime();
-                    
-                    // 排序用
-                    area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
-                    //console.log("appointment("+d.toString()+") expired_time("+d.toString()+")");
-                    area.status = "";
-
-        			if (!area.address && point_of_interest) area.address = point_of_interest;
-
-        			//persist to firebase
-        			var area_id = firebase.database().ref().child('areas').push().key;
-        			var updates = {};
-        			updates['/areas/' + area_id] = area;
-                    //console.log(updates);
-        			firebase.database().ref().update(updates);
-
-        			//geofire
-        			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
-        				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
-        			});
-
-                    var _latlng = area.latitude + "," + area.longitude;
-                    window.localStorage.setItem("marker_center", _latlng);
-
-                    /*
-                    // fb player 
-                    var fb_player = {name: ""};
-                    fb_player.name = window.localStorage.getItem("facebook_name");
-                    fb_player.enable = true;
-                    fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
-                    var player_updates = {};
-                    player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
-            		firebase.database().ref().update(player_updates);
-                    */
-        			//clean up form
-        			$('form#add').trigger('reset');
-
-                    ga('send', 'event', '刊登共乘頁', '上車地點', area.state + area.city);
-                    ga('send', 'event', '刊登共乘頁', '上車詳細地點', area.input_address);
-                    ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
-                    ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
-                    ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
- 
-
-                    var to = area.email;
-            		var subject = "刊登成功通知！- go2gether大車隊共乘";
-        			var body = area.fb_name + " 小姐/先生<br><br>";
-        			body += "感謝您使用go2gether大車隊共乘。<br>";
-        			body += "您的刊登需求已經成功上架於網站首頁囉！<br>";
-        			body += "<br>";
-        			body += "刊登詳情如下：<br>";
-        			body += "上車地點："+area.input_address+"<br>";
-        			body += "下車地點："+area.destination+"<br />";
-        			body += "出發日期："+startDate+"<br>";
-        			body += "出發時間："+start_time_txt+"<br>";
-        			
-        			if(area.note != "")     { body += "備註："+area.note+"<br>";	    }
-        			if(area.phones != "")   { body += "手機號碼："+area.phones+"<br>";	}
-        			if(area.email != "")    { body += "電子信箱："+area.email+"<br>";	}
-        			
-        			body += "<br>";
-        			body += "當您收到此封系統通知信件後，將可於共乘網站的首頁，找到您的共乘需求圖標（顯示為黃色圖標）。<br>";
-        			body += "<br>";
-        			body += "在等候夥伴聯繫您的同時，您也可進行以下動作：<br />";
-        			body += "1. 資訊確認：回到共乘網站首頁，確認你的刊登資訊是否正確。<br />";
-        			body += "2. 夥伴聯繫：隨時注意來自夥伴的 電話/簡訊/email 聯繫訊息。<br />";
-        			body += "3. 查詢記錄：點選右上角側邊欄，選擇「刊登紀錄」，查看所有刊登過的需求。<br />";
-        			body += "4. 準時出發：當共乘夥伴主動聯繫並約好碰面後，請記得準時到達預定的上車地點。<br />";
-        			body += "5. 再次刊登：把下次要共乘的需求，前往完成吧！<br />";
-        			body += "   ＊go2gether大車隊共乘：<a href='https://goo.gl/gje0G6'>https://goo.gl/gje0G6</a><br />";
-        			body += "6. 提前於手機下載55688APP，讓您出門更加便利！<br />";
-        			body += "   ＊下載教學：<a href='http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx'>http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx</a><br />";
-        			body += "<br />";
-        			body += "<br />";
-        			body += "如果您有任何疑問，請隨時聯繫我們。<br />";
-        			body += "感謝您使用go2gether大車隊共乘<br />";
-        			body += "活動網站：<a href='https://goo.gl/gje0G6'>https://goo.gl/gje0G6</a><br />";
-        			body += "官方粉絲團：<a href='https://goo.gl/cVIwMp'>https://goo.gl/cVIwMp</a><br />";
-        			body += "<br />";
- 
-                    $.post("https://17-vr-live.wonliao.com/go2gether/www/backend/send_mail.php", 
-                    	{ 
-                			"to": to,
-                			"subject": subject,
-                            "body": body
-                		}
-                	); 
-                    
-                    // 跳至完成刊登頁
-                    homeNavigator.pushPage("page2_success.html", {animation: 'slide'});    
-        		});
-
-               return false;
+                 
+            		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+            			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+            			address: address	// 上車地點
+            		}, function(data) {
+            			
+                        //console.log("won test 1 ==> data.results.length("+data.results.length+")");
+                        if(data.results.length <= 0) {
+    
+                            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+    
+                                $('#alertDialogText').html("請輸入完整上車地址");
+                                $("#dialog_btn").attr("onclick","closeDialog()");
+                                alertDialog.show();
+                            });
+                            return;
+                        }
+                        /*
+            			//parse address
+            			var c, point_of_interest, area = {
+            				name: destination,		// 下車地點
+                            latitude: "",
+                            longitude: ""
+            				//latitude: data.results[0].geometry.location.lat,
+            				//longitude: data.results[0].geometry.location.lng,
+            			};
+                        */
+                        
+                        if(data.results[0]) {
+                            area.latitude = data.results[0].geometry.location.lat;
+                            area.longitude = data.results[0].geometry.location.lng;
+                        }
+                        
+                        
+            			//get address, city and state
+            			for (var i = 0; i < data.results[0].address_components.length; i++) {
+            				c = data.results[0].address_components[i];
+            				if (!c.types.length || c.types[0] == 'point_of_interest') {
+            					//record the point of interest in case address is empty
+            					point_of_interest = c.short_name;
+            				} else if (c.types.indexOf('street_number') !== -1) {
+            					//set address as street number
+            					area.address = c.long_name;
+            				} else if (c.types.indexOf('route') !== -1) {
+            					//append street name
+            					area.address += ' ' + c.long_name;
+            					area.address = area.address.trim();
+            				} else if (c.types.indexOf('locality') !== -1) {
+            					area.city = c.long_name;
+            				} else if (c.types.indexOf('sublocality') !== -1) {
+            					if (!area.city) area.city = c.long_name;
+            				} else if (c.types.indexOf('administrative_area_level_3') !== -1) {
+            					if (!area.city) area.city = c.long_name;
+            				} else if (c.types.indexOf('administrative_area_level_1') !== -1) {
+            					area.state = c.short_name;
+            				} else if (c.types.indexOf('postal_code') !== -1) {
+            					area.postal_code = c.short_name;
+            				} else if (c.types.indexOf('country') !== -1) {
+            					area.country = c.short_name;
+            				}
+            			}
+    
+            			// facebook user id
+            			area.fb_id = window.localStorage.getItem("facebook_id");
+                        area.fb_name = window.localStorage.getItem("facebook_name");
+                        area.fb_mail = window.localStorage.getItem("facebook_mail");
+                        
+            			area.input_address = address;		// 上車地點
+            			area.destination = destination;	    // 下車地點
+            			area.phones = phones;				// 手機號碼
+                        area.email = email;    			    // 電子信箱
+            			area.note = note;					// 備註
+            			area.purpose = purpose;			    // 共乘目的
+    
+            			// 建立時間
+            			var d = new Date();
+            			area.timestamp = d.getTime();
+    
+                        // 時間處理
+                        date_txt = startDate.replace(/\//g,"/");
+                        //console.log("startDate("+startDate+") startTime("+startTime+")");
+    
+                        var words = startTime.split(' ');
+                        //console.log("words ==>("+words[0]+")("+words[1]+")("+words[2]+")("+words[3]+")");
+                        var hours = words[0];
+                        var minutes = words[2];
+                        var am_pm = words[3];
+                        if(am_pm == "PM")   hours = Math.floor(hours) + 12;
+                        var start_time_txt = hours+":"+minutes;
+                        var time_txt = hours+":"+minutes+":00";
+                        var txt = date_txt + " " + time_txt;
+                        //console.log("txt("+txt+")");
+                        var d = new Date(txt);
+                        //console.log("d.getTime("+d.getTime()+")");
+                        
+                        var now_d = new Date();
+                        if(now_d.getTime() > d.getTime()) {
+                            
+                            //console.log("test 1");
+                            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        
+                                $("#datepicker").css("border-color", "#F00");
+                                $("#timepicker").css("border-color", "#F00");
+                                $('#alertDialogText').html("出發日期及時間不得小於目前時間，請重新輸入");
+                                $("#dialog_btn").attr("onclick","closeDialog()");
+                                alertDialog.show();
+                            });
+                        
+                            return false;
+                        }
+                        //console.log("test 2");
+                        
+                        // 預約時間
+                        area.appointment = d.getTime();
+    
+                        // 過期時間 = 預約時間 + 10分鐘
+                        d.setMinutes(d.getMinutes() + 10);
+            			area.expired_time = d.getTime();
+                        
+                        // 排序用
+                        area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
+                        //console.log("appointment("+d.toString()+") expired_time("+d.toString()+")");
+                        area.status = "";
+    
+            			if (!area.address && point_of_interest) area.address = point_of_interest;
+    
+            			//persist to firebase
+            			var area_id = firebase.database().ref().child('areas').push().key;
+            			var updates = {};
+            			updates['/areas/' + area_id] = area;
+                        //console.log(updates);
+            			firebase.database().ref().update(updates);
+    
+            			//geofire
+            			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
+            				//console.log(area_id + ': setting position to [' + area.latitude + ',' + area.longitude + ']');
+            			});
+    
+                        var _latlng = area.latitude + "," + area.longitude;
+                        window.localStorage.setItem("marker_center", _latlng);
+    
+                        
+                        // fb player 
+                        //var fb_player = {name: ""};
+                        //fb_player.name = window.localStorage.getItem("facebook_name");
+                        //fb_player.enable = true;
+                        //fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
+                        //var player_updates = {};
+                        //player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
+                		//firebase.database().ref().update(player_updates);
+                        
+            			//clean up form
+            			$('form#add').trigger('reset');
+    
+                        ga('send', 'event', '刊登共乘頁', '上車地點', area.state + area.city);
+                        ga('send', 'event', '刊登共乘頁', '上車詳細地點', area.input_address);
+                        ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
+                        ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
+                        ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
+     
+    
+                        var to = area.email;
+                		var subject = "刊登成功通知！- go2gether大車隊共乘";
+            			var body = area.fb_name + " 小姐/先生<br><br>";
+            			body += "感謝您使用go2gether大車隊共乘。<br>";
+            			body += "您的刊登需求已經成功上架於網站首頁囉！<br>";
+            			body += "<br>";
+            			body += "刊登詳情如下：<br>";
+            			body += "上車地點："+area.input_address+"<br>";
+            			body += "下車地點："+area.destination+"<br />";
+            			body += "出發日期："+startDate+"<br>";
+            			body += "出發時間："+start_time_txt+"<br>";
+            			
+            			if(area.note != "")     { body += "備註："+area.note+"<br>";	    }
+            			if(area.phones != "")   { body += "手機號碼："+area.phones+"<br>";	}
+            			if(area.email != "")    { body += "電子信箱："+area.email+"<br>";	}
+            			
+            			body += "<br>";
+            			body += "當您收到此封系統通知信件後，將可於共乘網站的首頁，找到您的共乘需求圖標（顯示為黃色圖標）。<br>";
+            			body += "<br>";
+            			body += "在等候夥伴聯繫您的同時，您也可進行以下動作：<br />";
+            			body += "1. 資訊確認：回到共乘網站首頁，確認你的刊登資訊是否正確。<br />";
+            			body += "2. 夥伴聯繫：隨時注意來自夥伴的 電話/簡訊/email 聯繫訊息。<br />";
+            			body += "3. 查詢記錄：點選右上角側邊欄，選擇「刊登紀錄」，查看所有刊登過的需求。<br />";
+            			body += "4. 準時出發：當共乘夥伴主動聯繫並約好碰面後，請記得準時到達預定的上車地點。<br />";
+            			body += "5. 再次刊登：把下次要共乘的需求，前往完成吧！<br />";
+            			body += "   ＊go2gether大車隊共乘：<a href='https://goo.gl/gje0G6'>https://goo.gl/gje0G6</a><br />";
+            			body += "6. 提前於手機下載55688APP，讓您出門更加便利！<br />";
+            			body += "   ＊下載教學：<a href='http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx'>http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx</a><br />";
+            			body += "<br />";
+            			body += "<br />";
+            			body += "如果您有任何疑問，請隨時聯繫我們。<br />";
+            			body += "感謝您使用go2gether大車隊共乘<br />";
+            			body += "活動網站：<a href='https://goo.gl/gje0G6'>https://goo.gl/gje0G6</a><br />";
+            			body += "官方粉絲團：<a href='https://goo.gl/cVIwMp'>https://goo.gl/cVIwMp</a><br />";
+            			body += "<br />";
+     
+                        $.post("https://17-vr-live.wonliao.com/go2gether/www/backend/send_mail.php", 
+                        	{ 
+                    			"to": to,
+                    			"subject": subject,
+                                "body": body
+                    		}
+                    	); 
+                        
+                        // 跳至完成刊登頁
+                        homeNavigator.pushPage("page2_success.html", {animation: 'slide'});    
+            		});
+                
+                });
+                
+                return false;
             });
         }, 10);
     });
