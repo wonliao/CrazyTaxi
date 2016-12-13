@@ -9,10 +9,17 @@
     margin-left:5px;
 }
 
+.text-input1 {
+    border-radius:0;
+    display: block; 
+    width: calc(100% - 50px);
+    float: left;
+}
+
 .text-input {
     border-radius:0;
     display: block; 
-    width: 100%
+    width: 100%;
 }
 
 .submit_btn {
@@ -31,6 +38,12 @@
     position: absolute !important;
     left: 0 !important;
     right: 0 !important;
+}
+
+.marker {
+    height: 30px;
+    margin: 0 10px;
+    float: left;
 }
 
 input[type="text"]:valid { outline: solid #ddd 1px; }
@@ -59,11 +72,11 @@ input[type="text"]:invalid { outline: solid red 1px; }
             <section style="padding: 8px 16px 4px 16px">
                 <div>設定共乘條件</div>
             </section>
-    		<section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="address" placeholder="請輸入上車地址" id="address" required>
+    		<section style="padding: 4px 16px; height: 38px;">
+                <img src="images/marker_green.png" onClick="addressClick()" class="marker"/><input type="text" class="text-input1" ng-model="address" placeholder="請輸入上車地址" id="address" required>
             </section>
-            <section style="padding: 4px 16px">
-                <input type="text" class="text-input" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
+            <section style="padding: 4px 16px; height: 38px;">
+                <img src="images/marker_red.png" onClick="destinationClick()"  class="marker"/><input type="text" class="text-input1" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
             </section>
             <section style="padding: 4px 16px 0 16px; display:inline-block; width:100%;">
                 <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" onfocus="blur()" style="width:49%; float:left; margin-right:1%;" required>
@@ -628,6 +641,18 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
     function closeDialog() {
         alertDialog.destroy();
+    }
+    
+    function addressClick() {
+        
+        window.localStorage.setItem("select_map", "address");
+        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
+    }
+    
+    function destinationClick() {
+        
+        window.localStorage.setItem("select_map", "destination");
+        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
 </script>
 

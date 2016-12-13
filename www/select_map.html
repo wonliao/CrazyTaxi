@@ -1,0 +1,214 @@
+<style>
+.my_pos_img {
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    width: 60px;
+    position: absolute;
+    top: calc(50% - 60px);
+    left: calc(50% - 27px);
+    z-index: 2;
+}
+
+.select_pos_btn {
+    background-color: rgba(24,103,194,0.81);
+    border: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 36px;
+    padding: 4px 12px;
+    display: block;
+    width: 80%;
+    text-align: center;
+    color: #FFF;
+    margin: 8px 16px 4px 16px;
+    position: absolute;
+    margin-left:5%;
+    bottom: 5%;
+}
+</style>
+
+<ons-navigator title="Navigator">
+    <ons-page>
+        <ons-toolbar fixed-style>
+            <div class="left" style="line-height: 44px;">
+                <ons-back-button></ons-back-button>
+            </div>
+            <div class="center">
+                <img src="images/go2gether.png" style="height:32px;"/>
+            </div>
+            <div class="right" style="line-height: 44px">
+                <ons-toolbar-button ng-click="menu.toggleMenu()">
+                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+        		</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <div id="map"></div>
+
+        <img src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
+        
+        <input value="確定" class="btn btn-default select_pos_btn" onClick="getPos()">
+        
+    </ons-page>
+    
+    <ons-template id="alert-dialog.html">
+        <ons-alert-dialog var="alertDialog">
+            <div class="alert-dialog-title">
+                <strong style="color: #ff3333" id="alertDialogTitle">定位失敗!</strong>    
+            </div>
+            <div class="alert-dialog-content">
+                <span id="alertDialogText">請確定已開啟GPS功能，並重新嘗試</span>
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button" onClick="closeDialog()">OK</button>
+            </div>
+        </ons-alert-dialog>
+    </ons-template>
+
+</ons-navigator>
+
+<script>
+
+var map;
+
+ons.ready(function() {
+    setTimeout(function() {
+
+        menu.setSwipeable(false);
+    }, 10);
+});
+
+$(function(){
+
+    isFirstTime = true;
+
+    var options = {
+      enableHighAccuracy: true,     // 高精度定位
+	  timeout: 10000,               // 10秒 timeout
+	  maximumAge: 3 * 60 * 1000     // 暫存3分鐘
+	};
+	
+	function success(pos) {
+
+	    init(pos);
+	};
+
+	function error(err) {
+	    
+        console.warn('ERROR(' + err.code + '): ' + err.message);
+        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+            alertDialog.show();
+        });       
+	};
+
+	navigator.geolocation.getCurrentPosition(success, error, options);
+});
+	
+
+function init(position) {
+    
+    var pos_lat = position.coords.latitude;
+    var pos_lng = position.coords.longitude;
+	var infowindow = new google.maps.InfoWindow({
+		content: "",
+        disableAutoPan: true
+	});
+
+	// Init map
+	map = new google.maps.Map($('#map').get(0), {
+		center: {lat: parseFloat(pos_lat), lng: parseFloat(pos_lng)},
+		zoom: 19,
+		mapTypeControl: false,
+		streetViewControl: false,
+	});
+
+    // 返回中心點
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map, position);
+    centerControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+
+    var markerImage = new google.maps.MarkerImage('images/blue.png',
+                new google.maps.Size(80, 80),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(40, 40));
+
+    // 自已的座標 
+	var marker = new google.maps.Marker({
+		position: {lat: position.coords.latitude, lng: position.coords.longitude},
+		map: map,
+        icon: markerImage,
+        zIndex: 0
+	});
+
+	var markers = {};
+	map.addListener('bounds_changed', function(){
+
+		var bounds = map.getBounds();
+		var center = map.getCenter();
+		//console.log("lat("+center.lat()+") lng("+center.lng()+")");
+        window.localStorage.setItem("start_center", center.lat()+","+center.lng());
+        //console.log("start_center("+window.localStorage.getItem("start_center")+")");
+	});
+}
+
+function CenterControl(controlDiv, map, position) {
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginRight = '8px';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.innerHTML = '<img src="images/center_btn.png" style="width:30px"/>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlUI.addEventListener('click', function() {
+    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+  });
+}
+
+function getPos() {
+
+    var latlng = window.localStorage.getItem("start_center");
+    console.log("latlng("+latlng+")");
+    
+    // 依經緯度查地址
+    $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+        key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+    	latlng: latlng,
+        location_type: "ROOFTOP",
+        result_type: "street_address"
+    }, function(data) {
+
+        console.log(data);
+
+        if(data.results.length <= 0) {
+         
+            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                $('#alertDialogText').html("請選擇正確的道路");
+                alertDialog.show();
+            });
+            return;   
+        }
+
+        var formatted_address = data.results[0].formatted_address;
+        console.log("formatted_address("+formatted_address+")");
+
+        var select_map = window.localStorage.getItem("select_map");
+        if(select_map == "address")     $("#address").val(formatted_address).focus();
+        else                            $("#destination").val(formatted_address).focus();
+        
+        homeNavigator.popPage();
+    });
+}
+
+function closeDialog() {
+    alertDialog.destroy();
+}
+
+</script>
