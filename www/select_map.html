@@ -212,3 +212,19 @@ function closeDialog() {
 }
 
 </script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  var str = "";
+  var select_map = window.localStorage.getItem("select_map");
+  if(select_map == "address")     str = "選擇上車地圖頁";
+  else                            str = "選擇下車地圖頁";
+
+  ga('create', 'UA-84401162-1', 'auto');
+  ga('send', 'pageview', '刊登記錄頁');
+</script>

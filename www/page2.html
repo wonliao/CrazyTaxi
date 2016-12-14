@@ -12,7 +12,7 @@
 .text-input1 {
     border-radius:0;
     display: block; 
-    width: calc(100% - 50px);
+    width: calc(100% - 40px);
     float: left;
 }
 
@@ -42,12 +42,18 @@
 
 .marker {
     height: 30px;
+    width: 20px;
     margin: 0 10px;
     float: left;
 }
 
+input[type="text"] {
+    border: #aaa 1px solid;    
+}
+/*
 input[type="text"]:valid { outline: solid #ddd 1px; }
 input[type="text"]:invalid { outline: solid red 1px; }
+*/
 </style>
 
 <ons-navigator title="Navigator" var="homeNavigator">
@@ -61,7 +67,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             <div class="center">
                 <img src="images/go2gether.png" style="height:32px;"/>
             </div>
-            <div class="right" style="line-height: 44px">
+            <div class="right" style="line-height:44px;">
                 <ons-toolbar-button ng-click="menu.toggleMenu()">
                     <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
         		</ons-toolbar-button>
@@ -72,11 +78,15 @@ input[type="text"]:invalid { outline: solid red 1px; }
             <section style="padding: 8px 16px 4px 16px">
                 <div>設定共乘條件</div>
             </section>
+            
     		<section style="padding: 4px 16px; height: 38px;">
                 <img src="images/marker_green.png" onClick="addressClick()" class="marker"/><input type="text" class="text-input1" ng-model="address" placeholder="請輸入上車地址" id="address" required>
             </section>
             <section style="padding: 4px 16px; height: 38px;">
-                <img src="images/marker_red.png" onClick="destinationClick()"  class="marker"/><input type="text" class="text-input1" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
+                <img src="images/marker_red.png" onClick="destinationClick()" class="marker"/><input type="text" class="text-input1" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
+            </section>
+            <section style="padding: 8px 16px 4px 16px">
+                <input type="button" value="刊登記錄" class="btn btn-default submit_btn" onClick="showRecord()">
             </section>
             <section style="padding: 4px 16px 0 16px; display:inline-block; width:100%;">
                 <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" onfocus="blur()" style="width:49%; float:left; margin-right:1%;" required>
@@ -133,8 +143,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
         setTimeout(function() {
 
-            //window.localStorage.setItem("facebook_id", "1389354124412945");
-            //window.localStorage.setItem("facebook_name", "廖志旺");
+            window.localStorage.setItem("facebook_id", "1389354124412945");
+            window.localStorage.setItem("facebook_name", "廖志旺");
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -653,6 +663,11 @@ input[type="text"]:invalid { outline: solid red 1px; }
         
         window.localStorage.setItem("select_map", "destination");
         homeNavigator.pushPage("select_map.html", {animation: 'slide'});
+    }
+    
+    function showRecord() {
+        
+        homeNavigator.pushPage("record.html", {animation: 'slide'});
     }
 </script>
 
