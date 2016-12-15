@@ -89,8 +89,11 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 <input type="button" value="刊登記錄" class="btn btn-default submit_btn" onClick="showRecord()">
             </section>
             <section style="padding: 4px 16px 0 16px; display:inline-block; width:100%;">
+                <input id="datepicker" type="datetime-local" style="width:100%">
+                <!--
                 <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" onfocus="blur()" style="width:49%; float:left; margin-right:1%;" required>
                 <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" style="width:49%; float:left; margin-left:1%;" required>
+                -->
             </section>
             <div style="clear:both; height:0px"></div>
             <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
@@ -143,8 +146,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
         setTimeout(function() {
 
-            //window.localStorage.setItem("facebook_id", "1389354124412945");
-            //window.localStorage.setItem("facebook_name", "廖志旺");
+            window.localStorage.setItem("facebook_id", "1389354124412945");
+            window.localStorage.setItem("facebook_name", "廖志旺");
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -160,6 +163,14 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
             // 檢查是否被禁止刊登
             is_fb_player_enable();
+
+            // 自動代入現在時間
+            var now = new Date();
+            var hours = (now.getHours()<10?'0':'') + now.getHours();
+            var minutes = (now.getMinutes()<10?'0':'') + now.getMinutes();
+            var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + 'T' +  hours + ':' + minutes;
+            console.log("today("+today+")");
+            $('#datepicker').val(today);
 
             // 自動代入 phones
             var my_phones = window.localStorage.getItem("phones");
@@ -188,7 +199,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     $("#address").val(formatted_address).focus();
         		}
             );
-
+            
+            /*
             $("#datepicker").datepicker({ minDate: 0, maxDate: "+29D" });
 
             var d = new Date();
@@ -198,6 +210,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 minutesInterval: 15, //Change interval for minutes, defaults to 1
             };
             $('#timepicker').wickedpicker(options);
+            */
 
             $('#ck_1_span').click(function() {
 
@@ -227,7 +240,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
                     return;
                 }
-                
+
                 var _destination = $('#destination').val();        // 下車地址
                 if(_destination.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -249,7 +262,6 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     });
                     return false;
                 }
-                
                 
                 var phones = $('#phones').val();        // 手機號碼
                 var email = $('#email').val();          // 電子信箱
@@ -328,7 +340,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 var address = $('#address').val();				            // 上車地點
         		var destination = $('#destination').val();		            // 下車地點
         		var startDate = $('#datepicker').val();			            // 出發日期
-                var startTime = $('#timepicker').val();			            // 出發時間
+                //var startTime = $('#timepicker').val();			            // 出發時間
         		//var phones = $('#phones').val();					        // 手機號碼
         		var note = $('#note').val();						        // 備註
         		var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
@@ -462,6 +474,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             			var d = new Date();
             			area.timestamp = d.getTime();
     
+                        /*
                         // 時間處理
                         date_txt = startDate.replace(/\//g,"/");
                         //console.log("startDate("+startDate+") startTime("+startTime+")");
@@ -475,9 +488,22 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         var start_time_txt = hours+":"+minutes;
                         var time_txt = hours+":"+minutes+":00";
                         var txt = date_txt + " " + time_txt;
-                        //console.log("txt("+txt+")");
-                        var d = new Date(txt);
-                        //console.log("d.getTime("+d.getTime()+")");
+                        console.log("txt("+txt+")");
+                        
+                        // txt(2016/12/16 20:00:00)
+                        */
+                        //console.log("startDate("+startDate+")");
+                        startDate = startDate.replace(/-/g, "/");
+                        startDate = startDate.replace(/T/," ");
+                        startDate += ":00";
+                        //console.log("startDate("+startDate+")");
+                        var d = new Date(startDate);
+                        //console.log("d.getTime("+d.getTime()+")("+d.toLocaleDateString()+")");
+                        
+                        start_time_txt = d.toLocaleTimeString();
+                        //console.log("start_time_txt("+start_time_txt+")");
+                        //return false;
+                        
                         
                         var now_d = new Date();
                         if(now_d.getTime() > d.getTime()) {
@@ -541,7 +567,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         ga('send', 'event', '刊登共乘頁', '上車地點', area.state + area.city);
                         ga('send', 'event', '刊登共乘頁', '上車詳細地點', area.input_address);
                         ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
-                        ga('send', 'event', '刊登共乘頁', '出發時間', startTime);
+                        ga('send', 'event', '刊登共乘頁', '出發時間', start_time_txt);
                         ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
      
     
