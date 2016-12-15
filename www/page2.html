@@ -146,8 +146,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
         setTimeout(function() {
 
-            window.localStorage.setItem("facebook_id", "1389354124412945");
-            window.localStorage.setItem("facebook_name", "廖志旺");
+            //window.localStorage.setItem("facebook_id", "1389354124412945");
+            //window.localStorage.setItem("facebook_name", "廖志旺");
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -169,7 +169,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             var hours = (now.getHours()<10?'0':'') + now.getHours();
             var minutes = (now.getMinutes()<10?'0':'') + now.getMinutes();
             var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + 'T' +  hours + ':' + minutes;
-            console.log("today("+today+")");
+            //console.log("today("+today+")");
             $('#datepicker').val(today);
 
             // 自動代入 phones
@@ -390,10 +390,10 @@ input[type="text"]:invalid { outline: solid red 1px; }
         			};
                     
                     if(data2.results[0]) {
+
                         area.d_latitude = data2.results[0].geometry.location.lat;
                         area.d_longitude = data2.results[0].geometry.location.lng;
-                        
-                        console.log("area.d_latitude("+area.d_latitude+") area.d_longitude("+area.d_longitude+")")
+                        //console.log("area.d_latitude("+area.d_latitude+") area.d_longitude("+area.d_longitude+")")
                     }
                     
                  
