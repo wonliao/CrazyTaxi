@@ -312,14 +312,15 @@ function CenterControl(controlDiv, map, position) {
 
 // 路徑導航
 function calcRoute(start, end) {
-console.log("won test ==> start("+start+") end("+end+")");
+
     if(directionsDisplay != null) { 
         directionsDisplay.setMap(null);
         directionsDisplay = null;    
     }
 
     // 路徑導航
-    directionsDisplay = new google.maps.DirectionsRenderer({suppressPolylines: false});
+    //directionsDisplay = new google.maps.DirectionsRenderer({suppressPolylines: false});
+    directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
 
     var request = {
@@ -335,10 +336,12 @@ console.log("won test ==> start("+start+") end("+end+")");
 	});
 
     // 路徑
+    /*
     poly.setPath([]);
     var path = poly.getPath();
     path.push(start);
     path.push(end);
+    */
 }
 
 </script>
