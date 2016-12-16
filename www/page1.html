@@ -139,6 +139,10 @@ function init(position) {
 		streetViewControl: false,
 	});
     
+    // 路徑導航
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    /*
     // 路徑
     poly = new google.maps.Polyline({
         strokeColor: '#000000',
@@ -146,6 +150,7 @@ function init(position) {
         strokeWeight: 3
     });
     poly.setMap(map);
+    */
   
     // 返回中心點
     var centerControlDiv = document.createElement('div');
@@ -312,7 +317,7 @@ function CenterControl(controlDiv, map, position) {
 
 // 路徑導航
 function calcRoute(start, end) {
-
+/*
     if(directionsDisplay != null) { 
         directionsDisplay.setMap(null);
         directionsDisplay = null;    
@@ -322,7 +327,7 @@ function calcRoute(start, end) {
     //directionsDisplay = new google.maps.DirectionsRenderer({suppressPolylines: false});
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
-
+*/
     var request = {
 		origin: start,
 		destination: end,
