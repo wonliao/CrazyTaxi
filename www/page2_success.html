@@ -17,66 +17,89 @@
         		</ons-toolbar-button>
             </div>
         </ons-toolbar>
+        
+        
+        <section style="background:#a7f5e8; margin:16px 16px 0 16px;">
+            <section style="padding: 4px 16px 0 16px; text-align:center;">
+                <h1 style="color:#F00; font-weight:bold;">恭喜完成刊登</h1>
+            </section>
+            <section style="padding: 0px; text-align:center; font-size:12px;">
+                <div style="color:#000;">您達成了愛護地球的使命1次</div>
+                <div style="color:#000;">接下來您可以…</div>
+            </section>
+            <section style="padding: 16px 4px 16px 4px; text-align:left; font-size:16px;">
+                <div style="color:#000; padding-left:16px;">1.回到<a href="" onClick="page1Click()">首頁</a>，確認你的刊登資訊</div>
+                <div style="color:#000; padding-left:16px;">2.隨時注意來自夥伴的 電話/簡訊/Email 聯繫訊息</div>
+                <div style="color:#000; padding-left:16px;">3.點選右上角側邊欄，查看<a href="" onClick="page6Click()">共乘記錄</a></div>
+            </section>
+        </section>
 
-        <section style="padding: 4px 16px; text-align:center;">
-            <h1 style="color:#F00; font-weight:bold;">恭喜完成刊登</h1>
-        </section>
-        
-        <section style="padding: 4px 16px; text-align:center;  line-height: 20px;">
-            <div style="color:#b5b2b2; font-weight:bold;">您將可獲得以下刊登好禮</div>
-            <div style="color:#b5b2b2; font-weight:bold;">*每個帳號各個獎項僅限領取一次</div>
-            <div style="color:#b5b2b2; font-weight:bold;">*序號請妥善保管，恕不提供查詢</div>
-            <div style="color:#b5b2b2; font-weight:bold;">*詳細活動內容請至<a href="https://www.facebook.com/55688TaiwanTaxi/" target="_blank">官方粉絲團</a>查詢</div>
-        </section>
-        
         <div style="clear:both; height:10px"></div>
-        <!--
-        <section style="padding: 4px 16px; text-align:center;">
-            <div style="background:#acf2ff; height:110px">
-                <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
-                <ons-button id="kkbox_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('KKBOX 免費試聽5日序號')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span id="kkbox_btn_text" style="font-size:18px">立即領取</span>
+
+        <section style="margin:16px 16px 0 16px; padding: 16px 0px; border:1px #000 solid; border-radius:10px;">
+            
+            <section style="padding: 4px 16px 0 16px; text-align:center;">
+                <div style="color:#000; font-weight:bold; font-size:18px;">別忘了領取刊登好禮!</div>
+            </section>
+            
+            <section style="padding: 4px 12px; text-align:LEFT; font-size:16px;">
+                <div style="color:#000; padding-left:16px;">*每個帳號各個獎項僅限領取一次</div>
+                <div style="color:#000; padding-left:16px;">*查詢序號開啟右上角選單確認</div>
+                <div style="color:#000; padding-left:16px;">*詳細活動內容請至<a href="" onClick="page5Click()">官方粉絲團查詢</a></div>
+            </section>
+            
+            <!--
+            <section style="padding: 4px 16px; text-align:center;">
+                <div style="background:#acf2ff; height:110px">
+                    <div style="line-height:55px;">KKBOX 免費試聽5日序號</div>
+                    <ons-button id="kkbox_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('KKBOX 免費試聽5日序號')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                        <span id="kkbox_btn_text" style="font-size:18px">立即領取</span>
+                    </ons-button>
+                </div>
+            </section>
+            
+            <section style="padding: 4px 16px; text-align:center;">
+                <div style="background:#acf2ff; height:110px">
+                    <div style="line-height:55px;">ZONE 免費電話點數500點</div>
+                    <ons-button id="zone_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('ZONE 免費電話點數500點')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                        <span id="zone_btn_text" style="font-size:18px">立即領取</span>
+                    </ons-button>
+                </div>
+            </section>
+            -->
+    
+            <section style="padding: 4px 12px; text-align:center;">
+                <div style="background:#f0f0f0; height:110px">
+                    <div id="amart_text" style="line-height:60px;">愛買線上購物 100元購物金</div>
+                    <a id="amart_link" href="http://www.gohappy.com.tw/event/go2gether201610_facility" target="_blank" style="line-height:30px; display:none">點我前往兌換</a>
+                    <ons-button id="amart_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('愛買線上購物 100元購物金')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                        <span id="amart_btn_text" style="font-size:18px">立即領取</span>
+                    </ons-button>
+                </div>
+            </section>
+
+            <section style="padding: 4px 12px; text-align:center;">
+                <div id="omusic_bg_div" style="background:#f0f0f0; height:110px">
+                    <div style="line-height:30px;">Omusic 百萬音樂免費體驗10日(兌換至106/1/10)</div>
+                    <a id="omusic_link" href="http://goo.gl/ISf55o" target="_blank" style="line-height:30px; display:none">點我前往兌換</a>
+                    <ons-button id="omusic_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('Omusic 百萬音樂免費體驗10日')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
+                        <span id="omusic_btn_text" style="font-size:18px">立即領取</span>
+                    </ons-button>
+                </div>
+            </section>
+        
+            <div style="clear:both; height:10px"></div>
+             
+            <section style="padding: 4px 16px; text-align:center;">
+                <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
+                    <span style="font-size:18px">確定</span>
                 </ons-button>
-            </div>
+            </section>
+
         </section>
         
-        <section style="padding: 4px 16px; text-align:center;">
-            <div style="background:#acf2ff; height:110px">
-                <div style="line-height:55px;">ZONE 免費電話點數500點</div>
-                <ons-button id="zone_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('ZONE 免費電話點數500點')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span id="zone_btn_text" style="font-size:18px">立即領取</span>
-                </ons-button>
-            </div>
-        </section>
-        -->
-        <section style="padding: 4px 16px; text-align:center;">
-            <div style="background:#acf2ff; height:110px">
-                <div style="line-height:30px;">愛買線上購物 100元購物金</div>
-                <a id="amart_link" href="http://www.gohappy.com.tw/event/go2gether201610_facility" target="_blank" style="line-height:30px; display:none">點我前往兌換</a>
-                <ons-button id="amart_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('愛買線上購物 100元購物金')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span id="amart_btn_text" style="font-size:18px">立即領取</span>
-                </ons-button>
-            </div>
-        </section>
-        
-        <section style="padding: 4px 16px; text-align:center;">
-            <div id="omusic_bg_div" style="background:#acf2ff; height:110px">
-                <div style="line-height:30px;">Omusic 百萬音樂免費體驗10日(兌換至106/1/10)</div>
-                <a id="omusic_link" href="http://goo.gl/ISf55o" target="_blank" style="line-height:30px; display:none">點我前往兌換</a>
-                <ons-button id="omusic_btn" class="button button--large" modifier="chevron" onclick="page2SuccessClick('Omusic 百萬音樂免費體驗10日')" style="width:90%; margin:0 5%; background:#5bd4ea; border-radius:10px;">
-                    <span id="omusic_btn_text" style="font-size:18px">立即領取</span>
-                </ons-button>
-            </div>
-        </section>
-        
-        <div style="clear:both; height:10px"></div>
-         
-        <section style="padding: 4px 16px; text-align:center;">
-            <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
-                <span style="font-size:18px">確定</span>
-            </ons-button>
-        </section>
-        
+        <div style="clear:both; height:16px"></div>
+
     </ons-page>
     
     <ons-template id="alert-dialog.html">
@@ -97,6 +120,9 @@
 ons.ready(function() {
     setTimeout(function() {
 
+        //window.localStorage.setItem("facebook_id", "1389354124412945");
+        //window.localStorage.setItem("facebook_name", "廖志旺");
+            
         var amart_serial_number = window.localStorage.getItem("amart");
         var omusic_serial_number = window.localStorage.getItem("omusic");
 
@@ -109,7 +135,7 @@ ons.ready(function() {
         
             $("#amart_btn").attr("disabled", true);
             $("#amart_btn_text").css("color", "#000").text(amart_serial_number);
-            $("#amart_link").show();            
+            $("#amart_link").show();
         }
 
         if(omusic_serial_number != "" && omusic_serial_number != null ) {
@@ -168,6 +194,7 @@ function serial_number(event_name, pageName) {
                 $("#"+event_name+"_btn_text").css("color", "#000").text(res.data);
                 $("#"+event_name+"_link").show();
                 $("#"+event_name+"_bg_div").css("height", "145px");
+                $("#"+event_name+"_text").css("line-height", "30px");
 
                 ga('send', 'event', '領取序號', pageName, facebook_id);
 
@@ -191,6 +218,19 @@ function submit_btn() {
     
     gotoPage1();
 }
+
+function page1Click() {
+    gotoPage1();
+}
+
+function page5Click() {
+    window.open("https://goo.gl/rj3XrB");
+}
+
+function page6Click() {
+    homeNavigator.pushPage('page6.html', {animation: 'slide'});
+}
+
 </script>
 
 <script>
