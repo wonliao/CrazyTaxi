@@ -1,7 +1,8 @@
 <?php
+ini_set("display_errors", true);
 header('Access-Control-Allow-Origin: *');  
-
 require 'PHPMailer/PHPMailerAutoload.php';
+
 
 $to = $_POST["to"];
 $subject = $_POST["subject"];
@@ -50,6 +51,7 @@ $body = "XXX(FB暱稱) 小姐/先生<br />
 if($to != "" && $subject != "" && $body != "") {
 	sendMail($to, $subject, $body);
 }
+
 
 function sendMail($to, $subject, $body) {
 
