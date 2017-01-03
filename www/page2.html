@@ -497,12 +497,12 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         startDate = startDate.replace(/-/g, "/");
                         startDate = startDate.replace(/T/," ");
                         //startDate += ":00";
-                        console.log("startDate("+startDate+")");
+                        //console.log("startDate("+startDate+")");
                         var d = new Date(startDate);
-                        console.log("d.getTime("+d.getTime()+")("+d.toLocaleDateString()+")");
+                        //console.log("d.getTime("+d.getTime()+")("+d.toLocaleDateString()+")");
                         
                         start_time_txt = d.toLocaleTimeString();
-                        console.log("start_time_txt("+start_time_txt+")");
+                        //console.log("start_time_txt("+start_time_txt+")");
                         //return false;
                         
                         
