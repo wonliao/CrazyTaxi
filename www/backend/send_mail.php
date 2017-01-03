@@ -3,9 +3,9 @@ header('Access-Control-Allow-Origin: *');
 require 'PHPMailer/PHPMailerAutoload.php';
 
 
-$to = $_POST["to"];
-$subject = $_POST["subject"];
-$body = $_POST["body"];
+$to = _GET["to"];
+$subject = _GET["subject"];
+$body = _GET["body"];
 
 /*
 // test
