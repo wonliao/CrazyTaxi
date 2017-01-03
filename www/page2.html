@@ -540,6 +540,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             			//persist to firebase
             			var area_id = firebase.database().ref().child('areas').push().key;
             			var updates = {};
+                        console.log(area);
             			updates['/areas/' + area_id] = area;
                         //console.log(updates);
             			firebase.database().ref().update(updates);
