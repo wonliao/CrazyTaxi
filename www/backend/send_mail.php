@@ -1,4 +1,5 @@
 <?php
+ini_set("display_errors", true);
 header('Access-Control-Allow-Origin: *');  
 require 'PHPMailer/PHPMailerAutoload.php';
 
