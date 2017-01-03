@@ -2,11 +2,11 @@
 header('Access-Control-Allow-Origin: *');  
 require 'PHPMailer/PHPMailerAutoload.php';
 
-/*
+
 $to = $_POST["to"];
 $subject = $_POST["subject"];
 $body = $_POST["body"];
-*/
+
 /*
 // test
 $to = "wonliao1117@gmail.com";
@@ -46,11 +46,11 @@ $body = "XXX(FB暱稱) 小姐/先生<br />
 ";
 */
 
-/*
+
 if($to != "" && $subject != "" && $body != "") {
 	sendMail($to, $subject, $body);
 }
-*/
+
 
 function sendMail($to, $subject, $body) {
 
