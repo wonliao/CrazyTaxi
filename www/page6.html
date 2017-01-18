@@ -98,7 +98,7 @@
             var fb_id = window.localStorage.getItem("facebook_id");
 
             // 記錄
-            areas.orderByChild("fb_id").equalTo(fb_id).on("child_added", function(snapshot) {
+            areas.orderByChild("fb_id").equalTo(fb_id).startAt('appointment').endAt('appointment').on("child_added", function(snapshot) {
 
                 var key = snapshot.key;
                 //console.log("key("+snapshot.key+")");
