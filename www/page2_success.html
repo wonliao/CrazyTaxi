@@ -67,7 +67,7 @@
                 </div>
             </section>
             -->
-    
+            <!--
             <section style="padding: 4px 12px; text-align:center;">
                 <div id="kktv_bg_div" style="background:#f0f0f0; height:110px">
                     <div style="line-height:30px;">KKTV 追劇神器免費體驗7日(兌換至106/2/3)</div>
@@ -77,7 +77,7 @@
                     </ons-button>
                 </div>
             </section>
-            
+            -->
             <section style="padding: 4px 12px; text-align:center;">
                 <div style="background:#f0f0f0; height:110px">
                     <div id="amart_text" style="line-height:30px;">愛買線上購物 100元購物金</div>
@@ -133,7 +133,7 @@ ons.ready(function() {
         //window.localStorage.setItem("facebook_id", "1389354124412945");
         //window.localStorage.setItem("facebook_name", "廖志旺");
             
-        var kktv_serial_number = window.localStorage.getItem("kktv");
+        //var kktv_serial_number = window.localStorage.getItem("kktv");
         var amart_serial_number = window.localStorage.getItem("amart");
         var omusic_serial_number = window.localStorage.getItem("omusic");
 
@@ -141,7 +141,7 @@ ons.ready(function() {
         if(omusic_count == "" || omusic_count == null)  omusic_count = 0;
         omusic_count += 1;
         window.localStorage.setItem("omusic_count", omusic_count); 
-
+        /*
         if(kktv_serial_number != "" && kktv_serial_number != null) {
         
             $("#kktv_btn").attr("disabled", true);
@@ -149,7 +149,7 @@ ons.ready(function() {
             $("#kktv_link").show();
             $("#kktv_bg_div").css("height", "145px");
         }
-        
+        */
         if(amart_serial_number != "" && amart_serial_number != null) {
         
             $("#amart_btn").attr("disabled", true);
@@ -174,7 +174,7 @@ ons.ready(function() {
 function page2SuccessClick(pageName) {
     
     switch(pageName) {
-    case "KKTV 追劇神器免費體驗7日":    serial_number("kktv", pageName);            break;
+    //case "KKTV 追劇神器免費體驗7日":    serial_number("kktv", pageName);            break;
     case "KKBOX 免費試聽5日序號":       serial_number("kkbox", pageName);           break;
     case "ZONE 免費電話點數500點":      serial_number("zone", pageName);            break;
     case "愛買線上購物 100元購物金":    serial_number("amart", pageName);           break;
@@ -201,7 +201,7 @@ function serial_number(event_name, pageName) {
 
             ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
-                $("#kktv_btn").attr("disabled", true);
+                //$("#kktv_btn").attr("disabled", true);
                 $("#amart_btn").attr("disabled", true);
                 $("#omusic_btn").attr("disabled", true);
 
