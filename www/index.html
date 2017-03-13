@@ -169,7 +169,7 @@ ons-icon {
 
 <body onbeforeunload="return onbeforeunload_Handler()">
 
-<ons-sliding-menu main-page="chat.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
+<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
 <!-- 側邊欄 begin -->
 <ons-template id="menu.html">
@@ -233,14 +233,6 @@ ons.ready(function() {
         _h = _h / 4;
         $("#download-btn").css("top", _h);
     }, 10);
-    
-    if( window.localStorage.getItem("f1") != "" && 
-        window.localStorage.getItem("f2") != "" &&
-        window.localStorage.getItem("f3") != "" &&
-        window.localStorage.getItem("f3") != "" ) {
-            
-        console.log("won test");
-    }
 });
     
 function sidebarClick(pageName) {
