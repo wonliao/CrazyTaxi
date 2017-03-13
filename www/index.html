@@ -235,23 +235,9 @@ ons.ready(function() {
         $("#download-btn").css("top", _h);
         
         
-        //if( window.localStorage.getItem("f1") != "") {
-            
-            var f1 = window.localStorage.getItem("f1");
-            var f2 = window.localStorage.getItem("f2");
-            var f3 = window.localStorage.getItem("f3");
-            var f4 = window.localStorage.getItem("f4");
-            
-            console.log("won test f1 =>" + f1);
-            console.log("won test f2 =>" + f2);
-            console.log("won test f3 =>" + f3);
-            console.log("won test f4 =>" + f4);
-            
-            tabbar.setActiveTab(2);
-            ga('send', 'event', '功能列', 'click', "刊登共乘");
-        //}
+        
     
-    }, 100);
+    }, 10);
 });
     
 function sidebarClick(pageName) {

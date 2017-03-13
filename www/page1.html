@@ -95,6 +95,12 @@ $(function(){
 
 	    init(pos);
         HoldOn.close();
+        
+        
+        if(window.localStorage.getItem("f1") != "") {
+            
+            tabbar.setActiveTab(1);
+        }
 	};
 	
 	function error(err) {

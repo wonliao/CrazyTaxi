@@ -114,7 +114,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 <li><input type="radio" name="purpose" value="認識朋友"><label>認識朋友</label></li>
                 <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
                 <div style="clear:both;"></div>
-                <li><input type="radio" name="purpose" value="其他"><label>其他<input id="purpose_other" type="text" style="width:160px; margin-left:10px; border:none; border-bottom:1px #000 dashed; outline:none;"/></label></li>
+                <li><input type="radio" name="purpose" value="其他" id="purpose_other_radiio"><label>其他<input id="purpose_other" type="text" style="width:160px; margin-left:10px; border:none; border-bottom:1px #000 dashed; outline:none;"/></label></li>
             </section>
 
             <div style="clear:both; height:5px"></div>
@@ -148,8 +148,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
         setTimeout(function() {
 
-            //window.localStorage.setItem("facebook_id", "1389354124412945");
-            //window.localStorage.setItem("facebook_name", "廖志旺");
+            window.localStorage.setItem("facebook_id", "1389354124412945");
+            window.localStorage.setItem("facebook_name", "廖志旺");
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
@@ -165,14 +165,82 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
             // 檢查是否被禁止刊登
             is_fb_player_enable();
-
+            
+            
             // 自動代入現在時間
             var now = new Date();
             var hours = (now.getHours()<10?'0':'') + now.getHours();
             var minutes = (now.getMinutes()<10?'0':'') + now.getMinutes();
-            var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate() + 'T' +  hours + ':' + minutes;
+            var _m = (now.getMonth()<10?'0':'') + now.getMonth();
+            var _d = (now.getDate()<10?'0':'') + now.getDate();
+            var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
             //console.log("today("+today+")");
             $('#datepicker').val(today);
+                
+            
+            // for test
+            /*
+            window.localStorage.setItem("f1", "台中榮總");
+            window.localStorage.setItem("f2", "201701010830");
+            window.localStorage.setItem("f3", "早診");
+            window.localStorage.setItem("f4", "台中榮總共乘");
+            */
+            
+            if(window.localStorage.getItem("f1") != "") {
+                
+                var f1 = window.localStorage.getItem("f1");
+                var f2 = window.localStorage.getItem("f2");
+                var f3 = window.localStorage.getItem("f3");
+                var f4 = window.localStorage.getItem("f4");
+                window.localStorage.setItem("f1", "");
+                window.localStorage.setItem("f2", "");
+                window.localStorage.setItem("f3", "");
+                window.localStorage.setItem("f4", "");
+                console.log("won test f1 =>" + f1);
+                console.log("won test f2 =>" + f2);
+                console.log("won test f3 =>" + f3);
+                console.log("won test f4 =>" + f4);
+            
+                // 自動代入下車地點
+                if(f1 != null && f1 != "") {
+    
+                    $('#destination').val(f1).focus();
+                }
+                
+                // 自動代入備註
+                if(f3 != null && f3 != "") {
+    
+                    $('#note').val(f3).focus();
+                }
+                
+                // 自動代入共乘目的
+                if(f4 != null && f4 != "") {
+                    
+                    $("#purpose_other_radiio").prop("checked", true)
+                    $('#purpose_other').val(f4).focus();
+                }            
+
+                // 自動代入共乘時間
+                if(f2 != null && f2 != "") {
+               
+                    var yyyy = f2.substring(0,4);
+                    var MM = f2.substring(4,6);
+                    var dd = f2.substring(6,8);
+                    var hh = f2.substring(8,10);
+                    var mm = f2.substring(10,12);
+                    //var now = new Date(yyyy,MM,dd,hh,mm,00);
+                    var now = new Date(yyyy,MM,dd,hh,mm,00);
+                    //console.log("yyyy("+yyyy+") MM("+MM+")now("+now+")");
+                    
+                    var hours = (now.getHours()<10?'0':'') + now.getHours();
+                    var minutes = (now.getMinutes()<10?'0':'') + now.getMinutes();
+                    var _m = (now.getMonth()<10?'0':'') + now.getMonth();
+                    var _d = (now.getDate()<10?'0':'') + now.getDate();
+                    var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
+                    //console.log("today("+today+")");
+                    $('#datepicker').val(today);
+                } 
+            }
 
             // 自動代入 phones
             var my_phones = window.localStorage.getItem("phones");
