@@ -186,7 +186,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             window.localStorage.setItem("f4", "台中榮總共乘");
             */
             
-            //if(window.localStorage.getItem("f1") != "") {
+            if(window.localStorage.getItem("f1") != "") {
                 
                 var f1 = window.localStorage.getItem("f1");
                 var f2 = window.localStorage.getItem("f2");
@@ -240,7 +240,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     //console.log("today("+today+")");
                     $('#datepicker').val(today);
                 } 
-            //}
+            }
 
             // 自動代入 phones
             var my_phones = window.localStorage.getItem("phones");
