@@ -11,11 +11,15 @@ $job = $_GET['job'];
 ?>
 <script type="text/javascript">
 
+    console.log("dest", "<?php echo $dest; ?>");
+
+    //window.localStorage.clear();
     window.localStorage.setItem("f1", "<?php echo $dest; ?>");
     window.localStorage.setItem("f2", "<?php echo $start_time; ?>");
     window.localStorage.setItem("f3", "<?php echo $memo; ?>");
     window.localStorage.setItem("f4", "<?php echo $job; ?>");
 
-    //location.href = "index.html";
+    location.href = "./";
+
 </script>
 
