@@ -16,6 +16,6 @@ $job = $_GET['job'];
     window.localStorage.setItem("f3", "<?php echo $memo; ?>");
     window.localStorage.setItem("f4", "<?php echo $job; ?>");
 
-    location.href = "index.html";
+    //location.href = "index.html";
 </script>
 
