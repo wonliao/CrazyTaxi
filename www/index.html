@@ -234,14 +234,16 @@ ons.ready(function() {
         $("#download-btn").css("top", _h);
     }, 10);
     
-        
-    if( window.localStorage.getItem("f1") != "" && 
-        window.localStorage.getItem("f2") != "" &&
-        window.localStorage.getItem("f3") != "" &&
-        window.localStorage.getItem("f3") != "" ) {
+    
+    //if( window.localStorage.getItem("f1") != "") {
             
-        console.log("won test");
-    }
+        var f1 = window.localStorage.getItem("f1");
+        var f2 = window.localStorage.getItem("f2");
+        var f3 = window.localStorage.getItem("f3");
+        var f4 = window.localStorage.getItem("f4");
+        
+        console.log("won test f1 =>" + f1);
+    //}
 });
     
 function sidebarClick(pageName) {
