@@ -262,11 +262,17 @@ function sidebarClick(pageName) {
     case "共乘記錄":    homeNavigator.pushPage('page6.html', {animation: 'slide'});     break;
     case "官方粉絲團":  page5_click();                                                  break;
     case "服務條款":    page7_click();                                                  break;
-    case "55688叫車":   page3_click();                                                   break;
+    case "55688叫車":   page3_click();                                                  break;
+    case "刊登共乘":    page2_click();                                                  break;
     }
     
     menu.closeMenu();
     ga('send', 'event', '側邊欄', 'click', pageName);
+}
+
+function page2_click() {
+
+    homeNavigator.pushPage("page2.html", {animation: 'slide'});
 }
 
 function page5_click() {
