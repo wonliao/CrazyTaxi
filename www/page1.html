@@ -97,6 +97,19 @@ $(function(){
         HoldOn.close();
 
         if(window.localStorage.getItem("f1") != "") {
+
+            // 檢查 facebook 是否已登入
+            if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
+
+                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                    $('#alertDialogText').html("請先登入您的Facebook帳號");
+                    $("#dialog_btn").attr("onclick","needLogin()");
+                    alertDialog.show();
+                });
+
+                return;
+            }
             
             tabbar.setActiveTab(1);
         }
