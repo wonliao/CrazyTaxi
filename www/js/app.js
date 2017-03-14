@@ -44,18 +44,33 @@ function statusChangeCallback(response) {
         
         // The person is logged into Facebook, but not your app.
         console.log("not_authorized");
+        
+        var f1 = window.localStorage.getItem("f1");
+        var f2 = window.localStorage.getItem("f2");
+        var f3 = window.localStorage.getItem("f3");
+        var f4 = window.localStorage.getItem("f4");
+                
         window.localStorage.clear();
+        
+        window.localStorage.setItem("f1", f1);
+        window.localStorage.setItem("f2", f2);
+        window.localStorage.setItem("f3", f3);
+        window.localStorage.setItem("f4", f4);
     } else {
 
         console.log("unknow");
-        /*
-        window.localStorage.setItem("facebook_id", "");
-        window.localStorage.setItem("facebook_name", "");
-        window.localStorage.setItem("facebook_email", "");
-        window.localStorage.setItem("old_facebook_id", "");
-        window.localStorage.setItem("amart", "");
-        */
+
+        var f1 = window.localStorage.getItem("f1");
+        var f2 = window.localStorage.getItem("f2");
+        var f3 = window.localStorage.getItem("f3");
+        var f4 = window.localStorage.getItem("f4");
+                
         window.localStorage.clear();
+        
+        window.localStorage.setItem("f1", f1);
+        window.localStorage.setItem("f2", f2);
+        window.localStorage.setItem("f3", f3);
+        window.localStorage.setItem("f4", f4);
     }
 }
 
