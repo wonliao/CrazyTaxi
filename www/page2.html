@@ -176,8 +176,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
             //console.log("today("+today+")");
             $('#datepicker').val(today);
-                
-            
+
             // for test
             /*
             window.localStorage.setItem("f1", "台中榮總");
@@ -185,9 +184,9 @@ input[type="text"]:invalid { outline: solid red 1px; }
             window.localStorage.setItem("f3", "早診");
             window.localStorage.setItem("f4", "台中榮總共乘");
             */
-            
+
             if(window.localStorage.getItem("f1") != "") {
-                
+
                 var f1 = window.localStorage.getItem("f1");
                 var f2 = window.localStorage.getItem("f2");
                 var f3 = window.localStorage.getItem("f3");
@@ -200,29 +199,29 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 console.log("won test f2 =>" + f2);
                 console.log("won test f3 =>" + f3);
                 console.log("won test f4 =>" + f4);
-            
+
                 // 自動代入下車地點
                 if(f1 != null && f1 != "") {
-    
+
                     $('#destination').val(f1).focus();
                 }
-                
+
                 // 自動代入備註
                 if(f3 != null && f3 != "") {
     
                     $('#note').val(f3).focus();
                 }
-                
+
                 // 自動代入共乘目的
                 if(f4 != null && f4 != "") {
-                    
+
                     $("#purpose_other_radiio").prop("checked", true)
                     $('#purpose_other').val(f4).focus();
                 }            
 
                 // 自動代入共乘時間
                 if(f2 != null && f2 != "") {
-               
+
                     var yyyy = f2.substring(0,4);
                     var MM = f2.substring(4,6);
                     var dd = f2.substring(6,8);
