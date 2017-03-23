@@ -74,7 +74,7 @@
 ons.ready(function() {
     setTimeout(function() {
 
-        if(window.localStorage.getItem("f1") != "") {
+        if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
             window.localStorage.setItem("has_intro", "true");
         }
 

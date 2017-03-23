@@ -187,7 +187,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             
             console.log("won test f1 =>" + f1);
             
-            if(window.localStorage.getItem("f1") != "") {
+            if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
 
                 var f1 = window.localStorage.getItem("f1");
                 var f2 = window.localStorage.getItem("f2");
