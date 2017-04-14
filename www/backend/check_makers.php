@@ -23,12 +23,10 @@ foreach($areas as $key => $area) {
 	//$area = json_decode($_area);
 
 	$expired_time = $area->expired_time;
+    $status = $area->status;
 
-
-	// 刊登過期，移除 makers
-	if($current_time < $expired_time) {
-
-
+	// 補回遺失的 maker
+	if($current_time < $expired_time && $status == "") {
 
         $lat = $area->latitude;
         $lng = $area->longitude;
@@ -51,7 +49,6 @@ foreach($areas as $key => $area) {
 
             var_dump($data);
             $firebase->set("makers/$key", $data);
-
         }
 	}
 
