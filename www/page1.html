@@ -147,7 +147,11 @@ function init(position) {
 	});
     
     // 路徑導航
-    directionsDisplay = new google.maps.DirectionsRenderer();
+    var rendererOptions = {
+        map: map,
+        suppressMarkers : true
+    }
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
     directionsDisplay.setMap(map);
     /*
     // 路徑
@@ -340,10 +344,40 @@ function calcRoute(start, end) {
 		destination: end,
 		travelMode: google.maps.DirectionsTravelMode.DRIVING
 	};
-
+    /*
 	directionsService.route(request, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
+		}
+	});
+    */
+    
+    
+    var markerA = new google.maps.MarkerImage('images/icon_up.png',
+    	new google.maps.Size(68, 108),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(17, 47),
+        new google.maps.Size(34, 54));
+    var markerB = new google.maps.MarkerImage('images/icon_down.png',
+		new google.maps.Size(68, 108),
+        new google.maps.Point(0, 0),
+        new google.maps.Point(17, 54),
+        new google.maps.Size(34, 54));
+        
+    directionsService.route(request, function(response, status) {
+    	if (status == google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+			var _route = response.routes[0].legs[0]; 
+			pinA = new google.maps.Marker({
+				position: _route.start_location,
+				map: map,
+				icon: markerA
+			}),
+			pinB = new google.maps.Marker({
+				position: _route.end_location,
+				map: map,
+				icon: markerB
+			});
 		}
 	});
 
