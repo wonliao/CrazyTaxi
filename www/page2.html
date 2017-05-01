@@ -110,10 +110,11 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
             <section style="padding: 0px 16px 0 16px" class="radio_box">
                 <div>請選擇您本次共乘目的</div>
+                <li><input type="radio" name="purpose" value="球賽共乘" id="purpose_games_radiio"><label>球賽共乘</label></li>
                 <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
                 <li><input type="radio" name="purpose" value="認識朋友"><label>認識朋友</label></li>
-                <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
                 <div style="clear:both;"></div>
+                <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
                 <li><input type="radio" name="purpose" value="其他" id="purpose_other_radiio"><label>其他<input id="purpose_other" type="text" style="width:160px; margin-left:10px; border:none; border-bottom:1px #000 dashed; outline:none;"/></label></li>
             </section>
 
@@ -147,6 +148,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
     ons.ready(function() {
 
         setTimeout(function() {
+
+            $("#event_div").hide();
 
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
@@ -217,8 +220,12 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 // 自動代入共乘目的
                 if(f4 != null && f4 != "") {
 
-                    $("#purpose_other_radiio").prop("checked", true)
-                    $('#purpose_other').val(f4).focus();
+                    if(f4 =="球賽共乘") {
+                        $("#purpose_games_radiio").prop("checked", true)
+                    } else {
+                        $("#purpose_other_radiio").prop("checked", true)
+                        $('#purpose_other').val(f4).focus();
+                    }
                 }            
 
                 // 自動代入共乘時間
