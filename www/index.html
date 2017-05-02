@@ -334,19 +334,9 @@ function onbeforeunload_Handler() {
 function event_btn_click(event_name, f1, f4) {
     
     ga('send', 'event', '活動專區', 'click', event_name);
-    /*
-    var f1 = "";
-    var f4 = "";
-    switch(event_name) {
-    case "機場共乘":    f1="機場共乘";    f4="機場共乘";  break;
-    case "球賽專區":    f1="桃園市中壢區領航北路一段1號";  f4="球賽共乘"; break;
-    case "榮總專區":    f1="榮總專區";  f4="榮總專區";  break;
-    case "限時優惠":    f1="限時優惠";  f4="限時優惠";  break;
-    }
-    */
     
     window.localStorage.setItem("f1", f1);  // 下車地點
-    window.localStorage.setItem("f4", f4); // 共乘目的
+    window.localStorage.setItem("f4", f4);  // 共乘目的
     
     tabbar.setActiveTab(1);
 }

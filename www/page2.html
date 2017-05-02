@@ -16,6 +16,13 @@
     float: left;
 }
 
+.text-input2 {
+    border-radius:0;
+    display: block; 
+    width: calc(100% - 90px);
+    float: left;
+}
+
 .text-input {
     border-radius:0;
     display: block; 
@@ -47,6 +54,14 @@
     float: left;
 }
 
+.right_btn {
+    height: 30px;
+    line-height: 23px;
+    width: 83px;
+    margin: 0;
+    float: right;
+}
+
 input[type="text"] {
     border: #aaa 1px solid;    
 }
@@ -56,90 +71,106 @@ input[type="text"]:invalid { outline: solid red 1px; }
 */
 </style>
 
-<ons-navigator title="Navigator" var="homeNavigator">
+
+<ons-navigator title="Navigator" var="page6Navigator">
     <ons-page style="background:#fff;">
+    
         <ons-toolbar fixed-style>
-            <!--
-            <div class="left" style="line-height: 44px">
-                <img src="images/logo.png" style="height:32px; margin-left:10px;" onClick="gotoPage1()"/>
-            </div>
-            -->
             <div class="center">
                 <img src="images/go2gether.png" style="height:32px;"/>
             </div>
             <div class="right" style="line-height:44px;">
                 <ons-toolbar-button ng-click="menu.toggleMenu()">
                     <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
-        		</ons-toolbar-button>
+            	</ons-toolbar-button>
             </div>
         </ons-toolbar>
+      
+        <div style="clear:both; height:10px"></div>
 
-        <form id="add" action="#">
-            <section style="padding: 8px 16px 4px 16px">
-                <div>設定共乘條件</div>
-            </section>
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li style="width:50%;"><a id="airport_btn" data-toggle="tab" href="#airport">機場共乘</a></li>
+                <li class="active"style="width:50%;"><a id="normal_btn" data-toggle="tab" href="#normal">一般共乘</a></li>
+            </ul>
+        
+            <div class="tab-content">
             
-    		<section style="padding: 4px 16px; height: 38px;">
-                <img src="images/marker_green.png" onClick="addressClick()" class="marker"/><input type="text" class="text-input1" ng-model="address" placeholder="請輸入上車地址" id="address" required>
-            </section>
-            <section style="padding: 4px 16px; height: 38px;">
-                <img src="images/marker_red.png" onClick="destinationClick()" class="marker"/><input type="text" class="text-input1" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
-            </section>
-            <!--
-            <section style="padding: 8px 16px 4px 16px">
-                <input type="button" value="刊登記錄" class="btn btn-default submit_btn" onClick="showRecord()">
-            </section>
-            -->
-            <section style="padding: 4px 16px;">
-                <input id="datepicker" type="datetime-local" style="width:100%">
-                <!--
-                <input type="text" class="text-input" ng-model="startDate" placeholder="請輸入出發日期" id="datepicker" data-role="date" onfocus="blur()" style="width:49%; float:left; margin-right:1%;" required>
-                <input type="text" class="text-input" ng-model="startTime" placeholder="請輸入出發時間" id="timepicker" style="width:49%; float:left; margin-left:1%;" required>
-                -->
-            </section>
-            <div style="clear:both; height:0px"></div>
-            <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
-                <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
-                <input type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
-            </section>
-            <section style="padding: 2px 16px">
-                <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
-            </section>
-
-            <div style="clear:both; height:10px"></div>
-
-            <section style="padding: 0px 16px 0 16px" class="radio_box">
-                <div>請選擇您本次共乘目的</div>
-                <li><input type="radio" name="purpose" value="球賽共乘" id="purpose_games_radiio"><label>球賽共乘</label></li>
-                <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
-                <li><input type="radio" name="purpose" value="認識朋友"><label>認識朋友</label></li>
-                <div style="clear:both;"></div>
-                <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
-                <li><input type="radio" name="purpose" value="其他" id="purpose_other_radiio"><label>其他<input id="purpose_other" type="text" style="width:160px; margin-left:10px; border:none; border-bottom:1px #000 dashed; outline:none;"/></label></li>
-            </section>
-
-            <div style="clear:both; height:5px"></div>
-
-            <section style="padding: 4px 16px" class="radio_box">
-                <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
-            </section>
-
-            <section style="padding: 4px 16px" class="radio_box">                
-                <input type="submit" value="確定" class="btn btn-default submit_btn">
-            </section>
-		</form>
-
-        <ons-template id="alert-dialog.html">
-            <ons-alert-dialog var="alertDialog">
-                <div class="alert-dialog-content">
-                    <span id="alertDialogText">請先登入您的Facebook帳號</span>
+                <!-- 機場共乘 begin -->
+                <div id="airport" class="tab-pane fade">
+                
+                    <section style="padding: 8px 16px 4px 16px">
+                        <div style="text-align:center;">地點/時間</div>
+                    </section>
+                    <section style="padding: 4px 16px; height: 38px;">
+                        <input type="text" class="text-input2" ng-model="address" placeholder="請輸入上車地址" id="airport_address" required>
+                        <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
+                    </section>
+                    
+                    <section style="padding: 4px 16px; height: 38px;">
+                        <input type="text" class="text-input2" ng-model="destination" placeholder="請輸入下車地址" id="airport_destination" required>
+                        <input type="button" value="變更機場" class="btn btn-default submit_btn right_btn">
+                    </section>
+                    <!--
+                    <section style="padding: 4px 16px;">
+                        <input id="datepicker" type="datetime-local" style="width:100%">
+                    </section>
+                    -->
                 </div>
-                <div class="alert-dialog-footer">
-                    <button id="dialog_btn" class="alert-dialog-button" onClick="needLogin()">確定</button>
+                <!-- 機場共乘 end -->
+                
+                
+                <!-- 一般共乘 begin -->
+                <div id="normal" class="tab-pane fade in active">
+                    <form id="add" action="#">
+                        <section style="padding: 8px 16px 4px 16px">
+                            <div>設定共乘條件</div>
+                        </section>
+                    	<section style="padding: 4px 16px; height: 38px;">
+                            <img src="images/marker_green.png" onClick="addressClick()" class="marker"/><input type="text" class="text-input1" ng-model="address" placeholder="請輸入上車地址" id="address" required>
+                        </section>
+                        <section style="padding: 4px 16px; height: 38px;">
+                            <img src="images/marker_red.png" onClick="destinationClick()" class="marker"/><input type="text" class="text-input1" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
+                        </section>
+                        <section style="padding: 4px 16px;">
+                            <input id="datepicker" type="datetime-local" style="width:100%">
+                        </section>
+                        <div style="clear:both; height:0px"></div>
+                        <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                            <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
+                            <input type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
+                        </section>
+                        <section style="padding: 2px 16px">
+                            <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note">
+                        </section>
+            
+                        <div style="clear:both; height:10px"></div>
+            
+                        <section style="padding: 0px 16px 0 16px" class="radio_box">
+                            <div>請選擇您本次共乘目的</div>
+                            <li><input type="radio" name="purpose" value="球賽共乘" id="purpose_games_radiio"><label>球賽共乘</label></li>
+                            <li><input type="radio" name="purpose" value="通勤" required><label>通勤</label></li>
+                            <li><input type="radio" name="purpose" value="認識朋友"><label>認識朋友</label></li>
+                            <div style="clear:both;"></div>
+                            <li><input type="radio" name="purpose" value="機場接送"><label>機場接送</label></li>
+                            <li><input type="radio" name="purpose" value="其他" id="purpose_other_radiio"><label>其他<input id="purpose_other" type="text" style="width:160px; margin-left:10px; border:none; border-bottom:1px #000 dashed; outline:none;"/></label></li>
+                        </section>
+            
+                        <div style="clear:both; height:5px"></div>
+            
+                        <section style="padding: 4px 16px" class="radio_box">
+                            <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
+                        </section>
+            
+                        <section style="padding: 4px 16px" class="radio_box">                
+                            <input type="submit" value="確定" class="btn btn-default submit_btn">
+                        </section>
+            		</form>
                 </div>
-            </ons-alert-dialog>
-        </ons-template>
-
+                <!-- 一般共乘 end -->
+                
+            </div>
+        </div>
     </ons-page>
 </ons-navigator>
 
@@ -150,6 +181,12 @@ input[type="text"]:invalid { outline: solid red 1px; }
         setTimeout(function() {
 
             $("#event_div").hide();
+            
+            var f4_check = window.localStorage.getItem("f4");
+            if(f4_check != null && f4_check == "機場共乘") {
+               $("#airport_btn").click();
+            }
+            
 
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
@@ -187,8 +224,6 @@ input[type="text"]:invalid { outline: solid red 1px; }
             window.localStorage.setItem("f3", "早診");
             window.localStorage.setItem("f4", "台中榮總共乘");
             */
-            
-            console.log("won test f1 =>" + f1);
             
             if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
 
@@ -272,9 +307,11 @@ input[type="text"]:invalid { outline: solid red 1px; }
         		}, function(data) {
 
                     //console.log(data);
-                    var formatted_address = data.results[0].formatted_address;
-                    //console.log("formatted_address("+formatted_address+")");
-                    $("#address").val(formatted_address).focus();
+                    if(data.status != "ZERO_RESULTS") {
+                        var formatted_address = data.results[0].formatted_address;
+                        //console.log("formatted_address("+formatted_address+")");
+                        $("#address").val(formatted_address).focus();
+                    }
         		}
             );
             
