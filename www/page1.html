@@ -99,12 +99,12 @@ $(function(){
         HoldOn.close();
 
         
-        try{
-            localStorage.getItem("f1");
+        var f1 = localStorage.getItem("f1");
+        if (typeof f1 !== 'undefined' && f1 !== null) {
             alert("test 1");
-            // tabbar.setActiveTab(1);
-        }catch(e){
-            alert("we are in catch "+e.print);
+            tabbar.setActiveTab(1);
+        } else {
+            alert("test 2");
         }
     
        
