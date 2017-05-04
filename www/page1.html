@@ -99,6 +99,12 @@ $(function(){
         HoldOn.close();
 
         
+        if (typeof localStorage !== 'undefined') {
+            alert("test 1");
+        } else {
+            alert("test 2");
+        }
+        /*
         var f1 = localStorage.getItem("f1");
         if (typeof f1 !== 'undefined' && f1 !== null) {
             alert("test 1");
@@ -106,7 +112,7 @@ $(function(){
         } else {
             alert("test 2");
         }
-    
+        */
        
 
 	};
