@@ -98,9 +98,10 @@ $(function(){
 	    init(pos);
         HoldOn.close();
 
+        
 
-        var f1 = window.localStorage.getItem('f1');
-        if (null === f1 || f1.length === 0) {
+        var f1 = window.localStorage.getItem('f1') || '';
+        if (f1 == "") {
             alert("won test1");
         } else {
             alert("won test 2");
