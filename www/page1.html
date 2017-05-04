@@ -99,13 +99,15 @@ $(function(){
         HoldOn.close();
 
         
-        if("f1" in localStorage){
-            alert('yes');
-            tabbar.setActiveTab(1);
-        } else {
-           alert('no');
-           
+        try{
+            localStorage.getItem("f1");
+            alert("test 1");
+            // tabbar.setActiveTab(1);
+        }catch(e){
+            alert("we are in catch "+e.print);
         }
+    
+       
 
 	};
 	
