@@ -98,12 +98,12 @@ $(function(){
 	    init(pos);
         HoldOn.close();
 
-        if(typeof(window.localStorage.getItem("f1")) == "undefined") {
+
+        var f1 = window.localStorage.getItem("f1");
+        if (f1 === undefined || f1 === null || f1.length === 0) {
             alert("won test1");
-        } else if(window.localStorage.getItem("f1") == "") {
-            alert("won test2");
         } else {
-            alert("won test3 ==>" + window.localStorage.getItem("f1"));
+            alert("won test 2 ==>" + f1);
             tabbar.setActiveTab(1);
         }
 	};
