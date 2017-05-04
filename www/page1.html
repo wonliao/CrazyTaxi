@@ -98,7 +98,7 @@ $(function(){
 	    init(pos);
         HoldOn.close();
 
-        if(window.localStorage.getItem("f1") === null) {
+        if(typeof(window.localStorage.getItem("f1")) == "undefined") {
             alert("won test1");
         } else if(window.localStorage.getItem("f1") == "") {
             alert("won test2");
