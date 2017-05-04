@@ -354,11 +354,13 @@ function special_events() {
         var top = 10 + (sort - 1) * 15;
         //console.log("won test 2 ==> event_name("+event_name+") sort("+sort+") f1("+f1+") f4("+f4+")");
         
-        var str = "";
-        str += "<a class='event-btn' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f4+"\")'>";
-        str +=      "<img src='"+image+"' class='event-btn-img'/>";
-        str += "</a>";
-        $("#event_div").append(str);
+        if(sort != 0) {
+            var str = "";
+            str += "<a class='event-btn' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f4+"\")'>";
+            str +=      "<img src='"+image+"' class='event-btn-img'/>";
+            str += "</a>";
+            $("#event_div").append(str);
+        }
     });
 }
 
