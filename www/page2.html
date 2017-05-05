@@ -165,8 +165,9 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
+                    $('.alert-dialog-title').html("登入");
                     $('#alertDialogText').html("請先登入您的Facebook帳號");
-                    $("#dialog_btn").attr("onclick","needLogin()");
+                    $(".alert-dialog-button").attr("onclick","needLogin()");
                     alertDialog.show();
                 });
 
