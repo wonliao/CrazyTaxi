@@ -212,7 +212,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 console.log("won test f4 =>" + f4);
 
                 // 自動代入下車地點
-                if(f1 != null && f1 != "") {
+                if(f1 != null && f1 != "null" && f1 != "") {
 
                     $('#destination').val(f1).focus();
                 }
