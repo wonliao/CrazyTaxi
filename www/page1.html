@@ -101,7 +101,7 @@ $(function(){
         
         var f1 = window.localStorage.getItem("f1");
         console.log("won test ==> f1("+f1+")");
-        if (typeof f1 !== 'undefined' && f1 !== null && f1 !== "") {
+        if (typeof f1 !== 'undefined' && f1 !== null && f1 != "" && f1 != "null") {
             tabbar.setActiveTab(1);
         }
 	};
