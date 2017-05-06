@@ -71,6 +71,16 @@
     background: #fedc33;
 }
 
+.event-btn-img {
+    width: 80px;
+}
+
+.event-btn {
+    position: fixed;
+    left: 0%;
+    border-style:none;
+}
+
 ons-icon {
     width: 20%;
     text-align: center;
@@ -210,10 +220,14 @@ ons-icon {
 </ons-template>
 <!-- 側邊欄 end -->
 
+
+<!-- 左側浮動55688按鈕 -->
 <a id="download-btn" onclick="open55688App()">
     <img src="images/logo2.png" class="download-btn-img"/>
 </a>
 
+<!-- 活動專區 -->
+<div id="event_div" style="background:#FF0;"></div>
 
 
 <script>
@@ -226,6 +240,7 @@ deeplink.setup({
     }
 });
 */
+
 ons.ready(function() {
     
     setTimeout(function() {
@@ -233,6 +248,9 @@ ons.ready(function() {
         var _h = $( document ).height();
         _h = _h / 4;
         $("#download-btn").css("top", _h);
+       
+        special_events();
+        
     }, 10);
 });
     
@@ -312,6 +330,39 @@ function onbeforeunload_Handler() {
     return "您即將離開go2gether，提醒您記得加入書籤或是最愛喔！";
 }
 
+
+function event_btn_click(event_name, f1, f4) {
+    
+    ga('send', 'event', '活動專區', 'click', event_name);
+    
+    window.localStorage.setItem("f1", f1);  // 下車地點
+    window.localStorage.setItem("f4", f4);  // 共乘目的
+    
+    tabbar.setActiveTab(1);
+}
+
+function special_events() {
+    
+    var special_events = firebase.database().ref('special_events');
+    special_events.orderByChild("sort").on("child_added", function(snapshot) {
+
+        var event_name = snapshot.key;
+        var f1 = snapshot.val().f1;
+        var f4 = snapshot.val().f4;
+        var sort = snapshot.val().sort;
+        var image = snapshot.val().image;
+        var top = 10 + (sort - 1) * 15;
+        //console.log("won test 2 ==> event_name("+event_name+") sort("+sort+") f1("+f1+") f4("+f4+")");
+        
+        if(sort != 0) {
+            var str = "";
+            str += "<a class='event-btn' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f4+"\")'>";
+            str +=      "<img src='"+image+"' class='event-btn-img'/>";
+            str += "</a>";
+            $("#event_div").append(str);
+        }
+    });
+}
 
         
 </script>
