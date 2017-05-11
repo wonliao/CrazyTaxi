@@ -23,7 +23,7 @@
             </div>
             <div class="right" style="line-height: 44px">
                 <ons-toolbar-button ng-click="menu.toggleMenu()">
-                	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
         		</ons-toolbar-button>
             </div>
         </ons-toolbar>
@@ -54,6 +54,9 @@
 var map;
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
+var pinA = null;
+var pinB = null;
+var currentMark = null;
 
 ons.ready(function() {
     setTimeout(function() {
@@ -139,6 +142,17 @@ function init(position) {
 		content: "",
         disableAutoPan: true
 	});
+    
+    google.maps.event.addListener(infowindow, 'closeclick', function(){
+        
+        if(currentMark != null) {
+            
+            currentMark.setVisible(true);
+            directionsDisplay.setDirections({routes: []});
+            if(pinA)    pinA.setMap(null);
+            if(pinB)    pinB.setMap(null);
+        }
+    });
 
 	// Init map
 	map = new google.maps.Map($('#map').get(0), {
@@ -155,16 +169,7 @@ function init(position) {
     }
     directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
     directionsDisplay.setMap(map);
-    /*
-    // 路徑
-    poly = new google.maps.Polyline({
-        strokeColor: '#000000',
-        strokeOpacity: 1.0,
-        strokeWeight: 3
-    });
-    poly.setMap(map);
-    */
-  
+
     // 返回中心點
     var centerControlDiv = document.createElement('div');
     var centerControl = new CenterControl(centerControlDiv, map, position);
@@ -260,6 +265,8 @@ function init(position) {
                             infowindow.close();
                         }
     
+                        markers[key].setVisible(false);
+                        
         				areas.child(key).once('value', function(snapshot) {
 
     						//console.log(snapshot.val());
@@ -279,6 +286,7 @@ function init(position) {
     
     						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px; z-index:3;'>"+text+"</div>");
     						infowindow.open(map, markers[key]);
+                            currentMark = markers[key];
 
                             var start = new google.maps.LatLng(snapshot.val().latitude, snapshot.val().longitude);
     		                var end = new google.maps.LatLng(snapshot.val().d_latitude, snapshot.val().d_longitude);
@@ -347,6 +355,7 @@ function calcRoute(start, end) {
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
 */
+    
     var request = {
 		origin: start,
 		destination: end,
@@ -360,6 +369,8 @@ function calcRoute(start, end) {
 	});
     */
     
+    if(pinA)    pinA.setMap(null);
+    if(pinB)    pinB.setMap(null);
     
     var markerA = new google.maps.MarkerImage('images/icon_up.png',
     	new google.maps.Size(68, 108),
@@ -371,6 +382,7 @@ function calcRoute(start, end) {
         new google.maps.Point(0, 0),
         new google.maps.Point(17, 54),
         new google.maps.Size(34, 54));
+        
         
     directionsService.route(request, function(response, status) {
     	if (status == google.maps.DirectionsStatus.OK) {
