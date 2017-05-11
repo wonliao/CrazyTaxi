@@ -229,9 +229,21 @@ function init(position) {
                     
                     var facebook_id = window.localStorage.getItem("facebook_id");
                     //console.log("facebook_id("+facebook_id+")("+snapshot.val().fb_id+")");
-                    if(snapshot.val().fb_id == facebook_id)     image = "images/marker_yellow.png";
-    				else if(minutesDifference <= 10)            image = "images/marker_red.png";
-                    else                                        image = "images/marker_green.png";
+                    
+                    var up_img, down_img;
+                    if(snapshot.val().fb_id == facebook_id) {
+                        image = "images/marker_yellow.png";
+                        up_img = "images/yellow_start.png";
+                        down_img = "images/yellow_goal.png";
+    				} else if(minutesDifference <= 10) {
+                        image = "images/marker_red.png";
+                        up_img = "images/red_start.png";
+                        down_img = "images/red_goal.png";
+                    } else {
+                        image = "images/marker_green.png";
+                        up_img = "images/green_start.png";
+                        down_img = "images/green_goal.png";
+                    }
 
     				markers[key] = new google.maps.Marker({
     					position: location,
@@ -290,7 +302,7 @@ function init(position) {
 
                             var start = new google.maps.LatLng(snapshot.val().latitude, snapshot.val().longitude);
     		                var end = new google.maps.LatLng(snapshot.val().d_latitude, snapshot.val().d_longitude);
-			                calcRoute(start, end);
+			                calcRoute(start, end, up_img, down_img);
 
                             ga('send', 'event', '首頁', 'click', "圖標");
     					});
@@ -343,7 +355,7 @@ function CenterControl(controlDiv, map, position) {
 }
 
 // 路徑導航
-function calcRoute(start, end) {
+function calcRoute(start, end, up_img, down_img) {
 /*
     if(directionsDisplay != null) { 
         directionsDisplay.setMap(null);
@@ -372,12 +384,12 @@ function calcRoute(start, end) {
     if(pinA)    pinA.setMap(null);
     if(pinB)    pinB.setMap(null);
     
-    var markerA = new google.maps.MarkerImage('images/icon_up.png',
+    var markerA = new google.maps.MarkerImage(up_img,
     	new google.maps.Size(68, 108),
         new google.maps.Point(0, 0),
         new google.maps.Point(17, 47),
         new google.maps.Size(34, 54));
-    var markerB = new google.maps.MarkerImage('images/icon_down.png',
+    var markerB = new google.maps.MarkerImage(down_img,
 		new google.maps.Size(68, 108),
         new google.maps.Point(0, 0),
         new google.maps.Point(17, 54),
