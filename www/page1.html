@@ -105,6 +105,8 @@ $(function(){
         var f1 = window.localStorage.getItem("f1");
         //console.log("won test ==> f1("+f1+")");
         if (typeof f1 !== 'undefined' && f1 !== null && f1 != "" && f1 != "null") {
+            
+            ga('send', 'event', '首頁', 'trigger', '榮總導流');
             tabbar.setActiveTab(1);
         }
 	};
