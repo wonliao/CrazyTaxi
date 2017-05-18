@@ -145,6 +145,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
         </div>
     </ons-page>
+
 </ons-navigator>
 
 <script>
@@ -170,6 +171,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                     $('.alert-dialog-title').html("登入");
+                    
+                    $('#alertDialogTitle').html("提示");
                     $('#alertDialogText').html("請先登入您的Facebook帳號");
                     $(".alert-dialog-button").attr("onclick","needLogin()");
                     alertDialog.show();
@@ -324,6 +327,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
+                        $('#alertDialogTitle').html("提示");
                         $('#alertDialogText').html("請先登入您的Facebook帳號");
                         $("#dialog_btn").attr("onclick","needLogin()");
                         alertDialog.show();
@@ -336,6 +340,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 if(_destination.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
+                        $('#alertDialogTitle').html("資訊不完整");
                         $('#alertDialogText').html('請輸入完整下車地址');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -347,6 +352,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 if(_datepicker.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
+                        $('#alertDialogTitle').html("資訊不完整");
                         $('#alertDialogText').html('請輸入出發日期(僅供30日內預約)');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -356,9 +362,11 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 
                 var phones = $('#phones').val();        // 手機號碼
                 var email = $('#email').val();          // 電子信箱
-                if(phones.length <= 0 && email.length <= 0) {
+                console.log("phones("+phones+")");
+                if(phones.length <= 0 || email.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
+                        $('#alertDialogTitle').html("資訊不完整");
                         $('#alertDialogText').html('請輸入手機號碼或電子信箱');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -370,6 +378,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
     
                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
+                            $('#alertDialogTitle').html("資訊不完整");
                             $('#alertDialogText').html('手機號碼格式錯誤，請輸入手機號碼(10位數字)');
                             $("#dialog_btn").attr("onclick","closeDialog()");
                             alertDialog.show();
@@ -384,6 +393,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     if(at == -1) {
                          ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
+                            $('#alertDialogTitle').html("資訊不完整");
                             $('#alertDialogText').html('電子信箱格式錯誤，請輸入正確電子信箱');
                             $("#dialog_btn").attr("onclick","closeDialog()");
                             alertDialog.show();
@@ -402,6 +412,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 if(ck_3.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
+                        $('#alertDialogTitle').html("資訊不完整");
                         $('#alertDialogText').html('請選擇您本次共乘目的');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -410,6 +421,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 } else if(ck_1.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
+                        $('#alertDialogTitle').html("資訊不完整");
                         $('#alertDialogText').html('請勾選"我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤"');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -462,7 +474,8 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     if(data2.results.length <= 0) {
 
                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
+                            
+                            $('#alertDialogTitle').html("資訊不完整");
                             $('#alertDialogText').html("請輸入完整下車地址");
                             $("#dialog_btn").attr("onclick","closeDialog()");
                             alertDialog.show();
@@ -497,6 +510,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
     
                             ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
     
+                                $('#alertDialogTitle').html("資訊不完整");
                                 $('#alertDialogText').html("請輸入完整上車地址");
                                 $("#dialog_btn").attr("onclick","closeDialog()");
                                 alertDialog.show();
@@ -594,7 +608,6 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         //console.log("start_time_txt("+start_time_txt+")");
                         //return false;
                         
-                        
                         var now_d = new Date();
                         if(now_d.getTime() > d.getTime()) {
                             
@@ -603,12 +616,18 @@ input[type="text"]:invalid { outline: solid red 1px; }
         
                                 $("#datepicker").css("border-color", "#F00");
                                 $("#timepicker").css("border-color", "#F00");
+                                
+                                $('#alertDialogTitle').html("資訊不完整");
                                 $('#alertDialogText').html("出發日期及時間不得小於目前時間，請重新輸入");
                                 $("#dialog_btn").attr("onclick","closeDialog()");
                                 alertDialog.show();
                             });
                         
                             return false;
+                        } else {
+                            console.log("test 2");
+                            $("#datepicker").css("border-color", "#AAA");
+                            $("#timepicker").css("border-color", "#AAA");
                         }
                         //console.log("test 2");
                         
@@ -746,6 +765,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
+                        $('#alertDialogTitle').html("提示");
                         $('#alertDialogText').html("帳號因違反使用者規範，詳細請洽客服");
                         $("#dialog_btn").attr("onclick","reload()");
                         alertDialog.show();
