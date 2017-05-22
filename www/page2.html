@@ -363,7 +363,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 var phones = $('#phones').val();        // 手機號碼
                 var email = $('#email').val();          // 電子信箱
                 console.log("phones("+phones+")");
-                if(phones.length <= 0 || email.length <= 0) {
+                if(phones.length <= 0 && email.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
                         $('#alertDialogTitle').html("資訊不完整");
