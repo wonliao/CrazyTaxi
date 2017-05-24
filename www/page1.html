@@ -111,7 +111,7 @@ function onDeviceReady() {
         //alert('ERROR(' + err.code + '): ' + err.message);
         
         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-            $("#alertDialogText").html('ERROR(' + err.code + '): ' + err.message);
+            //$("#alertDialogText").html('ERROR(' + err.code + '): ' + err.message);
             alertDialog.show();
         });
 	};
