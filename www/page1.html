@@ -80,7 +80,11 @@ ons.ready(function() {
     }, 10);
 });
 
-$(function(){
+
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+
+//$(function(){
 
     isFirstTime = true;
 
@@ -120,8 +124,8 @@ $(function(){
 	};
 
 	navigator.geolocation.getCurrentPosition(success, error, options);
-});
-	
+//});
+}	
 
 function init(position) {
     
