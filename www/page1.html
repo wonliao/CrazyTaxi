@@ -116,28 +116,7 @@ function onDeviceReady() {
         */
 	};
 
-    
     navigator.geolocation.getCurrentPosition(success, error, options);
-    //app.geolocation.getCurrentPosition(success, error, options);
-   
-    /*
-    // Check if HTML5 location support exists
-    app.geolocation = false;
-    if(navigator.geolocation) {
-        app.geolocation = navigator.geolocation;
-    } 
-    
-    // AFTER the deviceready event:
-    
-    if(app.geolocation) {
-        var locationService = app.geolocation; // native HTML5 geolocation
-    }
-    else {
-        var locationService = navigator.geolocation; // cordova geolocation plugin
-    }
-    
-    locationService.getCurrentPosition(success, error, options);
-    */
 }	
 
 function init(position) {
