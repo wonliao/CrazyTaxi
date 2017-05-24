@@ -61,6 +61,8 @@ var currentMark = null;
 ons.ready(function() {
     setTimeout(function() {
         
+        onDeviceReady();
+        
         $("#event_div").show();
         
         menu.setSwipeable(false);
@@ -77,16 +79,10 @@ ons.ready(function() {
         console.log("test 2 ==> _w("+_w+")");
         $(".my_pos").css("left", _w + 3);
         */
-        
-        onDeviceReady();
     }, 10);
 });
 
-
-//document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-
-//$(function(){
 
     isFirstTime = true;
 
@@ -97,19 +93,11 @@ function onDeviceReady() {
 	};
 	
 	function success(pos) {
-	  
-        //var crd = pos.coords;
-	    //console.log('Your current position is:');
-	    //console.log('Latitude : ' + crd.latitude);
-	    //console.log('Longitude: ' + crd.longitude);
-	    //console.log('More or less ' + crd.accuracy + ' meters.');
-
+        
 	    init(pos);
         HoldOn.close();
 
-        
         var f1 = window.localStorage.getItem("f1");
-        //console.log("won test ==> f1("+f1+")");
         if (typeof f1 !== 'undefined' && f1 !== null && f1 != "" && f1 != "null") {
             
             ga('send', 'event', '導流', 'click', '榮總導流');
@@ -125,8 +113,25 @@ function onDeviceReady() {
         });       
 	};
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
-//});
+	//navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+    // Check if HTML5 location support exists
+    app.geolocation = false;
+    if(navigator.geolocation) {
+        app.geolocation = navigator.geolocation;
+    } 
+    
+    // AFTER the deviceready event:
+    
+    if(app.geolocation) {
+        var locationService = app.geolocation; // native HTML5 geolocation
+    }
+    else {
+        var locationService = navigator.geolocation; // cordova geolocation plugin
+    }
+    
+    locationService.getCurrentPosition(success, error, options);
 }	
 
 function init(position) {
