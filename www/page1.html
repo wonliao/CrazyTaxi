@@ -116,12 +116,10 @@ function onDeviceReady() {
         */
 	};
 
-    if (navigator.geolocation) {
     
-	    navigator.geolocation.getCurrentPosition(success, error, options);
-    } else {
-        alert("navigator.geolocation error");
-    }
+    //navigator.geolocation.getCurrentPosition(success, error, options);
+    app.geolocation.getCurrentPosition(success, error, options);
+   
     /*
     // Check if HTML5 location support exists
     app.geolocation = false;
