@@ -119,7 +119,9 @@ $(function(){
         });       
 	};
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
+    setTimeout(function() {
+	    navigator.geolocation.getCurrentPosition(success, error, options);
+    }, 100);
 });
 	
 
