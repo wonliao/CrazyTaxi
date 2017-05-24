@@ -113,9 +113,13 @@ function onDeviceReady() {
         });       
 	};
 
-	//navigator.geolocation.getCurrentPosition(success, error, options);
-
-
+    if (navigator.geolocation) {
+    
+	    navigator.geolocation.getCurrentPosition(success, error, options);
+    } else {
+        alert("navigator.geolocation error");
+    }
+    /*
     // Check if HTML5 location support exists
     app.geolocation = false;
     if(navigator.geolocation) {
@@ -132,6 +136,7 @@ function onDeviceReady() {
     }
     
     locationService.getCurrentPosition(success, error, options);
+    */
 }	
 
 function init(position) {
