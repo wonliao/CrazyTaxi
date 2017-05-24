@@ -108,12 +108,12 @@ function onDeviceReady() {
 	function error(err) {
 	    
         console.warn('ERROR(' + err.code + '): ' + err.message);
-        alert('ERROR(' + err.code + '): ' + err.message);
-        /*
+        //alert('ERROR(' + err.code + '): ' + err.message);
+        
         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+            $("#alertDialogText").html('ERROR(' + err.code + '): ' + err.message);
             alertDialog.show();
         });
-        */
 	};
 
     navigator.geolocation.getCurrentPosition(success, error, options);
