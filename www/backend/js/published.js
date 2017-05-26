@@ -19,13 +19,15 @@ var keys = [];
 
 function showAllPublished() {
 
-	areas.orderByChild('priority').once("value", function(snapshot) {
+	//areas.orderByChild('priority').once("value", function(snapshot) {
+	areas.orderByKey().once("value", function(snapshot) {
   		
 		//console.log("count("+count+")");
 		snapshot.forEach(function(data) {
 			
-			keys.push(data.val().priority);
-			//console.log("key("+data.key+")");	
+			//keys.push(data.val().priority);
+			keys.push(data.key);
+			//console.log("key("+data.key+")");
 		});
 
 		setPaginate();
@@ -284,7 +286,7 @@ function setPaginate() {
 	// 總頁數
 	var count = Math.ceil( keys.length / one_page_item );
 	if(count < display)	display = count;
-	//console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
+	console.log("keys.length("+keys.length+") count("+count+") display("+display+")");
 
 	$("#pagination_div").paginate({
 		count 		: count,
@@ -322,10 +324,14 @@ function setPaginate() {
 									var key = keys[index];
 									console.log("page("+page+") index("+index+") key("+key+")");
 								  	
-									areas.orderByChild('priority').startAt(key).limitToFirst(one_page_item).once("value", function(data) {
-									
+									//areas.orderByChild('priority').startAt(key).limitToFirst(one_page_item).once("value", function(data) {
+									areas.orderByKey().startAt(key).limitToFirst(one_page_item).once("value", function(data) {
+
+                                        console.log("data("+data+")");
 										data.forEach(function(snapshot) {
-											
+
+
+                                            console.log("snapshot("+snapshot+")");
 											getData(snapshot);
 									  	});
 									});
