@@ -76,7 +76,7 @@
 </style>
 
 
-<ons-navigator title="Navigator" var="page6Navigator">
+<ons-navigator title="Navigator" var="page2Navigator">
     <ons-page style="background:#fff;">
     
         <ons-toolbar fixed-style>
@@ -108,12 +108,12 @@
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input type="text" class="text-input2" ng-model="address" placeholder="請輸入上車地址" id="airport_address" required>
+                            <input id="airport_address" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="address" required>
                             <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input type="text" class="text-input2" ng-model="destination" placeholder="請輸入下車地址" id="airport_destination" required>
+                            <input id="airport_destination" placeholder="請輸入下車地址" type="text" class="text-input2" ng-model="destination" required>
                             <input type="button" onclick="openTimeSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
                         </section>
 
@@ -135,15 +135,29 @@
                         <section style="padding: 8px 16px 4px 16px">
                             <div>設定共乘條件</div>
                         </section>
-                    	<section style="padding: 4px 16px; height: 38px;">
+                        <!--
+                        <section style="padding: 4px 16px; height: 38px;">
                             <img src="images/marker_green.png" onClick="addressClick()" class="marker"/><input type="text" class="text-input1" ng-model="address" placeholder="請輸入上車地址" id="address" required>
                         </section>
+                        
                         <section style="padding: 4px 16px; height: 38px;">
                             <img src="images/marker_red.png" onClick="destinationClick()" class="marker"/><input type="text" class="text-input1" ng-model="destination" placeholder="請輸入下車地址" id="destination" required>
                         </section>
+                        -->
+                        <section style="padding: 4px 16px; height: 38px;">
+                            <input id="address"  placeholder="請輸入上車地址" type="text" ng-model="address" class="text-input2" required>
+                            <input value="上車記錄" onClick="addressClick()" type="button" class="btn btn-default submit_btn right_btn">
+                        </section>
+                        
+                        <section style="padding: 4px 16px; height: 38px;">
+                            <input id="destination" placeholder="請輸入下車地址" type="text" ng-model="destination" class="text-input2" required>
+                            <input value="下車記錄" onClick="destinationClick()" type="button" class="btn btn-default submit_btn right_btn">
+                        </section>
+                        
                         <section style="padding: 4px 16px;">
                             <input id="datepicker" type="datetime-local" style="width:100%">
                         </section>
+                        <!--
                         <div style="clear:both; height:0px"></div>
                         <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
                             <input type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
@@ -170,9 +184,10 @@
                         <section style="padding: 4px 16px" class="radio_box">
                             <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
                         </section>
+                        -->
             
-                        <section style="padding: 4px 16px" class="radio_box">                
-                            <input type="submit" value="確定" class="btn btn-default submit_btn">
+                        <section style="padding: 24px 16px" class="radio_box">                
+                            <input type="submit" value="搜尋" class="btn btn-default submit_btn">
                         </section>
             		</form>
                 </div>
@@ -736,14 +751,20 @@
     
     function addressClick() {
         
-        window.localStorage.setItem("select_map", "address");
-        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
+        //window.localStorage.setItem("select_map", "address");
+        //homeNavigator.pushPage("select_map.html", {animation: 'slide'});
+        console.log("addressClick");
+        
+        page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
     }
     
     function destinationClick() {
         
-        window.localStorage.setItem("select_map", "destination");
-        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
+        //window.localStorage.setItem("select_map", "destination");
+        //homeNavigator.pushPage("select_map.html", {animation: 'slide'});
+        console.log("destinationClick");
+        
+        page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
     }
     
     function showRecord() {

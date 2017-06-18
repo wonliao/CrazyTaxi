@@ -1,0 +1,173 @@
+<style>
+.slider_img {
+    margin: 0 auto;
+    height:100%;
+}
+
+.myCarousel {
+    text-align: center;
+}
+
+.mySection {
+    padding: 16px; 
+    border: rgba(0,0,0,0.2) 1px solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.text1 {
+    color:#aaa8a8;
+    width:40%;
+    display: inline-flex;
+}
+.text2 {
+    color:#686d6d;
+    width: 60%;
+    display: inline-flex;
+}
+.text3 {
+    font-weight: bold;
+}
+
+#history {
+    padding: 0 5% 5% 5%;
+}
+</style>
+
+<ons-page style="background:#fff;">
+
+    <ons-toolbar fixed-style>
+        <div class="left" style="line-height: 44px;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center">
+            <img src="images/go2gether.png" style="height:32px;"/>
+        </div>
+        <div class="right" style="line-height: 44px">
+            <ons-toolbar-button ng-click="menu.toggleMenu()">
+            	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+    		</ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+        
+    <div style="clear:both; height:10px"></div>
+
+    <div id="history"></div>
+        
+</ons-page>
+
+<ons-template id="alert-dialog.html">
+    <ons-alert-dialog var="alertDialog">
+        <div class="alert-dialog-content">
+            <span id="page1AlertDialogText">請先登入您的Facebook帳號</span>
+        </div>
+        <div class="alert-dialog-footer">
+            <button id="dialog_btn" class="alert-dialog-button" onClick="needLogin()">確定</button>
+        </div>
+    </ons-alert-dialog>
+</ons-template>
+
+<script>
+    var t;
+    ons.ready(function() {
+        setTimeout(function() {
+            
+            $("#event_div").hide();
+            $("#download-btn").hide();
+            
+            var snapshots = new Array();
+            
+            var geoQuery = geoFire.query({
+                center: [25.0483944,121.5392712],
+                radius: 30 // 單位公里
+            });
+
+            geoQuery.on('key_entered', function(key, location, distance) {
+
+                areas.child(key).once('value', function(snapshot) {
+                    
+                    // 時間
+                    var d1 = new Date(snapshot.val().appointment);
+                    
+                    var temp = new Array(2);
+                    temp[0] = d1;
+                    temp[1] = snapshot;
+                    
+                    snapshots.push(temp);
+                    
+                    if (t === undefined || t === null) {
+
+                    } else {
+                        clearTimeout(t);
+                    }
+                    t = setTimeout(function(){ next(); }, 100);
+                });
+            });   
+            
+            function next() {
+
+                snapshots = snapshots.sort(function(a,b) {
+                    return a[0] - b[0];
+                });
+                
+                for(var i=0; i<snapshots.length; i++) {
+                    
+                    //var d1 = snapshots[i][0];
+                    //var time_text = getTimeStr(d1); //d1.toLocaleString();
+                    //console.log("won test 2 ==> time_text("+time_text+")");
+                    
+                    
+                    var snapshot = snapshots[i][1];
+                    var key = snapshot.key;
+                    //console.log("key("+snapshot.key+")");
+    
+                    // 時間
+                    var d1 = new Date(snapshot.val().appointment);
+                    var time_text = getTimeStr(d1); //d1.toLocaleString();
+    
+                    var d = new Date();
+                    var now_text = d.toLocaleString();
+    
+                    var text = "";
+                    text += '<div style="clear:both; height:10px"></div>';
+                    
+                    text += "<section class='mySection'>";
+                    text +=     '<div>共乘時間：'+time_text+'</div>';
+                    text +=     '<div><i class="fa fa-circle" aria-hidden="true" style="color:#36d0c9"></i> <span>'+snapshot.val().input_address+'</span></div>';
+                    text +=     '<div><i class="fa fa-arrow-down" aria-hidden="true" style="color:#aaa8a8"></i></div>';
+                    text +=     '<div><i class="fa fa-circle" aria-hidden="true" style="color:red"></i> <span>'+snapshot.val().destination+'</span></div>';
+                    text +=     "<div onClick='showMore(\""+key+"\")' style='float:right;'>more..</div>";
+                    text +=     '<div style="clear:both; height:1px"></div>';
+                    text += '</section>';
+    
+                    $('#history').append(text);
+                }
+            }
+            
+        }, 10);
+    });
+    
+    function showMore(key) {
+        
+        window.localStorage.setItem("info_key", key);
+        
+        //ga('send', 'event', '首頁', 'click', '共乘泡泡');
+        page2Navigator.pushPage("page1_info.html", {animation: 'slide'});
+    }
+
+
+
+</script>
+
+<script>
+/*
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-84401162-1', 'auto');
+  ga('send', 'pageview', '共乘條件頁');
+*/
+</script>

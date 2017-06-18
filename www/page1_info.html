@@ -4,6 +4,8 @@
     -moz-border-radius: 60px;
     border-radius: 60px;
     BORDER: #c9c9c9 2px solid;
+    width: 120px;
+    height: 120px;
 }
 .submit_btn {
     background-color: rgba(24,103,194,0.81);
@@ -84,6 +86,8 @@
             <section style="padding: 0px 16px" class="radio_box">                
                 <input type="submit" value="聯繫對方" class="btn btn-default submit_btn">
             </section>
+            
+            <div style="clear:both; height:30px"></div>
         </form>
         
         <div id="self_div" style="display:none;">
@@ -233,7 +237,7 @@ function page1InfoClick(pageName) {
 			var d = new Date(timestamp);
 			time_text = getTimeStr(d); //d.toLocaleString();
 		    
-            var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=normal";
+            var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=square";
             //console.log("fb_image("+fb_image+")");
             $('#fb_user_picture').attr("src", fb_image);
 			$('#fb_user_name').text(fb_name);			
