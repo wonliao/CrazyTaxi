@@ -237,7 +237,7 @@ function page1InfoClick(pageName) {
 			var d = new Date(timestamp);
 			time_text = getTimeStr(d); //d.toLocaleString();
 		    
-            var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=square";
+            var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=normal";
             //console.log("fb_image("+fb_image+")");
             $('#fb_user_picture').attr("src", fb_image);
 			$('#fb_user_name').text(fb_name);			
