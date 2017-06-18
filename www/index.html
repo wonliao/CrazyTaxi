@@ -72,7 +72,7 @@
 }
 
 .event-btn-img {
-    width: 80px;
+    width: 40px;
 }
 
 .event-btn {
@@ -249,6 +249,7 @@ ons.ready(function() {
         _h = _h / 4;
         $("#download-btn").css("top", _h);
        
+        //活動專區
         special_events();
         
     }, 10);
@@ -343,9 +344,10 @@ function event_btn_click(event_name, f1, f2, f3, f4) {
     tabbar.setActiveTab(1);
 }
 
+//活動專區
 function special_events() {
     
-    var special_events = firebase.database().ref('special_events');
+    var special_events = firebase.database().ref('special_events_2');
     special_events.orderByChild("sort").on("child_added", function(snapshot) {
 
         var event_name = snapshot.key;
@@ -355,8 +357,8 @@ function special_events() {
         var f4 = snapshot.val().f4;
         var sort = snapshot.val().sort;
         var image = snapshot.val().image;
-        var top = 10 + (sort - 1) * 15;
-        //console.log("won test 2 ==> event_name("+event_name+") sort("+sort+") f1("+f1+") f4("+f4+")");
+        var top = 10 + (sort - 1) * 20;
+        console.log("won test 2 ==> event_name("+event_name+") sort("+sort+") f1("+f1+") f4("+f4+")");
         
         if(sort != 0) {
             var str = "";
