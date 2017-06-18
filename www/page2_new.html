@@ -65,6 +65,10 @@
 input[type="text"] {
     border: #aaa 1px solid;    
 }
+
+.sw-center {
+    text-align:center;
+}
 /*
 input[type="text"]:valid { outline: solid #ddd 1px; }
 input[type="text"]:invalid { outline: solid red 1px; }
@@ -98,24 +102,29 @@ input[type="text"]:invalid { outline: solid red 1px; }
             
                 <!-- 機場共乘 begin -->
                 <div id="airport" class="tab-pane fade">
-                
-                    <section style="padding: 8px 16px 4px 16px">
-                        <div style="text-align:center;">地點/時間</div>
-                    </section>
-                    <section style="padding: 4px 16px; height: 38px;">
-                        <input type="text" class="text-input2" ng-model="address" placeholder="請輸入上車地址" id="airport_address" required>
-                        <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
-                    </section>
-                    
-                    <section style="padding: 4px 16px; height: 38px;">
-                        <input type="text" class="text-input2" ng-model="destination" placeholder="請輸入下車地址" id="airport_destination" required>
-                        <input type="button" value="變更機場" class="btn btn-default submit_btn right_btn">
-                    </section>
-                    <!--
-                    <section style="padding: 4px 16px;">
-                        <input id="datepicker" type="datetime-local" style="width:100%">
-                    </section>
-                    -->
+                    <form id="airport_add" action="#">
+                        <section style="padding: 8px 16px 4px 16px">
+                            <div style="text-align:center;">地點/時間</div>
+                        </section>
+                        
+                        <section style="padding: 4px 16px; height: 38px;">
+                            <input type="text" class="text-input2" ng-model="address" placeholder="請輸入上車地址" id="airport_address" required>
+                            <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
+                        </section>
+                        
+                        <section style="padding: 4px 16px; height: 38px;">
+                            <input type="text" class="text-input2" ng-model="destination" placeholder="請輸入下車地址" id="airport_destination" required>
+                            <input type="button" onclick="openTimeSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
+                        </section>
+    
+                        <section style="padding: 4px 16px;">
+                            <input id="datepicker2" type="datetime-local" style="width:100%">
+                        </section>
+                        
+                        <section style="padding: 4px 16px" class="radio_box">                
+                            <input type="submit" value="搜尋" class="btn btn-default submit_btn">
+                        </section>
+                    </form>
                 </div>
                 <!-- 機場共乘 end -->
                 
@@ -163,7 +172,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         </section>
             
                         <section style="padding: 4px 16px" class="radio_box">                
-                            <input type="submit" value="確定" class="btn btn-default submit_btn">
+                            <input type="submit" value="搜尋" class="btn btn-default submit_btn">
                         </section>
             		</form>
                 </div>
@@ -180,27 +189,24 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
         setTimeout(function() {
 
-            $("#event_div").hide();
-
-            /*
-             var f4_check = window.localStorage.getItem("f4");
-             if(f4_check != null && f4_check == "機場共乘") {
-             $("#airport_btn").click();
-             }
-             */
-
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
+
+            $("#event_div").hide();
+            $("#download-btn").hide();
+            
+            var f4_check = window.localStorage.getItem("f4");
+            if(f4_check != null && f4_check == "機場共乘") {
+               $("#airport_btn").click();
+            }
+            
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    $('.alert-dialog-title').html("登入");
-
-                    $('#alertDialogTitle').html("提示");
                     $('#alertDialogText').html("請先登入您的Facebook帳號");
-                    $(".alert-dialog-button").attr("onclick","needLogin()");
+                    $("#dialog_btn").attr("onclick","needLogin()");
                     alertDialog.show();
                 });
 
@@ -210,26 +216,16 @@ input[type="text"]:invalid { outline: solid red 1px; }
             // 檢查是否被禁止刊登
             is_fb_player_enable();
             
-            
             // 自動代入現在時間
             var now = new Date();
             var hours = (now.getHours()<10?'0':'') + now.getHours();
             var minutes = (now.getMinutes()<10?'0':'') + now.getMinutes();
-            var _m = Math.floor(now.getMonth() + 1);
-            _m = (_m<10?'0':'') + _m;
+            var _m = (now.getMonth()<10?'0':'') + now.getMonth();
             var _d = (now.getDate()<10?'0':'') + now.getDate();
             var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
-            //console.log("today("+today+")");
             $('#datepicker').val(today);
+            $('#datepicker2').val(today);
 
-            // for test
-            /*
-            window.localStorage.setItem("f1", "台中榮總");
-            window.localStorage.setItem("f2", "201701010830");
-            window.localStorage.setItem("f3", "早診");
-            window.localStorage.setItem("f4", "台中榮總共乘");
-            */
-            
             if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
 
                 var f1 = window.localStorage.getItem("f1");
@@ -246,7 +242,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 console.log("won test f4 =>" + f4);
 
                 // 自動代入下車地點
-                if(f1 != null && f1 != "null" && f1 != "") {
+                if(f1 != null && f1 != "") {
 
                     $('#destination').val(f1).focus();
                 }
@@ -276,17 +272,15 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     var dd = f2.substring(6,8);
                     var hh = f2.substring(8,10);
                     var mm = f2.substring(10,12);
-                    //var now = new Date(yyyy,MM,dd,hh,mm,00);
                     var now = new Date(yyyy,MM,dd,hh,mm,00);
-                    //console.log("yyyy("+yyyy+") MM("+MM+")now("+now+")");
                     
                     var hours = (now.getHours()<10?'0':'') + now.getHours();
                     var minutes = (now.getMinutes()<10?'0':'') + now.getMinutes();
                     var _m = (now.getMonth()<10?'0':'') + now.getMonth();
                     var _d = (now.getDate()<10?'0':'') + now.getDate();
                     var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
-                    //console.log("today("+today+")");
                     $('#datepicker').val(today);
+                    $('#datepicker2').val(today);
                 } 
             }
 
@@ -311,26 +305,12 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     result_type: "street_address"
         		}, function(data) {
 
-                    //console.log(data);
                     if(data.status != "ZERO_RESULTS") {
                         var formatted_address = data.results[0].formatted_address;
-                        //console.log("formatted_address("+formatted_address+")");
                         $("#address").val(formatted_address).focus();
                     }
         		}
             );
-            
-            /*
-            $("#datepicker").datepicker({ minDate: 0, maxDate: "+29D" });
-
-            var d = new Date();
-            var hours = d.getHours();
-            var options = {
-                now: hours+":00",
-                minutesInterval: 15, //Change interval for minutes, defaults to 1
-            };
-            $('#timepicker').wickedpicker(options);
-            */
 
             $('#ck_1_span').click(function() {
 
@@ -338,14 +318,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 if(ck_1.length > 0)     $('input[name=ck_1]').prop("checked", false);
                 else                    $('input[name=ck_1]').prop("checked", true);
             });
-            /*
-            $('#ck_2_span').click(function() {
-
-                var ck_2 = $('input[name=ck_2]:checked');
-                if(ck_2.length > 0)     $('input[name=ck_2]').prop("checked", false);
-                else                    $('input[name=ck_2]').prop("checked", true);
-            });
-            */
+            
             isFirstTime = true;
             $('#add').on('submit', function() {
 
@@ -353,7 +326,6 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                        $('#alertDialogTitle').html("提示");
                         $('#alertDialogText').html("請先登入您的Facebook帳號");
                         $("#dialog_btn").attr("onclick","needLogin()");
                         alertDialog.show();
@@ -365,8 +337,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 var _destination = $('#destination').val();        // 下車地址
                 if(_destination.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                        $('#alertDialogTitle').html("資訊不完整");
+        
                         $('#alertDialogText').html('請輸入完整下車地址');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -377,8 +348,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 var _datepicker = $('#datepicker').val();        // 出發日期
                 if(_datepicker.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                        $('#alertDialogTitle').html("資訊不完整");
+        
                         $('#alertDialogText').html('請輸入出發日期(僅供30日內預約)');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -390,8 +360,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                 var email = $('#email').val();          // 電子信箱
                 if(phones.length <= 0 && email.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                        $('#alertDialogTitle').html("資訊不完整");
+        
                         $('#alertDialogText').html('請輸入手機號碼或電子信箱');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -402,8 +371,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
     
                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                            $('#alertDialogTitle').html("資訊不完整");
+        
                             $('#alertDialogText').html('手機號碼格式錯誤，請輸入手機號碼(10位數字)');
                             $("#dialog_btn").attr("onclick","closeDialog()");
                             alertDialog.show();
@@ -418,7 +386,6 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     if(at == -1) {
                          ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
-                            $('#alertDialogTitle').html("資訊不完整");
                             $('#alertDialogText').html('電子信箱格式錯誤，請輸入正確電子信箱');
                             $("#dialog_btn").attr("onclick","closeDialog()");
                             alertDialog.show();
@@ -429,15 +396,11 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     }
                 }
                 
-
                 var ck_1 = $('input[name=ck_1]:checked');
-                //var ck_2 = $('input[name=ck_2]:checked');
                 var ck_3 = $('input[name=purpose]:checked');
-                //console.log("ck_3("+ck_3.length+")");
                 if(ck_3.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                        $('#alertDialogTitle').html("資訊不完整");
+    
                         $('#alertDialogText').html('請選擇您本次共乘目的');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
@@ -445,31 +408,17 @@ input[type="text"]:invalid { outline: solid red 1px; }
                     return false;
                 } else if(ck_1.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                        $('#alertDialogTitle').html("資訊不完整");
+    
                         $('#alertDialogText').html('請勾選"我同意此次共乘車資，與共乘夥伴依照跳錶金額平均分攤"');
                         $("#dialog_btn").attr("onclick","closeDialog()");
                         alertDialog.show();
                     });
                     return false;
-                } /*else if(ck_2.length <= 0) {
-                
-                   ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-    
-                        $('#alertDialogText').html('請勾選"我已詳細閱讀並同意本活動之服務條款及活動說明"');
-                        $("#dialog_btn").attr("onclick","closeDialog()");
-                        alertDialog.show();
-                    });
-                    return false;
-                }*/
-                
-                
+                }
 
                 var address = $('#address').val();				            // 上車地點
         		var destination = $('#destination').val();		            // 下車地點
         		var startDate = $('#datepicker').val();			            // 出發日期
-                //var startTime = $('#timepicker').val();			            // 出發時間
-        		//var phones = $('#phones').val();					        // 手機號碼
         		var note = $('#note').val();						        // 備註
         		var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
 
@@ -480,27 +429,16 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         purpose = purpose_other;
                     }
                 }
-
-                /*
-        		console.log("address("+address+")");
-        		console.log("destination("+destination+")");
-        		console.log("startDate("+startDate+")");
-        		console.log("startTime("+startTime+")");
-        		console.log("phones("+phones+")");
-        		console.log("note("+note+")");
-        		console.log("purpose("+purpose+")");
-                */
+                
                 $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
             		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
         			address: destination	// 下車地點
         		}, function(data2) {
-        			
-                    //console.log("won test 1 ==> data2.results.length("+data2.results.length+")");
+        		
                     if(data2.results.length <= 0) {
 
                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                            $('#alertDialogTitle').html("資訊不完整");
                             $('#alertDialogText').html("請輸入完整下車地址");
                             $("#dialog_btn").attr("onclick","closeDialog()");
                             alertDialog.show();
@@ -513,15 +451,12 @@ input[type="text"]:invalid { outline: solid red 1px; }
         				name: destination,		// 下車地點
                         latitude: "",
                         longitude: ""
-        				//latitude: data.results[0].geometry.location.lat,
-        				//longitude: data.results[0].geometry.location.lng,
         			};
                     
                     if(data2.results[0]) {
 
                         area.d_latitude = data2.results[0].geometry.location.lat;
                         area.d_longitude = data2.results[0].geometry.location.lng;
-                        //console.log("area.d_latitude("+area.d_latitude+") area.d_longitude("+area.d_longitude+")")
                     }
                     
                  
@@ -530,34 +465,21 @@ input[type="text"]:invalid { outline: solid red 1px; }
             			address: address	// 上車地點
             		}, function(data) {
             			
-                        //console.log("won test 1 ==> data.results.length("+data.results.length+")");
                         if(data.results.length <= 0) {
     
                             ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
-                                $('#alertDialogTitle').html("資訊不完整");
+    
                                 $('#alertDialogText').html("請輸入完整上車地址");
                                 $("#dialog_btn").attr("onclick","closeDialog()");
                                 alertDialog.show();
                             });
                             return;
                         }
-                        /*
-            			//parse address
-            			var c, point_of_interest, area = {
-            				name: destination,		// 下車地點
-                            latitude: "",
-                            longitude: ""
-            				//latitude: data.results[0].geometry.location.lat,
-            				//longitude: data.results[0].geometry.location.lng,
-            			};
-                        */
                         
                         if(data.results[0]) {
                             area.latitude = data.results[0].geometry.location.lat;
                             area.longitude = data.results[0].geometry.location.lng;
                         }
-                        
                         
             			//get address, city and state
             			for (var i = 0; i < data.results[0].address_components.length; i++) {
@@ -602,37 +524,12 @@ input[type="text"]:invalid { outline: solid red 1px; }
             			// 建立時間
             			var d = new Date();
             			area.timestamp = d.getTime();
-    
-                        /*
-                        // 時間處理
-                        date_txt = startDate.replace(/\//g,"/");
-                        //console.log("startDate("+startDate+") startTime("+startTime+")");
-    
-                        var words = startTime.split(' ');
-                        //console.log("words ==>("+words[0]+")("+words[1]+")("+words[2]+")("+words[3]+")");
-                        var hours = words[0];
-                        var minutes = words[2];
-                        var am_pm = words[3];
-                        if(am_pm == "PM")   hours = Math.floor(hours) + 12;
-                        var start_time_txt = hours+":"+minutes;
-                        var time_txt = hours+":"+minutes+":00";
-                        var txt = date_txt + " " + time_txt;
-                        console.log("txt("+txt+")");
-                        
-                        // txt(2016/12/16 20:00:00)
-                        */
-                        //console.log("startDate("+startDate+")");
+  
                         startDate = startDate.replace(/-/g, "/");
                         startDate = startDate.replace(/T/," ");
-                        //startDate += ":00";
-                        //console.log("startDate("+startDate+")");
                         var d = new Date(startDate);
-                        //console.log("d.getTime("+d.getTime()+")("+d.toLocaleDateString()+")");
                         
                         start_time_txt = d.toLocaleTimeString();
-                        //console.log("start_time_txt("+start_time_txt+")");
-                        //return false;
-                        
                         
                         var now_d = new Date();
                         if(now_d.getTime() > d.getTime()) {
@@ -642,18 +539,12 @@ input[type="text"]:invalid { outline: solid red 1px; }
         
                                 $("#datepicker").css("border-color", "#F00");
                                 $("#timepicker").css("border-color", "#F00");
-
-                                $('#alertDialogTitle').html("資訊不完整");
                                 $('#alertDialogText').html("出發日期及時間不得小於目前時間，請重新輸入");
                                 $("#dialog_btn").attr("onclick","closeDialog()");
                                 alertDialog.show();
                             });
                         
                             return false;
-                        } else {
-                            console.log("test 2");
-                            $("#datepicker").css("border-color", "#AAA");
-                            $("#timepicker").css("border-color", "#AAA");
                         }
                         //console.log("test 2");
                         
@@ -666,7 +557,6 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         
                         // 排序用
                         area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
-                        //console.log("appointment("+d.toString()+") expired_time("+d.toString()+")");
                         area.status = "";
     
             			if (!area.address && point_of_interest) area.address = point_of_interest;
@@ -676,8 +566,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
             			var updates = {};
                         console.log(area);
             			updates['/areas/' + area_id] = area;
-                        //console.log(updates);
-            			firebase.database().ref().update(updates);
+                        firebase.database().ref().update(updates);
     
             			//geofire
             			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
@@ -686,17 +575,7 @@ input[type="text"]:invalid { outline: solid red 1px; }
     
                         var _latlng = area.latitude + "," + area.longitude;
                         window.localStorage.setItem("marker_center", _latlng);
-    
-                        
-                        // fb player 
-                        //var fb_player = {name: ""};
-                        //fb_player.name = window.localStorage.getItem("facebook_name");
-                        //fb_player.enable = true;
-                        //fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
-                        //var player_updates = {};
-                        //player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
-                		//firebase.database().ref().update(player_updates);
-                        
+   
             			//clean up form
             			$('form#add').trigger('reset');
     
@@ -705,7 +584,6 @@ input[type="text"]:invalid { outline: solid red 1px; }
                         ga('send', 'event', '刊登共乘頁', '下車地點', area.destination);
                         ga('send', 'event', '刊登共乘頁', '出發時間', start_time_txt);
                         ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
-     
     
                         var to = area.email;
                 		var subject = "刊登成功通知！- go2gether大車隊共乘";
@@ -778,21 +656,16 @@ input[type="text"]:invalid { outline: solid red 1px; }
 
     function is_fb_player_enable() {
 
-        //console.log("is_fb_player_enable ==> facebook_id("+window.localStorage.getItem("facebook_id")+")");
         var key = window.localStorage.getItem("facebook_id");
         players.child(key).once('value', function(snapshot) {
 
             if(snapshot.exists() == true) {
 
                 var enable = snapshot.val().enable;
-                //var name = snapshot.val().name;
-                //console.log("enable("+enable+") name("+name+")");
-
                 if(enable != true) {
 
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                        $('#alertDialogTitle').html("提示");
                         $('#alertDialogText').html("帳號因違反使用者規範，詳細請洽客服");
                         $("#dialog_btn").attr("onclick","reload()");
                         alertDialog.show();
@@ -832,6 +705,44 @@ input[type="text"]:invalid { outline: solid red 1px; }
         
         homeNavigator.pushPage("record.html", {animation: 'slide'});
     }
+    
+    
+    
+    
+    
+    // 機場共乘
+    function openTimeSlot() {
+
+        var airports = {};
+        airports[0] = "桃園機場第一航廈";
+        airports[1] = "桃園機場第二航廈";
+        airports[2] = "臺北松山機場";
+        airports[3] = "臺中清泉崗機場";
+        airports[4] = "臺南機場";
+        airports[5] = "高雄小港機場";
+        airports[6] = "花蓮機場";
+        
+    	
+    	if(SpinningWheel.isExist())	SpinningWheel.destroy();
+    	SpinningWheel.addSlot(airports, 'center', 1);
+    	SpinningWheel.setCancelAction(cancel);
+    	SpinningWheel.setDoneAction(airportDone);
+    	SpinningWheel.open();
+    }
+    
+    function cancel() {
+        console.log("SpinningWheel Cancel")
+    }
+    
+    function airportDone() {
+
+        var results = SpinningWheel.getSelectedValues();
+        console.log("SpinningWheel results(" + results.values.join(':') + ")");
+    	
+        $("#airport_destination").val(results.values.join(':'));
+    }
+    
+    
 </script>
 
 <script>
