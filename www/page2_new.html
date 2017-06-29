@@ -410,13 +410,17 @@
     function addressRecordClick() {
         
         console.log("won test ==> addressRecordClick");
-        page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
+        
+        window.localStorage.setItem("select_map", "address");
+        page2Navigator.pushPage("page2_record.html", {animation: 'slide'});
     }
     
     function destinationRecordClick() {
         
         console.log("won test ==> destinationRecordClick");
-        page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
+        
+        window.localStorage.setItem("select_map", "destination");
+        page2Navigator.pushPage("page2_record.html", {animation: 'slide'});
     }
     
     function showRecord() {
@@ -459,6 +463,7 @@
 </script>
 
 <script>
+/*
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -466,4 +471,5 @@
 
   ga('create', 'UA-84401162-1', 'auto');
   ga('send', 'pageview', '刊登共乘頁');
+*/
 </script>
