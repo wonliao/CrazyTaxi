@@ -218,10 +218,10 @@ function getPos() {
 
         var select_map = window.localStorage.getItem("select_map");
         if(select_map == "address") {
-            $("#address").val(formatted_address).focus();
+            $("#new_address").val(formatted_address).focus();
             window.localStorage.setItem("address_latlng", latlng);
         } else {
-            $("#destination").val(formatted_address).focus();
+            $("#new_destination").val(formatted_address).focus();
             window.localStorage.setItem("destination_latlng", latlng);
         }
 

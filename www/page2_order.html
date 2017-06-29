@@ -85,17 +85,19 @@
 </style>
 
 
-<ons-navigator title="Navigator" var="page2Navigator">
-    <ons-page style="background:#fff;">
+<ons-page style="background:#fff;">
     
         <ons-toolbar fixed-style>
+            <div class="left" style="line-height: 44px;">
+                <ons-back-button></ons-back-button>
+            </div>
             <div class="center">
                 <img src="images/go2gether.png" style="height:32px;"/>
             </div>
-            <div class="right" style="line-height:44px;">
+            <div class="right" style="line-height: 44px">
                 <ons-toolbar-button ng-click="menu.toggleMenu()">
                     <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
-                </ons-toolbar-button>
+            	</ons-toolbar-button>
             </div>
         </ons-toolbar>
       
@@ -117,12 +119,12 @@
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="airport_address" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="address" required>
+                            <input id="order_airport_address" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="order_airport_address" required>
                             <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="airport_destination" placeholder="桃園機場第一航廈" type="text" class="text-input2" ng-model="destination" required>
+                            <input id="order_airport_destination" placeholder="桃園機場第一航廈" type="text" class="text-input2" ng-model="order_airport_destination" required>
                             <input type="button" onclick="openAirportSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
                         </section>
 
@@ -146,12 +148,12 @@
                         </section>
                         
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="address" onClick="addressClick()" placeholder="請定位上車地址" type="text" ng-model="address" class="text-input2" required>
+                            <input id="order_address" onClick="addressClick()" placeholder="請定位上車地址" type="text" ng-model="order_address" class="text-input2" required>
                             <input value="上車記錄" onClick="addressRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
                         
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="destination" onClick="destinationClick()" placeholder="請定位下車地址" type="text" ng-model="destination" class="text-input2" required>
+                            <input id="order_destination" onClick="destinationClick()" placeholder="請定位下車地址" type="text" ng-model="order_destination" class="text-input2" required>
                             <input value="下車記錄" onClick="destinationRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
                         
@@ -211,8 +213,7 @@
         </ons-template>
         
         
-    </ons-page>
-</ons-navigator>
+</ons-page>
 
 <script>
 
@@ -223,9 +224,9 @@
             // test
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
-            //$("#destination").val("台北市松山區慶城街18號");
+            //$("#order_destination").val("台北市松山區慶城街18號");
             //window.localStorage.setItem("f1", "台北市松山區慶城街18號");
-            window.localStorage.setItem("f4", "球賽共乘");
+            //window.localStorage.setItem("f4", "球賽共乘");
             
             HoldOn.close();
             $("#event_div").hide();
@@ -248,16 +249,11 @@
             // 檢查是否被禁止刊登
             is_fb_player_enable();
             
-            // 自動代入現在時間
-            var now = new Date();
-            var hours = (now.getHours()<10?'0':'') + now.getHours();
-            var minutes = (now.getMinutes()<10?'0':'') + now.getMinutes();
-            var _m = Math.floor(now.getMonth() + 1);
-            _m = (_m<10?'0':'') + _m;
-            var _d = (now.getDate()<10?'0':'') + now.getDate();
-            var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
-            $('#datepicker').val(today);
-            $('#datepicker2').val(today);
+            // 代入時間
+            var _time = window.localStorage.getItem("page2_time");
+            console.log("won test 2 ==> _time("+_time+")");
+            $('#datepicker').val(_time);
+            $('#datepicker2').val(_time);
 
             if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
 
@@ -265,15 +261,11 @@
                 var f2 = window.localStorage.getItem("f2");
                 var f3 = window.localStorage.getItem("f3");
                 var f4 = window.localStorage.getItem("f4");
-                window.localStorage.setItem("f1", "");
-                window.localStorage.setItem("f2", "");
-                window.localStorage.setItem("f3", "");
-                window.localStorage.setItem("f4", "");
 
                 // 自動代入下車地點
                 if(f1 != null && f1 != "null" && f1 != "") {
 
-                    $('#destination').val(f1).focus();
+                    $('#order_destination').val(f1).focus();
                 }
 
                 // 自動代入備註
@@ -311,19 +303,17 @@
                 // 上下車地址
                 var _address = window.localStorage.getItem("page2_address");
                 var _destination = window.localStorage.getItem("page2_destination");
-                window.localStorage.setItem("page2_address", "");
-                window.localStorage.setItem("page2_destination", "");
-                
+                console.log("won test 2 ==> _address("+_address+") _destination("+_destination+")");
                 // 自動代入下車地點
                 if(_address != null && _address != "null" && _address != "") {
 
-                    $('#address').val(_address).focus();
+                    $('#order_address').val(_address).focus();
                 }
                 
                 // 自動代入下車地點
                 if(_destination != null && _destination != "null" && _destination != "") {
 
-                    $('#destination').val(_destination).focus();
+                    $('#order_destination').val(_destination).focus();
                 }
             }
 
@@ -339,6 +329,7 @@
                 $('#email').val(my_email).focus();
             }
 
+            /*
             var latlng = window.localStorage.getItem("center");
             // 依經緯度查地址
             $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -350,10 +341,11 @@
 
                     if(data.status != "ZERO_RESULTS") {
                         var formatted_address = data.results[0].formatted_address;
-                        $("#address").val(formatted_address).focus();
+                        $("#order_address").val(formatted_address).focus();
                     }
         		}
             );
+            */
 
             $('#ck_1_span').click(function() {
 
@@ -380,8 +372,8 @@
                     return;
                 }
 
-                var _address = $('#address').val();             // 上車地址
-                var _destination = $('#destination').val();     // 下車地址
+                var _address = $('#order_address').val();             // 上車地址
+                var _destination = $('#order_destination').val();     // 下車地址
                 if(_address.length <= 0 || _destination.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
@@ -392,11 +384,6 @@
                     });
                     return false;
                 }
-                
-                window.localStorage.setItem("page2_address", _address);
-                window.localStorage.setItem("page2_destination", _destination);
-                //page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
-
                
                 var _datepicker = $('#datepicker').val();        // 出發日期
                 if(_datepicker.length <= 0) {
@@ -477,8 +464,8 @@
                     return false;
                 }
 
-                var address = $('#address').val();				            // 上車地點
-                var destination = $('#destination').val();		            // 下車地點
+                var address = $('#order_address').val();				    // 上車地點
+                var destination = $('#order_destination').val();		    // 下車地點
                 var startDate = $('#datepicker').val();			            // 出發日期
                 var note = $('#note').val();						        // 備註
                 var purpose = $('#purpose_destination').val();              // 共乘目的
@@ -709,10 +696,18 @@
                     			"subject": subject,
                                 "body": body
                     		}
-                    	); 
+                    	);
+                        
+                        // 清除暫存資訊
+                        window.localStorage.setItem("f1", "");
+                        window.localStorage.setItem("f2", "");
+                        window.localStorage.setItem("f3", "");
+                        window.localStorage.setItem("f4", "");
+                        window.localStorage.setItem("page2_address", "");
+                        window.localStorage.setItem("page2_destination", "");
                         
                         // 跳至完成刊登頁
-                        homeNavigator.pushPage("page2_success.html", {animation: 'slide'});    
+                        page2Navigator.pushPage("page2_success.html", {animation: 'slide'});    
             		});
                 });
 
@@ -832,7 +827,7 @@
         var results = SpinningWheel.getSelectedValues();
         console.log("SpinningWheel results(" + results.values.join(':') + ")");
 
-        $("#airport_destination").val(results.values.join(':'));
+        $("#order_airport_destination").val(results.values.join(':'));
     }
 
     // 共乘目的

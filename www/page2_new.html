@@ -118,7 +118,7 @@
                         </section>
 
                         <section style="padding: 4px 16px;">
-                            <input id="datepicker2" type="datetime-local" style="width:100%">
+                            <input id="new_datepicker2" type="datetime-local" style="width:100%">
                         </section>
 
                         <section style="padding: 4px 16px" class="radio_box">
@@ -137,17 +137,17 @@
                         </section>
                         
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="address" onClick="addressClick()" placeholder="請定位上車地址" type="text" ng-model="address" class="text-input2" required>
+                            <input id="new_address" onClick="addressClick()" placeholder="請定位上車地址" type="text" ng-model="new_address" class="text-input2" required>
                             <input value="上車記錄" onClick="addressRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
                         
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="destination" onClick="destinationClick()" placeholder="請定位下車地址" type="text" ng-model="destination" class="text-input2" required>
+                            <input id="new_destination" onClick="destinationClick()" placeholder="請定位下車地址" type="text" ng-model="new_destination" class="text-input2" required>
                             <input value="下車記錄" onClick="destinationRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
                         
                         <section style="padding: 4px 16px;">
-                            <input id="datepicker" type="datetime-local" style="width:100%">
+                            <input id="new_datepicker" type="datetime-local" style="width:100%">
                         </section>
                         
                         <section style="padding: 24px 16px" class="radio_box">                
@@ -200,8 +200,8 @@
             _m = (_m<10?'0':'') + _m;
             var _d = (now.getDate()<10?'0':'') + now.getDate();
             var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
-            $('#datepicker').val(today);
-            $('#datepicker2').val(today);
+            $('#new_datepicker').val(today);
+            $('#new_datepicker2').val(today);
 
             if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
 
@@ -221,7 +221,7 @@
                 // 自動代入下車地點
                 if(f1 != null && f1 != "null" && f1 != "") {
 
-                    $('#destination').val(f1).focus();
+                    $('#new_destination').val(f1).focus();
                 }
 
                 // 自動代入備註
@@ -256,8 +256,8 @@
                     var _m = (now.getMonth()<10?'0':'') + now.getMonth();
                     var _d = (now.getDate()<10?'0':'') + now.getDate();
                     var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
-                    $('#datepicker').val(today);
-                    $('#datepicker2').val(today);
+                    $('#new_datepicker').val(today);
+                    $('#new_datepicker2').val(today);
                 }
             }
 
@@ -284,7 +284,7 @@
 
                     if(data.status != "ZERO_RESULTS") {
                         var formatted_address = data.results[0].formatted_address;
-                        $("#address").val(formatted_address).focus();
+                        $("#new_address").val(formatted_address).focus();
                     }
         		}
             );
@@ -314,8 +314,8 @@
                     return;
                 }
 
-                var _address = $('#address').val();             // 上車地址
-                var _destination = $('#destination').val();     // 下車地址
+                var _address = $('#new_address').val();             // 上車地址
+                var _destination = $('#new_destination').val();     // 下車地址
                 if(_address.length <= 0 || _destination.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
@@ -327,6 +327,11 @@
                     return false;
                 }
                 
+                
+                var _time = $('#new_datepicker').val();
+                console.log("won test 1 ==> _time("+_time+")");
+                
+                window.localStorage.setItem("page2_time", _time);
                 window.localStorage.setItem("page2_address", _address);
                 window.localStorage.setItem("page2_destination", _destination);
                 page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
