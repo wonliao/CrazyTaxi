@@ -175,6 +175,10 @@
                             <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
                         </section>
                         
+                        <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                            <input type="text" class="text-input" ng-model="purpose_other" placeholder="請輸入您的共乘目的" id="purpose_other" style="display:none;">
+                        </section>
+                        
                         <div style="clear:both; height:5px"></div>
             
                         <section style="padding: 4px 16px" class="radio_box">
@@ -216,11 +220,12 @@
 
         setTimeout(function() {
 
+            // test
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
-
-            // test
-            $("#destination").val("台北市松山區慶城街18號");
+            //$("#destination").val("台北市松山區慶城街18號");
+            //window.localStorage.setItem("f1", "台北市松山區慶城街18號");
+            window.localStorage.setItem("f4", "球賽共乘");
             
             HoldOn.close();
             $("#event_div").hide();
@@ -264,10 +269,6 @@
                 window.localStorage.setItem("f2", "");
                 window.localStorage.setItem("f3", "");
                 window.localStorage.setItem("f4", "");
-                //console.log("won test f1 =>" + f1);
-                //console.log("won test f2 =>" + f2);
-                //console.log("won test f3 =>" + f3);
-                //console.log("won test f4 =>" + f4);
 
                 // 自動代入下車地點
                 if(f1 != null && f1 != "null" && f1 != "") {
@@ -283,13 +284,8 @@
 
                 // 自動代入共乘目的
                 if(f4 != null && f4 != "") {
-
-                    if(f4 =="球賽共乘") {
-                        $("#purpose_games_radiio").prop("checked", true)
-                    } else {
-                        $("#purpose_other_radiio").prop("checked", true)
-                        $('#purpose_other').val(f4).focus();
-                    }
+                    
+                    $("#purpose_destination").val(f4);
                 }            
 
                 // 自動代入共乘時間
@@ -309,6 +305,25 @@
                     var today = now.getFullYear() + '-' + _m + '-' + _d + 'T' +  hours + ':' + minutes + ":00";
                     $('#datepicker').val(today);
                     $('#datepicker2').val(today);
+                }
+            } else {
+
+                // 上下車地址
+                var _address = window.localStorage.getItem("page2_address");
+                var _destination = window.localStorage.getItem("page2_destination");
+                window.localStorage.setItem("page2_address", "");
+                window.localStorage.setItem("page2_destination", "");
+                
+                // 自動代入下車地點
+                if(_address != null && _address != "null" && _address != "") {
+
+                    $('#address').val(_address).focus();
+                }
+                
+                // 自動代入下車地點
+                if(_destination != null && _destination != "null" && _destination != "") {
+
+                    $('#destination').val(_destination).focus();
                 }
             }
 
@@ -440,11 +455,9 @@
                 
 
                 var ck_1 = $('input[name=ck_1]:checked');
-                //var ck_2 = $('input[name=ck_2]:checked');
-                var ck_3 = $('input[name=purpose]:checked');
-                ck_3 = "通勤";
-                //console.log("ck_3("+ck_3.length+")");
-                if(ck_3.length <= 0) {
+                var ck_3 = $("#purpose_destination").val();
+
+                if(ck_3 == "") {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                         $('#alertDialogTitle').html("資訊不完整");
@@ -468,17 +481,27 @@
                 var destination = $('#destination').val();		            // 下車地點
                 var startDate = $('#datepicker').val();			            // 出發日期
                 var note = $('#note').val();						        // 備註
-                var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
-                console.log("won test ==> purpose("+purpose+")");
+                var purpose = $('#purpose_destination').val();              // 共乘目的
+                //console.log("won test ==> purpose("+purpose+")");
                 
                 if(purpose == "其他") {
 
                     var purpose_other = $("#purpose_other").val();
                     if(purpose_other != "") {
+                        
                         purpose = purpose_other;
+                    } else {
+
+                        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                            $('#alertDialogTitle').html("資訊不完整");
+                            $('#alertDialogText').html('請輸入您的共乘目的');
+                            $("#dialog_btn").attr("onclick","closeDialog()");
+                            alertDialog.show();
+                        });
+                        return false;
                     }
                 }
-                
                 
                 $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
             		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
@@ -503,8 +526,6 @@
         				name: destination,		// 下車地點
                         latitude: "",
                         longitude: ""
-        				//latitude: data.results[0].geometry.location.lat,
-        				//longitude: data.results[0].geometry.location.lng,
         			};
                     
                     if(data2.results[0]) {
@@ -512,7 +533,6 @@
                         area.d_latitude = data2.results[0].geometry.location.lat;
                         area.d_longitude = data2.results[0].geometry.location.lng;
                     }
-                    
                  
             		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
             			key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
@@ -536,7 +556,6 @@
                             area.latitude = data.results[0].geometry.location.lat;
                             area.longitude = data.results[0].geometry.location.lng;
                         }
-                        
                         
             			//get address, city and state
             			for (var i = 0; i < data.results[0].address_components.length; i++) {
@@ -591,7 +610,6 @@
                         var now_d = new Date();
                         if(now_d.getTime() > d.getTime()) {
                             
-                            //console.log("test 1");
                             ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
                                 $("#datepicker").css("border-color", "#F00");
@@ -609,7 +627,6 @@
                             $("#datepicker").css("border-color", "#AAA");
                             $("#timepicker").css("border-color", "#AAA");
                         }
-                        //console.log("test 2");
                         
                         // 預約時間
                         area.appointment = d.getTime();
@@ -640,17 +657,7 @@
     
                         var _latlng = area.latitude + "," + area.longitude;
                         window.localStorage.setItem("marker_center", _latlng);
-    
-                        
-                        // fb player 
-                        //var fb_player = {name: ""};
-                        //fb_player.name = window.localStorage.getItem("facebook_name");
-                        //fb_player.enable = true;
-                        //fb_player.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() );        // 排序用
-                        //var player_updates = {};
-                        //player_updates['/players/' + window.localStorage.getItem("facebook_id")] = fb_player;
-                		//firebase.database().ref().update(player_updates);
-                        
+
             			//clean up form
             			$('form#add').trigger('reset');
     
@@ -660,7 +667,6 @@
                         ga('send', 'event', '刊登共乘頁', '出發時間', start_time_txt);
                         ga('send', 'event', '刊登共乘頁', '共乘目的', area.purpose);
      
-    
                         var to = area.email;
                 		var subject = "刊登成功通知！- go2gether大車隊共乘";
             			var body = area.fb_name + " 小姐/先生<br><br>";
@@ -848,9 +854,16 @@
     function purposeDone() {
 
         var results = SpinningWheel.getSelectedValues();
-        console.log("SpinningWheel results(" + results.values.join(':') + ")");
+        var result_string = results.values.join(':');
+        console.log("SpinningWheel results(" + result_string + ")");
 
-        $("#purpose_destination").val(results.values.join(':'));
+        $("#purpose_destination").val(result_string);
+        
+        if(result_string == "其他") {
+            $('#purpose_other').show();   
+        } else {
+            $('#purpose_other').hide();
+        }
     }
 </script>
 
