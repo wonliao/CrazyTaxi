@@ -59,7 +59,16 @@
         line-height: 23px;
         width: 83px;
         margin: 0;
+        padding:0;
         float: right;
+    }
+    
+    .left_btn {
+        height: 30px;
+        line-height: 23px;
+        width: 83px;
+        margin: 0;
+        padding:0;
     }
 
     input[type="text"] {
@@ -113,7 +122,7 @@
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="airport_destination" placeholder="請輸入下車地址" type="text" class="text-input2" ng-model="destination" required>
+                            <input id="airport_destination" placeholder="桃園機場第一航廈" type="text" class="text-input2" ng-model="destination" required>
                             <input type="button" onclick="openAirportSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
                         </section>
 
@@ -131,9 +140,9 @@
                 
                 <!-- 一般共乘 begin -->
                 <div id="normal" class="tab-pane fade in active">
-                    <form id="page2_form">
+                    <form id="page2_order_form">
                         <section style="padding: 8px 16px 4px 16px">
-                            <div>設定共乘條件</div>
+                            <div style="text-align:center;">設定共乘條件</div>
                         </section>
                         
                         <section style="padding: 4px 16px; height: 38px;">
@@ -150,15 +159,54 @@
                             <input id="datepicker" type="datetime-local" style="width:100%">
                         </section>
                         
-                        <section style="padding: 24px 16px" class="radio_box">                
-                            <input type="submit" value="搜尋" class="btn btn-default submit_btn">
+                        <hr>
+                        
+                        <section style="padding: 0px 16px 4px 16px">
+                            <div style="text-align:center;">聯繫/備註</div>
                         </section>
-            		</form>
+                        
+                        <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                            <input value="0921960028" type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
+                            <input value="wonliao1117@gmail.com" type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
+                        </section>
+                        
+                        <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                            <input id="purpose_destination" type="button" onclick="openPurposeSlot()" value="請選擇共乘目的" class="btn btn-default submit_btn left_btn" style="width:49%; float:left; margin-right:1%;">
+                            <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
+                        </section>
+                        
+                        <div style="clear:both; height:5px"></div>
+            
+                        <section style="padding: 4px 16px" class="radio_box">
+                            <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
+                        </section>
+                        
+                        <section style="padding:16px" class="radio_box">                
+                            <input type="submit" value="確定" class="btn btn-default submit_btn">
+                        </section>
+                	</form>
                 </div>
                 <!-- 一般共乘 end -->
                 
             </div>
         </div>
+        
+        
+        <ons-template id="alert-dialog.html">
+            <ons-alert-dialog var="alertDialog">
+                <div class="alert-dialog-title">
+                    <strong style="color: #ff3333" id="alertDialogTitle">定位失敗!</strong>    
+                </div>
+                <div class="alert-dialog-content">
+                    <span id="alertDialogText">請確定已開啟GPS功能，並重新嘗試。</span>
+                </div>
+                <div class="alert-dialog-footer">
+                    <button id="dialog_btn" class="alert-dialog-button" onClick="location.reload()">OK</button>
+                </div>
+            </ons-alert-dialog>
+        </ons-template>
+        
+        
     </ons-page>
 </ons-navigator>
 
@@ -168,9 +216,12 @@
 
         setTimeout(function() {
 
-            //window.localStorage.setItem("facebook_id", "1389354124412945");
-            //window.localStorage.setItem("facebook_name", "廖志旺");
+            window.localStorage.setItem("facebook_id", "1389354124412945");
+            window.localStorage.setItem("facebook_name", "廖志旺");
 
+            // test
+            $("#destination").val("台北市松山區慶城街18號");
+            
             HoldOn.close();
             $("#event_div").hide();
             $("#download-btn").hide();
@@ -179,7 +230,7 @@
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
 
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-
+                    
                     $('#alertDialogTitle').html("提示");
                     $('#alertDialogText').html("請先登入您的Facebook帳號");
                     $(".alert-dialog-button").attr("onclick","needLogin()");
@@ -297,12 +348,12 @@
             });
 
             isFirstTime = true;
-            $('#page2_form').on('submit', function() {
+            $('#page2_order_form').on('submit', function() {
 
-                console.log("won test ==> page2_form submit");
+                console.log("won test ==> page2_order_form submit facebook_id("+window.localStorage.getItem("facebook_id")+")");
                 
                 if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-
+                    console.log("won test2 ==>");
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                         $('#alertDialogTitle').html("提示");
@@ -329,8 +380,8 @@
                 
                 window.localStorage.setItem("page2_address", _address);
                 window.localStorage.setItem("page2_destination", _destination);
-                page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
-/*
+                //page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
+
                
                 var _datepicker = $('#datepicker').val();        // 出發日期
                 if(_datepicker.length <= 0) {
@@ -343,7 +394,7 @@
                     });
                     return false;
                 }
-                
+
                 var phones = $('#phones').val();        // 手機號碼
                 var email = $('#email').val();          // 電子信箱
                 if(phones.length <= 0 && email.length <= 0) {
@@ -391,6 +442,7 @@
                 var ck_1 = $('input[name=ck_1]:checked');
                 //var ck_2 = $('input[name=ck_2]:checked');
                 var ck_3 = $('input[name=purpose]:checked');
+                ck_3 = "通勤";
                 //console.log("ck_3("+ck_3.length+")");
                 if(ck_3.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -417,7 +469,8 @@
                 var startDate = $('#datepicker').val();			            // 出發日期
                 var note = $('#note').val();						        // 備註
                 var purpose = $("input[name='purpose']:checked").val();     // 共乘目的
-
+                console.log("won test ==> purpose("+purpose+")");
+                
                 if(purpose == "其他") {
 
                     var purpose_other = $("#purpose_other").val();
@@ -425,7 +478,8 @@
                         purpose = purpose_other;
                     }
                 }
-
+                
+                
                 $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
             		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
         			address: destination	// 下車地點
@@ -655,7 +709,7 @@
                         homeNavigator.pushPage("page2_success.html", {animation: 'slide'});    
             		});
                 });
-*/
+
                 return false;
             });
         }, 10);
@@ -744,7 +798,11 @@
         homeNavigator.pushPage("record.html", {animation: 'slide'});
     }
 
-    // 機場共乘
+    function cancel() {
+        console.log("SpinningWheel Cancel")
+    }
+
+    // 機場選擇器
     function openAirportSlot() {
 
         var airports = {};
@@ -763,10 +821,6 @@
         SpinningWheel.open();
     }
 
-    function cancel() {
-        console.log("SpinningWheel Cancel")
-    }
-
     function airportDone() {
 
         var results = SpinningWheel.getSelectedValues();
@@ -775,7 +829,29 @@
         $("#airport_destination").val(results.values.join(':'));
     }
 
+    // 共乘目的
+    function openPurposeSlot() {
 
+        var purposes = {};
+        purposes[0] = "球賽共乘";
+        purposes[1] = "通勤";
+        purposes[2] = "認識朋友";
+        purposes[4] = "其他";
+
+        if(SpinningWheel.isExist())    SpinningWheel.destroy();
+        SpinningWheel.addSlot(purposes, 'center', 1);
+        SpinningWheel.setCancelAction(cancel);
+        SpinningWheel.setDoneAction(purposeDone);
+        SpinningWheel.open();
+    }
+
+    function purposeDone() {
+
+        var results = SpinningWheel.getSelectedValues();
+        console.log("SpinningWheel results(" + results.values.join(':') + ")");
+
+        $("#purpose_destination").val(results.values.join(':'));
+    }
 </script>
 
 <script>

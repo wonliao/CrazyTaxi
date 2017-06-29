@@ -27,6 +27,22 @@
 }
 </style>
 
+<ons-page style="background:#fff;">
+
+    <ons-toolbar fixed-style>
+        <div class="left" style="line-height: 44px;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center">
+            <img src="images/go2gether.png" style="height:32px;"/>
+        </div>
+        <div class="right" style="line-height: 44px">
+            <ons-toolbar-button ng-click="menu.toggleMenu()">
+                <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+    		</ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+<!--
 <ons-navigator title="Navigator">
     <ons-page>
         <ons-toolbar fixed-style>
@@ -42,6 +58,7 @@
         		</ons-toolbar-button>
             </div>
         </ons-toolbar>
+        -->
 
         <div id="map"></div>
 
@@ -64,9 +81,9 @@
             </div>
         </ons-alert-dialog>
     </ons-template>
-
+<!--
 </ons-navigator>
-
+-->
 <script>
 
 var map;
@@ -174,7 +191,7 @@ function CenterControl(controlDiv, map, position) {
 function getPos() {
 
     var latlng = window.localStorage.getItem("start_center");
-    console.log("latlng("+latlng+")");
+    //console.log("latlng("+latlng+")");
     
     // 依經緯度查地址
     $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -184,7 +201,7 @@ function getPos() {
         result_type: "street_address"
     }, function(data) {
 
-        console.log(data);
+        //console.log(data);
 
         if(data.results.length <= 0) {
          
@@ -197,13 +214,18 @@ function getPos() {
         }
 
         var formatted_address = data.results[0].formatted_address;
-        console.log("formatted_address("+formatted_address+")");
+        //console.log("formatted_address("+formatted_address+")");
 
         var select_map = window.localStorage.getItem("select_map");
-        if(select_map == "address")     $("#address").val(formatted_address).focus();
-        else                            $("#destination").val(formatted_address).focus();
-        
-        homeNavigator.popPage();
+        if(select_map == "address") {
+            $("#address").val(formatted_address).focus();
+            window.localStorage.setItem("address_latlng", latlng);
+        } else {
+            $("#destination").val(formatted_address).focus();
+            window.localStorage.setItem("destination_latlng", latlng);
+        }
+
+        page2Navigator.popPage();
     });
 }
 

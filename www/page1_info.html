@@ -72,7 +72,7 @@
             <div id="note_div" style="color:#6b6b6b;"></div>
         </section>
         
-        <form id="add">
+        <form id="page1_info_form">
             <section style="padding: 4px 16px" class="radio_box">
                 <input type="checkbox" name="ck_1" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span></span>
             </section>
@@ -84,7 +84,7 @@
             <div style="clear:both; height:10px"></div>
   
             <section style="padding: 0px 16px" class="radio_box">                
-                <input type="submit" value="聯繫對方" class="btn btn-default submit_btn">
+                <input type="submit" value="聯繫對方1" class="btn btn-default submit_btn">
             </section>
             
             <div style="clear:both; height:30px"></div>
@@ -127,7 +127,7 @@
 <script>
 
 function page1InfoClick(pageName) {
-    
+    console.log("page1InfoClick("+pageName+")");
     switch(pageName) {
     case "聯繫對方":                    contact_btn();              break;
     case "Facebook messenger 聯繫":     fb_messenger_btn();         break;
@@ -169,18 +169,10 @@ function page1InfoClick(pageName) {
                 if(ck_1.length > 0)     $('input[name=ck_1]').prop("checked", false);
                 else                    $('input[name=ck_1]').prop("checked", true);
             });
-            /*
-            $('#ck_2_span').click(function() {
-
-                var ck_2 = $('input[name=ck_2]:checked');
-                if(ck_2.length > 0)     $('input[name=ck_2]').prop("checked", false);
-                else                    $('input[name=ck_2]').prop("checked", true);
-            });
-            */
-            $('#add').submit(function(e) {
+            
+            $('#page1_info_form').submit(function(e) {
 
                 var ck_1 = $('input[name=ck_1]:checked');
-                //var ck_2 = $('input[name=ck_2]:checked');
                 if(ck_1.length <= 0) {
                    
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -190,16 +182,7 @@ function page1InfoClick(pageName) {
                         alertDialog.show();
                     });
                     return false;
-                } /*else if(ck_2.length <= 0) {
-                
-                   ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-    
-                        $('#page1AlertDialogText').html('請勾選"我已詳細閱讀並同意本活動之服務條款及活動說明"');
-                        $("#dialog_btn").attr("onclick","closeDialog()");
-                        alertDialog.show();
-                    });
-                    return false;
-                }*/
+                }
 
                 page1InfoClick('聯繫對方');
                 event.preventDefault();

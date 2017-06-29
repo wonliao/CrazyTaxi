@@ -52,9 +52,18 @@
     </ons-toolbar>
         
     <div style="clear:both; height:10px"></div>
-
-    <div id="history"></div>
-        
+    
+    <div id="history">目前無符合之條件</div>
+    
+    <div style="clear:both; height:10px"></div>
+    
+    <section style="padding: 4px 16px; height: 38px; margin-bottom:20px">
+        <ons-button class='button button--large' modifier='chevron' onclick='postNewMission()' style='background:#36d0c9; border-radius:0;'>
+            <span style="font-size:18px">我要刊登新貼文</span>
+        </ons-button>
+    </section>
+    
+    
 </ons-page>
 
 <ons-template id="alert-dialog.html">
@@ -73,14 +82,27 @@
     ons.ready(function() {
         setTimeout(function() {
             
+            HoldOn.close();
             $("#event_div").hide();
             $("#download-btn").hide();
             
+            // 上下車地址
+            var _address = window.localStorage.getItem("page2_address");
+            var _destination = window.localStorage.getItem("page2_destination");
+            var _address_latlng = window.localStorage.getItem("address_latlng");
+            var _destination_latlng = window.localStorage.getItem("destination_latlng");
+            console.log("won test --> _address_latlng("+_address_latlng+")");
+            console.log("won test --> _destination_latlng("+_destination_latlng+")");
+            
             var snapshots = new Array();
             
+            var latlngs = _address_latlng.split(",");
+            console.log("won test --> latlngs[0]("+parseFloat(latlngs[0])+")");
+            console.log("won test --> latlngs[1]("+parseFloat(latlngs[1])+")");
+            
             var geoQuery = geoFire.query({
-                center: [25.0483944,121.5392712],
-                radius: 30 // 單位公里
+                center: [24.7989294, 120.9597555],//[parseFloat(latlngs[0]), parseFloat(latlngs[1])],
+                radius: 1 // 單位公里
             });
 
             geoQuery.on('key_entered', function(key, location, distance) {
@@ -111,6 +133,7 @@
                     return a[0] - b[0];
                 });
                 
+                $('#history').empty();
                 for(var i=0; i<snapshots.length; i++) {
                     
                     //var d1 = snapshots[i][0];
@@ -156,6 +179,9 @@
         page2Navigator.pushPage("page1_info.html", {animation: 'slide'});
     }
 
+    function postNewMission() {
+        page2Navigator.pushPage("page2_new.html", {animation: 'slide'});
+    }
 
 
 </script>
