@@ -220,9 +220,12 @@ function getPos() {
         if(select_map == "address") {
             $("#new_address").val(formatted_address).focus();
             window.localStorage.setItem("address_latlng", latlng);
-        } else {
+        } else if(select_map == "destination") {
             $("#new_destination").val(formatted_address).focus();
             window.localStorage.setItem("destination_latlng", latlng);
+        } else if(select_map == "airport_address") {
+            $("#new_airport_address").val(formatted_address).focus();
+            window.localStorage.setItem("address_latlng", latlng);
         }
 
         page2Navigator.popPage();

@@ -102,18 +102,18 @@
             
                 <!-- 機場共乘 begin -->
                 <div id="airport" class="tab-pane fade">
-                    <form id="airport_add" action="#">
+                    <form id="page2_aiport_form" action="#">
                         <section style="padding: 8px 16px 4px 16px">
                             <div style="text-align:center;">地點/時間</div>
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="airport_address" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="address" required>
-                            <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
+                            <input id="new_airport_address" onClick="airportAddressClick()" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="address" required>
+                            <input value="上車記錄" onClick="airportAddressRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="airport_destination" placeholder="請輸入下車地址" type="text" class="text-input2" ng-model="destination" required>
+                            <input id="new_airport_destination" value="桃園機場第一航廈" type="text" class="text-input2" ng-model="destination" required>
                             <input type="button" onclick="openAirportSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
                         </section>
 
@@ -170,10 +170,12 @@
 
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
-
+        
             HoldOn.close();
             $("#event_div").hide();
             $("#download-btn").hide();
+
+            $("#new_airport_destination").val("桃園機場第一航廈");
 
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
@@ -285,6 +287,7 @@
                     if(data.status != "ZERO_RESULTS") {
                         var formatted_address = data.results[0].formatted_address;
                         $("#new_address").val(formatted_address).focus();
+                        $("#new_airport_address").val(formatted_address).focus();
                     }
         		}
             );
@@ -296,9 +299,26 @@
                 else                    $('input[name=ck_1]').prop("checked", true);
             });
 
-            isFirstTime = true;
             $('#page2_form').on('submit', function() {
 
+                var _address = $('#new_address').val();             // 上車地址
+                var _destination = $('#new_destination').val();     // 下車地址
+                var _time = $('#new_datepicker').val();             // 時間
+                
+                page2Submit(_address, _destination, _time);
+            });
+            
+            $('#page2_aiport_form').on('submit', function() {
+
+                var _address = $('#new_airport_address').val();             // 上車地址
+                var _destination = $('#new_airport_destination').val();     // 下車地址
+                var _time = $('#new_datepicker2').val();                    // 時間
+                
+                page2Submit(_address, _destination, _time);
+            });
+            
+            function page2Submit(_address, _destination, _time) {
+             
                 console.log("won test ==> page2_form submit");
                 
                 if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
@@ -313,9 +333,7 @@
 
                     return;
                 }
-
-                var _address = $('#new_address').val();             // 上車地址
-                var _destination = $('#new_destination').val();     // 下車地址
+                
                 if(_address.length <= 0 || _destination.length <= 0) {
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
@@ -327,17 +345,13 @@
                     return false;
                 }
                 
-                
-                var _time = $('#new_datepicker').val();
-                console.log("won test 1 ==> _time("+_time+")");
-                
                 window.localStorage.setItem("page2_time", _time);
                 window.localStorage.setItem("page2_address", _address);
                 window.localStorage.setItem("page2_destination", _destination);
                 page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
-
-                //return false;
-            });
+            }
+            
+            
         }, 10);
     });
 
@@ -407,11 +421,27 @@
         page2Navigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
+    function airportAddressClick() {
+        
+        console.log("airport addressClick");
+        
+        window.localStorage.setItem("select_map", "airport_address");
+        page2Navigator.pushPage("select_map.html", {animation: 'slide'});
+    }
+    
     function addressRecordClick() {
         
         console.log("won test ==> addressRecordClick");
         
         window.localStorage.setItem("select_map", "address");
+        page2Navigator.pushPage("page2_record.html", {animation: 'slide'});
+    }
+    
+    function airportAddressRecordClick() {
+        
+        console.log("won test ==> airportAddressRecordClick");
+        
+        window.localStorage.setItem("select_map", "airport_address");
         page2Navigator.pushPage("page2_record.html", {animation: 'slide'});
     }
     
@@ -456,7 +486,7 @@
         var results = SpinningWheel.getSelectedValues();
         console.log("SpinningWheel results(" + results.values.join(':') + ")");
 
-        $("#airport_destination").val(results.values.join(':'));
+        $("#new_airport_destination").val(results.values.join(':'));
     }
 
 
