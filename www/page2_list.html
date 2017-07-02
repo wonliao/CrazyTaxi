@@ -62,8 +62,6 @@
             <span style="font-size:18px">我要刊登新貼文</span>
         </ons-button>
     </section>
-    
-    
 </ons-page>
 
 <ons-template id="alert-dialog.html">
@@ -89,18 +87,16 @@
             var _destination = window.localStorage.getItem("page2_destination");
             var _address_latlng = window.localStorage.getItem("address_latlng");
             var _destination_latlng = window.localStorage.getItem("destination_latlng");
-            console.log("won test --> _address_latlng("+_address_latlng+")");
-            console.log("won test --> _destination_latlng("+_destination_latlng+")");
+            //console.log("won test --> _address_latlng("+_address_latlng+")");
+            //console.log("won test --> _destination_latlng("+_destination_latlng+")");
             
             var snapshots = new Array();
+            var snapshots2 = new Array();
             
             var latlngs = _address_latlng.split(",");
-            console.log("won test --> latlngs[0]("+parseFloat(latlngs[0])+")");
-            console.log("won test --> latlngs[1]("+parseFloat(latlngs[1])+")");
-            
             var geoQuery = geoFire.query({
-                center: [24.7989294, 120.9597555],//[parseFloat(latlngs[0]), parseFloat(latlngs[1])],
-                radius: 1 // 單位公里
+                center: [parseFloat(latlngs[0]), parseFloat(latlngs[1])],
+                radius: 10 // 單位公里
             });
 
             geoQuery.on('key_entered', function(key, location, distance) {
@@ -109,11 +105,9 @@
                     
                     // 時間
                     var d1 = new Date(snapshot.val().appointment);
-                    
                     var temp = new Array(2);
                     temp[0] = d1;
                     temp[1] = snapshot;
-                    
                     snapshots.push(temp);
                     
                     if (t === undefined || t === null) {
@@ -126,22 +120,82 @@
             });   
             
             function next() {
-
-                snapshots = snapshots.sort(function(a,b) {
-                    return a[0] - b[0];
+            
+                clearTimeout(t);
+                console.log("won test ==> t("+t+")");
+                
+                var latlngs = _destination_latlng.split(",");
+                //console.log("won test2 --> latlngs[0]("+parseFloat(latlngs[0])+")");
+                //console.log("won test2 --> latlngs[1]("+parseFloat(latlngs[1])+")");
+            
+                var geoQuery = geoFire.query({
+                    center: [parseFloat(latlngs[0]), parseFloat(latlngs[1])],
+                    radius: 10 // 單位公里
                 });
                 
-                $('#search_list').empty();
+                geoQuery.on('key_entered', function(key, location, distance) {
+                    console.log("won test 1 ==> key_entered");
+                    areas.child(key).once('value', function(snapshot) {
+                        console.log("won test 2 ==> key_entered");
+                        // 時間
+                        var d1 = new Date(snapshot.val().appointment);
+                        
+                        var temp = new Array(2);
+                        temp[0] = d1;
+                        temp[1] = snapshot;
+                        
+                        snapshots2.push(temp);
+                        
+                        if (t === undefined || t === null) {
+    
+                        } else {
+                            clearTimeout(t);
+                        }
+                        t = setTimeout(function(){ next2(); }, 100);
+                    });
+                }); 
+            }
+            
+            
+            function next2() {
+
+                if(snapshots.length > 0) {
+
+                    snapshots = snapshots.sort(function(a,b) {
+                        return a[0] - b[0];
+                    });
+                }
+                
+                if(snapshots2.length > 0) {
+                
+                    snapshots2 = snapshots2.sort(function(a,b) {
+                        return a[0] - b[0];
+                    });
+                }
+                
+                var snapshots3 = new Array();
                 for(var i=0; i<snapshots.length; i++) {
-                    
-                    //var d1 = snapshots[i][0];
-                    //var time_text = getTimeStr(d1); //d1.toLocaleString();
-                    //console.log("won test 2 ==> time_text("+time_text+")");
-                    
-                    
+                 
                     var snapshot = snapshots[i][1];
+                    var key1 = snapshot.key;
+                    
+                    for(var j=0; j<snapshots2.length; j++) {
+                        
+                        var snapshot2 = snapshots2[j][1];
+                        var key2 = snapshot2.key;
+                        if(key1 == key2) {
+                            
+                            snapshots3.push(snapshot2);
+                            continue;
+                        }
+                    }
+                }
+                
+                $('#search_list').empty();
+                for(var i=0; i<snapshots3.length; i++) {
+                    
+                    var snapshot = snapshots3[i];
                     var key = snapshot.key;
-                    //console.log("key("+snapshot.key+")");
     
                     // 時間
                     var d1 = new Date(snapshot.val().appointment);
@@ -185,13 +239,11 @@
 </script>
 
 <script>
-/*
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
   ga('create', 'UA-84401162-1', 'auto');
-  ga('send', 'pageview', '共乘條件頁');
-*/
+  ga('send', 'pageview', '刊登共乘頁-搜尋列表');
 </script>
