@@ -98,8 +98,8 @@
 
         <div class="container">
             <ul class="nav nav-tabs">
-                <li style="width:50%;"><a id="airport_btn" data-toggle="tab" href="#airport">機場共乘</a></li>
-                <li class="active"style="width:50%;"><a id="normal_btn" data-toggle="tab" href="#normal">一般共乘</a></li>
+                <li id="airport_tab" style="width:50%;"><a id="airport_btn" data-toggle="tab" href="#airport">機場共乘</a></li>
+                <li id="normal_tab" class="active" style="width:50%;"><a id="normal_btn" data-toggle="tab" href="#normal">一般共乘</a></li>
             </ul>
         
             <div class="tab-content">
@@ -134,7 +134,7 @@
                 
                 
                 <!-- 一般共乘 begin -->
-                <div id="normal" class="tab-pane fade in active">
+                <div id="normal" class="tab-pane fade active in">
                     <form id="page2_form">
                         <section style="padding: 8px 16px 4px 16px">
                             <div>設定共乘條件</div>
@@ -236,12 +236,22 @@
 
                 // 自動代入共乘目的
                 if(f4 != null && f4 != "") {
-
+                    /*
                     if(f4 =="球賽共乘") {
                         $("#purpose_games_radiio").prop("checked", true)
                     } else {
                         $("#purpose_other_radiio").prop("checked", true)
                         $('#purpose_other').val(f4).focus();
+                    }
+                    */
+                    
+                    if(f4 =="機場共乘") {
+
+                        $("#normal_tab").removeClass("active");
+                        $("#airport_tab").addClass("active");
+
+                        $("#normal").removeClass("active").removeClass("in");
+                        $("#airport").addClass("active").addClass("in");
                     }
                 }            
 
