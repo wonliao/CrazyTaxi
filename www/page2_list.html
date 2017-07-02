@@ -82,9 +82,7 @@
     ons.ready(function() {
         setTimeout(function() {
             
-            HoldOn.close();
-            $("#event_div").hide();
-            $("#download-btn").hide();
+            hideFloatIcon();
             
             // 上下車地址
             var _address = window.localStorage.getItem("page2_address");

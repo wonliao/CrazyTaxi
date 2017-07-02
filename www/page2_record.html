@@ -88,9 +88,7 @@
     ons.ready(function() {
         setTimeout(function() {
             
-            HoldOn.close();
-            $("#event_div").hide();
-            $("#download-btn").hide();
+            hideFloatIcon();
             
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {

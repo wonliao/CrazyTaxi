@@ -222,6 +222,7 @@ function showFloatIcon() {
 
 function hideFloatIcon() {
     
+    HoldOn.close();
     $("#event_div").hide();
     $("#download-btn").hide();
 }

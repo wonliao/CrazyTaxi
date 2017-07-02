@@ -228,9 +228,7 @@
             //window.localStorage.setItem("f1", "台北市松山區慶城街18號");
             //window.localStorage.setItem("f4", "球賽共乘");
             
-            HoldOn.close();
-            $("#event_div").hide();
-            $("#download-btn").hide();
+            hideFloatIcon();
 
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {

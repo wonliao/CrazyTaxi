@@ -181,7 +181,7 @@ ons-icon {
 
 <body onbeforeunload="return onbeforeunload_Handler()">
 
-<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
+<ons-sliding-menu main-page="select_map.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
 <!-- 側邊欄 begin -->
 <ons-template id="menu.html">
@@ -222,15 +222,13 @@ ons-icon {
 </ons-template>
 <!-- 側邊欄 end -->
 
-
 <!-- 左側浮動55688按鈕 -->
-<a id="download-btn" onclick="open55688App()">
+<a id="download-btn" onclick="open55688App()" style="display:none">
     <img src="images/logo2.png" class="download-btn-img"/>
 </a>
 
 <!-- 活動專區 -->
-<div id="event_div" style="background:#FF0;"></div>
-
+<div id="event_div" style="background:#FF0;" style="display:none"></div>
 
 <script>
 /*
