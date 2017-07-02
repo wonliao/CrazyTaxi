@@ -17,7 +17,7 @@ $search = $_GET["s"];
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="js/published.js?time=1" charset="UTF-8" ></script>
+<script src="js/published.js" charset="UTF-8" ></script>
 <script src="js/jquery.paginate.js" type="text/javascript"></script>
 <script src="js/sweetalert.min.js"></script>
 
@@ -62,7 +62,7 @@ $search = $_GET["s"];
                <li style="float:right; margin-right:20px;">
                     <form action="">
                         <fieldset>
-                            <input type="text" name="s" id="s" placeholder="Search..." />
+                            <input type="text" name="s" id="s" placeholder="請輸入乘客姓名或日期(2017/07/02)" style="width:350px"/>
                             <input type="submit" id="searchSubmit" value="搜尋" />
                         </fieldset>
                     </form>
@@ -94,7 +94,9 @@ $search = $_GET["s"];
 	$(document).ready(function(e) {
 		
 		if("<?=$search?>" != "") {
-
+                      
+            $("#s").val("<?=$search?>");
+                      
 			showPublished("<?=$search?>");
 		} else {
 

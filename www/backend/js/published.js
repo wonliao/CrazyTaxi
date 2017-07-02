@@ -12,76 +12,135 @@ var geoQuery;
 
 var areas = firebase.database().ref('areas');
 
-var keys = [];
+var keys = new Array();
 
 // 建立測試資料
 //setTestData();
+
+var t;
 
 function showAllPublished() {
 
 	//areas.orderByChild('priority').once("value", function(snapshot) {
 	areas.orderByKey().once("value", function(snapshot) {
-  		
-		//console.log("count("+count+")");
-		snapshot.forEach(function(data) {
-			
-			//keys.push(data.val().priority);
-			keys.push(data.key);
-			//console.log("key("+data.key+")");
-		});
-
-		setPaginate();
+                            
+        snapshot.forEach(function(data) {
+                        
+            // 時間
+            var d1 = new Date(data.val().timestamp);
+                        
+            var temp = new Array(2);
+            temp[0] = d1;
+            temp[1] = data.key;
+                         
+            keys.push(temp);
+                        
+            if (t === undefined || t === null) {
+                        
+            } else {
+                clearTimeout(t);
+            }
+            t = setTimeout(function(){ next(); }, 100);
+        });
 	});
-	
-	setEvent();
 }
 
 function showPublished(key) {
 	
-	//console.log("player_id("+key+")");
+	console.log("won test ==> search("+key+")");
+    
+    // 尋找日期
+    if(isValidDate(key)) {
+        
+        var _t1 = new Date(key).getTime();
+        var _t2 = Math.floor(_t1) + 86400000;
+        console.log("won test ==> _t1("+_t1+") _t2("+_t2+")");
+        
+          var count = 0;
+        areas.orderByChild("timestamp").startAt(_t1).endAt(_t2).on("child_added", function(snapshot) {
+                                                                   
+                                                                    count++;
+                                                                     $("#total_div").html("共"+count+"筆");
+                                                                  
+                                                                     // 時間
+                                                                     var d1 = new Date(snapshot.val().timestamp);
+                                                                     
+                                                                     var temp = new Array(2);
+                                                                     temp[0] = d1;
+                                                                     temp[1] = snapshot.key;
+                                                                     
+                                                                     keys.push(temp);
+                                                                     
+                                                                     if (t === undefined || t === null) {
+                                                                     
+                                                                     } else {
+                                                                         clearTimeout(t);
+                                                                     }
+                                                                     t = setTimeout(function(){ next2(); }, 100);
+                                                                   
+        });
+    // 尋找使用者名稱
+    } else {
+        
+        var count = 0;
+        areas.orderByChild("fb_name").equalTo(key).on("value", function(data) {
+                                                      
+                                                data.forEach(function(snapshot) {
+                                                               
+                                                           if(snapshot.exists() == true) {
+                                                               
+                                                                   count++;
+                                                                   $("#total_div").html("共"+count+"筆");
+                                                                   
+                                                                   // 時間
+                                                                   var d1 = new Date(snapshot.val().timestamp);
+                                                                   
+                                                                   var temp = new Array(2);
+                                                                   temp[0] = d1;
+                                                                   temp[1] = snapshot.key;
+                                                                   
+                                                                   keys.push(temp);
+                                                                   
+                                                                   if (t === undefined || t === null) {
+                                                                   
+                                                                   } else {
+                                                                   clearTimeout(t);
+                                                                   }
+                                                                   t = setTimeout(function(){ next2(); }, 100);
+                                                                   }
+                                                           });
+                                                  });
+    }
+}
 
-	var count = 0;
+function next() {
+    
+    console.log("won test ==> next");
+    keys = keys.sort(function(a,b) {
+                     return b[0] - a[0];
+                     });
+    
+    setPaginate();
+    
+    setEvent();
+}
 
-	// 先尋找 key
-	areas.child(key).orderByChild('priority').on("value", function(snapshot) {
-	
-		if(snapshot.exists() == true) {
-
-			getData(snapshot);
-			count++;
-			$("#total_div").html("共"+count+"筆");
-		}
-	});
-  
-	// 再尋找使用者名稱
-	areas.orderByChild("fb_name").equalTo(key).on("value", function(data) {
-		
-		data.forEach(function(snapshot) {
-			
-			//console.log("won test 0 ==> key("+snapshot.key+") name("+snapshot.val().name+")");
-			if(snapshot.exists() == true) {
-				//console.log("won test 1 ==> enable("+snapshot.val().enable+") name("+snapshot.val().name+")");
-				getData(snapshot);
-				count++;
-				$("#total_div").html("共"+count+"筆");
-			}
-		});
-	});
-	
-	// 再尋找使用者名稱
-	areas.orderByChild("state").equalTo(key).on("value", function(data) {
-		
-		data.forEach(function(snapshot) {
-			
-			//console.log("won test 0 ==> key("+snapshot.key+") name("+snapshot.val().name+")");
-			if(snapshot.exists() == true) {
-				//console.log("won test 1 ==> enable("+snapshot.val().enable+") name("+snapshot.val().name+")");
-				getData(snapshot);
-			}
-		});
-	});
-
-  	setEvent();
+function next2() {
+    
+    console.log("won test ==> next2");
+    keys = keys.sort(function(a,b) {
+                     return b[0] - a[0];
+                     });
+    
+    for(var i=0; i<keys.length; i++) {
+        
+        var key = keys[i][1];
+        areas.child(key).once('value', function(snapshot) {
+                              getData(snapshot);
+        });
+    }
+    
+    setEvent();
 }
 
 function getData(snapshot) {
@@ -92,7 +151,7 @@ function getData(snapshot) {
 
 	// 刊登時間
 	var d2 = new Date(snapshot.val().timestamp);
-	var b_timestamp_text = d2.toLocaleString();
+    var b_timestamp_text = d2.toLocaleString();
 
 	var status = "";
 	if(snapshot.val().status == "done") {
@@ -204,8 +263,7 @@ function setEvent() {
 		//console.log("area_id("+area_id+")");
 		
 		ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-			
-			
+                                                        
 			areas.child(area_id).once("value", function(snapshot) {
 				
 				var fb_image = "https://graph.facebook.com/"+snapshot.val().fb_id+"/picture?type=normal";
@@ -321,20 +379,30 @@ function setPaginate() {
 									$('ul#areas').append(str);
 									
 									var index = (Math.floor(page) -1) * one_page_item;
-									var key = keys[index];
+									var key = keys[index][1];
 									console.log("page("+page+") index("+index+") key("+key+")");
-								  	
-									//areas.orderByChild('priority').startAt(key).limitToFirst(one_page_item).once("value", function(data) {
-									areas.orderByKey().startAt(key).limitToFirst(one_page_item).once("value", function(data) {
-
-                                        console.log("data("+data+")");
-										data.forEach(function(snapshot) {
-
-
-                                            console.log("snapshot("+snapshot+")");
-											getData(snapshot);
-									  	});
-									});
+                                  
+                                  for(var i=0; i<10; i++) {
+                                  
+                                      var _index = index + i;
+                                      var key = keys[_index][1];
+                                      areas.child(key).once('value', function(snapshot) {
+                                            getData(snapshot);
+                                      });
+                                  }
 								}
 	}).find('li').first().click();
+}
+
+function isValidDate(dateString) {
+    
+    var flag = false;
+    
+    var regEx1 = /^\d{4}-\d{2}-\d{2}$/;
+    if(dateString.match(regEx1) != null) flag = true;
+    
+    var regEx2 = /^\d{4}\/\d{2}\/\d{2}$/;
+    if(dateString.match(regEx2) != null) flag = true;
+    
+    return flag;
 }
