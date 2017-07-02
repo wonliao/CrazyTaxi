@@ -197,7 +197,7 @@
 			if(!hasTransform) {
 				div.style.position = 'absolute';
 			}
-			div.innerHTML = '<div id="sw-header"><div id="sw-cancel">Cancel</' + 'div><div id="sw-done">Done</' + 'div></' + 'div><div id="sw-slots-wrapper"><div id="sw-slots"></' + 'div></' + 'div><div id="sw-frame"></' + 'div>';
+			div.innerHTML = '<div id="sw-header"><div id="sw-cancel">取消</' + 'div><div id="sw-done">完成</' + 'div></' + 'div><div id="sw-slots-wrapper"><div id="sw-slots"></' + 'div></' + 'div><div id="sw-frame"></' + 'div>';
 
 			(this.container || document.body).appendChild(div);
 

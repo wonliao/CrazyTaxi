@@ -99,16 +99,16 @@
                 </div>
             </section>
             -->
-            <div style="clear:both; height:10px"></div>
-             
-            <section style="padding: 4px 16px; text-align:center;">
-                <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
-                    <span style="font-size:18px">確定</span>
-                </ons-button>
-            </section>
-
         </section>
         
+        <div style="clear:both; height:10px"></div>
+        
+        <section style="padding: 4px 16px; text-align:center;">
+            <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
+                <span style="font-size:18px">返回首頁</span>
+            </ons-button>
+        </section>
+
         <div style="clear:both; height:16px"></div>
 
     </ons-page>
@@ -133,6 +133,8 @@ ons.ready(function() {
 
         //window.localStorage.setItem("facebook_id", "1389354124412945");
         //window.localStorage.setItem("facebook_name", "廖志旺");
+        
+        hideFloatIcon();
             
         //var kktv_serial_number = window.localStorage.getItem("kktv");
         var amart_serial_number = window.localStorage.getItem("amart");
