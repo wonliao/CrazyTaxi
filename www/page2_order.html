@@ -78,141 +78,137 @@
     .sw-center {
         text-align:center;
     }
-    /*
-    input[type="text"]:valid { outline: solid #ddd 1px; }
-    input[type="text"]:invalid { outline: solid red 1px; }
-    */
 </style>
 
 
 <ons-page style="background:#fff;">
     
-        <ons-toolbar fixed-style>
-            <div class="left" style="line-height: 44px;">
-                <ons-back-button></ons-back-button>
-            </div>
-            <div class="center">
-                <img src="images/go2gether.png" style="height:32px;"/>
-            </div>
-            <div class="right" style="line-height: 44px">
-                <ons-toolbar-button ng-click="menu.toggleMenu()">
-                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
-            	</ons-toolbar-button>
-            </div>
-        </ons-toolbar>
-      
-        <div style="clear:both; height:10px"></div>
-
-        <div class="container">
-            <ul class="nav nav-tabs">
-                <li style="width:50%;"><a id="airport_btn" data-toggle="tab" href="#airport">機場共乘</a></li>
-                <li class="active"style="width:50%;"><a id="normal_btn" data-toggle="tab" href="#normal">一般共乘</a></li>
-            </ul>
-        
-            <div class="tab-content">
-            
-                <!-- 機場共乘 begin -->
-                <div id="airport" class="tab-pane fade">
-                    <form id="airport_add" action="#">
-                        <section style="padding: 8px 16px 4px 16px">
-                            <div style="text-align:center;">地點/時間</div>
-                        </section>
-
-                        <section style="padding: 4px 16px; height: 38px;">
-                            <input id="order_airport_address" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="order_airport_address" required>
-                            <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
-                        </section>
-
-                        <section style="padding: 4px 16px; height: 38px;">
-                            <input id="order_airport_destination" placeholder="桃園機場第一航廈" type="text" class="text-input2" ng-model="order_airport_destination" required>
-                            <input type="button" onclick="openAirportSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
-                        </section>
-
-                        <section style="padding: 4px 16px;">
-                            <input id="datepicker2" type="datetime-local" style="width:100%">
-                        </section>
-
-                        <section style="padding: 4px 16px" class="radio_box">
-                            <input type="submit" value="搜尋" class="btn btn-default submit_btn">
-                        </section>
-                    </form>
-                </div>
-                <!-- 機場共乘 end -->
-                
-                
-                <!-- 一般共乘 begin -->
-                <div id="normal" class="tab-pane fade in active">
-                    <form id="page2_order_form">
-                        <section style="padding: 8px 16px 4px 16px">
-                            <div style="text-align:center;">設定共乘條件</div>
-                        </section>
-                        
-                        <section style="padding: 4px 16px; height: 38px;">
-                            <input id="order_address" onClick="addressClick()" placeholder="請定位上車地址" type="text" ng-model="order_address" class="text-input2" required>
-                            <input value="上車記錄" onClick="addressRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
-                        </section>
-                        
-                        <section style="padding: 4px 16px; height: 38px;">
-                            <input id="order_destination" onClick="destinationClick()" placeholder="請定位下車地址" type="text" ng-model="order_destination" class="text-input2" required>
-                            <input value="下車記錄" onClick="destinationRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
-                        </section>
-                        
-                        <section style="padding: 4px 16px;">
-                            <input id="datepicker" type="datetime-local" style="width:100%">
-                        </section>
-                        
-                        <hr>
-                        
-                        <section style="padding: 0px 16px 4px 16px">
-                            <div style="text-align:center;">聯繫/備註</div>
-                        </section>
-                        
-                        <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
-                            <input value="0921960028" type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
-                            <input value="wonliao1117@gmail.com" type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
-                        </section>
-                        
-                        <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
-                            <input id="purpose_destination" type="button" onclick="openPurposeSlot()" value="請選擇共乘目的" class="btn btn-default submit_btn left_btn" style="width:49%; float:left; margin-right:1%;">
-                            <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
-                        </section>
-                        
-                        <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
-                            <input type="text" class="text-input" ng-model="purpose_other" placeholder="請輸入您的共乘目的" id="purpose_other" style="display:none;">
-                        </section>
-                        
-                        <div style="clear:both; height:5px"></div>
-            
-                        <section style="padding: 4px 16px" class="radio_box">
-                            <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
-                        </section>
-                        
-                        <section style="padding:16px" class="radio_box">                
-                            <input type="submit" value="確定" class="btn btn-default submit_btn">
-                        </section>
-                	</form>
-                </div>
-                <!-- 一般共乘 end -->
-                
-            </div>
+    <ons-toolbar fixed-style>
+        <div class="left" style="line-height: 44px;">
+            <ons-back-button></ons-back-button>
         </div>
-        
-        
-        <ons-template id="alert-dialog.html">
-            <ons-alert-dialog var="alertDialog">
-                <div class="alert-dialog-title">
-                    <strong style="color: #ff3333" id="alertDialogTitle">定位失敗!</strong>    
-                </div>
-                <div class="alert-dialog-content">
-                    <span id="alertDialogText">請確定已開啟GPS功能，並重新嘗試。</span>
-                </div>
-                <div class="alert-dialog-footer">
-                    <button id="dialog_btn" class="alert-dialog-button" onClick="location.reload()">OK</button>
-                </div>
-            </ons-alert-dialog>
-        </ons-template>
-        
-        
+        <div class="center">
+            <img src="images/go2gether.png" style="height:32px;"/>
+        </div>
+        <div class="right" style="line-height: 44px">
+            <ons-toolbar-button ng-click="menu.toggleMenu()">
+                <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+        	</ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+      
+    <div style="clear:both; height:10px"></div>
+
+    <div class="container">
+
+        <ul class="nav nav-tabs">
+            <li style="width:50%;"><a id="airport_btn" data-toggle="tab" href="#airport">機場共乘</a></li>
+            <li class="active"style="width:50%;"><a id="normal_btn" data-toggle="tab" href="#normal">一般共乘</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- 機場共乘 begin -->
+            <div id="airport" class="tab-pane fade">
+
+                <form id="airport_add" action="#">
+
+                    <section style="padding: 8px 16px 4px 16px">
+                        <div style="text-align:center;">地點/時間</div>
+                    </section>
+
+                    <section style="padding: 4px 16px; height: 38px;">
+                        <input id="order_airport_address" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="order_airport_address" required>
+                        <input type="button" value="上車記錄" class="btn btn-default submit_btn right_btn">
+                    </section>
+
+                    <section style="padding: 4px 16px; height: 38px;">
+                        <input id="order_airport_destination" placeholder="桃園機場第一航廈" type="text" class="text-input2" ng-model="order_airport_destination" required>
+                        <input type="button" onclick="openAirportSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
+                    </section>
+
+                    <section style="padding: 4px 16px;">
+                        <input id="datepicker2" type="datetime-local" style="width:100%">
+                    </section>
+
+                    <section style="padding: 4px 16px" class="radio_box">
+                        <input type="submit" value="搜尋" class="btn btn-default submit_btn">
+                    </section>
+                </form>
+            </div>
+            <!-- 機場共乘 end -->
+
+            <!-- 一般共乘 begin -->
+            <div id="normal" class="tab-pane fade in active">
+
+                <form id="page2_order_form">
+
+                    <section style="padding: 8px 16px 4px 16px">
+                        <div style="text-align:center;">設定共乘條件</div>
+                    </section>
+
+                    <section style="padding: 4px 16px; height: 38px;">
+                        <input id="order_address" onClick="addressClick()" placeholder="請定位上車地址" type="text" ng-model="order_address" class="text-input2" required>
+                        <input value="上車記錄" onClick="addressRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
+                    </section>
+
+                    <section style="padding: 4px 16px; height: 38px;">
+                        <input id="order_destination" onClick="destinationClick()" placeholder="請定位下車地址" type="text" ng-model="order_destination" class="text-input2" required>
+                        <input value="下車記錄" onClick="destinationRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
+                    </section>
+
+                    <section style="padding: 4px 16px;">
+                        <input id="datepicker" type="datetime-local" style="width:100%">
+                    </section>
+
+                    <hr>
+
+                    <section style="padding: 0px 16px 4px 16px">
+                        <div style="text-align:center;">聯繫/備註</div>
+                    </section>
+
+                    <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                        <input value="0921960028" type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
+                        <input value="wonliao1117@gmail.com" type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
+                    </section>
+    
+                    <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                        <input id="purpose_destination" type="button" onclick="openPurposeSlot()" value="請選擇共乘目的" class="btn btn-default submit_btn left_btn" style="width:49%; float:left; margin-right:1%;">
+                        <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
+                    </section>
+    
+                    <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
+                        <input type="text" class="text-input" ng-model="purpose_other" placeholder="請輸入您的共乘目的" id="purpose_other" style="display:none;">
+                    </section>
+
+                    <div style="clear:both; height:5px"></div>
+            
+                    <section style="padding: 4px 16px" class="radio_box">
+                        <input name="ck_1" type="checkbox" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
+                    </section>
+
+                    <section style="padding:16px" class="radio_box">                
+                        <input type="submit" value="確定" class="btn btn-default submit_btn">
+                    </section>
+                </form>
+            </div>
+            <!-- 一般共乘 end -->
+        </div>
+    </div>
+
+    <ons-template id="alert-dialog.html">
+        <ons-alert-dialog var="alertDialog">
+            <div class="alert-dialog-title">
+                <strong style="color: #ff3333" id="alertDialogTitle">定位失敗!</strong>    
+            </div>
+            <div class="alert-dialog-content">
+                <span id="alertDialogText">請確定已開啟GPS功能，並重新嘗試。</span>
+            </div>
+            <div class="alert-dialog-footer">
+                <button id="dialog_btn" class="alert-dialog-button" onClick="location.reload()">OK</button>
+            </div>
+        </ons-alert-dialog>
+    </ons-template>        
 </ons-page>
 
 <script>
@@ -221,12 +217,8 @@
 
         setTimeout(function() {
 
-            // test
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
-            //$("#order_destination").val("台北市松山區慶城街18號");
-            //window.localStorage.setItem("f1", "台北市松山區慶城街18號");
-            //window.localStorage.setItem("f4", "球賽共乘");
             
             hideFloatIcon();
 
@@ -302,6 +294,7 @@
                 var _address = window.localStorage.getItem("page2_address");
                 var _destination = window.localStorage.getItem("page2_destination");
                 console.log("won test 2 ==> _address("+_address+") _destination("+_destination+")");
+
                 // 自動代入下車地點
                 if(_address != null && _address != "null" && _address != "") {
 
@@ -327,24 +320,6 @@
                 $('#email').val(my_email).focus();
             }
 
-            /*
-            var latlng = window.localStorage.getItem("center");
-            // 依經緯度查地址
-            $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
-            		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
-        			latlng: latlng,
-                    location_type: "ROOFTOP",
-                    result_type: "street_address"
-        		}, function(data) {
-
-                    if(data.status != "ZERO_RESULTS") {
-                        var formatted_address = data.results[0].formatted_address;
-                        $("#order_address").val(formatted_address).focus();
-                    }
-        		}
-            );
-            */
-
             $('#ck_1_span').click(function() {
 
                 var ck_1 = $('input[name=ck_1]:checked');
@@ -355,10 +330,8 @@
             isFirstTime = true;
             $('#page2_order_form').on('submit', function() {
 
-                console.log("won test ==> page2_order_form submit facebook_id("+window.localStorage.getItem("facebook_id")+")");
-                
                 if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-                    console.log("won test2 ==>");
+
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                         $('#alertDialogTitle').html("提示");
@@ -385,6 +358,7 @@
                
                 var _datepicker = $('#datepicker').val();        // 出發日期
                 if(_datepicker.length <= 0) {
+
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                         $('#alertDialogTitle').html("資訊不完整");
@@ -398,6 +372,7 @@
                 var phones = $('#phones').val();        // 手機號碼
                 var email = $('#email').val();          // 電子信箱
                 if(phones.length <= 0 && email.length <= 0) {
+
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                         $('#alertDialogTitle').html("資訊不完整");
@@ -407,7 +382,9 @@
                     });
                     return false;
                 }
+
                 if(phones.length > 0) {
+
                     if(phones[0] != 0 || phones[1] != 9 || phones.length < 10) {
     
                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -422,9 +399,12 @@
                         window.localStorage.setItem("phones", phones);
                     }
                 }
+
                 if(email.length > 0) {
+
                     var at = email.search("@");
                     if(at == -1) {
+
                          ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
         
                             $('#alertDialogTitle').html("資訊不完整");
@@ -437,12 +417,11 @@
                         window.localStorage.setItem("email", email);
                     }
                 }
-                
 
                 var ck_1 = $('input[name=ck_1]:checked');
                 var ck_3 = $("#purpose_destination").val();
-
                 if(ck_3 == "") {
+
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                         $('#alertDialogTitle').html("資訊不完整");
@@ -452,6 +431,7 @@
                     });
                     return false;
                 } else if(ck_1.length <= 0) {
+
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
                         $('#alertDialogTitle').html("資訊不完整");
@@ -467,8 +447,7 @@
                 var startDate = $('#datepicker').val();			            // 出發日期
                 var note = $('#note').val();						        // 備註
                 var purpose = $('#purpose_destination').val();              // 共乘目的
-                //console.log("won test ==> purpose("+purpose+")");
-                
+ 
                 if(purpose == "其他") {
 
                     var purpose_other = $("#purpose_other").val();
@@ -493,7 +472,6 @@
         			address: destination	// 下車地點
         		}, function(data2) {
         			
-                    //console.log("won test 1 ==> data2.results.length("+data2.results.length+")");
                     if(data2.results.length <= 0) {
 
                         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -505,8 +483,7 @@
                         });
                         return;
                     }
-                    
-                    //parse address
+
             		var c, point_of_interest, area = {
         				name: destination,		// 下車地點
                         latitude: "",
@@ -524,7 +501,6 @@
             			address: address	// 上車地點
             		}, function(data) {
             			
-                        //console.log("won test 1 ==> data.results.length("+data.results.length+")");
                         if(data.results.length <= 0) {
     
                             ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -546,13 +522,10 @@
             			for (var i = 0; i < data.results[0].address_components.length; i++) {
             				c = data.results[0].address_components[i];
             				if (!c.types.length || c.types[0] == 'point_of_interest') {
-            					//record the point of interest in case address is empty
             					point_of_interest = c.short_name;
             				} else if (c.types.indexOf('street_number') !== -1) {
-            					//set address as street number
             					area.address = c.long_name;
             				} else if (c.types.indexOf('route') !== -1) {
-            					//append street name
             					area.address += ' ' + c.long_name;
             					area.address = area.address.trim();
             				} else if (c.types.indexOf('locality') !== -1) {
@@ -605,10 +578,10 @@
                                 $("#dialog_btn").attr("onclick","closeDialog()");
                                 alertDialog.show();
                             });
-                        
+
                             return false;
                         } else {
-                            console.log("test 2");
+
                             $("#datepicker").css("border-color", "#AAA");
                             $("#timepicker").css("border-color", "#AAA");
                         }
@@ -622,7 +595,6 @@
                         
                         // 排序用
                         area.priority = 0 - Math.floor( d.getTime() + d.getMilliseconds() + i );
-                        //console.log("appointment("+d.toString()+") expired_time("+d.toString()+")");
                         area.status = "";
     
             			if (!area.address && point_of_interest) area.address = point_of_interest;
@@ -632,8 +604,7 @@
             			var updates = {};
                         console.log(area);
             			updates['/areas/' + area_id] = area;
-                        //console.log(updates);
-            			firebase.database().ref().update(updates);
+                        firebase.database().ref().update(updates);
     
             			//geofire
             			geoFire.set(area_id, [area.latitude, area.longitude]).then(function() {
@@ -761,34 +732,29 @@
     }
 
     function closeDialog() {
+
         alertDialog.destroy();
     }
     
     function addressClick() {
-        
-        //console.log("addressClick");
-        
+
         window.localStorage.setItem("select_map", "address");
         homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function destinationClick() {
-        
-        //console.log("destinationClick");
-        
+
         window.localStorage.setItem("select_map", "destination");
         homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function addressRecordClick() {
-        
-        //console.log("won test ==> addressRecordClick");
+
         homeNavigator.pushPage("page2_list.html", {animation: 'slide'});
     }
     
     function destinationRecordClick() {
-        
-        //console.log("won test ==> destinationRecordClick");
+
         homeNavigator.pushPage("page2_list.html", {animation: 'slide'});
     }
     
