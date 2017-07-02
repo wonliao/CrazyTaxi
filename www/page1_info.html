@@ -25,7 +25,7 @@
 
     <ons-toolbar fixed-style>
         <div class="left" style="line-height: 44px;">
-            <ons-back-button></ons-back-button>
+            <ons-back-button onclick="page1_info_back()"></ons-back-button>
         </div>
         <div class="center">
             <img src="images/go2gether.png" style="height:32px;"/>
@@ -144,7 +144,9 @@ function page1InfoClick(pageName) {
     ons.ready(function() {
         setTimeout(function() {
             
-            //window.localStorage.setItem("facebook_id", "1389354124412945");
+            HoldOn.close();
+            $("#event_div").hide();
+            $("#download-btn").hide();
 
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
@@ -480,6 +482,12 @@ function page1InfoClick(pageName) {
 
         if (i<10) { i = "0" + i; }
         return i
+    }
+    
+    function page1_info_back() {
+
+        showFloatIcon();
+        homeNavigator.popPage();
     }
 </script>
 

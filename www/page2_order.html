@@ -707,7 +707,7 @@
                         window.localStorage.setItem("page2_destination", "");
                         
                         // 跳至完成刊登頁
-                        page2Navigator.pushPage("page2_success.html", {animation: 'slide'});    
+                        homeNavigator.pushPage("page2_success.html", {animation: 'slide'});    
             		});
                 });
 
@@ -771,7 +771,7 @@
         //console.log("addressClick");
         
         window.localStorage.setItem("select_map", "address");
-        page2Navigator.pushPage("select_map.html", {animation: 'slide'});
+        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function destinationClick() {
@@ -779,19 +779,19 @@
         //console.log("destinationClick");
         
         window.localStorage.setItem("select_map", "destination");
-        page2Navigator.pushPage("select_map.html", {animation: 'slide'});
+        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function addressRecordClick() {
         
         //console.log("won test ==> addressRecordClick");
-        page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
+        homeNavigator.pushPage("page2_list.html", {animation: 'slide'});
     }
     
     function destinationRecordClick() {
         
         //console.log("won test ==> destinationRecordClick");
-        page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
+        homeNavigator.pushPage("page2_list.html", {animation: 'slide'});
     }
     
     function showRecord() {

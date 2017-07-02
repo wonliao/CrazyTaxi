@@ -60,25 +60,13 @@ var currentMark = null;
 
 ons.ready(function() {
     setTimeout(function() {
-        
+
         onDeviceReady();
-        
-        $("#event_div").show();
+
+        //$("#event_div").show();
+        showFloatIcon();
         
         menu.setSwipeable(false);
-        
-        /*
-        var _h = $( document ).height();
-        _h = _h / 2 - 30;
-        $(".my_pos").css("top", _h - 30);
-        console.log("test 0 ==> _h("+_h+")");
-        
-        var _w = $( document ).width();
-        console.log("test 1 ==> _w("+_w+")");
-        _w = _w / 2 - 30;
-        console.log("test 2 ==> _w("+_w+")");
-        $(".my_pos").css("left", _w + 3);
-        */
     }, 10);
 });
 

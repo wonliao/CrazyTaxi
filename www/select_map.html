@@ -42,31 +42,12 @@
     		</ons-toolbar-button>
         </div>
     </ons-toolbar>
-<!--
-<ons-navigator title="Navigator">
-    <ons-page>
-        <ons-toolbar fixed-style>
-            <div class="left" style="line-height: 44px;">
-                <ons-back-button></ons-back-button>
-            </div>
-            <div class="center">
-                <img src="images/go2gether.png" style="height:32px;"/>
-            </div>
-            <div class="right" style="line-height: 44px">
-                <ons-toolbar-button ng-click="menu.toggleMenu()">
-                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
-        		</ons-toolbar-button>
-            </div>
-        </ons-toolbar>
-        -->
 
-        <div id="map"></div>
+    <div id="map"></div>
 
-        <img src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
+    <img src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
         
-        <input value="確定" class="btn btn-default select_pos_btn" onClick="getPos()">
-        
-    </ons-page>
+    <input value="確定" class="btn btn-default select_pos_btn" onClick="getPos()">
     
     <ons-template id="alert-dialog.html">
         <ons-alert-dialog var="alertDialog">
@@ -81,9 +62,9 @@
             </div>
         </ons-alert-dialog>
     </ons-template>
-<!--
-</ons-navigator>
--->
+
+</ons-page>
+ 
 <script>
 
 var map;
@@ -228,7 +209,7 @@ function getPos() {
             window.localStorage.setItem("address_latlng", latlng);
         }
 
-        page2Navigator.popPage();
+        homeNavigator.popPage();
     });
 }
 

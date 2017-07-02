@@ -76,7 +76,7 @@
 </style>
 
 
-<ons-navigator title="Navigator" var="page2Navigator">
+<ons-navigator title="Navigator" var="homeNavigator">
     <ons-page style="background:#fff;">
     
         <ons-toolbar fixed-style>
@@ -348,7 +348,7 @@
                 window.localStorage.setItem("page2_time", _time);
                 window.localStorage.setItem("page2_address", _address);
                 window.localStorage.setItem("page2_destination", _destination);
-                page2Navigator.pushPage("page2_list.html", {animation: 'slide'});
+                homeNavigator.pushPage("page2_list.html", {animation: 'slide'});
             }
             
             
@@ -410,7 +410,7 @@
         console.log("addressClick");
         
         window.localStorage.setItem("select_map", "address");
-        page2Navigator.pushPage("select_map.html", {animation: 'slide'});
+        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function destinationClick() {
@@ -418,7 +418,7 @@
         console.log("destinationClick");
         
         window.localStorage.setItem("select_map", "destination");
-        page2Navigator.pushPage("select_map.html", {animation: 'slide'});
+        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function airportAddressClick() {
@@ -426,7 +426,7 @@
         console.log("airport addressClick");
         
         window.localStorage.setItem("select_map", "airport_address");
-        page2Navigator.pushPage("select_map.html", {animation: 'slide'});
+        homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function addressRecordClick() {
@@ -434,7 +434,7 @@
         console.log("won test ==> addressRecordClick");
         
         window.localStorage.setItem("select_map", "address");
-        page2Navigator.pushPage("page2_record.html", {animation: 'slide'});
+        homeNavigator.pushPage("page2_record.html", {animation: 'slide'});
     }
     
     function airportAddressRecordClick() {
@@ -442,7 +442,7 @@
         console.log("won test ==> airportAddressRecordClick");
         
         window.localStorage.setItem("select_map", "airport_address");
-        page2Navigator.pushPage("page2_record.html", {animation: 'slide'});
+        homeNavigator.pushPage("page2_record.html", {animation: 'slide'});
     }
     
     function destinationRecordClick() {
@@ -450,7 +450,7 @@
         console.log("won test ==> destinationRecordClick");
         
         window.localStorage.setItem("select_map", "destination");
-        page2Navigator.pushPage("page2_record.html", {animation: 'slide'});
+        homeNavigator.pushPage("page2_record.html", {animation: 'slide'});
     }
     
     function showRecord() {

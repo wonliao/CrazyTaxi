@@ -79,7 +79,7 @@
     <ons-page>
        
 		<ons-tabbar position="bottom" var="tabbar">
-			<ons-tabbar-item page="page1.html?t=1234" label="首頁" class="my-icon-1" fixed-width="true" onClick="tabClick('首頁')"></ons-tabbar-item>
+			<ons-tabbar-item page="page1.html" label="首頁" class="my-icon-1" fixed-width="true" onClick="tabClick('首頁')"></ons-tabbar-item>
             <ons-tabbar-item page="page2_new.html" label="揪共乘" class="my-icon-2" fixed-width="true" onClick="tabClick('刊登共乘')"></ons-tabbar-item>
             <ons-tabbar-item class="my-icon-3" label="叫車" onClick="tabClick('叫車')"></ons-tabbar-item>
     		<ons-tabbar-item page="page4.html" label="說明" class="my-icon-4" active="false" onClick="tabClick('活動說明')"></ons-tabbar-item>
@@ -108,8 +108,6 @@ ons.ready(function() {
         } else {
            tabbar.setActiveTab(0);
         }
-        
-        
     }, 10);
 });
 
