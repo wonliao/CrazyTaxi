@@ -337,7 +337,7 @@ function setEvent() {
 function setPaginate() {
 	
 	var display = 10;			// 最多顯示多少頁
-	var one_page_item = 20;	    // 一頁顯示多少記錄
+	var one_page_item = 10;	    // 一頁顯示多少記錄
 
 	$("#total_div").html("共"+keys.length+"筆");
 
