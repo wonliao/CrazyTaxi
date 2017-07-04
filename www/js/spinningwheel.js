@@ -147,7 +147,9 @@
 		lockScreen: function (evt) {
 			//e.preventDefault();
            
-			//evt.stopPropagation();
+			evt.stopPropagation();
+            
+            return false;
 		},
 
 
