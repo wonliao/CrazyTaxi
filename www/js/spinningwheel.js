@@ -144,15 +144,18 @@
 			this.swWrapper.style.top = (this.container ? this.container.clientHeight : (window.innerHeight + window.pageYOffset)) + 'px';
 		},
 
-		lockScreen: function (e) {
+		lockScreen: function (evt) {
 			//e.preventDefault();
-            if (event.cancelable) {
-                // 判断默认行为是否已经被禁用
-                if (!event.defaultPrevented) {
-                    event.preventDefault();
-                }
-            }
-			e.stopPropagation();
+            
+            if(!$.isNumeric(evt.key)){ 
+                evt.preventDefault(); 
+                evt.stopPropagation(); 
+                evt.stopImmediatePropagation(); 
+                return false; 
+            } 
+            
+            
+			evt.stopPropagation();
 		},
 
 
