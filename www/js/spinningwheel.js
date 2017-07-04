@@ -145,8 +145,11 @@
 		},
 
 		lockScreen: function (evt) {
-			//e.preventDefault();
            
+            if(getMobileOperatingSystem() != "Android") {
+                e.preventDefault();
+            }
+
 			evt.stopPropagation();
             
             return false;
