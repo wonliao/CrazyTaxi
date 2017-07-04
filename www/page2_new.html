@@ -80,6 +80,7 @@
         width: 100%;
         left: 0;
     }
+
     /*
     input[type="text"]:valid { outline: solid #ddd 1px; }
     input[type="text"]:invalid { outline: solid red 1px; }
@@ -124,7 +125,10 @@
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="new_airport_destination" value="桃園機場第一航廈" type="text" class="text-input2" ng-model="destination" required>
+                            <input style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;" 
+ unselectable="on"
+ onselectstart="return false;" 
+ onmousedown="return false;" id="new_airport_destination" value="桃園機場第一航廈" type="text" class="text-input2" ng-model="destination" required>
                             <input type="button" onclick="openAirportSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
                         </section>
 
