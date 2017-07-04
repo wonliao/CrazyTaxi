@@ -149,8 +149,6 @@
 			e.stopPropagation();
 		},
 
-}, false);
-
 
 		/**
 		 *
