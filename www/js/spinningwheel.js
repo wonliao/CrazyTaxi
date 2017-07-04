@@ -145,9 +145,11 @@
 		},
 
 		lockScreen: function (e) {
-			e.preventDefault();
+			//e.preventDefault();
 			e.stopPropagation();
 		},
+
+}, false);
 
 
 		/**
