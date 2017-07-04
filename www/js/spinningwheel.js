@@ -146,16 +146,8 @@
 
 		lockScreen: function (evt) {
 			//e.preventDefault();
-            
-            if(!$.isNumeric(evt.key)){ 
-                evt.preventDefault(); 
-                evt.stopPropagation(); 
-                evt.stopImmediatePropagation(); 
-                return false; 
-            } 
-            
-            
-			evt.stopPropagation();
+           
+			//evt.stopPropagation();
 		},
 
 
