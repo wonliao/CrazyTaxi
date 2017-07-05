@@ -124,7 +124,7 @@
                 var d = new Date();
                 var now_text = d.toLocaleString();
                 var stauts = snapshot.val().status;
-                
+
                 var _address = "";
                 if(select_map == "address") {
                     _address = snapshot.val().input_address;
@@ -133,7 +133,7 @@
                 } else if(select_map == "airport_address") {
                     _address = snapshot.val().input_address;
                 }
-            
+
                 var text = "";
                 text += '<div style="clear:both; height:10px"></div>';
     
@@ -143,9 +143,14 @@
                 text +=         '<span class="right_part">'+_address+'</span>';
                 text +=     '</div>';
                 text += '</section>';
-                
-                snapshots.push(text);
-                
+
+                // 時間
+                var d1 = new Date(snapshot.val().appointment);
+                var temp = new Array(2);
+                temp[0] = d1;
+                temp[1] = text;
+                snapshots.push(temp);
+
                 if (t === undefined || t === null) {
 
                 } else {
@@ -155,17 +160,20 @@
             });
             
             function next() {
-                
-                
+
+                snapshots = snapshots.sort(function(a,b) {
+                    return b[0] - a[0];
+                });
+
                 if(snapshots.length <= 0) {
-                    
+
                     $('#record_list').html("目前無地址記錄");
                 } else {
-                    
+
                     $('#record_list').empty();
                     for(var i=0; i<snapshots.length; i++) {
-                        
-                        $('#record_list').append(snapshots[i]);
+
+                        $('#record_list').append(snapshots[i][1]);
                     }
                 }
             }
