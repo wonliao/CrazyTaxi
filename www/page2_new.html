@@ -76,7 +76,7 @@
     
     .bottom_btn {
         position: absolute;
-        bottom: 0;
+        bottom: 5%;
         width: 100%;
         left: 0;
     }
@@ -90,7 +90,7 @@
 
 <ons-navigator title="Navigator" var="homeNavigator">
     <ons-page style="background:#fff;">
-    
+
         <ons-toolbar fixed-style>
             <div class="center">
                 <img src="images/go2gether.png" style="height:32px;"/>
@@ -165,7 +165,7 @@
                             <input id="new_datepicker" type="datetime-local" style="width:100%">
                         </section>
                         
-                        <section style="padding: 24px 16px" class="radio_box bottom_btn">                
+                        <section style="padding: 4px 16px" class="radio_box bottom_btn">                
                             <input type="submit" value="搜尋" class="btn btn-default submit_btn">
                         </section>
             		</form>
@@ -366,6 +366,13 @@
                         alertDialog.show();
                     });
                     return false;
+                }
+                
+                
+                if ( $('#normal_tab').hasClass('active') ) {
+                    window.localStorage.setItem("tab_active", "normal_tab");
+                } else {
+                    window.localStorage.setItem("tab_active", "airport_tab");
                 }
                 
                 window.localStorage.setItem("page2_time", _time);
