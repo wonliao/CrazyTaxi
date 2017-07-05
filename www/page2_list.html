@@ -84,6 +84,13 @@
 
             hideFloatIcon();
 
+            // 上車時間
+            var _dtstr = window.localStorage.getItem("page2_time");
+            _dtstr = _dtstr.replace(/T/g, ' ')
+            _dtstr = _dtstr.replace(/-/g, '/')
+            var _begin_time = new Date(_dtstr).getTime();
+            var _end_time = _begin_time + (2 * 60 * 60 * 1000); // 最多2小時
+ 
             // 上下車地址
             var _address = window.localStorage.getItem("page2_address");
             var _destination = window.localStorage.getItem("page2_destination");
@@ -106,18 +113,21 @@
                 areas.child(key).once('value', function(snapshot) {
 
                     // 時間
-                    var d1 = new Date(snapshot.val().appointment);
-                    var temp = new Array(2);
-                    temp[0] = d1;
-                    temp[1] = snapshot;
-                    snapshots.push(temp);
-                    
-                    if (t === undefined || t === null) {
+                    var d1 = new Date(snapshot.val().appointment).getTime();
+                    if(_begin_time >= d1 && d1 <= _end_time) {
 
-                    } else {
-                        clearTimeout(t);
+                        var temp = new Array(2);
+                        temp[0] = d1;
+                        temp[1] = snapshot;
+                        snapshots.push(temp);
+                        
+                        if (t === undefined || t === null) {
+    
+                        } else {
+                            clearTimeout(t);
+                        }
+                        t = setTimeout(function(){ next(); }, 100);
                     }
-                    t = setTimeout(function(){ next(); }, 100);
                 });
             });   
 

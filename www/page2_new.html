@@ -367,21 +367,18 @@
                     });
                     return false;
                 }
-                
-                
+
                 if ( $('#normal_tab').hasClass('active') ) {
                     window.localStorage.setItem("tab_active", "normal_tab");
                 } else {
                     window.localStorage.setItem("tab_active", "airport_tab");
                 }
-                
-                window.localStorage.setItem("page2_time", _time);
+
+                window.localStorage.setItem("page2_time", _time);   // 上車時間
                 window.localStorage.setItem("page2_address", _address);
                 window.localStorage.setItem("page2_destination", _destination);
                 homeNavigator.pushPage("page2_list.html", {animation: 'slide'});
             }
-            
-            
         }, 10);
     });
 
