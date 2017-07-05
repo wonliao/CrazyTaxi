@@ -174,7 +174,7 @@
     
                     <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
                         <input id="purpose_destination" type="button" onclick="openPurposeSlot()" value="請選擇共乘目的" class="btn btn-default submit_btn left_btn" style="width:49%; float:left; margin-right:1%;">
-                        <input type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
+                        <input id="purpose_note" type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
                     </section>
     
                     <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
@@ -196,6 +196,9 @@
         </div>
     </div>
 
+</ons-page>
+
+
     <ons-template id="alert-dialog.html">
         <ons-alert-dialog var="alertDialog">
             <div class="alert-dialog-title">
@@ -208,9 +211,8 @@
                 <button id="dialog_btn" class="alert-dialog-button" onClick="location.reload()">OK</button>
             </div>
         </ons-alert-dialog>
-    </ons-template>        
-</ons-page>
-
+    </ons-template> 
+    
 <script>
 
     ons.ready(function() {
@@ -225,8 +227,13 @@
             var tab_active = window.localStorage.getItem("tab_active");
             console.log("won test 1 ==> tab_active("+tab_active+")");
             if ( tab_active == "airport_tab" ) {
+                
                 $("#order_normal_tab").removeClass("active");
                 $("#order_airport_tab").addClass("active");
+
+                $("#purpose_destination").val("機場共乘");//.hide();
+                $("#purpose_note").css("width", "100%").css("margin-left", "0");
+                
             }
             window.localStorage.setItem("tab_active", "normal_tab");
 
@@ -455,7 +462,7 @@
                 var startDate = $('#datepicker').val();			            // 出發日期
                 var note = $('#note').val();						        // 備註
                 var purpose = $('#purpose_destination').val();              // 共乘目的
- 
+
                 if(purpose == "其他") {
 
                     var purpose_other = $("#purpose_other").val();
@@ -474,6 +481,12 @@
                         return false;
                     }
                 }
+                
+                console.log("won test 1 ==> note("+note+")");
+                if (typeof note == 'undefined') {
+                    note = ""
+                }
+                console.log("won test 2 ==> note("+note+")");
                 
                 $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
             		key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
@@ -684,7 +697,7 @@
                         window.localStorage.setItem("page2_destination", "");
                         
                         // 跳至完成刊登頁
-                        homeNavigator.pushPage("page2_success.html", {animation: 'slide'});    
+                        homeNavigator.pushPage("page2_success.html?t=1213", {animation: 'slide'});    
             		});
                 });
 

@@ -70,13 +70,13 @@
 
 @media screen and (max-width:500px) {
     .event-btn-img {
-        width: 24%;
+        width: 13%;
     }
 }
 
 @media screen and (min-width:500px) {
     .event-btn-img {
-        width: 29%;
+        width: 15%;
     }
 }
 
@@ -352,8 +352,8 @@ function special_events() {
 
         if(sort != 0) {
             var str = "";
-            str += "<a class='event-btn' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f2+"\",\""+f3+"\",\""+f4+"\")'>";
-            str +=      "<img src='"+image+"' class='event-btn-img'/>";
+            str += "<a class='event-btn event-btn-img' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f2+"\",\""+f3+"\",\""+f4+"\")'>";
+            str +=      "<img src='"+image+"' style='width:100%'/>";
             str += "</a>";
             $("#event_div").append(str);
         }
