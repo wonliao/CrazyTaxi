@@ -114,7 +114,7 @@
             
                 <!-- 機場共乘 begin -->
                 <div id="airport" class="tab-pane fade">
-                    <form id="page2_aiport_form" action="#">
+                   
                         <section style="padding: 8px 16px 4px 16px">
                             <div style="text-align:center;">地點/時間</div>
                         </section>
@@ -137,16 +137,16 @@
                         </section>
 
                         <section style="padding: 4px 16px" class="radio_box bottom_btn">
-                            <input type="submit" value="搜尋" class="btn btn-default submit_btn">
+                            <input id="page2_aiport_form" type="button" value="搜尋" class="btn btn-default submit_btn">
                         </section>
-                    </form>
+                    
                 </div>
                 <!-- 機場共乘 end -->
                 
                 
                 <!-- 一般共乘 begin -->
                 <div id="normal" class="tab-pane fade active in">
-                    <form id="page2_form">
+                    
                         <section style="padding: 8px 16px 4px 16px">
                             <div>設定共乘條件</div>
                         </section>
@@ -166,9 +166,9 @@
                         </section>
                         
                         <section style="padding: 4px 16px" class="radio_box bottom_btn">                
-                            <input type="submit" value="搜尋" class="btn btn-default submit_btn">
+                            <input id="page2_form" type="button" value="搜尋" class="btn btn-default submit_btn">
                         </section>
-            		</form>
+            	
                 </div>
                 <!-- 一般共乘 end -->
                 
@@ -322,7 +322,7 @@
                 else                    $('input[name=ck_1]').prop("checked", true);
             });
 
-            $('#page2_form').on('submit', function() {
+            $('#page2_form').on('click', function() {
 
                 var _address = $('#new_address').val();             // 上車地址
                 var _destination = $('#new_destination').val();     // 下車地址
@@ -331,7 +331,7 @@
                 page2Submit(_address, _destination, _time);
             });
             
-            $('#page2_aiport_form').on('submit', function() {
+            $('#page2_aiport_form').on('click', function() {
 
                 var _address = $('#new_airport_address').val();             // 上車地址
                 var _destination = $('#new_airport_destination').val();     // 下車地址
