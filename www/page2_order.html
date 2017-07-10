@@ -256,7 +256,7 @@
             
             // 代入時間
             var _time = window.localStorage.getItem("page2_time");
-            console.log("won test 2 ==> _time("+_time+")");
+            //console.log("won test 2 ==> _time("+_time+")");
             $('#datepicker').val(_time);
             $('#datepicker2').val(_time);
 
@@ -270,13 +270,13 @@
                 // 自動代入下車地點
                 if(f1 != null && f1 != "null" && f1 != "") {
 
-                    $('#order_destination').val(f1).focus();
+                    $('#order_destination').val(f1);//.focus();
                 }
 
                 // 自動代入備註
                 if(f3 != null && f3 != "") {
     
-                    $('#note').val(f3).focus();
+                    $('#note').val(f3);//.focus();
                 }
 
                 // 自動代入共乘目的
@@ -313,26 +313,26 @@
                 // 自動代入下車地點
                 if(_address != null && _address != "null" && _address != "") {
 
-                    $('#order_address').val(_address).focus();
+                    $('#order_address').val(_address);//.focus();
                 }
                 
                 // 自動代入下車地點
                 if(_destination != null && _destination != "null" && _destination != "") {
 
-                    $('#order_destination').val(_destination).focus();
+                    $('#order_destination').val(_destination);//.focus();
                 }
             }
 
             // 自動代入 phones
             var my_phones = window.localStorage.getItem("phones");
             if(my_phones != null && my_phones != "") {
-                $('#phones').val(my_phones).focus();
+                $('#phones').val(my_phones);//.focus();
             }
 
             // 自動代入 email
             var my_email = window.localStorage.getItem("email");
             if(my_email != null && my_email != "") {
-                $('#email').val(my_email).focus();
+                $('#email').val(my_email);//.focus();
             }
 
             $('#ck_1_span').click(function() {
@@ -463,6 +463,8 @@
                 var note = $('#note').val();						        // 備註
                 var purpose = $('#purpose_destination').val();              // 共乘目的
 
+                
+
                 if(purpose == "其他") {
 
                     var purpose_other = $("#purpose_other").val();
@@ -480,6 +482,8 @@
                         });
                         return false;
                     }
+                } else if(purpose == "請選擇共乘目的") {
+                    purpose = "";
                 }
                 
                 console.log("won test 1 ==> note("+note+")");

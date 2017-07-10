@@ -17,12 +17,29 @@
     line-height: 36px;
     padding: 4px 12px;
     display: block;
+    width: 80%;
+    text-align: center;
+    color: #FFF;
+    position: absolute;
+    bottom: 90px;
+    margin-left: 5%;
+}
+
+.search_btn {
+    background-color: #36d0c9;
+    border: 0;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 36px;
+    padding: 4px 12px;
+    display: block;
     width: 20%;
     text-align: center;
     color: #FFF;
     position: absolute;
     top: 5%;
     right: 3%;
+    z-index: 99999;
 }
 
 .controls {
@@ -85,9 +102,9 @@
         </div>
     </ons-toolbar>
 
-    <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+    <input id="pac-input" class="controls" type="text" placeholder="請輸入地點或拖曳游標">
+    <input value="搜尋" class="btn btn-default search_btn" id="submit-search" onClick="search()">
     
-   
     
     <div id="type-selector" class="controls" style="display:none" >
       <input type="radio" name="type" id="changetype-all" checked="checked">
@@ -200,80 +217,92 @@ function initMap(position) {
 
 		var bounds = map.getBounds();
 		var center = map.getCenter();
-		//console.log("lat("+center.lat()+") lng("+center.lng()+")");
-        window.localStorage.setItem("start_center", center.lat()+","+center.lng());
-        //console.log("start_center("+window.localStorage.getItem("start_center")+")");
+		window.localStorage.setItem("start_center", center.lat()+","+center.lng());
 	});
-    
-    var input = /** @type {!HTMLInputElement} */(document.getElementById('pac-input'));
 
-        var types = document.getElementById('type-selector');
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+    // 移動至輸入的地址
+    var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
+    google.maps.event.addListener(searchBox, 'places_changed', function() {
 
-        var autocomplete = new google.maps.places.Autocomplete(input);
-        autocomplete.bindTo('bounds', map);
+        var place = searchBox.getPlaces()[0];    
+        if (!place.geometry) return;
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+        } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(16);
+        }
+    });
 
-        var infowindow = new google.maps.InfoWindow();
-        var marker = new google.maps.Marker({
-          map: map,
-          anchorPoint: new google.maps.Point(0, -29)
-        });
+    var input = (document.getElementById('pac-input'));
 
-        autocomplete.addListener('place_changed', function() {
-          infowindow.close();
-          marker.setVisible(false);
-          var place = autocomplete.getPlace();
-          if (!place.geometry) {
+    var types = document.getElementById('type-selector');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+
+    var infowindow = new google.maps.InfoWindow();
+    var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    autocomplete.addListener('place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
-            window.alert("No details available for input: '" + place.name + "'");
+            //window.alert("No details available for input: '" + place.name + "'");
             return;
-          }
+        }
 
-          // If the place has a geometry, then present it on a map.
-          if (place.geometry.viewport) {
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
-          } else {
+        } else {
             map.setCenter(place.geometry.location);
             map.setZoom(19);  // Why 17? Because it looks good.
-          }
-          marker.setIcon(/** @type {google.maps.Icon} */({
+        }
+        marker.setIcon(({
             url: place.icon,
             size: new google.maps.Size(71, 71),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(17, 34),
             scaledSize: new google.maps.Size(35, 35)
-          }));
-          marker.setPosition(place.geometry.location);
-          marker.setVisible(true);
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
 
-          var address = '';
-          if (place.address_components) {
+        var address = '';
+        if (place.address_components) {
             address = [
-              (place.address_components[0] && place.address_components[0].short_name || ''),
-              (place.address_components[1] && place.address_components[1].short_name || ''),
-              (place.address_components[2] && place.address_components[2].short_name || '')
+                (place.address_components[0] && place.address_components[0].short_name || ''),
+                (place.address_components[1] && place.address_components[1].short_name || ''),
+                (place.address_components[2] && place.address_components[2].short_name || '')
             ].join(' ');
-          }
-
-          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-          infowindow.open(map, marker);
-        });
-
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
-        function setupClickListener(id, types) {
-          var radioButton = document.getElementById(id);
-          radioButton.addEventListener('click', function() {
-            autocomplete.setTypes(types);
-          });
         }
 
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-address', ['address']);
-        setupClickListener('changetype-establishment', ['establishment']);
-        setupClickListener('changetype-geocode', ['geocode']);
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+    });
+
+    // Sets a listener on a radio button to change the filter type on Places
+    // Autocomplete.
+    function setupClickListener(id, types) {
+        var radioButton = document.getElementById(id);
+        radioButton.addEventListener('click', function() {
+            autocomplete.setTypes(types);
+        });
+    }
+
+    setupClickListener('changetype-all', []);
+    setupClickListener('changetype-address', ['address']);
+    setupClickListener('changetype-establishment', ['establishment']);
+    setupClickListener('changetype-geocode', ['geocode']);
 }
 
 function CenterControl(controlDiv, map, position) {
@@ -298,7 +327,6 @@ function CenterControl(controlDiv, map, position) {
 function getPos() {
 
     var latlng = window.localStorage.getItem("start_center");
-    //console.log("latlng("+latlng+")");
     
     // 依經緯度查地址
     $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -307,8 +335,6 @@ function getPos() {
         location_type: "ROOFTOP",
         result_type: "street_address"
     }, function(data) {
-
-        //console.log(data);
 
         if(data.results.length <= 0) {
          
@@ -325,13 +351,13 @@ function getPos() {
 
         var select_map = window.localStorage.getItem("select_map");
         if(select_map == "address") {
-            $("#new_address").val(formatted_address).focus();
+            $("#new_address").val(formatted_address);//.focus();
             window.localStorage.setItem("address_latlng", latlng);
         } else if(select_map == "destination") {
-            $("#new_destination").val(formatted_address).focus();
+            $("#new_destination").val(formatted_address);//.focus();
             window.localStorage.setItem("destination_latlng", latlng);
         } else if(select_map == "airport_address") {
-            $("#new_airport_address").val(formatted_address).focus();
+            $("#new_airport_address").val(formatted_address);//.focus();
             window.localStorage.setItem("address_latlng", latlng);
         }
 
@@ -343,6 +369,17 @@ function closeDialog() {
     alertDialog.destroy();
 }
 
+function search() {
+
+    $('#pac-input').show(function() {
+        google.maps.event.trigger(this, 'focus');
+        google.maps.event.trigger(this, 'keydown', {
+            keyCode: 13
+        });
+    });   
+}
+
+  
 </script>
 
 

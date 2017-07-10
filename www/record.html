@@ -113,9 +113,7 @@
                 //var stauts = snapshot.val().status;
                
                if(count == 0)   $('#history').empty();
-               
-               
-               
+
                 text += "<section class='mySection' onClick='setInfo(\""+snapshot.val().input_address+"\", \""+snapshot.val().destination+"\")'>";
                 text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
                 text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
@@ -124,8 +122,7 @@
                 text += '</section>';
 
                 $('#history').append(text);
-                
-                
+
                 count++;
             });
         }, 10);
