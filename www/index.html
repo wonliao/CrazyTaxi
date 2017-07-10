@@ -191,7 +191,7 @@ ons-icon {
 
 <body onbeforeunload="return onbeforeunload_Handler()">
 
-<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
+<ons-sliding-menu main-page="home.html" menu-page="menu.html" id="main_div" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
 <!-- 側邊欄 begin -->
 <ons-template id="menu.html">
@@ -347,6 +347,12 @@ function event_btn_click(event_name, f1, f2, f3, f4) {
 //活動專區
 function special_events() {
     
+    var _h = $("#main_div").height();
+    var _img_h = (_h - 50 - 10 - 80) / 4;
+    console.log("won test ==> _h("+_h+") _img_h("+_img_h+")");
+    
+    
+    
     var special_events = firebase.database().ref('special_events_2');
     special_events.orderByChild("sort").on("child_added", function(snapshot) {
 
@@ -357,12 +363,12 @@ function special_events() {
         var f4 = snapshot.val().f4;
         var sort = snapshot.val().sort;
         var image = snapshot.val().image;
-        var top = 10 + (sort - 1) * 20;
+        var top = 8 + (sort - 1) * 20;
 
         if(sort != 0) {
             var str = "";
             str += "<a class='event-btn event-btn-img' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f2+"\",\""+f3+"\",\""+f4+"\")'>";
-            str +=      "<img src='"+image+"' class='event-img' />";
+            str +=      "<img src='"+image+"' class='' height='"+_img_h+"px' />";
             str += "</a>";
             $("#event_div").append(str);
         }
