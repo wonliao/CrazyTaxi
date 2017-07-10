@@ -68,16 +68,25 @@
     background: #fedc33;
 }
 
-@media screen and (max-width:500px) {
-    .event-btn-img {
-        width: 10%;
+.event-btn-img {
+    width: 10%;
+}
+
+.event-img {
+    max-width: 100%;
+    max-height: 30%;
+}
+    
+
+@media only screen and (orientation : landscape) {
+    .event-img {
+       max-width: 40%;
     }
 }
 
+
 @media screen and (min-width:500px) {
-    .event-btn-img {
-        width: 10%;
-    }
+
 }
 
 .event-btn {
@@ -353,7 +362,7 @@ function special_events() {
         if(sort != 0) {
             var str = "";
             str += "<a class='event-btn event-btn-img' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f2+"\",\""+f3+"\",\""+f4+"\")'>";
-            str +=      "<img src='"+image+"' style='width:100%'/>";
+            str +=      "<img src='"+image+"' class='event-img' />";
             str += "</a>";
             $("#event_div").append(str);
         }
