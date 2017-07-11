@@ -226,3 +226,7 @@ function hideFloatIcon() {
     $("#event_div").hide();
     $("#download-btn").hide();
 }
+
+function showDownloadIcon() {
+    $("#download-btn").show(500);
+}

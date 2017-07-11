@@ -89,6 +89,7 @@
         setTimeout(function() {
             
             hideFloatIcon();
+            showDownloadIcon();
             
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
@@ -117,10 +118,6 @@
                 var d1 = new Date(snapshot.val().appointment);
         		var time_text = getTimeStr(d1); //d1.toLocaleString();
 
-                // 過期時間
-                var d2 = new Date(snapshot.val().expired_time); 
-                var expired_time_text = getTimeStr(d2);//d2.toLocaleString();
-
                 var d = new Date();
                 var now_text = d.toLocaleString();
                 var stauts = snapshot.val().status;
@@ -140,7 +137,7 @@
                 text += "<section class='mySection' id='record_"+key+"' onClick='selectRow(\""+key+"\", \""+_address+"\")'>";
                 text +=     '<div>';
                 text +=         '<span class="left_part"><img src="images/marker_green.png" style="height:30px"></span>';
-                text +=         '<span class="right_part">'+_address+'</span>';
+                text +=         '<span class="right_part">'+_address+'<br>刊登日期：'+time_text+'</span>';
                 text +=     '</div>';
                 text += '</section>';
 
@@ -222,6 +219,7 @@
                 $("#new_airport_address").val(g_address);//.focus();
             }
             
+            hideFloatIcon();
             homeNavigator.popPage();
         }
     }

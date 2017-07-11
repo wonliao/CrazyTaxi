@@ -122,7 +122,7 @@
     
     <div id="map"></div>
     
-    <input value="確定" class="btn btn-default select_pos_btn" onClick="getPos()">
+    <input value="確定" class="btn btn-default select_pos_btn" onClick="submitPos()">
 
     <img src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
         
@@ -145,7 +145,7 @@
 </ons-page>
  
 <script>
-
+var t;
 var map;
 
 ons.ready(function() {
@@ -218,6 +218,13 @@ function initMap(position) {
 		var bounds = map.getBounds();
 		var center = map.getCenter();
 		window.localStorage.setItem("start_center", center.lat()+","+center.lng());
+        
+        if (t === undefined || t === null) {
+        
+        } else {
+            clearTimeout(t);
+        }
+        t = setTimeout(function(){ getPos(); }, 500);
 	});
 
     // 移動至輸入的地址
@@ -326,12 +333,51 @@ function CenterControl(controlDiv, map, position) {
 
 function getPos() {
 
+    clearTimeout(t);
     var latlng = window.localStorage.getItem("start_center");
     
     // 依經緯度查地址
     $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
         key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
     	latlng: latlng,
+        location_type: "ROOFTOP",
+        result_type: "street_address"
+    }, function(data) {
+
+        var formatted_address = "";
+        if(data.results.length <= 0) {
+
+            formatted_address = "";
+        } else {
+            
+            formatted_address = data.results[0].formatted_address;
+
+            var select_map = window.localStorage.getItem("select_map");
+            if(select_map == "address") {
+                $("#new_address").val(formatted_address);//.focus();
+                window.localStorage.setItem("address_latlng", latlng);
+            } else if(select_map == "destination") {
+                $("#new_destination").val(formatted_address);//.focus();
+                window.localStorage.setItem("destination_latlng", latlng);
+            } else if(select_map == "airport_address") {
+                $("#new_airport_address").val(formatted_address);//.focus();
+                window.localStorage.setItem("address_latlng", latlng);
+            }
+        }
+
+        console.log("formatted_address("+formatted_address+")");
+        $("#pac-input").val(formatted_address);
+    });
+}
+
+function submitPos() {
+
+    var latlng = window.localStorage.getItem("start_center");
+    
+    // 依經緯度查地址
+    $.getJSON('https://maps.googleapis.com/maps/api/geocode/json', {
+        key: 'AIzaSyAHgoUk-vzZfk0CPhkOBNsX5fTyrCKVkh8',
+        latlng: latlng,
         location_type: "ROOFTOP",
         result_type: "street_address"
     }, function(data) {
