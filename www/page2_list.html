@@ -89,12 +89,13 @@
 
             hideFloatIcon();
 
-            // 上車時間
+            // 上車時間 - 前後3小時
             var _dtstr = window.localStorage.getItem("page2_time");
             _dtstr = _dtstr.replace(/T/g, ' ')
             _dtstr = _dtstr.replace(/-/g, '/')
             var _begin_time = new Date(_dtstr).getTime();
-            var _end_time = _begin_time + (2 * 60 * 60 * 1000); // 最多2小時
+            _begin_time = _begin_time - (3 * 60 * 60 * 1000);
+            var _end_time = _begin_time + (3 * 60 * 60 * 1000);
  
             // 上下車地址
             var _address = window.localStorage.getItem("page2_address");
@@ -110,7 +111,7 @@
             var latlngs = _address_latlng.split(",");
             var geoQuery = geoFire.query({
                 center: [parseFloat(latlngs[0]), parseFloat(latlngs[1])],
-                radius: 10 // 單位公里
+                radius: 15 // 單位公里
             });
 
             geoQuery.on('key_entered', function(key, location, distance) {
@@ -123,64 +124,33 @@
                     var key = snapshot.key;
                     
                     if(status == "" && d1 >= _begin_time && d1 <= _end_time) {
-                        console.log("won test 1 ==> key("+key+") d1("+d1+") _begin_time("+_begin_time+") _end_time("+_end_time+") status("+status+")")
+                        //console.log("won test 1 ==> key("+key+") d1("+d1+") _begin_time("+_begin_time+") _end_time("+_end_time+") status("+status+")")
                     
-                        var temp = new Array(2);
-                        temp[0] = d1;
-                        temp[1] = snapshot;
-                        snapshots.push(temp);
-                        
-                        if (t === undefined || t === null) {
-    
-                        } else {
-                            clearTimeout(t);
-                        }
-                        t = setTimeout(function(){ next(); }, 500);
-                    }
-                });
-            });   
-
-            function next() {
-
-                clearTimeout(t);
-
-                var latlngs = _destination_latlng.split(",");
-                var geoQuery = geoFire.query({
-                    center: [parseFloat(latlngs[0]), parseFloat(latlngs[1])],
-                    radius: 10 // 單位公里
-                });
-
-                geoQuery.on('key_entered', function(key, location, distance) {
-                    //console.log("won test 2 ==> key("+key+")");
-                    areas.child(key).once('value', function(snapshot) {
-
-                        // 時間
-                        var d1 = new Date(snapshot.val().appointment).getTime();
-                        var status = snapshot.val().status;
-                        var key = snapshot.key;
-                        
-                        if(status == "") {// && d1 >= _begin_time && d1 <= _end_time) {
-                            console.log("won test 2 ==> key("+key+") d1("+d1+") _begin_time("+_begin_time+") _end_time("+_end_time+") status("+status+")")
-                            
+                        var lat1 = latlngs[0];
+                        var lng1 = latlngs[1];
+                        var lat2 = snapshot.val().d_latitude;
+                        var lng2 = snapshot.val().d_longitude;
+                        var _km = getDistance(lat1, lng1, lat2, lng2);
+                        //console.log("won test 1.1 ==> _km("+_km+") lat1("+lat1+") lng1("+lng1+") lat2("+lat2+") lng2("+lng2+")");
+                        if(_km <= 15) {
                             
                             var temp = new Array(2);
                             temp[0] = d1;
                             temp[1] = snapshot;
-    
-                            snapshots2.push(temp);
-    
+                            snapshots.push(temp);
+                            
                             if (t === undefined || t === null) {
-    
+        
                             } else {
                                 clearTimeout(t);
                             }
-                            t = setTimeout(function(){ next2(); }, 500);
+                            t = setTimeout(function(){ next(); }, 500);
                         }
-                    });
-                }); 
-            }
+                    }
+                });
+            });
 
-            function next2() {
+            function next() {
 
                 if(snapshots.length > 0) {
 
@@ -189,43 +159,16 @@
                     });
                 }
 
-                if(snapshots2.length > 0) {
-
-                    snapshots2 = snapshots2.sort(function(a,b) {
-                        return a[0] - b[0];
-                    });
-                }
-                
                 console.log("won test 1 ==> snapshots.length("+snapshots.length+")");
-                console.log("won test 2 ==> snapshots2.length("+snapshots2.length+")");
 
-                var snapshots3 = new Array();
-                for(var i=0; i<snapshots.length; i++) {
-
-                    var snapshot = snapshots[i][1];
-                    var key1 = snapshot.key;
-                    for(var j=0; j<snapshots2.length; j++) {
-
-                        var snapshot2 = snapshots2[j][1];
-                        var key2 = snapshot2.key;
-                        if(key1 == key2) {
-
-                            snapshots3.push(snapshot2);
-                            continue;
-                        }
-                    }
-                }
-                
-                console.log("won test 3 ==> snapshots3.length("+snapshots3.length+")");
-
-                if(snapshots3.length > 0) {
+                if(snapshots.length > 0) {
                     $("#search_title").text("搜尋結果");
                 }
                 
                 $('#search_list').empty();
-                for(var i=0; i<snapshots3.length; i++) {
+                for(var i=0; i<snapshots.length; i++) {
 
-                    var snapshot = snapshots3[i];
+                    var snapshot = snapshots[i][1];
                     var key = snapshot.key;
 
                     // 時間
@@ -263,6 +206,23 @@
 
     function postNewMission() {
         homeNavigator.pushPage("page2_order.html", {animation: 'slide'});
+    }
+
+    function getDistance(lat1,lon1,lat2,lon2) {
+        
+        var R = 6371; // km (change this constant to get miles)
+        var dLat = (lat2-lat1) * Math.PI / 180;
+        var dLon = (lon2-lon1) * Math.PI / 180;
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        var d = R * c;
+
+        if (d>1) return Math.round(d);
+        else if (d<=1) return Math.round(d*1000);
+
+        return d;
     }
 </script>
 
