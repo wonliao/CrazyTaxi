@@ -55,15 +55,20 @@
 
     <div style="clear:both; height:10px"></div>
 
-    <div id="search_list">目前無符合之條件</div>
+    <div id="search_title" style="margin-left:5%;">目前無符合之條件</div>
+
+    <div id="search_list"></div>
 
     <div style="clear:both; height:10px"></div>
 
     <section style="padding: 4px 16px; height: 38px; margin-bottom:20px">
         <ons-button class='button button--large' modifier='chevron' onclick='postNewMission()' style='background:#36d0c9; border-radius:0;'>
-            <span style="font-size:18px">我要刊登新貼文</span>
+            <span style="font-size:18px">沒有適合的共乘，我要刊登新貼文</span>
         </ons-button>
     </section>
+    
+    <div style="clear:both; height:10px"></div>
+    
 </ons-page>
 
 <ons-template id="alert-dialog.html">
@@ -96,8 +101,8 @@
             var _destination = window.localStorage.getItem("page2_destination");
             var _address_latlng = window.localStorage.getItem("address_latlng");
             var _destination_latlng = window.localStorage.getItem("destination_latlng");
-            //console.log("won test --> _address_latlng("+_address_latlng+")");
-            //console.log("won test --> _destination_latlng("+_destination_latlng+")");
+            console.log("won test --> _address_latlng("+_address_latlng+")");
+            console.log("won test --> _destination_latlng("+_destination_latlng+")");
 
             var snapshots = new Array();
             var snapshots2 = new Array();
@@ -109,13 +114,17 @@
             });
 
             geoQuery.on('key_entered', function(key, location, distance) {
-
+                //console.log("won test 1 ==> key("+key+")");
                 areas.child(key).once('value', function(snapshot) {
 
                     // 時間
                     var d1 = new Date(snapshot.val().appointment).getTime();
-                    if(_begin_time >= d1 && d1 <= _end_time) {
-
+                    var status = snapshot.val().status;
+                    var key = snapshot.key;
+                    
+                    if(status == "" && d1 >= _begin_time && d1 <= _end_time) {
+                        console.log("won test 1 ==> key("+key+") d1("+d1+") _begin_time("+_begin_time+") _end_time("+_end_time+") status("+status+")")
+                    
                         var temp = new Array(2);
                         temp[0] = d1;
                         temp[1] = snapshot;
@@ -126,7 +135,7 @@
                         } else {
                             clearTimeout(t);
                         }
-                        t = setTimeout(function(){ next(); }, 100);
+                        t = setTimeout(function(){ next(); }, 500);
                     }
                 });
             });   
@@ -142,23 +151,31 @@
                 });
 
                 geoQuery.on('key_entered', function(key, location, distance) {
-
+                    //console.log("won test 2 ==> key("+key+")");
                     areas.child(key).once('value', function(snapshot) {
 
                         // 時間
-                        var d1 = new Date(snapshot.val().appointment);
-                        var temp = new Array(2);
-                        temp[0] = d1;
-                        temp[1] = snapshot;
-
-                        snapshots2.push(temp);
-
-                        if (t === undefined || t === null) {
-
-                        } else {
-                            clearTimeout(t);
+                        var d1 = new Date(snapshot.val().appointment).getTime();
+                        var status = snapshot.val().status;
+                        var key = snapshot.key;
+                        
+                        if(status == "") {// && d1 >= _begin_time && d1 <= _end_time) {
+                            console.log("won test 2 ==> key("+key+") d1("+d1+") _begin_time("+_begin_time+") _end_time("+_end_time+") status("+status+")")
+                            
+                            
+                            var temp = new Array(2);
+                            temp[0] = d1;
+                            temp[1] = snapshot;
+    
+                            snapshots2.push(temp);
+    
+                            if (t === undefined || t === null) {
+    
+                            } else {
+                                clearTimeout(t);
+                            }
+                            t = setTimeout(function(){ next2(); }, 500);
                         }
-                        t = setTimeout(function(){ next2(); }, 100);
                     });
                 }); 
             }
@@ -178,6 +195,9 @@
                         return a[0] - b[0];
                     });
                 }
+                
+                console.log("won test 1 ==> snapshots.length("+snapshots.length+")");
+                console.log("won test 2 ==> snapshots2.length("+snapshots2.length+")");
 
                 var snapshots3 = new Array();
                 for(var i=0; i<snapshots.length; i++) {
@@ -195,7 +215,13 @@
                         }
                     }
                 }
+                
+                console.log("won test 3 ==> snapshots3.length("+snapshots3.length+")");
 
+                if(snapshots3.length > 0) {
+                    $("#search_title").text("搜尋結果");
+                }
+                
                 $('#search_list').empty();
                 for(var i=0; i<snapshots3.length; i++) {
 
@@ -212,12 +238,12 @@
                     var text = "";
                     text += '<div style="clear:both; height:10px"></div>';
 
-                    text += "<section class='mySection'>";
+                    text += "<section class='mySection' onClick='showMore(\""+key+"\")' style='cursor:pointer'>";
                     text +=     '<div>共乘時間：'+time_text+'</div>';
                     text +=     '<div><i class="fa fa-circle" aria-hidden="true" style="color:#36d0c9"></i> <span>'+snapshot.val().input_address+'</span></div>';
                     text +=     '<div><i class="fa fa-arrow-down" aria-hidden="true" style="color:#aaa8a8"></i></div>';
                     text +=     '<div><i class="fa fa-circle" aria-hidden="true" style="color:red"></i> <span>'+snapshot.val().destination+'</span></div>';
-                    text +=     "<div onClick='showMore(\""+key+"\")' style='float:right;'>more..</div>";
+                    text +=     "<div style='float:right;'>more..</div>";
                     text +=     '<div style="clear:both; height:1px"></div>';
                     text += '</section>';
 

@@ -25,7 +25,7 @@
 
     <ons-toolbar fixed-style>
         <div class="left" style="line-height: 44px;">
-            <ons-back-button onclick="page1_info_back()"></ons-back-button>
+            <ons-back-button id="page1_info_back"></ons-back-button>
         </div>
         <div class="center">
             <img src="images/go2gether.png" style="height:32px;"/>
@@ -180,7 +180,7 @@
                 }
 
                 page1InfoClick('聯繫對方');
-                event.preventDefault();
+                e.preventDefault();
             });
 
         }, 10);
@@ -450,11 +450,24 @@
         return i
     }
     
-    function page1_info_back() {
-
+    $("#page1_info_back").click(function(event){
+        
+        event.preventDefault();
         showFloatIcon();
         homeNavigator.popPage();
+    });
+    
+    /*
+    function page1_info_back(event) {
+        
+        event.preventDefault();
+        
+        showFloatIcon();
+        homeNavigator.popPage();
+        
+        return false;
     }
+    */
 </script>
 
 <script>

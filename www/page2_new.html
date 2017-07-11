@@ -64,6 +64,7 @@
         width: 83px;
         margin: 0 30px 0 0;
         float: right;
+        position: relative;
     }
 
     input[type="text"] {
@@ -136,14 +137,14 @@
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="new_airport_address" onClick="airportAddressClick()" placeholder="請輸入上車地址" type="text" class="text-input2" ng-model="address" required>
-                            <input value="上車記錄" onClick="airportAddressRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
+                            <input id="new_airport_address" placeholder="請輸入上車地址" onClick="airportAddressClick()" type="text" class="text-input2" ng-model="address" required>
+                            <input id="new_airport_address_btn" value="上車記錄" onClick="airportAddressRecordClick()" type="button" class="btn btn-default submit_btn right_btn" data-flag="0">
                             <button class="change_btn" onClick="changeAddres('airport')"></button>
                         </section>
 
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="new_airport_destination" onclick="openAirportSlot()" value="桃園機場第一航廈" type="text" class="text-input2" ng-model="destination" unselectable="on" onselectstart="return false;" onmousedown="return false;" style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none; cursor:pointer;" required>
-                            <input type="button" onclick="openAirportSlot()" value="變更機場" class="btn btn-default submit_btn right_btn">
+                            <input id="new_airport_destination" value="桃園機場第一航廈" onclick="openAirportSlot()" type="text" class="text-input2" ng-model="destination" unselectable="on" onselectstart="return false;" onmousedown="return false;" style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none; cursor:pointer;" required>
+                            <input id="new_airport_destination_btn" value="變更機場" onclick="openAirportSlot()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
 
                         <section style="padding: 4px 16px;">
@@ -160,26 +161,26 @@
                     
                 </div>
                 <!-- 機場共乘 end -->
-                
-                
+
+
                 <!-- 一般共乘 begin -->
                 <div id="normal" class="tab-pane fade active in">
-                    
+
                         <section style="padding: 8px 16px 4px 16px">
                             <div>設定共乘條件</div>
                         </section>
-                        
+
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="new_address" onClick="addressClick()" placeholder="請定位上車地址" type="text" ng-model="new_address" class="text-input2" required>
-                            <input value="上車記錄" onClick="addressRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
+                            <input id="new_address" placeholder="請定位上車地址" onClick="addressClick()"  type="text" ng-model="new_address" class="text-input2" required>
+                            <input id="new_address_btn" value="上車記錄" onClick="addressRecordClick()" type="button" class="btn btn-default submit_btn right_btn" data-flag="0">
                             <button class="change_btn" onClick="changeAddres('normal')"></button>
                         </section>
-                        
+
                         <section style="padding: 4px 16px; height: 38px;">
-                            <input id="new_destination" onClick="destinationClick()" placeholder="請定位下車地址" type="text" ng-model="new_destination" class="text-input2" required>
-                            <input value="下車記錄" onClick="destinationRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
+                            <input id="new_destination" placeholder="請定位下車地址" onClick="destinationClick()" type="text" ng-model="new_destination" class="text-input2" required>
+                            <input id="new_destination_btn" value="下車記錄" onClick="destinationRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
-                        
+
                         <section style="padding: 4px 16px;">
                             <input id="new_datepicker" type="datetime-local" style="width:100%">
                         </section>
@@ -194,7 +195,7 @@
             	
                 </div>
                 <!-- 一般共乘 end -->
-                
+
             </div>
         </div>
     </ons-page>
@@ -558,17 +559,31 @@
     function changeAddres(type) {
 
         if(type == "normal") {
-            
+
             var new_address = $("#new_address").val();
             var new_destination = $("#new_destination").val();
             $("#new_address").val(new_destination);
             $("#new_destination").val(new_address);
+
+            var flag = 1 - Math.floor($("#new_address_btn").attr("data-flag"));
+            $("#new_address_btn").attr("data-flag", flag);
+            var y1 = Math.floor(flag * 38) + "px";
+            var y2 = Math.floor(flag * -38) + "px";
+            $("#new_address_btn").css("top", y1);
+            $("#new_destination_btn").css("top", y2);
         } else {
-         
+
             var new_airport_address = $("#new_airport_address").val();
             var new_airport_destination = $("#new_airport_destination").val();
             $("#new_airport_address").val(new_airport_destination);
             $("#new_airport_destination").val(new_airport_address);
+
+            var flag = 1 - Math.floor($("#new_airport_address_btn").attr("data-flag"));
+            $("#new_airport_address_btn").attr("data-flag", flag);
+            var y1 = Math.floor(flag * 38) + "px";
+            var y2 = Math.floor(flag * -38) + "px";
+            $("#new_airport_address_btn").css("top", y1);
+            $("#new_airport_destination_btn").css("top", y2);
         }
     }
 </script>

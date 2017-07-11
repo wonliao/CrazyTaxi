@@ -348,11 +348,9 @@ function event_btn_click(event_name, f1, f2, f3, f4) {
 function special_events() {
     
     var _h = $("#main_div").height();
-    var _img_h = (_h - 50 - 10 - 80) / 4;
+    var _img_h = (_h - 50 - 30 - 80) / 4;
     console.log("won test ==> _h("+_h+") _img_h("+_img_h+")");
-    
-    
-    
+
     var special_events = firebase.database().ref('special_events_2');
     special_events.orderByChild("sort").on("child_added", function(snapshot) {
 
