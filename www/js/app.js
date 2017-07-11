@@ -230,13 +230,3 @@ function hideFloatIcon() {
 function showDownloadIcon() {
     $("#download-btn").show(500);
 }
-
-$('input').focus(function() { 
-    console.log("won test 1 ==> setAutoScrolling");
-    $.fn.fullpage.setAutoScrolling(false); 
-});
-
-$('input').blur(function() { 
-    console.log("won test 2 ==> setAutoScrolling");
-    $.fn.fullpage.setAutoScrolling(true); 
-});
