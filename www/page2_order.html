@@ -221,16 +221,19 @@
             
             $('input').focus(function() { 
                 console.log("won test 1 ==> setAutoScrolling");
+                
                 $('html, body').animate({
-                    scrollTop: 0
-                }, 2000); 
+                    scrollTop: $(this).offset().top
+                }, 500);
             });
             
             $('input').blur(function() { 
                 console.log("won test 2 ==> setAutoScrolling");
+    
+                
                 $('html, body').animate({
-                    scrollTop: 0
-                }, 2000); 
+                    scrollTop: $(this).offset().top
+                }, 500);
             });
 
             //window.localStorage.setItem("facebook_id", "1389354124412945");
