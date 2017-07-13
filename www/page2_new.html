@@ -260,11 +260,10 @@
         
             hideFloatIcon();
             
-            $('input').on('focus', function() {
-                
+            $("input").focus(function(){
                 console.log("won test ==> top("+$(this).offset().top+")");
-    document.body.scrollTop = $(this).offset().top;
-});
+                document.body.scrollTop = $(this).offset().top;
+            });
 
             $("#new_airport_destination").val("桃園機場第一航廈");
 
