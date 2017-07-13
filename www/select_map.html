@@ -154,6 +154,7 @@
 <script>
 var t;
 var map;
+var original_height;
 
 ons.ready(function() {
     setTimeout(function() {
@@ -175,6 +176,7 @@ $(function(){
 	
 	function success(pos) {
 
+        original_height = $(document).height();
         initMap(pos);
 	};
 
@@ -219,19 +221,25 @@ function initMap(position) {
         zIndex: 0
 	});
 
+
+
 	var markers = {};
 	map.addListener('bounds_changed', function(){
 
-		var bounds = map.getBounds();
-		var center = map.getCenter();
-		window.localStorage.setItem("start_center", center.lat()+","+center.lng());
+        var screen_h = $(document).height();
+        if(screen_h == original_height) {
         
-        if (t === undefined || t === null) {
-        
-        } else {
-            clearTimeout(t);
+            var bounds = map.getBounds();
+        	var center = map.getCenter();
+    		window.localStorage.setItem("start_center", center.lat()+","+center.lng());
+            
+            if (t === undefined || t === null) {
+            
+            } else {
+                clearTimeout(t);
+            }
+            t = setTimeout(function(){ getPos(); }, 500);
         }
-        t = setTimeout(function(){ getPos(); }, 500);
 	});
 
     // 移動至輸入的地址
