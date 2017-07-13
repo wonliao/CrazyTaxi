@@ -229,15 +229,29 @@
             
             /*
             $("input").focus(function(){
-                console.log("won test ==> top("+$(this).offset().top+")");
-                document.body.scrollTop = $(this).offset().top;
+                var screen_h = $(document).height();
+               
+                var _top = $(this).offset().top;
+                
+                var _top = screen_h * 0.6 + _top;
+                
+                console.log("won test ==> top("+_top+") screen_h("+screen_h+")");
+                
+                $('.page__content').scrollTop(_top);
             });
             */
             
+            
+           
             $("input").on('touchend', function(e){
                
+               
+                var screen_h = $(document).height();
+               
                 var _top = $(this).offset().top;
-                console.log("won test ==> top("+_top+")");
+                
+                
+                console.log("won test ==> top("+_top+") screen_h("+screen_h+")");
                 //document.body.scrollTop = $(this).offset().top;
                 
                 $('.page__content').scrollTop(_top);
