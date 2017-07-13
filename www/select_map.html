@@ -167,10 +167,11 @@ ons.ready(function() {
 $(window).resize(function () {
                     
     var screen_h = $(document).height();
-    if(screen_h == original_height) {
-        $("#my_pos_img").show();
-    } else {
+    console.log("won test ==> screen_h("+screen_h+") original_height("+original_height+")");
+    if(screen_h <= original_height - 100) {
         $("#my_pos_img").hide();
+    } else {
+        $("#my_pos_img").show();
     }
 });
 
