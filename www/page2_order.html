@@ -218,25 +218,10 @@
     ons.ready(function() {
 
         setTimeout(function() {
-            /*
-            $('input').focus(function() { 
-                console.log("won test 1 ==> setAutoScrolling");
-                
-                $('html, body').animate({
-                    scrollTop: $(this).offset().top
-                }, 500);
-            });
             
-            $('input').blur(function() { 
-                console.log("won test 2 ==> setAutoScrolling");
-    
-                
-                $('html, body').animate({
-                    scrollTop: $(this).offset().top
-                }, 500);
-            });
-            */
+           
             
+   
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
             
@@ -251,9 +236,11 @@
             
             $("input").on('touchend', function(e){
                
-        
-                console.log("won test ==> top("+$(this).offset().top+")");
-                document.body.scrollTop = $(this).offset().top;
+                var _top = $(this).offset().top;
+                console.log("won test ==> top("+_top+")");
+                //document.body.scrollTop = $(this).offset().top;
+                
+                $('.page__content').scrollTop(_top);
             });
 
             
