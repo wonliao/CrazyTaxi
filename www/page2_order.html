@@ -242,6 +242,21 @@
             
             hideFloatIcon();
             
+            /*
+            $("input").focus(function(){
+                console.log("won test ==> top("+$(this).offset().top+")");
+                document.body.scrollTop = $(this).offset().top;
+            });
+            */
+            
+            $("input").on('touchend', function(e){
+                e.preventDefault();
+        
+                console.log("won test ==> top("+$(this).offset().top+")");
+                document.body.scrollTop = $(this).offset().top;
+            });
+
+            
             var tab_active = window.localStorage.getItem("tab_active");
             console.log("won test 1 ==> tab_active("+tab_active+")");
             if ( tab_active == "airport_tab" ) {
