@@ -219,58 +219,42 @@
     </ons-template> 
     
 <script>
-
+    
+    var original_height;
     ons.ready(function() {
 
         setTimeout(function() {
             
-           
-            
-   
+             
+
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
             
             hideFloatIcon();
-            
-           // $('.page__content').scrollTop(500);
-            
-            /*
-            $("input").focus(function(){
-                var screen_h = $(document).height();
-               
-                var _top = $(this).offset().top;
+          
+            original_height = $(document).height();
+            $("input").focus(function(e) {
+
+                //e.preventDefault();
+                $('.page__content').scrollTop(0);
                 
-                var _top = screen_h * 0.6 + _top;
-                
-                console.log("won test ==> top("+_top+") screen_h("+screen_h+")");
-                
-                $('.page__content').scrollTop(_top);
-            });
-            */
-            
-            
-            //$("input").focus(function() {
-            $("input").on('touchend', function(e){
-               
-                e.preventDefault();
-               
-                var screen_h = $(document).height();
-                var _top = $(this).offset().top;
-                console.log("won test 1 ==> top("+_top+") screen_h("+screen_h+")");
-                
-                var _top = _top - (screen_h * 0.4);
-                console.log("won test 2 ==> top("+_top+")");
-                
+                var _top = $(this).offset().top - (original_height * 0.3);
                 if(_top > 0) {
-                
+                    
                     $('.page__content').scrollTop(_top);
                 }
-                
             });
-
+            
+            $(window).resize(function () {
+                
+                 var screen_h = $(document).height();
+                 if(screen_h == original_height) {
+                    $('.page__content').scrollTop(0);
+                 }
+            });  
+            
             
             var tab_active = window.localStorage.getItem("tab_active");
-            console.log("won test 1 ==> tab_active("+tab_active+")");
             if ( tab_active == "airport_tab" ) {
                 
                 $("#order_normal_tab").removeClass("active");
