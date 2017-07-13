@@ -164,6 +164,16 @@ ons.ready(function() {
     }, 10);
 });
 
+$(window).resize(function () {
+                    
+    var screen_h = $(document).height();
+    if(screen_h == original_height) {
+        $("#my_pos_img").show();
+    } else {
+        $("#my_pos_img").hide();
+    }
+});
+
 $(function(){
 
     isFirstTime = true;
@@ -242,15 +252,7 @@ function initMap(position) {
         }
 	});
     
-    $(window).resize(function () {
-                    
-        var screen_h = $(document).height();
-        if(screen_h == original_height) {
-            $("#my_pos_img").show();
-        } else {
-            $("#my_pos_img").hide();
-        }
-    });
+    
     
 
     // 移動至輸入的地址
