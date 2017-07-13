@@ -109,9 +109,8 @@
         </div>
     </ons-toolbar>
 
-    <input id="pac-input" class="controls" type="text" placeholder="請輸入地點或拖曳游標">
+    <input id="pac-input" class="controls" type="text" placeholder="請輸入地點或拖曳游標" style="z-index:99999;">
     <button class="btn btn-default search_btn" id="submit-search" onClick="search()"></button>
-    
     
     <div id="type-selector" class="controls" style="display:none" >
       <input type="radio" name="type" id="changetype-all" checked="checked">
@@ -162,17 +161,6 @@ ons.ready(function() {
         hideFloatIcon();
         menu.setSwipeable(false);
     }, 10);
-});
-
-$(window).resize(function () {
-                    
-    var screen_h = $(document).height();
-    console.log("won test ==> screen_h("+screen_h+") original_height("+original_height+")");
-    if(screen_h <= original_height - 100) {
-        $("#my_pos_img").hide();
-    } else {
-        $("#my_pos_img").show();
-    }
 });
 
 $(function(){
