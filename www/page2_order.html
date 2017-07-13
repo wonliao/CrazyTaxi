@@ -168,17 +168,17 @@
                     </section>
 
                     <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
-                        <input value="0921960028" type="text" class="text-input" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
-                        <input value="wonliao1117@gmail.com" type="text" class="text-input" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
+                        <input value="0921960028" type="text" class="text-input need_scroll" ng-model="phones" placeholder="請輸入手機號碼" id="phones" pattern="^09\d{8}$" style="width:49%; float:left; margin-right:1%;">
+                        <input value="wonliao1117@gmail.com" type="text" class="text-input need_scroll" ng-model="email" placeholder="請輸入電子信箱" id="email" style="width:49%; float:left; margin-left:1%;">
                     </section>
     
                     <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
                         <input id="purpose_destination" type="button" onclick="openPurposeSlot()" value="請選擇共乘目的" class="btn btn-default submit_btn left_btn" style="width:49%; float:left; margin-right:1%;">
-                        <input id="purpose_note" type="text" class="text-input" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
+                        <input id="purpose_note" type="text" class="text-input need_scrool need_scroll" ng-model="note" placeholder="其餘特殊需求備註" id="note" style="width:49%; float:left; margin-left:1%;">
                     </section>
     
                     <section style="padding: 2px 16px 0 16px; display:inline-block; width:100%;">
-                        <input type="text" class="text-input" ng-model="purpose_other" placeholder="請輸入您的共乘目的" id="purpose_other" style="display:none;">
+                        <input type="text" class="text-input need_scroll" ng-model="purpose_other" placeholder="請輸入您的共乘目的" id="purpose_other" style="display:none;">
                     </section>
 
                     <div style="clear:both; height:5px"></div>
@@ -219,39 +219,39 @@
     </ons-template> 
     
 <script>
-    
-    var original_height;
+
     ons.ready(function() {
 
         setTimeout(function() {
-            
-             
 
             //window.localStorage.setItem("facebook_id", "1389354124412945");
             //window.localStorage.setItem("facebook_name", "廖志旺");
             
             hideFloatIcon();
           
-            original_height = $(document).height();
-            $("input").focus(function(e) {
-
-                //e.preventDefault();
-                $('.page__content').scrollTop(0);
+            if(ons.platform.isIOS() || ons.platform.isAndroid()) {
                 
-                var _top = $(this).offset().top - (original_height * 0.3);
-                if(_top > 0) {
-                    
-                    $('.page__content').scrollTop(_top);
-                }
-            });
-            
-            $(window).resize(function () {
-                
-                 var screen_h = $(document).height();
-                 if(screen_h == original_height) {
+                var original_height = $(document).height();
+                $(".need_scrool").focus(function(e) {
+    
+                    //e.preventDefault();
                     $('.page__content').scrollTop(0);
-                 }
-            });  
+                    
+                    var _top = $(this).offset().top - (original_height * 0.3);
+                    if(_top > 0) {
+                        
+                        $('.page__content').scrollTop(_top);
+                    }
+                });
+                
+                $(window).resize(function () {
+                    
+                     var screen_h = $(document).height();
+                     if(screen_h == original_height) {
+                        $('.page__content').scrollTop(0);
+                     }
+                });
+            }
             
             
             var tab_active = window.localStorage.getItem("tab_active");

@@ -54,3 +54,22 @@ a {
 .btn {
     background-color:#36d0c9 !important;
 }
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #000;
+    cursor: default;
+    background-color: #fff;
+    border: 0px;
+    border-bottom: 2px solid #F00;
+    text-align: center;
+}
+
+.nav-tabs>li>a {
+    color: #000;
+    text-align: center;
+}
+
+input {
+    border: 0px !important;
+    background: #eee;
+}
