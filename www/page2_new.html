@@ -23,7 +23,7 @@
     .text-input2 {
         border-radius:0;
         display: block;
-        width: calc(100% - 120px);
+        width: calc(100% - 90px);
         float: left;
     }
 
@@ -62,7 +62,7 @@
         height: 30px;
         line-height: 23px;
         width: 83px;
-        margin: 0 30px 0 0;
+        margin: 0;
         float: right;
         position: relative;
     }
@@ -83,20 +83,45 @@
     }
 
     .change_btn {
-        height: 28px;
-        width: 28px;
-        margin: 20px 27px 0 0;
-        background: url(images/change_icon.png);
+        height: 40px;
+        width: 30px;
+        background: url(images/switch.png);
         background-size: cover;
         position: absolute;
-        right: 0;
+        right: 3px;
+        z-index: 99999;
+        border: 0;
+        margin: 15px 10px 0 0;
+        outline: none;
     }
     
     .note_div {
-        background: #ddd;
-        color: #f00;
+        border-radius: 10px;
+        background: #FFF5DD;
         padding: 20px 10px;
-        font-size: small;
+    }
+    .text1 {
+        color:#5F5F5F;
+        font-size:20px;
+    }
+    .text2 {
+        color:#888;
+        font-size:12px;
+    }
+    .note_span1 {
+        display: inline-block;
+        width: 60px;
+        line-height: 60px;
+        vertical-align: top;
+    }
+    .note_span1 img {
+        width: 60px !important;
+    }
+    .note_span2 {
+        padding-left: 10px;
+        display: inline-block;
+        width: calc(100% - 65px);
+        vertical-align:middle;
     }
     /*
     input[type="text"]:valid { outline: solid #ddd 1px; }
@@ -152,7 +177,16 @@
                         </section>
 
                         <section style="padding: 4px 16px;">
-                            <div class="note_div">注意：找共乘不等於叫車!僅為揪共乘夥伴。出發前記得使用55688APP進行叫車喔~</div>
+                            <div class="note_div">
+                                    <span class="note_span1">
+                                        <img src="images/remind.png"/>
+                                    </span>
+                                    <span class="note_span2">
+                                        <div class="text1">找共乘不等於叫車!<br />
+                                        <div class="text2">僅為揪共乘夥伴。出發前記得使用55688APP進行叫車喔~</div>
+                                    </span>
+                                </ul>
+                            </div>
                         </section>
 
                         <section style="padding: 4px 16px" class="radio_box bottom_btn">
@@ -175,18 +209,29 @@
                             <input id="new_address_btn" value="上車記錄" onClick="addressRecordClick()" type="button" class="btn btn-default submit_btn right_btn" data-flag="0">
                             <button class="change_btn" onClick="changeAddres('normal')"></button>
                         </section>
-
+                        
                         <section style="padding: 4px 16px; height: 38px;">
                             <input id="new_destination" placeholder="請定位下車地址" onClick="destinationClick()" type="text" ng-model="new_destination" class="text-input2" required>
                             <input id="new_destination_btn" value="下車記錄" onClick="destinationRecordClick()" type="button" class="btn btn-default submit_btn right_btn">
                         </section>
+
+
 
                         <section style="padding: 4px 16px;">
                             <input id="new_datepicker" type="datetime-local" style="width:100%">
                         </section>
 
                         <section style="padding: 4px 16px;">
-                            <div class="note_div">注意：找共乘不等於叫車!僅為揪共乘夥伴。出發前記得使用55688APP進行叫車喔~</div>
+                            <div class="note_div">
+                                    <span class="note_span1">
+                                        <img src="images/remind.png"/>
+                                    </span>
+                                    <span class="note_span2">
+                                        <div class="text1">找共乘不等於叫車!<br />
+                                        <div class="text2">僅為揪共乘夥伴。出發前記得使用55688APP進行叫車喔~</div>
+                                    </span>
+                                </ul>
+                            </div>
                         </section>
 
                         <section style="padding: 4px 16px" class="radio_box bottom_btn">                
