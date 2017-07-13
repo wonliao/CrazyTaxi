@@ -122,6 +122,7 @@
                 var now_text = d.toLocaleString();
                 var stauts = snapshot.val().status;
 
+                /*
                 var _address = "";
                 if(select_map == "address") {
                     _address = snapshot.val().input_address;
@@ -130,14 +131,27 @@
                 } else if(select_map == "airport_address") {
                     _address = snapshot.val().input_address;
                 }
-
+                */
+                
                 var text = "";
+                
+                // 上車地址
+                var _address = snapshot.val().input_address;
                 text += '<div style="clear:both; height:10px"></div>';
-    
-                text += "<section class='mySection' id='record_"+key+"' onClick='selectRow(\""+key+"\", \""+_address+"\")'>";
+                text += "<section class='mySection' id='record_"+key+"a' onClick='selectRow(\""+key+"a\", \""+_address+"\")'>";
                 text +=     '<div>';
                 text +=         '<span class="left_part"><img src="images/marker_green.png" style="height:30px"></span>';
-                text +=         '<span class="right_part">'+_address+'<br>刊登日期：'+time_text+'</span>';
+                text +=         '<span class="right_part">'+_address+'</span>';
+                text +=     '</div>';
+                text += '</section>';
+                
+                // 下車地址
+                var _destination = snapshot.val().destination;
+                text += '<div style="clear:both; height:10px"></div>';
+                text += "<section class='mySection' id='record_"+key+"b' onClick='selectRow(\""+key+"b\", \""+_destination+"\")'>";
+                text +=     '<div>';
+                text +=         '<span class="left_part"><img src="images/marker_green.png" style="height:30px"></span>';
+                text +=         '<span class="right_part">'+_destination+'</span>';
                 text +=     '</div>';
                 text += '</section>';
 

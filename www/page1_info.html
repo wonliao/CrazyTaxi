@@ -106,7 +106,7 @@
         </section>
     </div>    
 </ons-page>
-
+<!--
 <ons-template id="alert-dialog.html">
     <ons-alert-dialog var="alertDialog">
         <div class="alert-dialog-content">
@@ -117,7 +117,8 @@
         </div>
     </ons-alert-dialog>
 </ons-template>
-
+-->
+    
 <script>
 
     function page1InfoClick(pageName) {
@@ -144,19 +145,30 @@
 
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-
+                
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    $('#page1AlertDialogText').html("請先登入您的Facebook帳號");
+                    $('#alertDialogTitle').html("提示");
+                    $('#alertDialogText').html("請先登入您的Facebook帳號");
+                    $(".alert-dialog-button").attr("onclick","needLogin()");
                     alertDialog.show();
                 });
-
+                
                 return;
             }
 
             is_fb_player_enable();
 
             showInfo();
+            
+            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                $("#alertDialogTitle").html("*提醒*");
+                $("#alertDialogText").html("1)出發前記得使用側邊的55688按鈕進行叫車<br />2)隨時注意來自夥伴的 電話/簡訊/E-mail 聯繫訊息");
+                $(".alert-dialog-button").text("確定").attr("onclick","alertDialog.destroy()");
+                $(".alert-dialog-content").css("text-align","left");
+                alertDialog.show();
+            });
 
             $('#ck_1_span').click(function() {
 
@@ -283,7 +295,9 @@
     
     function sms_btn() {
 
-        window.location = "sms:" + phones;
+        //window.location = "sms:" + phones;
+        phones = "0921960028";
+        window.location ="sms:" + phones+ ";body=wonliao test";
     }
 
     function phone_click() {
@@ -456,18 +470,7 @@
         showFloatIcon();
         homeNavigator.popPage();
     });
-    
-    /*
-    function page1_info_back(event) {
-        
-        event.preventDefault();
-        
-        showFloatIcon();
-        homeNavigator.popPage();
-        
-        return false;
-    }
-    */
+
 </script>
 
 <script>
