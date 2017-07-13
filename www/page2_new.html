@@ -250,15 +250,6 @@
 
 <script>
 
-function keyboardHideHandler(e){
-    console.log('Goodnight, sweet prince: %O', e);
-}
-function keyboardShowHandler(e){
-    console.log('Hello :), sweet prince: %O',e);
-    var ta = document.activeElement;
-    console.log('so scroll into view: %O', ta);
-    ta.scrollIntoView(true);
-}
 
     ons.ready(function() {
 
@@ -269,8 +260,7 @@ function keyboardShowHandler(e){
         
             hideFloatIcon();
             
-            window.addEventListener('native.keyboardhide', keyboardHideHandler);
-            window.addEventListener('native.keyboardshow', keyboardShowHandler);
+            document.addEventListener('focusout', function(e) {window.scrollTo(0, 0)});
 
             $("#new_airport_destination").val("桃園機場第一航廈");
 
