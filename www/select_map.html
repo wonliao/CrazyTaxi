@@ -131,7 +131,7 @@
     
     <input value="確定" type="button" class="btn btn-default select_pos_btn" onClick="submitPos()">
 
-    <img src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
+    <img id="my_pos_img" src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
         
     
     
@@ -241,6 +241,17 @@ function initMap(position) {
             t = setTimeout(function(){ getPos(); }, 500);
         }
 	});
+    
+    $(window).resize(function () {
+                    
+        var screen_h = $(document).height();
+        if(screen_h == original_height) {
+            $("#my_pos_img").show();
+        } else {
+            $("#my_pos_img").hide();
+        }
+    });
+    
 
     // 移動至輸入的地址
     var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
