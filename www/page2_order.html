@@ -249,10 +249,10 @@
             */
             
             
-           
+            //$("input").focus(function() {
             $("input").on('touchend', function(e){
                
-                event.preventDefault();
+                e.preventDefault();
                
                 var screen_h = $(document).height();
                 var _top = $(this).offset().top;
