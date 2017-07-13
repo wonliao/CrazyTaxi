@@ -190,7 +190,12 @@
                     <section style="padding:16px" class="radio_box">                
                         <input type="submit" value="確定" class="btn btn-default submit_btn">
                     </section>
+                    
+                    
+                    <div style="clear:both; height:500px"></div>
                 </form>
+                
+                
             </div>
             <!-- 一般共乘 end -->
         </div>
@@ -227,6 +232,8 @@
             
             hideFloatIcon();
             
+           // $('.page__content').scrollTop(500);
+            
             /*
             $("input").focus(function(){
                 var screen_h = $(document).height();
@@ -249,8 +256,8 @@
                 var _top = $(this).offset().top;
                 console.log("won test 1 ==> top("+_top+") screen_h("+screen_h+")");
                 
-                var _top = screen_h * 0.6 + _top;
-                console.log("won test 2 ==> top("+_top+")");
+                //var _top = screen_h * 0.6 + _top;
+                //console.log("won test 2 ==> top("+_top+")");
                 
                 $('.page__content').scrollTop(_top);
             });
