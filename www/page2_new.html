@@ -124,7 +124,7 @@
         vertical-align:middle;
     }
     
-    .page__content { height: auto !important; max-height: 100%; }
+    
     /*
     input[type="text"]:valid { outline: solid #ddd 1px; }
     input[type="text"]:invalid { outline: solid red 1px; }
@@ -250,6 +250,16 @@
 
 <script>
 
+function keyboardHideHandler(e){
+    console.log('Goodnight, sweet prince: %O', e);
+}
+function keyboardShowHandler(e){
+    console.log('Hello :), sweet prince: %O',e);
+    var ta = document.activeElement;
+    console.log('so scroll into view: %O', ta);
+    ta.scrollIntoView(true);
+}
+
     ons.ready(function() {
 
         setTimeout(function() {
@@ -258,6 +268,9 @@
             //window.localStorage.setItem("facebook_name", "廖志旺");
         
             hideFloatIcon();
+            
+            window.addEventListener('native.keyboardhide', keyboardHideHandler);
+            window.addEventListener('native.keyboardshow', keyboardShowHandler);
 
             $("#new_airport_destination").val("桃園機場第一航廈");
 
