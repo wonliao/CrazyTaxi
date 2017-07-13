@@ -295,11 +295,14 @@
     
     function sms_btn() {
 
-        //window.location = "sms:" + phones;
-        phones = "0921960028";
-        window.location ="sms:" + phones+ ";body=wonliao test";
+        var my_fb_name = window.localStorage.getItem("facebook_name");
+        var msg = "";
+        msg += "Hi 我是 " + my_fb_name + " 我想跟你一起共乘去" + destination + "。";
+        msg += "上車地點：" + input_address + "，";
+        msg += "出發時間：" + time_text + "。";
+        window.location ="sms:" + phones + "?body=" + msg;
     }
-
+   
     function phone_click() {
 
         window.location = "tel:" + phones;
