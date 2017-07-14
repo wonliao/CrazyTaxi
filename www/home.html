@@ -101,14 +101,22 @@ ons.ready(function() {
         if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
             window.localStorage.setItem("has_intro", "true");
         }
+        
+        
 
         // 說明頁
         var has_intro = window.localStorage.getItem("has_intro");
+        var has_intro2 = window.localStorage.getItem("has_intro2");
         if(has_intro != "true") {
             
             hideFloatIcon();
             window.localStorage.setItem("has_intro", "true");
             tabbar.setActiveTab(3);
+        } else if(has_intro2 != "true") {
+
+            hideFloatIcon();
+            window.localStorage.setItem("has_intro2", "true");
+            menu.setMainPage('intro.html', {closeMenu: true});
         } else {
 
            tabbar.setActiveTab(0);

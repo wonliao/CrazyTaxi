@@ -23,7 +23,8 @@
             </div>
         </ons-toolbar>
 
-        <ons-carousel  swipeable overscrollable auto-scroll fullscreen var="carousel" id="myCarousel">
+        <!-- swipeable -->
+        <ons-carousel overscrollable auto-scroll fullscreen var="carousel" id="myCarousel">
             <ons-carousel-item class="myCarousel">
                 <img src="images/s1.png" class="slider_img"/>
             </ons-carousel-item>
@@ -51,19 +52,38 @@ ons.ready(function() {
     setTimeout(function() {
 
         hideFloatIcon();
-        
-        $('#myCarousel').click(function(){
 
-            var index = carousel.getActiveCarouselItemIndex();
-            if (index >= 5) {
-                //gotoPage1();
-                menu.setMainPage('intro.html', {closeMenu: true});
-                
-            } else {
+        $('#myCarousel').swipe( {
+
+            click:function(event,target){
+                checkIntro();
                 carousel.next();
-            }
+            },                                          
+            swipeLeft: function() {
+                checkIntro();
+                carousel.next();
+            },
+            swipeRight: function() {
+                checkIntro();
+                carousel.prev();
+            },
+            allowPageScroll: 'vertical'
         });
     }, 10);
+
+    function checkIntro() {
+
+        var index = carousel.getActiveCarouselItemIndex();
+        if (index >= 5) {
+
+            var has_intro2 = window.localStorage.getItem("has_intro2");
+            if(has_intro2 != "true") {
+
+                window.localStorage.setItem("has_intro2", "true");
+                menu.setMainPage('intro.html', {closeMenu: true});
+            }
+        }
+    }
 });
 </script>
 
