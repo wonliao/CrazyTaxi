@@ -1,12 +1,11 @@
 <style>
 </style>
 
-<ons-navigator title="Navigator" var="homeNavigator">
-    <ons-page style="background:#fff;">
+<ons-page style="background:#fff;">
     
         <ons-toolbar fixed-style>
             <div class="left" style="line-height: 44px;">
-                <ons-back-button></ons-back-button>
+                
             </div>
             <div class="center">
                 <img src="images/go2gether.png" style="height:32px;"/>
@@ -17,8 +16,7 @@
         		</ons-toolbar-button>
             </div>
         </ons-toolbar>
-        
-        
+
         <section style="background:#a7f5e8; margin:16px 16px 0 16px;">
             <section style="padding: 4px 16px 0 16px; text-align:center;">
                 <h1 style="color:#F00; font-weight:bold;">恭喜完成刊登</h1>
@@ -99,19 +97,19 @@
                 </div>
             </section>
             -->
-            <div style="clear:both; height:10px"></div>
-             
-            <section style="padding: 4px 16px; text-align:center;">
-                <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
-                    <span style="font-size:18px">確定</span>
-                </ons-button>
-            </section>
-
         </section>
         
+        <div style="clear:both; height:10px"></div>
+        
+        <section style="padding: 4px 16px; text-align:center;">
+            <ons-button class="button button--large" modifier="chevron" onclick="page2SuccessClick('確定')" style="background:#36d0c9; border-radius:0;">
+                <span style="font-size:18px">返回首頁</span>
+            </ons-button>
+        </section>
+
         <div style="clear:both; height:16px"></div>
 
-    </ons-page>
+</ons-page>
     
     <ons-template id="alert-dialog.html">
       <ons-alert-dialog var="alertDialog">
@@ -124,15 +122,14 @@
       </ons-alert-dialog>
     </ons-template>
 
-</ons-navigator>
+
 
 <script>
 
 ons.ready(function() {
     setTimeout(function() {
 
-        //window.localStorage.setItem("facebook_id", "1389354124412945");
-        //window.localStorage.setItem("facebook_name", "廖志旺");
+        hideFloatIcon();
             
         //var kktv_serial_number = window.localStorage.getItem("kktv");
         var amart_serial_number = window.localStorage.getItem("amart");

@@ -13,6 +13,7 @@
     height: 60px;
     background-position-y: 5px;
 }
+
 .my-icon-1.active{
   background-image: url(images/icons/1_b.png);
 }
@@ -27,6 +28,7 @@
     height: 60px;
     background-position-y: 5px;
 }
+
 .my-icon-2.active {
   background-image: url(images/icons/2_b.png);
 }
@@ -41,6 +43,7 @@
     height: 60px;
     background-position-y: 5px;
 }
+
 .my-icon-3.active {
   background-image: url(images/icons/3_b.png);
 }
@@ -55,6 +58,7 @@
     height: 60px;
     background-position-y: 5px;
 }
+
 .my-icon-4.active {
   background-image: url(images/icons/4_b.png);
 }
@@ -69,6 +73,7 @@
     height: 60px;
     background-position-y: 5px;
 }
+
 .my-icon-5.active {
   background-image: url(images/icons/5_b.png);
 }
@@ -77,17 +82,15 @@
 <ons-navigator title="Navigator" var="homeNavigator">
   
     <ons-page>
-       
 		<ons-tabbar position="bottom" var="tabbar">
-			<ons-tabbar-item page="page1.html?t=1234" label="首頁" class="my-icon-1" fixed-width="true" onClick="tabClick('首頁')"></ons-tabbar-item>
-            <ons-tabbar-item page="page2.html" label="揪共乘" class="my-icon-2" fixed-width="true" onClick="tabClick('刊登共乘')"></ons-tabbar-item>
+			<ons-tabbar-item page="page1.html" label="首頁" class="my-icon-1" fixed-width="true" onClick="tabClick('首頁')"></ons-tabbar-item>
+            <ons-tabbar-item page="page2_new.html" label="揪共乘" class="my-icon-2" fixed-width="true" onClick="tabClick('刊登共乘')"></ons-tabbar-item>
             <ons-tabbar-item class="my-icon-3" label="叫車" onClick="tabClick('叫車')"></ons-tabbar-item>
     		<ons-tabbar-item page="page4.html" label="說明" class="my-icon-4" active="false" onClick="tabClick('活動說明')"></ons-tabbar-item>
             <ons-tabbar-item class="my-icon-5" label="粉絲團" onClick="tabClick('官方粉絲團')"></ons-tabbar-item>
 		</ons-tabbar>
 	</ons-page>
-    
-    
+
 </ons-navigator>    
 
 <script>
@@ -102,14 +105,14 @@ ons.ready(function() {
         // 說明頁
         var has_intro = window.localStorage.getItem("has_intro");
         if(has_intro != "true") {
-            HoldOn.close();
+            
+            hideFloatIcon();
             window.localStorage.setItem("has_intro", "true");
             tabbar.setActiveTab(3);
         } else {
+
            tabbar.setActiveTab(0);
         }
-        
-        
     }, 10);
 });
 
@@ -157,44 +160,7 @@ function page3_click() {
 
     HoldOn.open(options);
 }
-/*
-function call_app() {
 
-    // iOS
-    if(ons.platform.isIOS()) {
-
-        var iframe = document.createElement("iframe");
-    
-        iframe.style.border = "none";
-        iframe.style.width = "1px";
-        iframe.style.height = "1px";
-        iframe.onload = function () {
-            document.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
-        };
-        iframe.src = "TaiwanTaxi55688://"; //iOS app schema url
-    
-        window.onload = function(){
-            document.body.appendChild(iframe);
-        }
-    
-        setTimeout(function(){
-            window.location = fallbackUrl; //fallback url
-        },300);
-    
-    // Android
-    } else if(ons.platform.isAndroid()) {
-        
-        window.location = 'taiwantaxi55688://taiwantaxi/';
-        setTimeout(function() {        
-           window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
-        }, 500);
-    // PC
-    } else {
-
-        window.open("http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx");
-    }
-}
-*/ 
 function gotoPage1() {
 
     HoldOn.open({message:"定位中，請稍候"});

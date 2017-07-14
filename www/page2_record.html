@@ -1,0 +1,265 @@
+<style>
+.slider_img {
+    margin: 0 auto;
+    height:100%;
+}
+
+.myCarousel {
+    text-align: center;
+}
+
+.mySection {
+    padding: 16px; 
+    border: rgba(0,0,0,0.2) 1px solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.left_part {
+    color:#aaa8a8;
+    width:10%;
+    display: inline-flex;
+    vertical-align: middle;
+}
+.right_part {
+    color:#686d6d;
+    width: 90%;
+    display: inline-flex;
+    padding-left: 3%;
+    vertical-align: middle;
+}
+.text3 {
+    font-weight: bold;
+}
+
+</style>
+
+<ons-page style="background:#fff;">
+
+    <ons-toolbar fixed-style>
+        <div class="left" style="line-height: 44px;">
+            <ons-back-button></ons-back-button>
+        </div>
+        <div class="center">
+            <img src="images/go2gether.png" style="height:32px;"/>
+        </div>
+        <div class="right" style="line-height: 44px">
+            <ons-toolbar-button ng-click="menu.toggleMenu()">
+            	<ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+    		</ons-toolbar-button>
+        </div>
+    </ons-toolbar>
+        
+    <div style="clear:both; height:10px"></div>
+    
+    <section style="padding: 8px 16px 4px 16px">
+        <div style="">地址記錄</div>
+    </section>
+    
+    <div id="record_list" style="padding: 8px 16px 4px 16px">載入中...</div>
+    
+    <div style="clear:both; height:100px"></div>
+    
+    <section style="padding:10px 16px; position:fixed; bottom:60px; width:100%; background:#FFF;">
+        <ons-button class='button button--large' modifier='chevron' onclick='selectRecord()' style='background:#36d0c9; border-radius:0;'>
+            <span style="font-size:18px">確定</span>
+        </ons-button>
+    </section>
+    
+    <ons-template id="alert-dialog.html">
+        <ons-alert-dialog var="alertDialog">
+            <div class="alert-dialog-title">
+                <strong style="color: #ff3333" id="alertDialogTitle">定位失敗!</strong>    
+            </div>
+            <div class="alert-dialog-content">
+                <span id="alertDialogText">請確定已開啟GPS功能，並重新嘗試。</span>
+            </div>
+            <div class="alert-dialog-footer">
+                <button id="dialog_btn" class="alert-dialog-button" onClick="location.reload()">OK</button>
+            </div>
+        </ons-alert-dialog>
+    </ons-template>
+    
+</ons-page>
+
+<script>
+    var t;
+    ons.ready(function() {
+        setTimeout(function() {
+            
+            hideFloatIcon();
+            showDownloadIcon();
+            
+            // 檢查 facebook 是否已登入
+            if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
+
+                ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+                    
+                    $('#alertDialogTitle').html("提示");
+                    $('#alertDialogText').html("請先登入您的Facebook帳號");
+                    $(".alert-dialog-button").attr("onclick","needLogin()");
+                    alertDialog.show();
+                });
+
+                return;
+            }
+
+            var select_map = window.localStorage.getItem("select_map");
+            var fb_id = window.localStorage.getItem("facebook_id");
+        
+            // 記錄
+            var snapshots = new Array();
+            areas.orderByChild("fb_id").equalTo(fb_id).on("child_added", function(snapshot) {
+                
+                var key = snapshot.key;
+                
+                // 時間
+                var d1 = new Date(snapshot.val().appointment);
+        		var time_text = getTimeStr(d1); //d1.toLocaleString();
+
+                var d = new Date();
+                var now_text = d.toLocaleString();
+                var stauts = snapshot.val().status;
+
+                /*
+                var _address = "";
+                if(select_map == "address") {
+                    _address = snapshot.val().input_address;
+                } else if(select_map == "destination") {
+                    _address = snapshot.val().destination;
+                } else if(select_map == "airport_address") {
+                    _address = snapshot.val().input_address;
+                }
+                */
+                
+                var text = "";
+                
+                // 上車地址
+                var _address = snapshot.val().input_address;
+                text += '<div style="clear:both; height:10px"></div>';
+                text += "<section class='mySection' id='record_"+key+"a' onClick='selectRow(\""+key+"a\", \""+_address+"\")'>";
+                text +=     '<div>';
+                text +=         '<span class="left_part"><img src="images/marker_green.png" style="height:30px"></span>';
+                text +=         '<span class="right_part">'+_address+'</span>';
+                text +=     '</div>';
+                text += '</section>';
+                
+                // 下車地址
+                var _destination = snapshot.val().destination;
+                text += '<div style="clear:both; height:10px"></div>';
+                text += "<section class='mySection' id='record_"+key+"b' onClick='selectRow(\""+key+"b\", \""+_destination+"\")'>";
+                text +=     '<div>';
+                text +=         '<span class="left_part"><img src="images/marker_green.png" style="height:30px"></span>';
+                text +=         '<span class="right_part">'+_destination+'</span>';
+                text +=     '</div>';
+                text += '</section>';
+
+                // 時間
+                var d1 = new Date(snapshot.val().timestamp);
+                var temp = new Array(2);
+                temp[0] = d1;
+                temp[1] = text;
+                snapshots.push(temp);
+
+                if (t === undefined || t === null) {
+
+                } else {
+                    clearTimeout(t);
+                }
+                t = setTimeout(function(){ next(); }, 100);
+            });
+            
+            function next() {
+
+                snapshots = snapshots.sort(function(a,b) {
+                    return b[0] - a[0];
+                });
+
+                if(snapshots.length <= 0) {
+
+                    $('#record_list').html("目前無地址記錄");
+                } else {
+
+                    $('#record_list').empty();
+                    for(var i=0; i<snapshots.length; i++) {
+
+                        $('#record_list').append(snapshots[i][1]);
+                    }
+                }
+            }
+        }, 10);
+    });
+    
+    var g_address = "";
+    var g_key = "";
+    function selectRow(_key, _address) {
+        
+        // 清除全部
+        $('.mySection').css("background", "#FFF");
+        
+        if(_key == g_key) {
+            
+            g_key = "";
+            g_address = "";
+        } else {
+            
+            g_key = _key;
+            g_address = _address;
+            var id = "record_" + _key;
+            $('#'+id).css("background", "aliceblue");
+        }
+    }
+
+    function selectRecord() {
+
+        if(g_address == "") {
+            
+            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                $('#alertDialogTitle').html("提示");
+                $('#alertDialogText').html('請選擇一筆記錄');
+                $("#dialog_btn").attr("onclick","closeDialog()");
+                alertDialog.show();
+            });
+        } else {
+        
+            var select_map = window.localStorage.getItem("select_map");
+            if(select_map == "address") {
+                $("#new_address").val(g_address)//.focus();
+            } else if(select_map == "destination") {
+                $("#new_destination").val(g_address);//.focus();
+            } else if(select_map == "airport_address") {
+                $("#new_airport_address").val(g_address);//.focus();
+            }
+            
+            hideFloatIcon();
+            homeNavigator.popPage();
+        }
+    }
+
+    function closeDialog() {
+        alertDialog.destroy();
+    }
+    
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    var str = "";
+    var select_map = window.localStorage.getItem("select_map");
+    if(select_map == "address") {
+        str = "一般上車記錄"
+    } else if(select_map == "destination") {
+        str = "一般下車記錄"
+    } else if(select_map == "airport_address") {
+        str = "機場上車記錄"
+    }
+
+  ga('create', 'UA-84401162-1', 'auto');
+  ga('send', 'pageview', '刊登共乘頁-' + str);
+</script>

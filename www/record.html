@@ -72,7 +72,7 @@
 </ons-navigator>
 
 <script>
-
+    var t;
     ons.ready(function() {
         setTimeout(function() {
 
@@ -90,44 +90,66 @@
             var fb_id = window.localStorage.getItem("facebook_id");
 
             // 記錄
-            var count = 0;
+            var snapshots = new Array();
             areas.orderByChild("fb_id").equalTo(fb_id).on("child_added", function(snapshot) {
 
-                var key = snapshot.key;
-                //console.log("key("+snapshot.key+")");
-
                 // 時間
-                var d1 = new Date(snapshot.val().appointment);
-    			var time_text = getTimeStr(d1); //d1.toLocaleString();
+                var d1 = new Date(snapshot.val().appointment).getTime();
+                if(_begin_time >= d1 && d1 <= _end_time) {
 
-                // 過期時間
-                var d2 = new Date(snapshot.val().expired_time); 
-                var expired_time_text = getTimeStr(d2);//d2.toLocaleString();
-
-                var d = new Date();
-                var now_text = d.toLocaleString();
-
-                var text = "";
-                text += '<div style="clear:both; height:10px"></div>';
-
-                //var stauts = snapshot.val().status;
-               
-               if(count == 0)   $('#history').empty();
-               
-               
-               
-                text += "<section class='mySection' onClick='setInfo(\""+snapshot.val().input_address+"\", \""+snapshot.val().destination+"\")'>";
-                text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
-                text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
-                text +=     '<div><span class="text1">時間</span><span class="text2">'+time_text+'</span></div>';
-                text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
-                text += '</section>';
-
-                $('#history').append(text);
-                
-                
-                count++;
+                    var temp = new Array(2);
+                    temp[0] = d1;
+                    temp[1] = snapshot;
+                    snapshots.push(temp);
+                        
+                    if (t === undefined || t === null) {
+    
+                    } else {
+                        clearTimeout(t);
+                    }
+                    t = setTimeout(function(){ next(); }, 100);
+                }
             });
+
+            function next() {
+
+                snapshots = snapshots.sort(function(a,b) {
+                    return a[0] - b[0];
+                });
+                
+                for(var i=0; i<snapshots.length; i++) {
+
+                    var snapshot = snapshots[i][1];
+
+                    var key = snapshot.key;
+                    //console.log("key("+snapshot.key+")");
+    
+                    // 時間
+                    var d1 = new Date(snapshot.val().appointment);
+        			var time_text = getTimeStr(d1); //d1.toLocaleString();
+    
+                    // 過期時間
+                    var d2 = new Date(snapshot.val().expired_time); 
+                    var expired_time_text = getTimeStr(d2);//d2.toLocaleString();
+    
+                    var d = new Date();
+                    var now_text = d.toLocaleString();
+    
+                    var text = "";
+                    text += '<div style="clear:both; height:10px"></div>';
+
+                    if(i == 0)   $('#history').empty();
+    
+                    text += "<section class='mySection' onClick='setInfo(\""+snapshot.val().input_address+"\", \""+snapshot.val().destination+"\")'>";
+                    text +=     '<div><span class="text1">出發</span><span class="text2">'+snapshot.val().input_address+'</span></div>';
+                    text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
+                    text +=     '<div><span class="text1">時間</span><span class="text2">'+time_text+'</span></div>';
+                    text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
+                    text += '</section>';
+    
+                    $('#history').append(text);
+                }
+            }
         }, 10);
     });
 

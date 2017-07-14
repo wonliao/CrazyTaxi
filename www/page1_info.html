@@ -4,6 +4,8 @@
     -moz-border-radius: 60px;
     border-radius: 60px;
     BORDER: #c9c9c9 2px solid;
+    width: 120px;
+    height: 120px;
 }
 .submit_btn {
     background-color: rgba(24,103,194,0.81);
@@ -23,7 +25,7 @@
 
     <ons-toolbar fixed-style>
         <div class="left" style="line-height: 44px;">
-            <ons-back-button></ons-back-button>
+            <ons-back-button id="page1_info_back"></ons-back-button>
         </div>
         <div class="center">
             <img src="images/go2gether.png" style="height:32px;"/>
@@ -34,81 +36,77 @@
     		</ons-toolbar-button>
         </div>
     </ons-toolbar>
-        
-        <div style="clear:both; height:10px"></div>
 
-        <!-- facebook 頭像及名稱 -->
-        <section style="padding: 4px 16px; text-align:center;">
-            <img id="fb_user_picture"/>
-            <div id="fb_user_name"></div>
-        </section>
+    <div style="clear:both; height:10px"></div>
+
+    <!-- facebook 頭像及名稱 -->
+    <section style="padding: 4px 16px; text-align:center;">
+        <img id="fb_user_picture"/>
+        <div id="fb_user_name"></div>
+    </section>
         
+    <div style="clear:both; height:10px"></div>
+ 
+    <section class="section1">
+        <div style="color:#b5b2b2;">上車地點</div>
+        <div id="input_address_div" style="color:#6b6b6b;"></div>
+    </section>
+        
+    <section class="section1">
+        <div style="color:#b5b2b2;">下車地點</div>
+        <div id="destination_div" style="color:#6b6b6b;"></div>
+    </section>
+
+    <section class="section1">
+        <div style="color:#b5b2b2;">出發時間</div>
+        <div id="time_div" style="color:#6b6b6b;"></div>
+    </section>
+        
+    <section class="section1">
+        <div style="color:#b5b2b2;">共乘目的</div>
+        <div id="purpose_div" style="color:#6b6b6b;"></div>
+    </section>
+        
+    <section class="section1">
+        <div style="color:#b5b2b2;">備註</div>
+        <div id="note_div" style="color:#6b6b6b;"></div>
+    </section>
+        
+    <form id="page1_info_form">
+        <section style="padding: 4px 16px" class="radio_box">
+            <input type="checkbox" name="ck_1" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span></span>
+        </section>
         <div style="clear:both; height:10px"></div>
-         
-        <section class="section1">
-            <div style="color:#b5b2b2;">上車地點</div>
-            <div id="input_address_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">下車地點</div>
-            <div id="destination_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">出發時間</div>
-            <div id="time_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">共乘目的</div>
-            <div id="purpose_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <section class="section1">
-            <div style="color:#b5b2b2;">備註</div>
-            <div id="note_div" style="color:#6b6b6b;"></div>
-        </section>
-        
-        <form id="add">
-            <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" name="ck_1" required/><span style="margin-left:5px"><span id="ck_1_span">我同意共乘車資依照跳錶金額平均分攤，並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span></span>
-            </section>
-            <!--
-            <section style="padding: 4px 16px" class="radio_box">
-                <input type="checkbox" name="ck_2" required/><span style="margin-left:5px"><span id="ck_2_span">我已詳細閱讀並同意本活動之</span><a onClick="page7_click()" style="cursor: pointer;">服務條款</a>及<a onClick="page4_click()" style="cursor: pointer;">活動說明</a></span>
-            </section>
-            -->
-            <div style="clear:both; height:10px"></div>
   
-            <section style="padding: 0px 16px" class="radio_box">                
-                <input type="submit" value="聯繫對方" class="btn btn-default submit_btn">
-            </section>
-        </form>
+        <section style="padding: 0px 16px" class="radio_box">                
+            <input type="submit" value="聯繫對方" class="btn btn-default submit_btn">
+        </section>
+            
+        <div style="clear:both; height:30px"></div>
+    </form>
         
-        <div id="self_div" style="display:none;">
-            <section class="section1">
-                <div style="color:#b5b2b2;">小幫手</div>
-                <div id="note_div" style="color:#6b6b6b;">*已找到共乘夥伴，卻還是一直收到共乘聯繫時，可使用下方按鈕【已找到共乘夥伴】，系統將會自動隱藏您的共乘需求。<span style="color:#F00;">(注意！此功能並非取消共乘！）</span></div>
-            </section>
+    <div id="self_div" style="display:none;">
+        <section class="section1">
+            <div style="color:#b5b2b2;">小幫手</div>
+            <div id="note_div" style="color:#6b6b6b;">*已找到共乘夥伴，卻還是一直收到共乘聯繫時，可使用下方按鈕【已找到共乘夥伴】，系統將會自動隱藏您的共乘需求。<span style="color:#F00;">(注意！此功能並非取消共乘！）</span></div>
+        </section>
+
+        <div style="clear:both; height:10px"></div>
+        
+        <section style="padding: 4px 16px; text-align:center;">
+            <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page1InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0;">
+                <span style="font-size:18px">已找到共乘夥伴</span>
+            </ons-button>
         
             <div style="clear:both; height:10px"></div>
-        
-            <section style="padding: 4px 16px; text-align:center;">
-                <ons-button id="done_btn" class="button button--large" modifier="chevron" onclick="page1InfoClick('已找到共乘夥伴')" style="background:#36d0c9; border-radius:0;">
-                    <span style="font-size:18px">已找到共乘夥伴</span>
-                </ons-button>
-        
-                <div style="clear:both; height:10px"></div>
-        
-                <ons-button id="cancel_btn" class="button button--large" modifier="chevron" onclick="page1InfoClick('取消此次共乘')" style="background:#adadad; border-radius:0;">
-                    <span style="font-size:18px">取消此次共乘</span>
-                </ons-button>
-            </section>
-        </div>
-        
-</ons-page>
 
+            <ons-button id="cancel_btn" class="button button--large" modifier="chevron" onclick="page1InfoClick('取消此次共乘')" style="background:#adadad; border-radius:0;">
+                <span style="font-size:18px">取消此次共乘</span>
+            </ons-button>
+        </section>
+    </div>    
+</ons-page>
+<!--
 <ons-template id="alert-dialog.html">
     <ons-alert-dialog var="alertDialog">
         <div class="alert-dialog-content">
@@ -119,64 +117,69 @@
         </div>
     </ons-alert-dialog>
 </ons-template>
-
+-->
+    
 <script>
 
-function page1InfoClick(pageName) {
-    
-    switch(pageName) {
-    case "聯繫對方":                    contact_btn();              break;
-    case "Facebook messenger 聯繫":     fb_messenger_btn();         break;
-    case "簡訊聯繫":                    sms_btn();                  break;
-    case "電話聯繫":                    phone_click();              break;
-    case "電子信箱聯繫":                email_btn();                break;
-    case "已找到共乘夥伴":              done_btn();                 break;
-    case "取消此次共乘":                cancel_btn();               break;
-    }
+    function page1InfoClick(pageName) {
 
-    ga('send', 'event', '共乘條件頁', 'click', pageName);
-}
+        switch(pageName) {
+        case "聯繫對方":                    contact_btn();              break;
+        case "Facebook messenger 聯繫":     fb_messenger_btn();         break;
+        case "簡訊聯繫":                    sms_btn();                  break;
+        case "電話聯繫":                    phone_click();              break;
+        case "電子信箱聯繫":                email_btn();                break;
+        case "已找到共乘夥伴":              done_btn();                 break;
+        case "取消此次共乘":                cancel_btn();               break;
+        }
+
+        ga('send', 'event', '共乘條件頁', 'click', pageName);
+    }
 
     ons.ready(function() {
         setTimeout(function() {
             
-            //window.localStorage.setItem("facebook_id", "1389354124412945");
+            HoldOn.close();
+            $("#event_div").hide();
+            $("#download-btn").hide();
 
             // 檢查 facebook 是否已登入
             if(window.localStorage.getItem("facebook_id") == "" || window.localStorage.getItem("facebook_id") == null ) {
-
+                
                 ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
 
-                    $('#page1AlertDialogText').html("請先登入您的Facebook帳號");
+                    $('#alertDialogTitle').html("提示");
+                    $('#alertDialogText').html("請先登入您的Facebook帳號");
+                    $(".alert-dialog-button").attr("onclick","needLogin()");
                     alertDialog.show();
                 });
-
+                
                 return;
             }
 
             is_fb_player_enable();
 
             showInfo();
-     
             
+            ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+                $("#alertDialogTitle").html("*提醒*");
+                $("#alertDialogText").html("1)出發前記得使用側邊的55688按鈕進行叫車<br />2)隨時注意來自夥伴的 電話/簡訊/E-mail 聯繫訊息");
+                $(".alert-dialog-button").text("確定").attr("onclick","alertDialog.destroy()");
+                $(".alert-dialog-content").css("text-align","left");
+                alertDialog.show();
+            });
+
             $('#ck_1_span').click(function() {
 
                 var ck_1 = $('input[name=ck_1]:checked');
                 if(ck_1.length > 0)     $('input[name=ck_1]').prop("checked", false);
                 else                    $('input[name=ck_1]').prop("checked", true);
             });
-            /*
-            $('#ck_2_span').click(function() {
-
-                var ck_2 = $('input[name=ck_2]:checked');
-                if(ck_2.length > 0)     $('input[name=ck_2]').prop("checked", false);
-                else                    $('input[name=ck_2]').prop("checked", true);
-            });
-            */
-            $('#add').submit(function(e) {
+            
+            $('#page1_info_form').submit(function(e) {
 
                 var ck_1 = $('input[name=ck_1]:checked');
-                //var ck_2 = $('input[name=ck_2]:checked');
                 if(ck_1.length <= 0) {
                    
                     ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -186,25 +189,15 @@ function page1InfoClick(pageName) {
                         alertDialog.show();
                     });
                     return false;
-                } /*else if(ck_2.length <= 0) {
-                
-                   ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
-    
-                        $('#page1AlertDialogText').html('請勾選"我已詳細閱讀並同意本活動之服務條款及活動說明"');
-                        $("#dialog_btn").attr("onclick","closeDialog()");
-                        alertDialog.show();
-                    });
-                    return false;
-                }*/
+                }
 
                 page1InfoClick('聯繫對方');
-                event.preventDefault();
+                e.preventDefault();
             });
 
         }, 10);
     });
     
-
     var fb_id = "";
     var phones = "";
     var emai = "";
@@ -213,13 +206,11 @@ function page1InfoClick(pageName) {
     var input_address = "";
     var time_text = "";
     function showInfo() {
-        
-        //var key = "-KRRNVxXNetIAj6aXiZL";
+
         var key = window.localStorage.getItem("info_key");
         
         areas.child(key).on('value', function(snapshot) {
-    					
-			//console.log(snapshot.val());
+
 			fb_id = snapshot.val().fb_id;                       // facebook user id
             fb_name = snapshot.val().fb_name;                   // facebook user name
             input_address = snapshot.val().input_address;       // 上車地點
@@ -231,10 +222,9 @@ function page1InfoClick(pageName) {
             email = snapshot.val().email;                       // 電子信箱
 
 			var d = new Date(timestamp);
-			time_text = getTimeStr(d); //d.toLocaleString();
+			time_text = getTimeStr(d);
 		    
             var fb_image = "https://graph.facebook.com/"+fb_id+"/picture?type=normal";
-            //console.log("fb_image("+fb_image+")");
             $('#fb_user_picture').attr("src", fb_image);
 			$('#fb_user_name').text(fb_name);			
             $('#input_address_div').text(input_address);
@@ -242,64 +232,52 @@ function page1InfoClick(pageName) {
             $('#time_div').text(time_text);
             $('#purpose_div').text(purpose);
             $('#note_div').text(note);
-            
-            
-             
+
             var facebook_id = window.localStorage.getItem("facebook_id");
             console.log("facebook_id("+facebook_id+") fb_id("+fb_id+")");
             if(fb_id == facebook_id) {
                 
-                $("#add").hide();
+                $("#page1_info_form").hide();
                 $("#self_div").show();
             }
-            
 		});
-        
-        
     }
     
     function contact_btn() {
 
         var message = "";
             message +=  '<div class="pop_message">';
-            /*
-            message +=  '<section class="section1">';
-            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"Facebook messenger 聯繫\")' style='background:#36d0c9; border-radius:0;'>";
-            message +=          '<span style="font-size:18px">Facebook messenger 聯繫</span>';
-            message +=      '</ons-button>';
-            message +=  '</section>';
-            */
-            
-            if(phones != "") {
 
-                message +=  '<section class="section1">';
-                message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電話聯繫\")' style='background:#36d0c9; border-radius:0;'>";
-                message +=          '<span style="font-size:18px">電話聯繫</span>';
-                message +=      '</ons-button>';
-                message +=  '</section>';
-
-                message +=  '<section class="section1">';
-                message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"簡訊聯繫\")' style='background:#36d0c9; border-radius:0;'>";
-                message +=          '<span style="font-size:18px">簡訊聯繫</span>';
-                message +=      '</ons-button>';
-                message +=  '</section>';
-            }
-
-            if(email != "") {
-
-                message +=  '<section class="section1">';
-                message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電子信箱聯繫\")' style='background:#36d0c9; border-radius:0;'>";
-                message +=          '<span style="font-size:18px">電子信箱聯繫</span>';
-                message +=      '</ons-button>';
-                message +=  '</section>';
-            }
+        if(phones != "") {
 
             message +=  '<section class="section1">';
-            message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
-            message +=          '<span style="font-size:18px">取消</span>';
+            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電話聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+            message +=          '<span style="font-size:18px">電話聯繫</span>';
             message +=      '</ons-button>';
             message +=  '</section>';
-            message +=  '</div>';
+
+            message +=  '<section class="section1">';
+            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"簡訊聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+            message +=          '<span style="font-size:18px">簡訊聯繫</span>';
+            message +=      '</ons-button>';
+            message +=  '</section>';
+        }
+
+        if(email != "") {
+
+            message +=  '<section class="section1">';
+            message +=      "<ons-button class='button button--large' modifier='chevron' onclick='page1InfoClick(\"電子信箱聯繫\")' style='background:#36d0c9; border-radius:0;'>";
+            message +=          '<span style="font-size:18px">電子信箱聯繫</span>';
+            message +=      '</ons-button>';
+            message +=  '</section>';
+        }
+
+        message +=  '<section class="section1">';
+        message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
+        message +=          '<span style="font-size:18px">取消</span>';
+        message +=      '</ons-button>';
+        message +=  '</section>';
+        message +=  '</div>';
 
         options = {
             theme: "custom",
@@ -317,10 +295,14 @@ function page1InfoClick(pageName) {
     
     function sms_btn() {
 
-        //var message = "Hi " + fb_name + " 一起共乘去" + destination + "吧~~";
-        window.location = "sms:" + phones;// + "&body=" + message;
+        var my_fb_name = window.localStorage.getItem("facebook_name");
+        var msg = "";
+        msg += "Hi 我是 " + my_fb_name + " 我想跟你一起共乘去" + destination + "。";
+        msg += "上車地點：" + input_address + "，";
+        msg += "出發時間：" + time_text + "。";
+        window.location ="sms:" + phones + "?body=" + msg;
     }
-
+   
     function phone_click() {
 
         window.location = "tel:" + phones;
@@ -336,8 +318,6 @@ function page1InfoClick(pageName) {
         msg += "上車地點：" + input_address + "%0D%0A";
         msg += "下車地點：" + destination + "%0D%0A";
         msg += "出發時間：" + time_text + "%0D%0A";
-        //console.log("msg("+msg+")");
-
         window.location.href = "mailto:" + email + msg;
     }
 
@@ -350,7 +330,6 @@ function page1InfoClick(pageName) {
     
                 var enable = snapshot.val().enable;
                 var name = snapshot.val().name;
-                //console.log("enable("+enable+") name("+name+")");
     
                 if(enable != true) {
     
@@ -382,20 +361,16 @@ function page1InfoClick(pageName) {
     function done_btn() {
 
         var key = window.localStorage.getItem("info_key");
-        //console.log("done_btn ==> key("+key+")");
-        
         areas.child(key).once("value", function(snapshot) {
 
     		updateStatus(snapshot, "done");
             gotoPage1();
 		});
     }
-    
+
     function cancel_btn() {
 
         var key = window.localStorage.getItem("info_key");
-        //console.log("cancel_btn ==> key("+key+")");
-
         areas.child(key).once("value", function(snapshot) {
 
     		updateStatus(snapshot, "cancel");
@@ -404,8 +379,7 @@ function page1InfoClick(pageName) {
     }
     
     function updateStatus(snapshot, status) {
-        
-        //console.log("click ==> snapshot.key("+snapshot.key+")");
+
         var area = {};
         area.address = snapshot.val().address ? snapshot.val().address : "";
         area.appointment = snapshot.val().appointment ? snapshot.val().appointment : "";
@@ -469,9 +443,7 @@ function page1InfoClick(pageName) {
             body += "活動網站：<a href='https://goo.gl/gje0G6'>https://goo.gl/gje0G6</a><br />";
             body += "官方粉絲團：<a href='https://goo.gl/cVIwMp'>https://goo.gl/cVIwMp</a><br />";
             body += "<br />";
-            
-            console.log("to("+to+") subject("+subject+")");
-            console.log(body);
+
             $.post("https://17-vr-live.wonliao.com/go2gether/www/backend/send_mail.php", 
                 { 
                     "to": to,
@@ -494,6 +466,14 @@ function page1InfoClick(pageName) {
         if (i<10) { i = "0" + i; }
         return i
     }
+    
+    $("#page1_info_back").click(function(event){
+        
+        event.preventDefault();
+        showFloatIcon();
+        homeNavigator.popPage();
+    });
+
 </script>
 
 <script>

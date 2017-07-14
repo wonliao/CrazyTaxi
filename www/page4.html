@@ -1,18 +1,7 @@
 <style>
-@media screen and (min-width:500px) {
 .slider_img {
     margin: 0 auto;
-    height:100%;
-}
-}
-
-@media screen and (max-width:500px) {
-.slider_img {
-    margin: 0 auto;
-    /*height:100%;*/
-    width:100%;
-}
-   
+    height: calc(100% - 50px);
 }
 
 .myCarousel {
@@ -24,11 +13,6 @@
     <ons-page style="background:#fff;">
     
         <ons-toolbar fixed-style>
-            <!--
-            <div class="left" style="line-height: 44px">
-                <img src="images/logo.png" style="height:32px; margin-left:10px;" onClick="gotoPage1()"/>
-            </div>
-            -->
             <div class="center">
                 <img src="images/go2gether.png" style="height:32px;"/>
             </div>
@@ -41,41 +25,40 @@
 
         <ons-carousel  swipeable overscrollable auto-scroll fullscreen var="carousel" id="myCarousel">
             <ons-carousel-item class="myCarousel">
-                <img src="images/s1.png?20161129" class="slider_img"/>
+                <img src="images/s1.png" class="slider_img"/>
             </ons-carousel-item>
             <ons-carousel-item class="myCarousel">
-                <img src="images/s2.png?20161129" class="slider_img"/>
+                <img src="images/s2.png" class="slider_img"/>
             </ons-carousel-item>
             <ons-carousel-item class="myCarousel">
-                <img src="images/s3.png?20161129" class="slider_img"/>
+                <img src="images/s3.png" class="slider_img"/>
             </ons-carousel-item>
             <ons-carousel-item class="myCarousel">
-                <img src="images/s4.png?20161219" class="slider_img"/>
+                <img src="images/s4.png" class="slider_img"/>
             </ons-carousel-item>
             <ons-carousel-item class="myCarousel">
-                <img src="images/s5.png?20161129" class="slider_img"/>
+                <img src="images/s5.png" class="slider_img"/>
             </ons-carousel-item>
             <ons-carousel-item class="myCarousel">
-                <img src="images/s6.png?20161129" class="slider_img"/>
+                <img src="images/s6.png" class="slider_img"/>
             </ons-carousel-item>
         </ons-carousel>
-
     </ons-page>
-
 </ons-navigator>
 
 <script>
 ons.ready(function() {
     setTimeout(function() {
 
-        $("#event_div").hide();
+        hideFloatIcon();
         
         $('#myCarousel').click(function(){
 
             var index = carousel.getActiveCarouselItemIndex();
             if (index >= 5) {
-                //carousel.first();
-                gotoPage1();
+                //gotoPage1();
+                menu.setMainPage('intro.html', {closeMenu: true});
+                
             } else {
                 carousel.next();
             }

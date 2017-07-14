@@ -6,7 +6,6 @@
 <meta http-equiv="Content-Security-Policy" content="style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
 <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
 
-
 <!-- 網頁標題、標籤icon。 -->
 <title>go2gether大車隊共乘 – 搭車省荷包還賺買菜錢</title>
 <link rel="shortcut icon" href="images/Favicon.ico" type="image/x-icon">
@@ -27,11 +26,6 @@
 <meta property="fb:pages" content="1728499480807287">
 <meta property="fb:app_id" content="364003187320606">
 
-
-<!--
-<link rel="stylesheet" href="components/loader.css">
-<script src="components/loader.js"></script>
--->
 <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
 <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsen-css-components.css'>
 <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -39,6 +33,7 @@
 <link href="css/map.css" rel="stylesheet">
 <link href="css/HoldOn.min.css" rel="stylesheet">
 <link href="css/wickedpicker.css" rel="stylesheet">
+<link href="css/spinningwheel.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -48,10 +43,12 @@
 <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 <script src="https://cdn.firebase.com/libs/geofire/4.1.0/geofire.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc&libraries=places"></script>
+
 <script src="js/HoldOn.min.js"></script>
 <script src="js/wickedpicker.min.js"></script>
 <script src="js/datepicker-zh-TW.js"></script>
+<script src="js/spinningwheel.js"></script>
 <script src='js/app.js'></script>
 
 <style>
@@ -72,7 +69,24 @@
 }
 
 .event-btn-img {
-    width: 80px;
+    width: 10%;
+}
+
+.event-img {
+    max-width: 100%;
+    max-height: 30%;
+}
+    
+
+@media only screen and (orientation : landscape) {
+    .event-img {
+       max-width: 40%;
+    }
+}
+
+
+@media screen and (min-width:500px) {
+
 }
 
 .event-btn {
@@ -171,15 +185,13 @@ ons-icon {
     position: absolute;
     top: 9px;
 }
-
-
 </style>
 
 </head>
 
 <body onbeforeunload="return onbeforeunload_Handler()">
 
-<ons-sliding-menu main-page="home.html" menu-page="menu.html" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
+<ons-sliding-menu main-page="home.html" menu-page="menu.html" id="main_div" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
 <!-- 側邊欄 begin -->
 <ons-template id="menu.html">
@@ -220,35 +232,25 @@ ons-icon {
 </ons-template>
 <!-- 側邊欄 end -->
 
-
 <!-- 左側浮動55688按鈕 -->
-<a id="download-btn" onclick="open55688App()">
+<a id="download-btn" onclick="open55688App()" style="display:none">
     <img src="images/logo2.png" class="download-btn-img"/>
 </a>
 
 <!-- 活動專區 -->
-<div id="event_div" style="background:#FF0;"></div>
-
+<div id="event_div" style="background:#FF0;" style="display:none"></div>
 
 <script>
-/*
-deeplink.setup({
-    iOS: {
-        appName: "TaiwanTaxi55688",
-        appId: "TaiwanTaxi55688",
-        storeUrl: "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8"
-    }
-});
-*/
 
 ons.ready(function() {
     
     setTimeout(function() {
-
+        
         var _h = $( document ).height();
         _h = _h / 4;
         $("#download-btn").css("top", _h);
        
+        //活動專區
         special_events();
         
     }, 10);
@@ -303,7 +305,6 @@ function open55688App() {
         setTimeout(function () {
 
             var diff = new Date().valueOf() - now;
-            //console.log("diff("+diff+")");
             if (diff > 70) return;
 
             if (!document.webkitHidden) {
@@ -343,9 +344,14 @@ function event_btn_click(event_name, f1, f2, f3, f4) {
     tabbar.setActiveTab(1);
 }
 
+//活動專區
 function special_events() {
     
-    var special_events = firebase.database().ref('special_events');
+    var _h = $("#main_div").height();
+    var _img_h = (_h - 50 - 30 - 80) / 4;
+    console.log("won test ==> _h("+_h+") _img_h("+_img_h+")");
+
+    var special_events = firebase.database().ref('special_events_2');
     special_events.orderByChild("sort").on("child_added", function(snapshot) {
 
         var event_name = snapshot.key;
@@ -355,20 +361,17 @@ function special_events() {
         var f4 = snapshot.val().f4;
         var sort = snapshot.val().sort;
         var image = snapshot.val().image;
-        var top = 10 + (sort - 1) * 15;
-        //console.log("won test 2 ==> event_name("+event_name+") sort("+sort+") f1("+f1+") f4("+f4+")");
-        
+        var top = 8 + (sort - 1) * 20;
+
         if(sort != 0) {
             var str = "";
-            str += "<a class='event-btn' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f2+"\",\""+f3+"\",\""+f4+"\")'>";
-            str +=      "<img src='"+image+"' class='event-btn-img'/>";
+            str += "<a class='event-btn event-btn-img' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f2+"\",\""+f3+"\",\""+f4+"\")'>";
+            str +=      "<img src='"+image+"' class='' height='"+_img_h+"px' />";
             str += "</a>";
             $("#event_div").append(str);
         }
     });
 }
-
-        
 </script>
 
 

@@ -213,3 +213,20 @@ function getTimeStr(dt) {
 function reload() {
     location.reload();
 }
+
+function showFloatIcon() {
+
+    $("#event_div").show(500);
+    $("#download-btn").show(500);
+}
+
+function hideFloatIcon() {
+    
+    HoldOn.close();
+    $("#event_div").hide();
+    $("#download-btn").hide();
+}
+
+function showDownloadIcon() {
+    $("#download-btn").show(500);
+}

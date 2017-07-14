@@ -9,7 +9,7 @@
 }
 
 .mySection {
-    padding: 16px; 
+    padding: 16px 16px 30px 16px; 
     border: rgba(0,0,0,0.2) 1px solid;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -130,6 +130,7 @@
                 text +=     '<div><span class="text1">目的</span><span class="text2">'+snapshot.val().destination+'</span></div>';
                 text +=     '<div><span class="text1">時間</span><span class="text2">'+time_text+'</span></div>';
                 text +=     '<div><span class="text1">備註</span><span class="text2">'+snapshot.val().note+'</span></div>';
+                text +=     "<div style='float:right;'>more..</div>";
                 text += '</section>';
 
                 // 歷程
