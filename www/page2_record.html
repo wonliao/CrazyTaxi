@@ -35,10 +35,16 @@
 
 #submit_record_btn {
     padding: 10px 16px;
-    position: fixed !important;
-    bottom: 9% !important;
+    position: fixed;
+    bottom: 10%;
     width: 100%;
     background: #FFF;
+}
+
+#record_list {
+    padding: 8px 16px 4px 16px;
+    height: 80%;
+    overflow: scroll;
 }
 </style>
 
@@ -60,13 +66,11 @@
         
     <div style="clear:both; height:10px"></div>
     
-    <section style="padding: 8px 16px 4px 16px">
+    <section style="padding: 8px 16px 4px 16px;">
         <div style="">地址記錄</div>
     </section>
     
-    <div id="record_list" style="padding: 8px 16px 4px 16px">載入中...</div>
-    
-    <div style="clear:both; height:100px"></div>
+    <div id="record_list">載入中...</div>
     
     <section id="submit_record_btn">
         <ons-button class='button button--large' modifier='chevron' onclick='selectRecord()' style='background:#36d0c9; border-radius:0;'>
