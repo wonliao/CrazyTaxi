@@ -268,8 +268,8 @@ function select_map_init_map(position) {
         }
     });
 
-    var input = (document.getElementById('pac-input'));
-
+    //var input = document.getElementById('pac-input');
+    var input = /** @type {!HTMLInputElement} */(document.getElementById('pac-input'));
     var types = document.getElementById('type-selector');
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
@@ -332,12 +332,11 @@ function select_map_init_map(position) {
             autocomplete.setTypes(types);
         });
     }
-/*
+
     setupClickListener('changetype-all', []);
     setupClickListener('changetype-address', ['address']);
     setupClickListener('changetype-establishment', ['establishment']);
     setupClickListener('changetype-geocode', ['geocode']);
-    */
 }
 
 function CenterControl(controlDiv, map, position) {
