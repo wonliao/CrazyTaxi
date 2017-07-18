@@ -132,9 +132,7 @@
     <input value="確定" type="button" class="btn btn-default select_pos_btn" onClick="submitPos()">
 
     <img id="my_pos_img" src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
-        
-    
-    
+
     <ons-template id="alert-dialog.html">
         <ons-alert-dialog var="alertDialog">
             <div class="alert-dialog-title">
@@ -156,19 +154,13 @@ var t;
 var map;
 var original_height;
 
-
-
 ons.ready(function() {
     setTimeout(function() {
 
-        
         hideFloatIcon();
         menu.setSwipeable(false);
         
-        $("#pac-input").blur();
-        
         select_map_init();
-        
     }, 10);
 });
 
@@ -176,19 +168,19 @@ function select_map_init() {
 
     isFirstTime = true;
 
-    var options = {
+    var options2 = {
       enableHighAccuracy: true,     // 高精度定位
 	  timeout: 10000,               // 10秒 timeout
 	  maximumAge: 3 * 60 * 1000     // 暫存3分鐘
 	};
 	
-	function success(pos) {
+	function success2(pos) {
 
         original_height = $(document).height();
         select_map_init_map(pos);
 	};
 
-	function error(err) {
+	function error2(err) {
 	    
         console.warn('ERROR(' + err.code + '): ' + err.message);
         ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
@@ -196,20 +188,22 @@ function select_map_init() {
         });       
 	};
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
+	navigator.geolocation.getCurrentPosition(success2, error2, options2);
 }
 
 function select_map_init_map(position) {
+    console.log("won test 5.0 ==> select_map_init_map");
     
     var pos_lat = position.coords.latitude;
     var pos_lng = position.coords.longitude;
-    
-    var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: parseFloat(pos_lat), lng: parseFloat(pos_lng)},
-        zoom: 19,
-        mapTypeControl: false
-    });
-    
+
+    map = new google.maps.Map($("#map").get(0), {
+    	center: {lat: parseFloat(pos_lat), lng: parseFloat(pos_lng)},
+		zoom: 19,
+		mapTypeControl: false,
+		streetViewControl: false,
+	});
+
     // 返回中心點
     var centerControlDiv = document.createElement('div');
     var centerControl = new CenterControl(centerControlDiv, map, position);
@@ -249,13 +243,20 @@ function select_map_init_map(position) {
             t = setTimeout(function(){ getPos(); }, 500);
         }
 	});
-    
-    
-    
+
 
     // 移動至輸入的地址
-    var searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
+    var _target = document.getElementById('pac-input');
+    console.log("won test 5.1 ==> _target("+_target+")");
+    var searchBox = new google.maps.places.SearchBox(_target);
+    console.log("won test 5.2 ==> searchBox("+searchBox+")");
     google.maps.event.addListener(searchBox, 'places_changed', function() {
+
+        var places = searchBox.getPlaces();
+        console.log("won test 5 ==> places.length("+places.length+")");
+        if (places.length == 0) {
+            return;
+        }
 
         var place = searchBox.getPlaces()[0];    
         if (!place.geometry) return;

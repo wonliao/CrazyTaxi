@@ -520,15 +520,11 @@
     
     function addressClick() {
         
-        console.log("addressClick");
-        
         window.localStorage.setItem("select_map", "address");
         homeNavigator.pushPage("select_map.html", {animation: 'slide'});
     }
     
     function destinationClick() {
-        
-        console.log("destinationClick");
         
         window.localStorage.setItem("select_map", "destination");
         homeNavigator.pushPage("select_map.html", {animation: 'slide'});
