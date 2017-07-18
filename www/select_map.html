@@ -383,7 +383,7 @@ function getPos() {
             }
         }
 
-        console.log("formatted_address("+formatted_address+")");
+        //console.log("formatted_address("+formatted_address+")");
         $("#pac-input").val(formatted_address);
     });
 }
@@ -436,7 +436,7 @@ function closeDialog() {
 function search() {
 
     $('#pac-input').show(function() {
-        google.maps.event.trigger(this, 'focus');
+        //google.maps.event.trigger(this, 'focus');
         google.maps.event.trigger(this, 'keydown', {
             keyCode: 13
         });
