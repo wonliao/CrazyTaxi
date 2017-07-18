@@ -79,8 +79,11 @@ ons.ready(function() {
             var has_intro2 = window.localStorage.getItem("has_intro2");
             if(has_intro2 != "true") {
 
-                window.localStorage.setItem("has_intro2", "true");
-                menu.setMainPage('intro.html', {closeMenu: true});
+                if(ons.platform.isIOS() || ons.platform.isAndroid()) {
+
+                    window.localStorage.setItem("has_intro2", "true");
+                    menu.setMainPage('intro.html', {closeMenu: true});
+                }
             }
         }
     }
