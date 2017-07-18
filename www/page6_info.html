@@ -76,9 +76,21 @@
             <span style="font-size:18px">取消此次共乘</span>
         </ons-button>
     </section>
-
 </ons-page>
-    
+
+<ons-template id="alert-dialog.html">
+    <ons-alert-dialog var="alertDialog">
+        <div class="alert-dialog-title">
+            <strong style="color: #ff3333" id="alertDialogTitle">定位失敗!</strong>    
+        </div>
+        <div class="alert-dialog-content">
+            <span id="alertDialogText">請確定已開啟GPS功能，並重新嘗試。</span>
+        </div>
+        <div class="alert-dialog-footer">
+            <button id="dialog_btn" class="alert-dialog-button" onClick="location.reload()">OK</button>
+        </div>
+    </ons-alert-dialog>
+</ons-template>
 
 <script>
 
@@ -96,6 +108,17 @@
         setTimeout(function() {
 
             showInfo();
+            
+            setTimeout(function() {
+                    ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+        
+                        $("#alertDialogTitle").html("*提醒*");
+                        $("#alertDialogText").html("1)出發前記得使用側邊的55688按鈕進行叫車<br />2)隨時注意來自夥伴的 電話/簡訊/E-mail 聯繫訊息");
+                        $(".alert-dialog-button").text("確定").attr("onclick","alertDialog.destroy()");
+                        $(".alert-dialog-content").css("text-align","left");
+                        alertDialog.show();
+                    });
+                }, 500);
         }, 10);
     });
 

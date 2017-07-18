@@ -33,6 +33,13 @@
     font-weight: bold;
 }
 
+#submit_record_btn {
+    padding: 10px 16px;
+    position: fixed;
+    bottom: 9%;
+    width: 100%;
+    background: #FFF;
+}
 </style>
 
 <ons-page style="background:#fff;">
@@ -61,7 +68,7 @@
     
     <div style="clear:both; height:100px"></div>
     
-    <section style="padding:10px 16px; position:fixed; bottom:60px; width:100%; background:#FFF;">
+    <section id="submit_record_btn">
         <ons-button class='button button--large' modifier='chevron' onclick='selectRecord()' style='background:#36d0c9; border-radius:0;'>
             <span style="font-size:18px">確定</span>
         </ons-button>
