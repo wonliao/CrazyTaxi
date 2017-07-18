@@ -156,15 +156,23 @@ var t;
 var map;
 var original_height;
 
+
+
 ons.ready(function() {
     setTimeout(function() {
 
+        
         hideFloatIcon();
         menu.setSwipeable(false);
+        
+        $("#pac-input").blur();
+        
+        select_map_init();
+        
     }, 10);
 });
 
-$(function(){
+function select_map_init() {
 
     isFirstTime = true;
 
@@ -177,7 +185,7 @@ $(function(){
 	function success(pos) {
 
         original_height = $(document).height();
-        initMap(pos);
+        select_map_init_map(pos);
 	};
 
 	function error(err) {
@@ -189,9 +197,9 @@ $(function(){
 	};
 
 	navigator.geolocation.getCurrentPosition(success, error, options);
-});
+}
 
-function initMap(position) {
+function select_map_init_map(position) {
     
     var pos_lat = position.coords.latitude;
     var pos_lng = position.coords.longitude;
@@ -436,7 +444,7 @@ function closeDialog() {
 function search() {
 
     $('#pac-input').show(function() {
-        //google.maps.event.trigger(this, 'focus');
+        google.maps.event.trigger(this, 'focus');
         google.maps.event.trigger(this, 'keydown', {
             keyCode: 13
         });
