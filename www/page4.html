@@ -83,7 +83,13 @@ ons.ready(function() {
 
                     window.localStorage.setItem("has_intro2", "true");
                     menu.setMainPage('intro.html', {closeMenu: true});
+                } else {
+
+                    tabbar.setActiveTab(0);
                 }
+            } else {
+                
+                tabbar.setActiveTab(0);
             }
         }
     }
