@@ -341,27 +341,18 @@ function select_map_init_map(position) {
     
     // need to stop prop of the touchend event
     if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
-        /*
-        setTimeout(function() {
-            var container = document.getElementsByClassName('pac-container')[0];
-            container.addEventListener('touchend', function(e) {
-                e.stopImmediatePropagation();
-            });
-        }, 500);
-        */
-        setTimeout(function() {
-    		        var container = document.getElementsByClassName('pac-container')[0];
-			        console.log(container);
-			        container.addEventListener('touchstart', function(e) {
-			            e.stopImmediatePropagation();
-			            setTimeout(function(){alert('j');document.activeElement.blur();},300);
-			            
-			        });
-			    }, 500);
+       
     }
     
     
 }
+
+
+$(document).on({
+    'DOMNodeInserted': function() {
+        $('.pac-item, .pac-item span', this).addClass('needsclick');
+    }
+}, '.pac-container');
 
 function CenterControl(controlDiv, map, position) {
 
