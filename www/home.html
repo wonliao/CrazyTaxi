@@ -112,7 +112,7 @@ ons.ready(function() {
             tabbar.setActiveTab(3);
         } else if(has_intro2 != "true") {
 
-            if(!ons.platform.isIOS() && !ons.platform.isAndroid()) {
+            if(ons.platform.isIOS() || ons.platform.isAndroid()) {
                 
                 hideFloatIcon();
                 window.localStorage.setItem("has_intro2", "true");
