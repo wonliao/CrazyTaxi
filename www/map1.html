@@ -177,13 +177,7 @@ function init(position) {
 			geoQuery.on('key_entered', function(key, location, distance) {
 
                 var location = new google.maps.LatLng(location[0], location[1]);
-
-                console.log("won test 1 ==> key("+key+")");
-
-                cars_info.child(key).on('value', function(snapshot) {
-                    
-                    console.log("won test 2 ==> key("+key+")");
-                    
+                cars_info.child(key).once('value', function(snapshot) {
                     
                     var car_no = snapshot.val().car_no;
                     var car_type = snapshot.val().car_type;
@@ -204,7 +198,9 @@ function init(position) {
                     }
                     markers[key] = new google.maps.Marker({
         				position: location,
-    					map: map 
+    					map: map,
+                        draggable:true,
+                        title:"Drag me!"
     				});
 
                     markers[key].setIcon({
@@ -213,102 +209,18 @@ function init(position) {
                         strokeWeight: 3,
                         scale: 6,
                         rotation: car_dir
-                      })
+                    });
                     
-
-
-
-                    /*
-                    var appointment = snapshot.val().appointment;
-                    var d = new Date();
-            		var current_time = d.getTime();
-                    var diff = appointment - current_time;
-                    var image;
-                    var minutesDifference = Math.floor(diff/1000/60);
-                    var facebook_id = window.localStorage.getItem("facebook_id");
-                    var up_img, down_img;
-                    
-                    if(snapshot.val().fb_id == facebook_id) {
-                        image = "images/marker_yellow.png";
-                        up_img = "images/yellow_start.png";
-                        down_img = "images/yellow_goal.png";
-    				} else if(minutesDifference <= 10) {
-                        image = "images/marker_red.png";
-                        up_img = "images/red_start.png";
-                        down_img = "images/red_goal.png";
-                    } else {
-                        image = "images/marker_green.png";
-                        up_img = "images/green_start.png";
-                        down_img = "images/green_goal.png";
-                    }
-
-    				markers[key] = new google.maps.Marker({
-    					position: location,
-    					map: map,
-    					icon: image
-    				});
-
-                    if(snapshot.val().fb_id == facebook_id && myInfoFlag == true) {
+                    google.maps.event.addListener(markers[key], 'dragend', function() {
                         
-                        myInfoFlag = false;
-                        var destination = snapshot.val().destination;    // 目的地
-    					var timestamp = snapshot.val().appointment;		// 共乘時間
-    					var purpose = snapshot.val().purpose;			// 共乘目的
-    					var d = new Date(timestamp);
-    					var time_text = getTimeStr(d);
-                        var text = "";
-                        text += "<div>目的地："+destination+"</div>";
-    					text += "<div>共乘時間："+time_text+"</div>";
-    					text += "<div>共乘目的："+purpose+"</div>";
-                        text += "<div>more..</div>";
+                        var _pos = markers[key].getPosition();
+                       // console.log("won test ==> _pos(" + _pos.lat() +")(" + _pos.lng() +")");
                         
-                        window.localStorage.setItem("info_key", key);
-                        
-                        infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px; z-index:3;'>"+text+"</div>");
-    					infowindow.open(map, markers[key]);
-                    }
-                    
-                    markers[key].addListener('click', function() {
-
-                        if (infowindow) {
-                            infowindow.close();
-                        }
-    
-                        markers[key].setVisible(false);
-                        
-        				areas.child(key).once('value', function(snapshot) {
-
-    						var destination = snapshot.val().destination;	// 目的地
-    						var timestamp = snapshot.val().appointment;		// 共乘時間
-    						var purpose = snapshot.val().purpose;			// 共乘目的
-    						var d = new Date(timestamp);
-    						var time_text = getTimeStr(d);
-    
-    						var text = "";
-                            text += "<div>目的地："+destination+"</div>";
-    						text += "<div>共乘時間："+time_text+"</div>";
-    						text += "<div>共乘目的："+purpose+"</div>";
-                            text += "<div style='float:right;'>more..</div>";
-    
-                            window.localStorage.setItem("info_key", key);
-    
-    						infowindow.setContent("<div onClick='openInfo()' style='width:200px;min-height:40px; z-index:3;'>"+text+"</div>");
-    						infowindow.open(map, markers[key]);
-                            currentMark = markers[key];
-
-                            var start = new google.maps.LatLng(snapshot.val().latitude, snapshot.val().longitude);
-    		                var end = new google.maps.LatLng(snapshot.val().d_latitude, snapshot.val().d_longitude);
-			                calcRoute(start, end, up_img, down_img);
-
-    					});
-    				});
-                    */
-                    
+                        geoFire.set(key, [_pos.lat(), _pos.lng()]).then(function() {
+                			console.log(key + ': setting position to [' + _pos.lat() + ',' + _pos.lng() + ']');
+            			});
+                    });
                 });
-                
-                
-                
-                
 			});
 
 			//remove marker, un-highlight
@@ -316,6 +228,25 @@ function init(position) {
 
 				markers[key].setMap(null);
 				delete markers[key];
+			});
+            
+            
+            //remove marker, un-highlight
+    		geoQuery.on('key_moved', function(key, location, distance) {
+
+                //var location = new google.maps.LatLng(location[0], location[1]);
+                console.log("won test ==> key_moved _pos(" + location[0] +")(" + location[1] +")");
+                
+                cars_info.child(key).once('value', function(snapshot) {
+                    
+                    var car_dir = snapshot.val().car_dir;
+                    
+                    if(markers[key]) {
+                        
+                        var myLatlng = new google.maps.LatLng(location[0], location[1]);
+                        markers[key].setPosition(myLatlng);
+                    }
+                });
 			});
 		}
 
