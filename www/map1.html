@@ -180,7 +180,7 @@ function init(position) {
 
                 console.log("won test 1 ==> key("+key+")");
 
-                cars_info.child(key).once('value', function(snapshot) {
+                cars_info.child(key).on('value', function(snapshot) {
                     
                     console.log("won test 2 ==> key("+key+")");
                     
