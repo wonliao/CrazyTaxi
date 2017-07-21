@@ -199,6 +199,7 @@ function init(position) {
                     };
  
                     if(markers[key]) {
+                        markers[key].setMap(null);
                         delete markers[key];
                     }
                     markers[key] = new google.maps.Marker({
