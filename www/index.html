@@ -190,7 +190,7 @@ ons-icon {
 
 </head>
 
-<body onbeforeunload="return onbeforeunload_Handler()">
+<body>
 
 <ons-sliding-menu main-page="home.html" menu-page="menu.html" id="main_div" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
@@ -233,13 +233,6 @@ ons-icon {
 </ons-template>
 <!-- 側邊欄 end -->
 
-<!-- 左側浮動55688按鈕 -->
-<a id="download-btn" onclick="open55688App()" style="display:none">
-    <img src="images/logo2.png" class="download-btn-img"/>
-</a>
-
-<!-- 活動專區 -->
-<div id="event_div" style="background:#FF0;" style="display:none"></div>
 
 <script>
 ons.ready(function() {
@@ -249,149 +242,10 @@ ons.ready(function() {
         var _h = $( document ).height();
         _h = _h / 4;
         $("#download-btn").css("top", _h);
-       
-        //活動專區
-        special_events();
-        
     }, 10);
 });
-    
-function sidebarClick(pageName) {
-    
-    switch(pageName) {
-    case "fb登入":      checkLoginState();                                              break;
-    case "活動說明":    tabbar.setActiveTab(3);                                         break;
-    case "刊登共乘":    tabbar.setActiveTab(1);                                         break;
-    case "共乘記錄":    homeNavigator.pushPage('page6.html', {animation: 'slide'});     break;
-    case "官方粉絲團":  page5_click();                                                  break;
-    case "服務條款":    page7_click();                                                  break;
-    case "55688叫車":   page3_click();                                                  break;
-    case "刊登共乘":    tabbar.setActiveTab(2);                                                  break;
-    }
-    
-    menu.closeMenu();
-    ga('send', 'event', '側邊欄', 'click', pageName);
-}
-
-function page2_click() {
-
-    homeNavigator.pushPage("page2.html", {animation: 'slide'});
-}
-
-function page5_click() {
-
-    window.open("https://goo.gl/rj3XrB");
-}
-
-function page7_click() {
-
-    homeNavigator.pushPage("page7.html", {animation: 'slide'});
-}
-
-function call_55688() {
-
-    window.location = "tel:55688";
-}
-
-function open55688App() {
-
-    ga('send', 'event', '側邊欄', 'click', "55688懸浮icon");
-
-    // iOS
-    if(ons.platform.isIOS()) {
-        
-        var now = new Date().valueOf();
-        window.location = "TaiwanTaxi55688://";
-        setTimeout(function () {
-
-            var diff = new Date().valueOf() - now;
-            if (diff > 70) return;
-
-            if (!document.webkitHidden) {
-
-                window.location = "https://itunes.apple.com/tw/app/tai-wan-da-che-dui-55688/id579255069?mt=8";
-            }
-        }, 25);
-  
-    // Android
-    } else if(ons.platform.isAndroid()) {
-
-        window.location = 'taiwantaxi55688://taiwantaxi/';
-        setTimeout(function() {        
-           window.open("https://play.google.com/store/apps/details?id=dbx.taiwantaxi&hl=zh_TW");
-        }, 500);
-    // PC
-    } else {
-
-        window.open("http://app.taiwantaxi.com.tw/APPS/Mobile/Intro.aspx");
-    }
-}
-
-function onbeforeunload_Handler() {
-    return "您即將離開go2gether，提醒您記得加入書籤或是最愛喔！";
-}
-
-
-function event_btn_click(event_name, f1, f2, f3, f4) {
-    
-    ga('send', 'event', '活動專區', 'click', event_name);
-    
-    window.localStorage.setItem("f1", f1);  // 下車地點
-    window.localStorage.setItem("f2", f2);  // 共乘時間
-    window.localStorage.setItem("f3", f3);  // 備註
-    window.localStorage.setItem("f4", f4);  // 共乘目的
-    
-    tabbar.setActiveTab(1);
-}
-
-//活動專區
-function special_events() {
-    
-    var _h = $("#main_div").height();
-    var _img_h = (_h - 50 - 30 - 80) / 4;
-    console.log("won test ==> _h("+_h+") _img_h("+_img_h+")");
-
-    var special_events = firebase.database().ref('special_events_2');
-    special_events.orderByChild("sort").on("child_added", function(snapshot) {
-
-        var event_name = snapshot.key;
-        var f1 = snapshot.val().f1;
-        var f2 = snapshot.val().f2;
-        var f3 = snapshot.val().f3;
-        var f4 = snapshot.val().f4;
-        var sort = snapshot.val().sort;
-        var image = snapshot.val().image;
-        var top = 8 + (sort - 1) * 20;
-
-        if(sort != 0) {
-            var str = "";
-            str += "<a class='event-btn event-btn-img' style='top:"+top+"%;' onclick='event_btn_click(\""+event_name+"\",\""+f1+"\",\""+f2+"\",\""+f3+"\",\""+f4+"\")'>";
-            str +=      "<img src='"+image+"' class='' height='"+_img_h+"px' />";
-            str += "</a>";
-            $("#event_div").append(str);
-        }
-    });
-}
 </script>
 
-
-<!-- Facebook Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1318671484898471', {
-//em: 'insert_email_variable,'
-});
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1318671484898471&ev=PageView&noscript=1"
-/></noscript>
-<!-- DO NOT MODIFY -->
-<!-- End Facebook Pixel Code -->
  
 
 </body>

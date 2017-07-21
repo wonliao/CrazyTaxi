@@ -80,14 +80,11 @@
 </style>
 
 <ons-navigator title="Navigator" var="homeNavigator">
-  
+
     <ons-page>
 		<ons-tabbar position="bottom" var="tabbar">
-			<ons-tabbar-item page="page1.html" label="首頁" class="my-icon-1" fixed-width="true" onClick="tabClick('首頁')"></ons-tabbar-item>
-            <ons-tabbar-item page="page2_new.html" label="揪共乘" class="my-icon-2" fixed-width="true" onClick="tabClick('刊登共乘')"></ons-tabbar-item>
-            <ons-tabbar-item class="my-icon-3" label="叫車" onClick="tabClick('叫車')"></ons-tabbar-item>
-    		<ons-tabbar-item page="page4.html" label="說明" class="my-icon-4" active="false" onClick="tabClick('活動說明')"></ons-tabbar-item>
-            <ons-tabbar-item class="my-icon-5" label="粉絲團" onClick="tabClick('官方粉絲團')"></ons-tabbar-item>
+			<ons-tabbar-item page="map1.html" label="地圖" class="my-icon-1" fixed-width="true" onClick="tabClick('地圖')"></ons-tabbar-item>
+            <ons-tabbar-item page="map2.html" label="叫車" class="my-icon-2" fixed-width="true" onClick="tabClick('叫車')"></ons-tabbar-item>
 		</ons-tabbar>
 	</ons-page>
 
@@ -98,83 +95,31 @@
 ons.ready(function() {
     setTimeout(function() {
 
-        if(window.localStorage.getItem("f1") != null && window.localStorage.getItem("f1") != "") {
-            window.localStorage.setItem("has_intro", "true");
-        }
-
-        // 說明頁
-        var has_intro = window.localStorage.getItem("has_intro");
-        var has_intro2 = window.localStorage.getItem("has_intro2");
-        if(has_intro != "true") {
-            
-            hideFloatIcon();
-            window.localStorage.setItem("has_intro", "true");
-            tabbar.setActiveTab(3);
-        } else if(has_intro2 != "true") {
-
-            if(ons.platform.isIOS() || ons.platform.isAndroid()) {
-                
-                hideFloatIcon();
-                window.localStorage.setItem("has_intro2", "true");
-                menu.setMainPage('intro.html', {closeMenu: true});
-            }
-        } else {
-
-           tabbar.setActiveTab(0);
-        }
+        tabbar.setActiveTab(0);
+        
     }, 10);
 });
 
 function tabClick(pageName) {
   
     switch(pageName) {
-    case "首頁":                                    break;
-    case "刊登共乘":                                break;
-    case "叫車":                page3_click();      break;
-    case "活動說明":                                break;
-    case "官方粉絲團":          page5_click();      break;
-    case "撥打電話 叫車":       call_55688();       break;
-    case "開啟55688 APP 叫車":  open55688App();     break;
+    case "地圖":    gotoPage1();    break;
+    case "叫車":    gotoPage2();    break;
     }
-
-    ga('send', 'event', '功能列', 'click', pageName);
-}
-
-function page3_click() {
-
-    var message = ""
-    message +=  '<div class="pop_message">';
-    message +=  '<section class="section1">';
-    message +=      "<ons-button class='button button--large' modifier='chevron' onclick='tabClick(\"撥打電話 叫車\")' style='background:#36d0c9; border-radius:0;'>";
-    message +=          '<span style="font-size:18px">撥打電話 叫車</span>';
-    message +=      '</ons-button>';
-    message +=  '</section>';
-    message +=  '<section class="section1">';
-    message +=      "<ons-button class='button button--large' modifier='chevron' onclick='tabClick(\"開啟55688 APP 叫車\")' style='background:#36d0c9; border-radius:0;'>";
-    message +=          '<span style="font-size:18px">開啟55688 APP 叫車</span>';
-    message +=      '</ons-button>';
-    message +=  '</section>';
-    message +=  '<section class="section1">';
-    message +=      '<ons-button class="button button--large" modifier="chevron" onclick="HoldOn.close()" style="background:#adadad; border-radius:0;">';
-    message +=          '<span style="font-size:18px">取消</span>';
-    message +=      '</ons-button>';
-    message +=  '</section>';
-    message +=  '</div>';
-        
-    var options = {
-        theme: "custom",
-        message: message,
-        textColor: "white"
-    };
-
-    HoldOn.open(options);
 }
 
 function gotoPage1() {
 
-    HoldOn.open({message:"定位中，請稍候"});
+    //HoldOn.open({message:"定位中，請稍候"});
     tabbar.setActiveTab(0);
 }
+
+function gotoPage2() {
+
+    //HoldOn.open({message:"定位中，請稍候"});
+    tabbar.setActiveTab(1);
+}
+
 
 function needLogin() {
 

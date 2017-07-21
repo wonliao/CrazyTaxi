@@ -8,12 +8,12 @@ $(function(){
 
 // Initialize the Firebase SDK
 firebase.initializeApp({
-    apiKey: 'AIzaSyBj3JAk_l5OFAWZhj-UZn2fXLbVy5Lx3Yc',
-	databaseURL: 'https://go2gether-e78d4.firebaseio.com/'
+    apiKey: 'AIzaSyD-KgDKDlmnWLkEFcj55C8QSDEISIiZdC0',
+	databaseURL: 'https://crazytaxi-b3f28.firebaseio.com/'
 });
 
 // Create a new GeoFire instance
-firebaseRef = firebase.database().ref('makers');
+firebaseRef = firebase.database().ref('cars_pos');
 geoFire = new GeoFire(firebaseRef);
 
 geoQuery = geoFire.query({
@@ -24,7 +24,7 @@ geoQuery = geoFire.query({
 isFirstTime = true;
 
 // Select areas that are in the database
-var areas = firebase.database().ref('areas');
+var cars_info = firebase.database().ref('cars_info');
 var players = firebase.database().ref('players');
 
 // This is called with the results from from FB.getLoginStatus().
