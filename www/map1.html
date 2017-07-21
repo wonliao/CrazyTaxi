@@ -198,7 +198,7 @@ function init(position) {
                          rotation: google.maps.geometry.spherical.computeHeading(location, marker.getPosition())
                     };
  
-                    if(delete markers[key]) {
+                    if(markers[key]) {
                         delete markers[key];
                     }
                     markers[key] = new google.maps.Marker({
