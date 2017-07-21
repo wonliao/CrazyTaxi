@@ -193,16 +193,24 @@ function init(position) {
                     //var image = "images/taxi2.png";
                     
                     var image = {
-                        url: 'images/taxi2.png',
-                        size: new google.maps.Size(20, 32),
-                        //rotation: 45
-                     };
-  
+                        url: "http://52.197.124.196/CrazyTaxi/www/images/taxi2.png",
+                        size: new google.maps.Size(64, 64),
+                         rotation: google.maps.geometry.spherical.computeHeading(location, marker.getPosition())
+                    };
+ 
                     markers[key] = new google.maps.Marker({
         				position: location,
-    					map: map,
-    					icon: image
+    					map: map 
     				});
+
+                    markers[key].setIcon({
+                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                        strokeColor: 'red',
+                        strokeWeight: 3,
+                        scale: 6,
+                        rotation: car_dir
+                      })
+                    
 
 
 
