@@ -186,12 +186,7 @@ function init(position) {
   
                     //var image = "images/taxi2.png";
                     
-                    var image = {
-                        url: "http://52.197.124.196/CrazyTaxi/www/images/taxi2.png",
-                        size: new google.maps.Size(64, 64),
-                         rotation: google.maps.geometry.spherical.computeHeading(location, marker.getPosition())
-                    };
- 
+                    
                     if(markers[key]) {
                         markers[key].setMap(null);
                         delete markers[key];
@@ -203,6 +198,12 @@ function init(position) {
                         title:"Drag me!"
     				});
 
+                    var image = {
+                        url: "http://52.197.124.196/CrazyTaxi/www/images/taxi2.png",
+                        size: new google.maps.Size(64, 64),
+                         rotation: google.maps.geometry.spherical.computeHeading(location, marker.getPosition())
+                    };
+                    
                     markers[key].setIcon({
                         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
                         strokeColor: 'red',
@@ -245,6 +246,13 @@ function init(position) {
                         
                         var myLatlng = new google.maps.LatLng(location[0], location[1]);
                         markers[key].setPosition(myLatlng);
+                        /*
+                        var _pos = markers[key].getPosition();
+                        var myOldLatlng = [_pos.lat(), _pos.lng()];
+                        var myLatlng = [location[0], location[1]];
+                        
+                        transition(markers[key], myLatlng, myOldLatlng);
+                        */
                     }
                 });
 			});
@@ -258,6 +266,30 @@ function init(position) {
 		    });
         }
 	});
+}
+
+
+var numDeltas = 100;
+var delay = 10; //milliseconds
+var i = 0;
+var deltaLat;
+var deltaLng;
+function transition(marker, result, position){
+    i = 0;
+    deltaLat = (result[0] - position[0])/numDeltas;
+    deltaLng = (result[1] - position[1])/numDeltas;
+    moveMarker(marker, position);
+}
+
+function moveMarker(marker, position){
+    position[0] += deltaLat;
+    position[1] += deltaLng;
+    var latlng = new google.maps.LatLng(position[0], position[1]);
+    marker.setPosition(latlng);
+    if(i!=numDeltas){
+        i++;
+        setTimeout(moveMarker, delay);
+    }
 }
 
 function openInfo() {

@@ -1,0 +1,286 @@
+<style>
+.my_pos_img {
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    width: 60px;
+    position: absolute;
+    top: calc(50% - 49px);
+    left: calc(50% - 26px);
+    z-index: 2;
+}
+</style>
+
+<ons-navigator title="Navigator" var="homeNavigator">
+    <ons-page>
+        <ons-toolbar fixed-style>
+            <div class="center">
+                <img src="images/Crazy_Taxi.png" style="height:32px;"/>
+            </div>
+            <div class="right" style="line-height: 44px">
+                <ons-toolbar-button ng-click="menu.toggleMenu()">
+                    <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+            	</ons-toolbar-button>
+            </div>
+        </ons-toolbar>
+
+        <div id="map"></div>
+
+        <img src="images/smallpeopleicon_gif.gif" class="my_pos_img"/>
+    </ons-page>
+    
+    <ons-template id="alert-dialog.html">
+        <ons-alert-dialog var="alertDialog">
+            <div class="alert-dialog-title">
+                <strong style="color: #ff3333" id="alertDialogTitle">定位失敗!</strong>    
+            </div>
+            <div class="alert-dialog-content">
+                <span id="alertDialogText">請確定已開啟GPS功能，並重新嘗試。</span>
+            </div>
+            <div class="alert-dialog-footer">
+                <button id="dialog_btn" class="alert-dialog-button" onClick="location.reload()">OK</button>
+            </div>
+        </ons-alert-dialog>
+    </ons-template>
+
+</ons-navigator>
+
+<script>
+var map;
+var directionsDisplay;
+var directionsService = new google.maps.DirectionsService();
+var pinA = null;
+var pinB = null;
+var currentMark = null;
+
+ons.ready(function() {
+    setTimeout(function() {
+
+        onDeviceReady();
+
+        showFloatIcon();
+        
+        HoldOn.close();
+
+        menu.setSwipeable(false);
+    }, 10);
+});
+
+function onDeviceReady() {
+
+    isFirstTime = true;
+
+    var options = {
+      enableHighAccuracy: true,     // 高精度定位
+	  timeout: 10000,               // 10秒 timeout
+	  maximumAge: 3 * 60 * 1000     // 暫存3分鐘
+	};
+	
+	function success(pos) {
+        
+	    init(pos);
+	};
+	
+	function error(err) {
+	    
+        console.warn('ERROR(' + err.code + '): ' + err.message);
+
+        ons.createAlertDialog('alert-dialog.html').then(function(alertDialog) {
+
+            alertDialog.show();
+        });
+	};
+
+    navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+function init(position) {
+
+    var pos_lat = position.coords.latitude;
+    var pos_lng = position.coords.longitude;
+  
+    var latlng = window.localStorage.getItem("marker_center");
+    if(latlng != "" && latlng != null) {
+
+        var temp = latlng.split(",");
+        pos_lat = temp[0];
+        pos_lng = temp[1];
+
+        window.localStorage.setItem("marker_center", "");  // 只用一次 
+    }
+
+	// Init map
+	map = new google.maps.Map($('#map').get(0), {
+		center: {lat: parseFloat(pos_lat), lng: parseFloat(pos_lng)},
+		zoom: 14,
+		mapTypeControl: false,
+		streetViewControl: false,
+	});
+    
+   
+    // 返回中心點
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map, position);
+    centerControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+
+    var markerImage = new google.maps.MarkerImage('images/blue.png?123',
+                new google.maps.Size(80, 80),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(40, 40));
+
+    // 自已的座標 
+	var marker = new google.maps.Marker({
+		position: {lat: position.coords.latitude, lng: position.coords.longitude},
+		map: map,
+        icon: markerImage,
+        zIndex: 0
+	});
+
+    var markers = {};
+    cars_pos.on("child_added", function(childSnapshot) {
+
+        var childKey = childSnapshot.key;
+        cars_pos.child(childKey).once('value', function(snapshot) {
+
+            var key = snapshot.key;
+            console.log("won test 1 ==> key("+key+")");
+            
+            var location = snapshot.val().l;
+            console.log("won test 2 ==> location("+location[0]+")("+location[1]+")");
+            
+            if(markers[key]) {
+
+            } else {
+
+                var geo_location = new google.maps.LatLng(location[0], location[1]);
+                markers[key] = new google.maps.Marker({
+            		position: geo_location,
+    				map: map,
+                    draggable:true,
+                    title:"Drag me!"
+    			});
+
+                markers[key].setIcon({
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    strokeColor: 'red',
+                    strokeWeight: 3,
+                    scale: 6
+                });
+                
+                
+                var speed = 50; // km/h
+                //var rand_num = Math.random() * 0.01;
+                var startPos = [geo_location[0], geo_location[1]];
+                animateMarker(  key,
+                                markers[key], 
+                                startPos, 
+                                speed
+                );
+                
+            }
+        });
+    });
+
+
+
+
+
+}
+
+
+
+var delay = 1000;
+
+function animateMarker(key, marker, startPos, km_h)
+{
+    //var target = 0;
+    var km_h = km_h || 50;
+    //coords.push([startPos[0], startPos[1]]);
+
+    function goToPoint()
+    {
+        var lat = marker.position.lat();
+        var lng = marker.position.lng();
+        var step = (km_h * 1000 * delay) / 3600000; // in meters
+        //console.log("1 lat("+lat+") lng("+lng+")");
+
+       
+        
+        //var dest = new google.maps.LatLng(coords[target][0], coords[target][1]);
+        
+        var rand_num = 0.005 - (Math.random() * 0.01) ;
+        
+        var next_x = lat;
+        var next_y = lng;
+        if(Math.random() > 0.5) {
+            next_x = lat + rand_num;
+            //console.log("1 next_x("+next_x+")");
+        } else {
+            next_y = lng + rand_num;
+        }
+        console.log("1 next_x("+next_x+") next_y("+next_y+")");
+        var dest = new google.maps.LatLng(next_x, next_y);
+
+        var distance =
+        google.maps.geometry.spherical.computeDistanceBetween(dest, marker.position); // in meters
+
+        var numStep = distance / step;
+        var i = 0;
+        var deltaLat = (next_x - lat) / numStep;
+        var deltaLng = (next_y - lng) / numStep;
+
+        function moveMarker()
+        {
+            lat += deltaLat;
+            lng += deltaLng;
+            i += step;
+
+            //console.log("lat("+lat+") lng("+lng+")");
+            if (i < distance)
+            {
+                marker.setPosition(new google.maps.LatLng(lat, lng));
+                
+                geoFire.set(key, [lat, lng]).then(function() {
+                    console.log(key + ': setting position to [' + lat + ',' + lng + ']');
+            	});
+                        
+                setTimeout(moveMarker, delay);
+            }
+            else
+            {   marker.setPosition(dest);
+                //target++;
+                //if (target == coords.length){ target = 0; }
+
+                setTimeout(goToPoint, delay);
+            }
+        }
+        moveMarker();
+    }
+    goToPoint();
+}
+
+
+
+
+function CenterControl(controlDiv, map, position) {
+
+  // Set CSS for the control border.
+  var controlUI = document.createElement('div');
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginRight = '8px';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior.
+  var controlText = document.createElement('div');
+  controlText.innerHTML = '<img src="images/center_btn.png" style="width:30px"/>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to Chicago.
+  controlUI.addEventListener('click', function() {
+    map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+  });
+}
+
+
+</script>
+

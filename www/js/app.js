@@ -24,6 +24,7 @@ geoQuery = geoFire.query({
 isFirstTime = true;
 
 // Select areas that are in the database
+var cars_pos = firebase.database().ref('cars_pos');
 var cars_info = firebase.database().ref('cars_info');
 var players = firebase.database().ref('players');
 
