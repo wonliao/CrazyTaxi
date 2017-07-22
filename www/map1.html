@@ -189,9 +189,11 @@ function init(position) {
                     var car_type = snapshot.val().car_type;
                     var car_dir = snapshot.val().car_dir;
                     var driver_name = snapshot.val().driver_name;
-  
-                    //var image = "images/taxi2.png";
-                    
+                    var image = {
+                        url: "http://52.197.124.196/CrazyTaxi/www/images/taxi2.png",
+                        size: new google.maps.Size(64, 64),
+                        scaledSize: new google.maps.Size(32, 32)
+                    };
                     
                     if(markers[key]) {
                         markers[key].setMap(null);
@@ -201,28 +203,13 @@ function init(position) {
         				position: location,
     					map: map,
                         draggable:true,
-                        title:"Drag me!"
+                        title:"Drag me!",
+                        icon: image
     				});
-
-                    var image = {
-                        url: "http://52.197.124.196/CrazyTaxi/www/images/taxi2.png",
-                        size: new google.maps.Size(64, 64),
-                         rotation: google.maps.geometry.spherical.computeHeading(location, marker.getPosition())
-                    };
-                    
-                    markers[key].setIcon({
-                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                        strokeColor: 'red',
-                        strokeWeight: 3,
-                        scale: 6,
-                        rotation: car_dir
-                    });
                     
                     google.maps.event.addListener(markers[key], 'dragend', function() {
                         
-                        var _pos = markers[key].getPosition();
-                       // console.log("won test ==> _pos(" + _pos.lat() +")(" + _pos.lng() +")");
-                        
+                        var _pos = markers[key].getPosition(); 
                         geoFire.set(key, [_pos.lat(), _pos.lng()]).then(function() {
                 			console.log(key + ': setting position to [' + _pos.lat() + ',' + _pos.lng() + ']');
             			});
@@ -241,9 +228,6 @@ function init(position) {
             //remove marker, un-highlight
     		geoQuery.on('key_moved', function(key, location, distance) {
 
-                //var location = new google.maps.LatLng(location[0], location[1]);
-                console.log("won test ==> key_moved _pos(" + location[0] +")(" + location[1] +")");
-                
                 cars_info.child(key).once('value', function(snapshot) {
                     
                     var car_dir = snapshot.val().car_dir;
@@ -252,13 +236,6 @@ function init(position) {
                         
                         var myLatlng = new google.maps.LatLng(location[0], location[1]);
                         markers[key].setPosition(myLatlng);
-                        /*
-                        var _pos = markers[key].getPosition();
-                        var myOldLatlng = [_pos.lat(), _pos.lng()];
-                        var myLatlng = [location[0], location[1]];
-                        
-                        transition(markers[key], myLatlng, myOldLatlng);
-                        */
                     }
                 });
 			});
