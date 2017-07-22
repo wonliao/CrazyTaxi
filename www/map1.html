@@ -52,6 +52,12 @@ var pinA = null;
 var pinB = null;
 var currentMark = null;
 
+var highestTimeoutId = setTimeout(";");
+for (var i = 0 ; i < highestTimeoutId ; i++) {
+    clearTimeout(i); 
+}
+
+
 ons.ready(function() {
     setTimeout(function() {
 
