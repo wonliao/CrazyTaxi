@@ -7,24 +7,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src * data:; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
 
 <!-- 網頁標題、標籤icon。 -->
-<title>go2gether大車隊共乘 – 搭車省荷包還賺買菜錢</title>
-<link rel="shortcut icon" href="images/Favicon.ico" type="image/x-icon">
-
-<!-- 關鍵字 -->
-<meta name="author" content="台灣大車隊">
-<meta name="copyright" content="taiwantaxi.com.tw (c) 2016">
-<meta name="description" content="go2gether大車隊共乘，提供乘客尋找共乘的夥伴，不只省錢分攤車資，還可擴大交友圈。一鍵叫車，讓你走在共享經濟的時代尖端，安全舒適的出門，不用再忍受陰晴不定的天氣。" />
-<meta name="keywords" content="共乘、go2gether，gotogether，大車隊共乘，共享，車資分攤，台灣大車隊，計程車，叫車，專人叫車，網路叫車，乘車服務，乘車派遣 " />
-
-<!-- 社群網站分享顯示 -->
-<meta property="article:author" content="https://www.facebook.com/go2gether.tw/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://go2gether.tw/" />
-<meta property="og:title" content=" go2gether大車隊共乘" />
-<meta property="og:description" content=" go2gether大車隊共乘，提供乘客尋找共乘的夥伴，不只省錢分攤車資，還可擴大交友圈。一鍵叫車，讓你走在共享經濟的時代尖端，安全舒適的出門，不用再忍受陰晴不定的天氣。" />
-<meta property="og:image" content="https://go2gether.tw/images/go2gether.jpg" />
-<meta property="fb:pages" content="1728499480807287">
-<meta property="fb:app_id" content="364003187320606">
+<title>瘋狂計程車</title>
 
 <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsenui.css'>
 <link rel='stylesheet prefetch' href='https://cdn.rawgit.com/OnsenUI/OnsenUI/2.0.0-alpha.15/build/css/onsen-css-components.css'>
@@ -194,46 +177,6 @@ ons-icon {
 
 <ons-sliding-menu main-page="home.html" menu-page="menu.html" id="main_div" side="right" max-slide-distance="250px" var="menu"></ons-sliding-menu>
 
-<!-- 側邊欄 begin -->
-<ons-template id="menu.html">
-    <ons-list>
-        <ons-list-item >
-            <img id="menu_fb_user_picture" src="images/person.jpg" style="width:30px; -webkit-border-radius:15px; -moz-border-radius:15px; border-radius:15px; border:#c9c9c9 2px solid;"/>
-            <span id="menu_fb_user_name" style="overflow:hidden; width:110px; display:inline-block; height:30px;"></span>
-            <fb:login-button size="medium" autologoutlink="true" scope="public_profile,email" onlogin="sidebarClick('fb登入')" style="bottom:10px; right:0px; float:right;">登入</fb:login-button>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="sidebarClick('活動說明')">
-            <ons-icon icon="" class="my-menu-icon-1"></ons-icon><span class="menu_text">活動說明</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="sidebarClick('刊登共乘')">
-            <ons-icon icon="" class="my-menu-icon-2"></ons-icon><span class="menu_text">刊登共乘</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="sidebarClick('共乘記錄')">
-            <ons-icon icon="" class="my-menu-icon-3"></ons-icon><span class="menu_text">共乘記錄</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="sidebarClick('官方粉絲團')">
-            <ons-icon icon="" class="my-menu-icon-4"></ons-icon><span class="menu_text">官方粉絲團</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="sidebarClick('服務條款')">
-            <ons-icon icon="" class="my-menu-icon-7"></ons-icon><span class="menu_text">服務條款</span>
-        </ons-list-item>
-        <ons-list-item modifier="chevron" onclick="sidebarClick('55688叫車')">
-            <ons-icon icon="" class="my-menu-icon-6"></ons-icon><span class="menu_text">55688叫車</span>
-        </ons-list-item>
-        <ons-list-item>
-            <img src="images/55688.jpg" style="width:100%;"/>
-        </ons-list-item>
-        <ons-list-item style="height:60px">
-            <div class="fb-like" data-href="https://www.facebook.com/go2gether.tw?utm_source=go2gether&utm_medium=bt" data-layout="button_count" data-action="like" data-size="large" data-show-faces="false" data-share="false"></div>
-        </ons-list-item>
-    </ons-list>
-    <div style="position:absolute; bottom:2%; right:5%; color:#aaa;">
-        <span>版本</span>：1.0.0
-    </div>
-</ons-template>
-<!-- 側邊欄 end -->
-
-
 <script>
 ons.ready(function() {
     
@@ -245,8 +188,6 @@ ons.ready(function() {
     }, 10);
 });
 </script>
-
- 
 
 </body>
 </html>
